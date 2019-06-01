@@ -35,5 +35,11 @@
     <ClInclude Include="PVZ.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MainFuntions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

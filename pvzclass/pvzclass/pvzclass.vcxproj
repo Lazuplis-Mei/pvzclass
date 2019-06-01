@@ -157,6 +157,8 @@
     <ClCompile Include="pvzclass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="MainFuntions.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
   </ItemGroup>
