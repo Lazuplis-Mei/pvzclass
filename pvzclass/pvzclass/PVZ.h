@@ -96,22 +96,22 @@ public:
 	INT_READONLY_PROPERTY(
 		ProjectilesCount,
 		__get_ProjectilesCount,
-		0xBC);
+		0xD8);
 
 	INT_READONLY_PROPERTY(
 		CoinsCount,
 		__get_CoinsCount,
-		0xBC);
+		0xF4);
 
 	INT_READONLY_PROPERTY(
 		LawnmoversCount,
 		__get_LawnmoversCount,
-		0xBC);
+		0x110);
 
 	INT_READONLY_PROPERTY(
 		GriditemsCount,
 		__get_GriditemsCount,
-		0xBC);
+		0x12C);
 
 	PROPERTY_BINDING(
 		PVZLevel,
