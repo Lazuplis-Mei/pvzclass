@@ -25,7 +25,7 @@
 
 #pragma region functions
 
-#define SETMUSICVolume PUSHDWORD,ADDRESS(0,0x55,0x4D,0)
+#define SETMUSICVOLUME PUSHDWORD,ADDRESS(0,0x55,0x4D,0)
 
 
 
@@ -37,7 +37,7 @@ byte __asm__set_MusicVolume[] = {
 	MOV_ECX, VALUE(0),
 	CALL, VALUE(2),
 	JMP, 6,
-	SETMUSICVolume,
+	SETMUSICVOLUME,
 	RET,
 	RET
 };
