@@ -1,5 +1,6 @@
 #pragma once
-enum PVZVersion {
+enum PVZVersion 
+{
 	V1_0_0_1051,
 	V1_2_0_1065,
 	V1_2_0_1073,
@@ -99,6 +100,7 @@ enum PVZGameState
 
 enum LawnType 
 {
+	None=-1,
 	Grass = 1,
 	_Unsodded,
 	Water,
@@ -106,7 +108,48 @@ enum LawnType
 
 enum RouteType 
 {
+	RouteTypeNone = -1,
 	NoZombie,
 	Land,
 	Pool,
+};
+
+
+
+enum ZombieType 
+{
+	ZombieTypeNone = -1,
+	Zombie,
+	FlagZombie,
+	ConeheadZombie,
+	PoleVaultingZombie,
+	BucketheadZombie,
+	NewspaperZombie,
+	ScreenDoorZombie,
+	FootballZombie,
+	DancingZombie,
+	BackupDancer,
+	DuckyTubeZombie,
+	SnorkedZombie,
+	Zomboin,
+	ZombieBobsledTeam,
+	DolphinRiderZombie,
+	JackintheboxZombie,
+	BalloonZombie,
+	DiggerZombie,
+	PogoZombie,
+	ZombieYeti,
+	BungeeZombie,
+	LadderZombie,
+	CatapultZombie,
+	Gargantuar,
+	Imp,
+	DrZomboss,
+	PeashooterZombie,
+	WallnutZombie,
+	JalapenoZombie,
+	GatlingPeaZombie,
+	SquashZombie,
+	TallnutZombie,
+	Gigagargantuar,
 };

@@ -1,8 +1,12 @@
 #pragma once
 #include <windows.h>
-#include <iostream>
-
 #include "Enums.h"
+
+#pragma region definitions
+
+#define STRING(str) str, sizeof(str)
+#define SETARG(asmfunction,index) *(int*)(asmfunction+index)
+
 #define PAGE_SIZE 1024
 #define PVZ_BASE Memory::ReadMemory<int>(0x6A9EC0)
 
@@ -18,7 +22,7 @@
 #define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
 #define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
 
-
+#pragma endregion
 
 //Only version 1.0.0.1051 is fully supported
 class PVZ
@@ -65,9 +69,15 @@ public:
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
+		static void IngectDll(LPCSTR dllname);
 	};
 
 #pragma endregion
+
+#pragma region main properties
+
+
+
 
 	READONLY_PROPERTY(
 		PVZVersion,
@@ -176,7 +186,13 @@ public:
 		__get_GamePaused,
 		__set_GamePaused,
 		0x164);
-	
+
+#pragma endregion
+
+#pragma region main classes
+
+
+
 	class Lawn
 	{
 		int BaseAddress;
@@ -203,37 +219,30 @@ public:
 
 	Icetrace* GetIcetrace();
 
+	class Wave
+	{
+		int BaseAddress;
+	public:
+		Wave(int baseaddress);
+		int GetAll(ZombieType* ztypes);
+		void SetAll(ZombieType* ztypes, size_t length);
+		/********************************************************/
+		ZombieType Get(int index);
+		void Set(int index, ZombieType ztype);
+		void Del(int index);
+		void Add(ZombieType ztype);
+	};
 
+#pragma endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma region main properties
 
 	INT_PROPERTY(
 		Sun, 
 		__get_Sun, 
 		__set_Sun, 
 		0x5560);
+
+#pragma endregion
+
 };

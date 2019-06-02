@@ -1,32 +1,20 @@
 ﻿#include "ProcessOpener.h"
 #include "PVZ.h"
+#include <iostream>
 using namespace std;
-
 
 int main()
 {
+
 	DWORD pid = ProcessOpener::Open();
-	PVZ* pPVZ = new PVZ(pid);
 
-	PVZ::Lawn* lawn = pPVZ->GetLawn();
-
-	for (int i = 0; i < 6; i++)
+	if (pid)
 	{
-		cout << lawn->GetRouteType(i) << " | ";
-		for (int j = 0; j < 9; j++)
-		{
-			cout << lawn->GetGridType(i, j) << " ";
-		}
-		cout << endl;
-	}
-	
+		PVZ* pPVZ = new PVZ(pid);
 
-	PVZ::Icetrace* icetarce = pPVZ->GetIcetrace();
 
-	for (int i = 0; i < 6; i += 2)
-	{
-		icetarce->SetX(i, 400);
-		icetarce->SetDisappearCountdown(i, 1000);
+
+		delete pPVZ;
 	}
-	
+	return 0;
 }

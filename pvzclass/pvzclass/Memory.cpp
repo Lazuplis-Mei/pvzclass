@@ -1,4 +1,5 @@
 #include "PVZ.h"
+
 HANDLE PVZ::Memory::hProcess = NULL;
 DWORD PVZ::Memory::processId = 0;
 int PVZ::Memory::Variable = 0;
@@ -45,7 +46,6 @@ void PVZ::Memory::CreateThread(int address)
 
 void PVZ::Memory::FreeMemory(int address)
 {
-	VirtualFreeEx(hProcess, (LPVOID)address, PAGE_SIZE, MEM_DECOMMIT);
 	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
 }
 

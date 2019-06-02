@@ -2,42 +2,42 @@
 
 #pragma region asm define
 
-#define MOV_EAX 0xB8
-#define MOV_ECX 0xB9
-#define MOV_EBX 0xBB
-#define MOV_ESI 0xBE
-#define MOV_EDI 0xBF
+#define INUMBER(num) num&0xFF,(num&0xFF00)>>8,(num&0xFF0000)>>16,(num&0xFF000000)>>24
+#define MOV_EAX(d) 0xB8,INUMBER(d)
+#define MOV_ECX(d) 0xB9,INUMBER(d)
+#define MOV_EBX(d) 0xBB,INUMBER(d)
+#define MOV_ESI(d) 0xBE,INUMBER(d)
+#define MOV_EDI(d) 0xBF,INUMBER(d)
 #define PUSHAD 0x60
 #define POPAD 0x61
-#define PUSH 0x6A
-#define PUSHDWORD 0x68
-#define CALL 0xE8
-#define JMP 0xEB
-#define JMPFAR 0xE9
+#define PUSH(b) 0x6A,b
+#define PUSHDWORD(d) 0x68,INUMBER(d)
+#define CALL(d) 0xE8,INUMBER(d)
+#define JMP(b) 0xEB,b
+#define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
 #define MOV_EAX_PTR 0xA1
 #define MOV_PTR_ADDR_EAX 0xA3
 
-#define ADDRESS(hh,hl,lh,ll) ll,lh,hl,hh
-#define VALUE(num) num,0,0,0
+#define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
+#define INVOKE_1(address,b) PUSH(b),INVOKE(address)
 
 #pragma endregion
 
 #pragma region functions
 
-#define SETMUSICVOLUME PUSHDWORD,ADDRESS(0,0x55,0x4D,0)
-
-
-
+#define SETMUSICVOLUME INVOKE_1(0x554D00,0)
 
 #pragma endregion
 
 byte __asm__set_MusicVolume[] = {
-	PUSH, 0,
-	MOV_ECX, VALUE(0),
-	CALL, VALUE(2),
-	JMP, 6,
+	MOV_ECX(0),
 	SETMUSICVOLUME,
-	RET,
+	RET
+};
+
+byte __asm__InjectDll[200] = {
+	PUSHDWORD(0),
+	INVOKE((int)LoadLibraryA),
 	RET
 };

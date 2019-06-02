@@ -1,7 +1,5 @@
 #include "PVZ.h"
 #include "MainFuntions.h"
-#define STRING(str) str, sizeof(str)
-#define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 
 PVZ::PVZ(DWORD pid)
 {
@@ -15,6 +13,18 @@ PVZ::~PVZ()
 	CloseHandle(Memory::hProcess);
 	Memory::FreeMemory(Memory::Variable);
 }
+
+void PVZ::Memory::IngectDll(LPCSTR dllname)
+{
+	int Address = PVZ::Memory::AllocMemory();
+	SETARG(__asm__InjectDll, 1) = Address + 0x13;
+	lstrcpyA((LPSTR)(__asm__InjectDll + 0x13), dllname);
+	WriteArray<byte>(Address, STRING(__asm__InjectDll));
+	WriteMemory<byte>(0x552014, 0xFE);
+	CreateThread(Address);
+	WriteMemory<byte>(0x552014, 0xDB);
+	FreeMemory(Address);
+};
 
 PVZVersion PVZ::__get_Version()
 {
@@ -44,7 +54,7 @@ double PVZ::__get_MusicVolume()
 void PVZ::__set_MusicVolume(double value)
 {
 	Memory::WriteMemory<double>(PVZ_BASE + 0xD0, value);
-	SETARG(__asm__set_MusicVolume, 3) = PVZ_BASE;
+	SETARG(__asm__set_MusicVolume, 1) = PVZ_BASE;
 	Memory::Execute(STRING(__asm__set_MusicVolume));
 }
 
@@ -56,10 +66,9 @@ double PVZ::__get_SoundFXVolume()
 void PVZ::__set_SoundFXVolume(double value)
 {
 	Memory::WriteMemory<double>(PVZ_BASE + 0xD8, value);
-	SETARG(__asm__set_MusicVolume, 3) = PVZ_BASE;
+	SETARG(__asm__set_MusicVolume, 1) = PVZ_BASE;
 	Memory::Execute(STRING(__asm__set_MusicVolume));
 }
-
 
 PVZ::Lawn::Lawn(int baseaddress)
 {
@@ -93,13 +102,10 @@ void PVZ::Lawn::SetRouteType(int route, RouteType type)
 		Memory::WriteMemory<RouteType>(BaseAddress + 0x5D8 + 4 * route, type);
 };
 
-
 PVZ::Lawn* PVZ::GetLawn()
 {
 	return new Lawn(BaseAddress);
 }
-
-
 
 PVZ::Icetrace::Icetrace(int baseaddress)
 {
@@ -135,4 +141,30 @@ void PVZ::Icetrace::SetDisappearCountdown(int route, int cs)
 PVZ::Icetrace* PVZ::GetIcetrace()
 {
 	return new Icetrace(BaseAddress);
+}
+
+PVZ::Wave::Wave(int baseaddress)
+{
+	BaseAddress = baseaddress;
+}
+
+int PVZ::Wave::GetAll(ZombieType* ztypes)
+{
+	int i = 0;
+	for (; i < 50; i++)
+	{
+		ZombieType ztype = Memory::ReadMemory<ZombieType>(BaseAddress + i * 4);
+		if (ztype + 1)ztypes[i] = ztype;
+	}
+	return i;
+}
+
+void PVZ::Wave::SetAll(ZombieType* ztypes, size_t length)
+{
+	int len = length > 50 ? 50 : length;
+	for (int i = 0; i < len; i++)
+	{
+		Memory::WriteMemory<ZombieType>(BaseAddress + i * 4, ztypes[i]);
+	}
+	if (len < 50)Memory::WriteMemory<ZombieType>(BaseAddress + (len + 1) * 4, ZombieType(-1));
 }
