@@ -4,7 +4,7 @@
 
 #pragma region definitions
 
-#define STRING(str) str, sizeof(str)
+#define STRING(str) str,sizeof(str)/sizeof(*str)
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 
 #define PAGE_SIZE 1024
@@ -24,7 +24,7 @@
 
 #pragma endregion
 
-//Only version 1.0.0.1051 is fully supported
+/*Only version 1.0.0.1051 is fully supported*/
 class PVZ
 {
 public:
@@ -74,124 +74,124 @@ public:
 
 #pragma endregion
 
-#pragma region main properties
-
-
-
+#pragma region properties
 
 	READONLY_PROPERTY(
-		PVZVersion,
+		const char*,
 		__get_Version) Version;
-
+	READONLY_PROPERTY(
+		PVZVersion,
+		__get_GameVersion) GameVersion;
 	PROPERTY(
 		double,
 		__get_MusicVolume,
 		__set_MusicVolume) MusicVolume;//range[0,1]
-
 	PROPERTY(
 		double,
 		__get_SoundFXVolume,
 		__set_SoundFXVolume) SoundFXVolume;//range[0,1]
-
 	INT_READONLY_PROPERTY(
 		ZombiesCount, 
 		__get_ZombiesCount, 
 		0xA0);
-
 	INT_READONLY_PROPERTY(
 		PlantsCount,
 		__get_PlantsCount,
 		0xBC);
-
 	INT_READONLY_PROPERTY(
 		ProjectilesCount,
 		__get_ProjectilesCount,
 		0xD8);
-
 	INT_READONLY_PROPERTY(
 		CoinsCount,
 		__get_CoinsCount,
 		0xF4);
-
 	INT_READONLY_PROPERTY(
 		LawnmoversCount,
 		__get_LawnmoversCount,
 		0x110);
-
 	INT_READONLY_PROPERTY(
 		GriditemsCount,
 		__get_GriditemsCount,
 		0x12C);
-
 	PROPERTY_BINDING(
 		PVZLevel,
 		__get_LevelId,
 		Memory::ReadMemory<PVZLevel>(PVZ_BASE + 0x7F8),
 		__set_LevelId,
 		Memory::WriteMemory<PVZLevel>(PVZ_BASE + 0x7F8, value)) LevelId;
-
 	PROPERTY_BINDING(
 		PVZGameState,
 		__get_GameState,
 		Memory::ReadMemory<PVZGameState>(PVZ_BASE + 0x7FC),
 		__set_GameState,
 		Memory::WriteMemory<PVZGameState>(PVZ_BASE + 0x7FC, value)) GameState;
-
 	PROPERTY_BINDING(
 		BOOLEAN,
 		__get_FreePlantingCheat,
 		Memory::ReadMemory<BOOLEAN>(PVZ_BASE + 0x814),
 		__set_FreePlantingCheat,
 		Memory::WriteMemory<BOOLEAN>(PVZ_BASE + 0x814, value)) FreePlantingCheat;
-
 	PROPERTY_BINDING(
 		BOOLEAN,
 		__get_FullVersion,
 		Memory::ReadMemory<BOOLEAN>(PVZ_BASE + 0x8C0),
 		__set_FullVersion,
 		Memory::WriteMemory<BOOLEAN>(PVZ_BASE + 0x8C0, value)) FullVersion;
-
 	READONLY_PROPERTY_BINDING(
 		int,
 		__get_BaseAddress,
 		Memory::ReadMemory<int>(PVZ_BASE + 0x768)) BaseAddress;
-
 	INT_PROPERTY(
 		ViewX,
 		__get_ViewX,
 		__set_ViewX,
 		0x30);
-
 	INT_PROPERTY(
 		ViewY,
 		__get_ViewY,
 		__set_ViewY,
 		0x34);
-
 	INT_PROPERTY(
 		ViewLength,
 		__get_ViewLength,
 		__set_ViewLength,
 		0x38);
-
 	INT_PROPERTY(
 		ViewHeight,
 		__get_ViewHeight,
 		__set_ViewHeight,
 		0x3C);
-
 	T_PROPERTY(
 		BOOLEAN,
 		GamePaused,
 		__get_GamePaused,
 		__set_GamePaused,
 		0x164);
+	INT_PROPERTY(
+		Sun,
+		__get_Sun,
+		__set_Sun,
+		0x5560);
+	INT_PROPERTY(
+		SunDropCountdown,
+		__get_SunDropCountdown,
+		__set_SunDropCountdown,
+		0x5538);
+	INT_PROPERTY(
+		SunDropCount,
+		__get_SunDropCount,
+		__set_SunDropCount,
+		0x553C);
+	PROPERTY(
+		SceneType,
+		__get_LevelScene,
+		__set_LevelScene) LevelScene;
+
 
 #pragma endregion
 
-#pragma region main classes
-
-
+#pragma region classes
 
 	class Lawn
 	{
@@ -203,9 +203,6 @@ public:
 		RouteType GetRouteType(int route);
 		void SetRouteType(int route, RouteType type);
 	};
-
-	Lawn* GetLawn();
-
 	class Icetrace
 	{
 		int BaseAddress;
@@ -216,33 +213,35 @@ public:
 		int GetDisappearCountdown(int route);
 		void SetDisappearCountdown(int route, int cs);
 	};
-
-	Icetrace* GetIcetrace();
-
 	class Wave
 	{
 		int BaseAddress;
 	public:
 		Wave(int baseaddress);
-		int GetAll(ZombieType* ztypes);
+
+		READONLY_PROPERTY(
+			int,
+			__get_Count) Count;
+
+		void GetAll(ZombieType* ztypes);
 		void SetAll(ZombieType* ztypes, size_t length);
-		/********************************************************/
 		ZombieType Get(int index);
 		void Set(int index, ZombieType ztype);
 		void Del(int index);
 		void Add(ZombieType ztype);
 	};
+	
+#pragma endregion
+
+#pragma region methods
+
+	Lawn* GetLawn();
+	Icetrace* GetIcetrace();
+	Wave* GetWave(int index);
+	void GetZombieSeed(ZombieType* ztypes);
+	void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
 
 #pragma endregion
 
-#pragma region main properties
-
-	INT_PROPERTY(
-		Sun, 
-		__get_Sun, 
-		__set_Sun, 
-		0x5560);
-
-#pragma endregion
 
 };

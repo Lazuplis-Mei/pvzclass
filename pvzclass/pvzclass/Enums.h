@@ -1,155 +1,200 @@
-#pragma once
-enum PVZVersion 
+
+#ifdef ENUMSTRING
+namespace enumstring
 {
-	V1_0_0_1051,
-	V1_2_0_1065,
-	V1_2_0_1073,
-	中文年度加强版,
-	粘度汗化版,
-	UnknowOrNotPVZ,
+#define VNAME(var) #var
+#define IDENTIFIER(name) const char* name[]
+#else
+#undef VNAME
+#undef IDENTIFIER
+#define VNAME(var) var
+#define IDENTIFIER(name) enum name
+#endif
+
+IDENTIFIER(PVZVersion)
+{
+	VNAME(V1_0_0_1051),
+	VNAME(V1_2_0_1065),
+	VNAME(V1_2_0_1073),
+	VNAME(中文年度加强版),
+	VNAME(粘度汗化版),
+	VNAME(UnknowOrNotPVZ),
 };
 
-enum PVZLevel
+IDENTIFIER(PVZLevel)
 {
-	Adventure,
-	Survival_Day,
-	Survival_Night,
-	Survival_Pool,
-	Survival_Fog,
-	Survival_Roof,
-	Survival_Day_Hard,
-	Survival_Night_Hard,
-	Survival_Pool_Hard,
-	Survival_Fog_Hard,
-	Survival_Roof_Hard,
-	Survival_Day_Endless,
-	Survival_Night_Endless,
-	Survival_Pool_Endless,
-	Survival_Fog_Endless,
-	Survival_Roof_Endless,
-	ZomBotany,
-	Wallnut_Bowling,
-	Slot_Machine,
-	It_s_RainingSeeds,
-	Beghouled,
-	Invisighoul,
-	Seeing_Stars,
-	Zombiguarium,
-	Beghouled_Twist,
-	Big_Trouble_Little_Zombie,
-	Portal_Combat,
-	Colum_Like_You_See_Em,
-	Bobsied_Bonanza,
-	Zombie_Nimble_Zombie_Quick,
-	Wharka_Zombie,
-	Last_Stand,
-	Zombotany2,
-	Wallnut_Bowling2,
-	Pogo_Party,
-	Dr_Zomboss_s_Revenge,
-	Art_Challenge_Wallnut,
-	Sunny_Day,
-	Unsodded,
-	Big_Time,
-	Art_Challenge_Sunflower,
-	Air_Raid,
-	Ice_Level,
-	Zen_Garden,
-	High_Gravity,
-	Grave_Danger,
-	Can_You_DigIt,
-	Dark_Stormy_Night,
-	Bungee_Blitz,
-	Squirrel,
-	Treeof_Wisdom,
-	Vasebreaker,
-	To_the_Left,
-	Third_Vase,
-	Chain_Rection,
-	Mis_forM_etal,
-	Scary_Potter,
-	Hokey_Pokey,
-	Another_Chain_Rection,
-	Aceof_Vace,
-	Vasebreaker_Endless,
-	I_Zombie,
-	I_ZombieToo,
-	IZ_CanYouDigIt,
-	Totally_Nuts,
-	Dead_Zeppelin,
-	Me_Smash,
-	Zom_Boogie,
-	Three_Hit_Wonder,
-	All_your_brain_z_r_belong_to_us,
-	I_Zombie_Endless,
-	Upsell,
-	Intro,
+	VNAME(Adventure),
+	VNAME(Survival_Day),
+	VNAME(Survival_Night),
+	VNAME(Survival_Pool),
+	VNAME(Survival_Fog),
+	VNAME(Survival_Roof),
+	VNAME(Survival_Day_Hard),
+	VNAME(Survival_Night_Hard),
+	VNAME(Survival_Pool_Hard),
+	VNAME(Survival_Fog_Hard),
+	VNAME(Survival_Roof_Hard),
+	VNAME(Survival_Day_Endless),
+	VNAME(Survival_Night_Endless),
+	VNAME(Survival_Pool_Endless),
+	VNAME(Survival_Fog_Endless),
+	VNAME(Survival_Roof_Endless),
+	VNAME(ZomBotany),
+	VNAME(Wallnut_Bowling),
+	VNAME(Slot_Machine),
+	VNAME(It_s_RainingSeeds),
+	VNAME(Beghouled),
+	VNAME(Invisighoul),
+	VNAME(Seeing_Stars),
+	VNAME(Zombiguarium),
+	VNAME(Beghouled_Twist),
+	VNAME(Big_Trouble_Little_Zombie),
+	VNAME(Portal_Combat),
+	VNAME(Colum_Like_You_See_Em),
+	VNAME(Bobsied_Bonanza),
+	VNAME(Zombie_Nimble_Zombie_Quick),
+	VNAME(Wharka_Zombie),
+	VNAME(Last_Stand),
+	VNAME(Zombotany2),
+	VNAME(Wallnut_Bowling2),
+	VNAME(Pogo_Party),
+	VNAME(Dr_Zomboss_s_Revenge),
+	VNAME(Art_Challenge_Wallnut),
+	VNAME(Sunny_Day),
+	VNAME(Unsodded),
+	VNAME(Big_Time),
+	VNAME(Art_Challenge_Sunflower),
+	VNAME(Air_Raid),
+	VNAME(Ice_Level),
+	VNAME(Zen_Garden),
+	VNAME(High_Gravity),
+	VNAME(Grave_Danger),
+	VNAME(Can_You_DigIt),
+	VNAME(Dark_Stormy_Night),
+	VNAME(Bungee_Blitz),
+	VNAME(Squirrel),
+	VNAME(Treeof_Wisdom),
+	VNAME(Vasebreaker),
+	VNAME(To_the_Left),
+	VNAME(Third_Vase),
+	VNAME(Chain_Rection),
+	VNAME(Mis_forM_etal),
+	VNAME(Scary_Potter),
+	VNAME(Hokey_Pokey),
+	VNAME(Another_Chain_Rection),
+	VNAME(Aceof_Vace),
+	VNAME(Vasebreaker_Endless),
+	VNAME(I_Zombie),
+	VNAME(I_ZombieToo),
+	VNAME(IZ_CanYouDigIt),
+	VNAME(Totally_Nuts),
+	VNAME(Dead_Zeppelin),
+	VNAME(Me_Smash),
+	VNAME(Zom_Boogie),
+	VNAME(Three_Hit_Wonder),
+	VNAME(All_your_brain_z_r_belong_to_us),
+	VNAME(I_Zombie_Endless),
+	VNAME(Upsell),
+	VNAME(Intro),
 };
 
-enum PVZGameState
+IDENTIFIER(PVZGameState)
 {
-	Loading,
-	MainMenu,
-	Prepare,
-	Playing,
-	Losing,
-	Prize,
-	MVPlaying,
-	SelectingLevel,
+	VNAME(Loading),
+	VNAME(MainMenu),
+	VNAME(Prepare),
+	VNAME(Playing),
+	VNAME(Losing),
+	VNAME(Prize),
+	VNAME(MVPlaying),
+	VNAME(SelectingLevel),
 };
 
-enum LawnType 
+IDENTIFIER(LawnType)
 {
-	None=-1,
+#ifdef ENUMSTRING
+	"LawnTypeNone",
+	"Grass",
+#else
+	LawnTypeNone = -1,
 	Grass = 1,
-	_Unsodded,
-	Water,
+#endif
+	VNAME(_Unsodded),
+	VNAME(Water),
 };
 
-enum RouteType 
+IDENTIFIER(RouteType)
 {
+#ifdef ENUMSTRING
+	"RouteTypeNone",
+#else
 	RouteTypeNone = -1,
-	NoZombie,
-	Land,
-	Pool,
+#endif
+	VNAME(NoZombie),
+	VNAME(Land),
+	VNAME(Pool),
 };
 
-
-
-enum ZombieType 
+IDENTIFIER(ZombieType)
 {
+#ifdef ENUMSTRING
+	"ZombieTypeNone",
+#else
 	ZombieTypeNone = -1,
-	Zombie,
-	FlagZombie,
-	ConeheadZombie,
-	PoleVaultingZombie,
-	BucketheadZombie,
-	NewspaperZombie,
-	ScreenDoorZombie,
-	FootballZombie,
-	DancingZombie,
-	BackupDancer,
-	DuckyTubeZombie,
-	SnorkedZombie,
-	Zomboin,
-	ZombieBobsledTeam,
-	DolphinRiderZombie,
-	JackintheboxZombie,
-	BalloonZombie,
-	DiggerZombie,
-	PogoZombie,
-	ZombieYeti,
-	BungeeZombie,
-	LadderZombie,
-	CatapultZombie,
-	Gargantuar,
-	Imp,
-	DrZomboss,
-	PeashooterZombie,
-	WallnutZombie,
-	JalapenoZombie,
-	GatlingPeaZombie,
-	SquashZombie,
-	TallnutZombie,
-	Gigagargantuar,
+#endif
+		VNAME(Zombie),
+		VNAME(FlagZombie),
+		VNAME(ConeheadZombie),
+		VNAME(PoleVaultingZombie),
+		VNAME(BucketheadZombie),
+		VNAME(NewspaperZombie),
+		VNAME(ScreenDoorZombie),
+		VNAME(FootballZombie),
+		VNAME(DancingZombie),
+		VNAME(BackupDancer),
+		VNAME(DuckyTubeZombie),
+		VNAME(SnorkedZombie),
+		VNAME(Zomboin),
+		VNAME(ZombieBobsledTeam),
+		VNAME(DolphinRiderZombie),
+		VNAME(JackintheboxZombie),
+		VNAME(BalloonZombie),
+		VNAME(DiggerZombie),
+		VNAME(PogoZombie),
+		VNAME(ZombieYeti),
+		VNAME(BungeeZombie),
+		VNAME(LadderZombie),
+		VNAME(CatapultZombie),
+		VNAME(Gargantuar),
+		VNAME(Imp),
+		VNAME(DrZomboss),
+		VNAME(PeashooterZombie),
+		VNAME(WallnutZombie),
+		VNAME(JalapenoZombie),
+		VNAME(GatlingPeaZombie),
+		VNAME(SquashZombie),
+		VNAME(TallnutZombie),
+		VNAME(Gigagargantuar),
 };
+
+IDENTIFIER(SceneType)
+{
+	VNAME(Day),
+	VNAME(Night),
+	VNAME(Pool_Scene),
+	VNAME(Fog),
+	VNAME(Roof),
+	VNAME(MoonNight),
+	VNAME(MushroomGarden),
+	VNAME(ZenGarden),
+	VNAME(Aquarium),
+	VNAME(TreeofWisdom),
+};
+
+
+
+
+
+#ifdef ENUMSTRING
+};
+#endif
