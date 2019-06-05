@@ -142,39 +142,39 @@ IDENTIFIER(ZombieType)
 #else
 	ZombieTypeNone = -1,
 #endif
-		VNAME(Zombie),
-		VNAME(FlagZombie),
-		VNAME(ConeheadZombie),
-		VNAME(PoleVaultingZombie),
-		VNAME(BucketheadZombie),
-		VNAME(NewspaperZombie),
-		VNAME(ScreenDoorZombie),
-		VNAME(FootballZombie),
-		VNAME(DancingZombie),
-		VNAME(BackupDancer),
-		VNAME(DuckyTubeZombie),
-		VNAME(SnorkedZombie),
-		VNAME(Zomboin),
-		VNAME(ZombieBobsledTeam),
-		VNAME(DolphinRiderZombie),
-		VNAME(JackintheboxZombie),
-		VNAME(BalloonZombie),
-		VNAME(DiggerZombie),
-		VNAME(PogoZombie),
-		VNAME(ZombieYeti),
-		VNAME(BungeeZombie),
-		VNAME(LadderZombie),
-		VNAME(CatapultZombie),
-		VNAME(Gargantuar),
-		VNAME(Imp),
-		VNAME(DrZomboss),
-		VNAME(PeashooterZombie),
-		VNAME(WallnutZombie),
-		VNAME(JalapenoZombie),
-		VNAME(GatlingPeaZombie),
-		VNAME(SquashZombie),
-		VNAME(TallnutZombie),
-		VNAME(Gigagargantuar),
+	VNAME(Zombie),
+	VNAME(FlagZombie),
+	VNAME(ConeheadZombie),
+	VNAME(PoleVaultingZombie),
+	VNAME(BucketheadZombie),
+	VNAME(NewspaperZombie),
+	VNAME(ScreenDoorZombie),
+	VNAME(FootballZombie),
+	VNAME(DancingZombie),
+	VNAME(BackupDancer),
+	VNAME(DuckyTubeZombie),
+	VNAME(SnorkedZombie),
+	VNAME(Zomboin),
+	VNAME(ZombieBobsledTeam),
+	VNAME(DolphinRiderZombie),
+	VNAME(JackintheboxZombie),
+	VNAME(BalloonZombie),
+	VNAME(DiggerZombie),
+	VNAME(PogoZombie),
+	VNAME(ZombieYeti),
+	VNAME(BungeeZombie),
+	VNAME(LadderZombie),
+	VNAME(CatapultZombie),
+	VNAME(Gargantuar),
+	VNAME(Imp),
+	VNAME(DrZomboss),
+	VNAME(PeashooterZombie),
+	VNAME(WallnutZombie),
+	VNAME(JalapenoZombie),
+	VNAME(GatlingPeaZombie),
+	VNAME(SquashZombie),
+	VNAME(TallnutZombie),
+	VNAME(Gigagargantuar),
 };
 
 IDENTIFIER(SceneType)
@@ -191,7 +191,110 @@ IDENTIFIER(SceneType)
 	VNAME(TreeofWisdom),
 };
 
+IDENTIFIER(DebugModeType)
+{
+	VNAME(DebugModeTypeNone),
+	VNAME(ZombieSpawningDebug),
+	VNAME(MusicDebug),
+	VNAME(MemoryDebug),
+	VNAME(CollisionDebug),
+};
 
+IDENTIFIER(ZombieAccessoriesType1)
+{
+	VNAME(ZombieAccessoriesType1None),
+	VNAME(RoadCone),
+	VNAME(Bucket),
+	VNAME(FootballCap),
+	VNAME(MinerHat),
+	VNAME(Sled),
+	VNAME(Wallnut),
+	VNAME(Tallnut),
+};
+
+IDENTIFIER(ZombieAccessoriesType2)
+{
+	VNAME(ZombieAccessoriesType2None),
+	VNAME(ScreenDoor),
+	VNAME(Newspaper),
+	VNAME(Ladder),
+};
+
+IDENTIFIER(DamageType)
+{
+	VNAME(Direct),
+	VNAME(Not_Direct),
+	VNAME(Sputter),
+#ifdef ENUMSTRING
+		"Direct_Ice",
+#else
+		Direct_Ice = 4,
+#endif
+	VNAME(Not_Direct_Ice),
+	VNAME(Sputter_Ice),
+};
+
+IDENTIFIER(PlantType)
+{
+#ifdef ENUMSTRING
+	"PlantTypeNone",
+#else
+	PlantTypeNone = -1,
+#endif
+	VNAME(Peashooter),
+	VNAME(Sunflower),
+	VNAME(CherryBomb),
+	VNAME(Wallnut_Plant),
+	VNAME(PotatoMine),
+	VNAME(SnowPea),
+	VNAME(Chomper),
+	VNAME(Repeater),
+	VNAME(Puffshroon),
+	VNAME(Sunshroon),
+	VNAME(Fumeshroon),
+	VNAME(CraveBuster),
+	VNAME(Hypnoshroon),
+	VNAME(Scaredyshroon),
+	VNAME(Iceshroon),
+	VNAME(Doomshroon),
+	VNAME(LilyPad),
+	VNAME(Squash),
+	VNAME(Threepeater),
+	VNAME(TangleKelp),
+	VNAME(Jalapeno),
+	VNAME(Spickweed),
+	VNAME(Tochwood),
+	VNAME(Tallnut_Plant),
+	VNAME(Seashroon),
+	VNAME(Plantern),
+	VNAME(Cactus),
+	VNAME(Blover),
+	VNAME(SplitPea),
+	VNAME(Starfruit),
+	VNAME(Pumplin),
+	VNAME(Magnetshroom),
+	VNAME(Cabbagepult),
+	VNAME(FlowerPot),
+	VNAME(Kernelpult),
+	VNAME(CoffeeBean),
+	VNAME(Garlic),
+	VNAME(UmbrellaLeaf),
+	VNAME(Marigold),
+	VNAME(Melonpult),
+	VNAME(GatlingPea),
+	VNAME(TwinSunflower),
+	VNAME(Gloomshroom),
+	VNAME(Cattail),
+	VNAME(WinterMelon),
+	VNAME(GoldMagnet),
+	VNAME(Spikerock),
+	VNAME(CobCannon),
+	VNAME(Imitater),
+	VNAME(Explodenut),
+	VNAME(GiantWallnut),
+	VNAME(Sprout),
+	VNAME(LeftRepeater),
+};
 
 
 

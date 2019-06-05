@@ -30,6 +30,10 @@
 #define SET_MUSICVOLUME INVOKE_BYTE(0x554D00,0)
 #define LOADLIBRARYA INVOKE_DWORD((int)LoadLibraryA,0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
+#define WIN INVOKE(0x40C3E0)
+#define HIT INVOKE_DWORD(0x5317C0,0)
+#define BLAST INVOKE(0x532B70)
+#define BUTTER INVOKE(0x5326D0)
 
 #pragma endregion
 
@@ -50,5 +54,34 @@ byte __asm_set_LevelScene[] =
 {
 	MOV_ESI(0),
 	SET_LEVELSCENE,
+	RET
+};
+
+byte __asm_Win[] =
+{
+	MOV_ECX(0),
+	WIN,
+	RET
+};
+
+byte __asm_Hit[] =
+{
+	MOV_ESI(0),
+	MOV_EAX(0),
+	HIT,
+	RET
+};
+
+byte __asm_Blast[] =
+{
+	MOV_ECX(0),
+	BLAST,
+	RET
+};
+
+byte __asm_Butter[] =
+{
+	MOV_EAX(0),
+	BUTTER,
 	RET
 };

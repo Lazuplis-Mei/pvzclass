@@ -11,7 +11,6 @@ using namespace std;
 
 int main()
 {
-	ProcessOpener::Directory = TEXT("D:\\植物大战僵尸\\Plants_Vs_Zombies_V1.0.0.1051_CN");
 	DWORD pid = ProcessOpener::Open();
 
 	if (pid)
@@ -19,8 +18,13 @@ int main()
 		PVZ* pPVZ = new PVZ(pid);
 		if (PVZ::PVZ_BASE && pPVZ->BaseAddress)
 		{
-			cout << enumstring::SceneType[pPVZ->LevelScene];
-			pPVZ->LevelScene = SceneType::Night;
+			PVZ::Zombie* zombies[20];
+			int len = pPVZ->GetAllZombies(zombies);
+			for (int i = 0; i < len; i++)
+			{
+				cout << enumstring::ZombieType[zombies[i]->Type + 1] << endl;
+				zombies[i]->Hit(200,Not_Direct_Ice);
+			}
 		}
 		delete pPVZ;
 	}

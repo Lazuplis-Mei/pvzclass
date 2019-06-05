@@ -18,7 +18,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "0.3.0.190604";
+	return "0.4.0.190605";
 }
 
 PVZVersion PVZ::__get_GameVersion()
@@ -75,6 +75,32 @@ void PVZ::__set_LevelScene(SceneType value)
 	Memory::WriteMemory<SceneType>(BaseAddress + 0x554C, value);
 	SETARG(__asm_set_LevelScene, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm_set_LevelScene));
+}
+
+int PVZ::__get_WaveCount()
+{
+	return Memory::ReadMemory<int>(BaseAddress + 0x5564);
+}
+
+void PVZ::__set_WaveCount(int value)
+{
+	if (value >= 0 && value <= WaveCount)
+	{
+		Memory::WriteMemory<int>(BaseAddress + 0x5564, value);
+		Memory::WriteMemory<int>(BaseAddress + 0x5610, value * 150 / WaveCount);
+	}
+}
+
+#pragma endregion
+
+#pragma region Animation Class
+
+PVZ::Animation::Animation(int idoraddress)
+{
+	if (idoraddress > 1024)
+		BaseAddress = idoraddress;
+	else
+		BaseAddress = Memory::ReadPointer(0x6A9EC0, 0x820, 8, 0) + idoraddress * 0xA0;
 }
 
 #pragma endregion
@@ -224,6 +250,128 @@ void PVZ::Wave::Add(ZombieType ztype)
 
 #pragma endregion
 
+#pragma region Zombie Class
+
+PVZ::Zombie::Zombie(int indexoraddress)
+{
+	if (indexoraddress > 1024)
+		BaseAddress = indexoraddress;
+	else
+		BaseAddress = Memory::ReadMemory<int>(Memory::ReadMemory<int>(PVZ_BASE + 0x768) + 0x90) + indexoraddress * 0x15C;
+#if _DEBUG
+	DebugType = Type;
+#endif
+}
+
+void PVZ::Zombie::Light(int cs)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x54, cs);
+}
+
+void PVZ::Zombie::GetCollision(CollisionBox* collbox)
+{
+	collbox->X = Memory::ReadMemory<int>(BaseAddress + 0x8C);
+	collbox->Y = Memory::ReadMemory<int>(BaseAddress + 0x90);
+	collbox->Length = Memory::ReadMemory<int>(BaseAddress + 0x94);
+	collbox->Height = Memory::ReadMemory<int>(BaseAddress + 0x98);
+}
+
+void PVZ::Zombie::SetCollision(CollisionBox* collbox)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x8C, collbox->X);
+	Memory::WriteMemory<int>(BaseAddress + 0x90, collbox->Y);
+	Memory::WriteMemory<int>(BaseAddress + 0x94, collbox->Length);
+	Memory::WriteMemory<int>(BaseAddress + 0x98, collbox->Height);
+}
+
+void PVZ::Zombie::GetAttackCollision(CollisionBox* collbox)
+{
+	collbox->X = Memory::ReadMemory<int>(BaseAddress + 0x9C);
+	collbox->Y = Memory::ReadMemory<int>(BaseAddress + 0xA0);
+	collbox->Length = Memory::ReadMemory<int>(BaseAddress + 0xA4);
+	collbox->Height = Memory::ReadMemory<int>(BaseAddress + 0xA8);
+}
+
+void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x9C, collbox->X);
+	Memory::WriteMemory<int>(BaseAddress + 0xA0, collbox->Y);
+	Memory::WriteMemory<int>(BaseAddress + 0xA4, collbox->Length);
+	Memory::WriteMemory<int>(BaseAddress + 0xA8, collbox->Height);
+}
+
+void PVZ::Zombie::GetAccessoriesType1(AccessoriesType1* acctype1)
+{
+	acctype1->Type = Memory::ReadMemory<ZombieAccessoriesType1>(BaseAddress + 0xC4);
+	acctype1->Hp = Memory::ReadMemory<int>(BaseAddress + 0xD0);
+	acctype1->MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xD4);
+}
+
+void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1* acctype1)
+{
+	Memory::WriteMemory<ZombieAccessoriesType1>(BaseAddress + 0xC4, acctype1->Type);
+	Memory::WriteMemory<int>(BaseAddress + 0xD0, acctype1->Hp);
+	Memory::WriteMemory<int>(BaseAddress + 0xD4, acctype1->MaxHp);
+}
+
+void PVZ::Zombie::GetAccessoriesType2(AccessoriesType2* acctype2)
+{
+	acctype2->Type = Memory::ReadMemory<ZombieAccessoriesType2>(BaseAddress + 0xD8);
+	acctype2->Hp = Memory::ReadMemory<int>(BaseAddress + 0xDC);
+	acctype2->MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xE0);
+}
+
+void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2* acctype2)
+{
+	Memory::WriteMemory<ZombieAccessoriesType2>(BaseAddress + 0xD8, acctype2->Type);
+	Memory::WriteMemory<int>(BaseAddress + 0xDC, acctype2->Hp);
+	Memory::WriteMemory<int>(BaseAddress + 0xE0, acctype2->MaxHp);
+	
+}
+
+void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
+{
+	*hp = Memory::ReadMemory<int>(BaseAddress + 0xC8);
+	*maxhp = Memory::ReadMemory<int>(BaseAddress + 0xCC);
+}
+
+void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0xC8, hp);
+	Memory::WriteMemory<int>(BaseAddress + 0xCC, maxhp);
+}
+
+void PVZ::Zombie::GetAnimation(PVZ::Animation* animation)
+{
+	animation = new Animation(Memory::ReadMemory<short>(BaseAddress + 0x118));
+}
+
+void PVZ::Zombie::Hit(int damge, DamageType type)
+{
+	SETARG(__asm_Hit, 1) = BaseAddress;
+	SETARG(__asm_Hit, 6) = type;
+	SETARG(__asm_Hit, 11) = damge;
+	Memory::Execute(STRING(__asm_Hit));
+}
+
+void PVZ::Zombie::Blast()
+{
+	SETARG(__asm_Blast, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm_Blast));
+}
+
+void PVZ::Zombie::Butter()
+{
+	SETARG(__asm_Butter, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm_Butter));
+}
+
+#pragma endregion
+
+
+
+
+
 #pragma region methods
 
 void PVZ::Memory::IngectDll(LPCSTR dllname)
@@ -250,8 +398,10 @@ PVZ::Icetrace* PVZ::GetIcetrace()
 
 PVZ::Wave* PVZ::GetWave(int index)
 {
-	/*must less than WaveNum*/
-	return new Wave(BaseAddress + 0x6B4 + index * 200);
+	if (index >= 0 && index <= WaveCount)
+		return new Wave(BaseAddress + 0x6B4 + index * 200);
+	else
+		return NULL;
 }
 
 void PVZ::GetZombieSeed(ZombieType* ztypes)
@@ -274,4 +424,42 @@ void PVZ::Earthquake(int horizontalAmplitude, int verticalAmplitude, int duratio
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
+void PVZ::Assault(int countdown)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
+}
+
+void PVZ::Win()
+{
+	SETARG(__asm_Win, 1) = BaseAddress;
+	if (LevelId > 0 && LevelId < 16)
+	{
+		if (GameState == Playing)Memory::Execute(STRING(__asm_Win));
+	}
+	else Memory::Execute(STRING(__asm_Win));
+}
+
+void PVZ::Bell(int countdown)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);
+}
+
+int PVZ::GetAllZombies(Zombie* zombies[])
+{
+	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
+	int j = 0;
+	for (int i = 0; i < maxnum; i++)
+	{
+		if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + 0x15C * i))
+		{
+			zombies[j] = new PVZ::Zombie(i);
+			j++;
+		}
+	}
+	return j;
+}
+
+
+
 #pragma endregion
+
