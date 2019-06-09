@@ -1,6 +1,6 @@
 #pragma once
-#include <windows.h>
 #include "Enums.h"
+#include "MainFuntions.h"
 
 #pragma region definitions
 
@@ -41,10 +41,11 @@ public:
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
+		static HWND mainwindowhandle;
 		template <class T>
 		inline static T ReadMemory(int address)
 		{
-			T buffer;
+			T buffer = (T)NULL;
 			ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
 			return buffer;
 		};
@@ -71,7 +72,7 @@ public:
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
-		static void IngectDll(LPCSTR dllname);
+		static void InjectDll(LPCSTR dllname);
 	};
 
 #pragma endregion
@@ -207,6 +208,17 @@ public:
 		void Del(int index);
 		void Add(ZombieType ztype);
 	};
+	class Mouse
+	{
+		int BaseAddress;
+	public:
+		Mouse(int baseaddress);
+		T_READONLY_PROPERTY(BOOLEAN, InGameArea, __get_InGameArea, 0xDC);
+		INT_READONLY_PROPERTY(X, __get_X, 0xE0);
+		INT_READONLY_PROPERTY(Y, __get_Y, 0xE4);
+		T_READONLY_PROPERTY(MouseClickState, ClickState, __get_ClickState, 0xE8);
+		void WMClick(short x, short y);
+	};
 	class Zombie
 	{
 		int BaseAddress;
@@ -217,7 +229,7 @@ public:
 		Zombie(int indexoraddress);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		INT_PROPERTY(Visible, __get_Visible, __set_Visible, 0x18);
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(ZombieType, Type, __get_Type, __set_Type, 0x24);
@@ -276,8 +288,77 @@ public:
 		void Blast();
 		void Butter();
 	};
-
-
+	class Projectile
+	{
+		int BaseAddress;
+#if _DEBUG
+		ProjectileType DebugType;
+#endif
+	public:
+		Projectile(int indexoraddress);
+		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
+		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
+		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x38);
+		T_PROPERTY(FLOAT, XSpeed, __get_XSpeed, __set_XSpeed, 0x3C);
+		T_PROPERTY(FLOAT, YSpeed, __get_YSpeed, __set_YSpeed, 0x40);
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x50);
+		T_PROPERTY(MotionType, Motion, __get_Motion, __set_Motion, 0x58);
+		T_PROPERTY(ProjectileType, Type, __get_Type, __set_Type, 0x5C);
+		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
+		T_PROPERTY(FLOAT, RotationAngle, __get_RotationAngle, __set_RotationAngle, 0x68);
+		T_PROPERTY(FLOAT, RotationSpeed, __get_RotationSpeed, __set_RotationSpeed, 0x6C);
+		INT_PROPERTY(DamageAbility, __get_DamageAbility, __set_DamageAbility, 0x74);
+		INT_PROPERTY(TracktargetId, __get_TracktargetId, __set_TracktargetId, 0x88);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0x90);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void OnFire();
+	};
+	class Plant
+	{
+		int BaseAddress;
+#if _DEBUG
+		PlantType DebugType;
+#endif
+	public:
+		Plant(int indexoraddress);
+		INT_PROPERTY(X, __get_X, __set_X, 8);
+		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
+		T_PROPERTY(PlantType, Type, __get_Type, __set_Type, 0x24);
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
+		INT_PROPERTY(State, __get_State, __set_State, 0x3C);
+		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x40);
+		INT_PROPERTY(MaxHp, __get_MaxHp, __set_MaxHp, 0x44);
+		T_PROPERTY(BOOLEAN, Aggressive, __get_Aggressive, __set_Aggressive, 0x48);
+		INT_PROPERTY(BloverDisappearCountdown, __get_BloverDisappearCountdown, __set_BloverDisappearCountdown, 0x4C);
+		INT_PROPERTY(EffectiveCountdown, __get_EffectiveCountdown, __set_EffectiveCountdown, 0x50);
+		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x54);
+		INT_PROPERTY(ShootOrProductCountdown, __get_ShootOrProductCountdown, __set_ShootOrProductCountdown, 0x58);
+		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
+		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
+		void GetAnimationPart1(PVZ::Animation* animation);
+		void GetAnimationPart2(PVZ::Animation* animation);
+		void Light(int cs = 100);
+		void Flash(int cs = 100);
+		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
+		T_PROPERTY(FLOAT, ImageYOffset, __get_ImageYOffset, __set_ImageYOffset, 0xC4);
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x141);
+		T_PROPERTY(BOOLEAN, Squash, __get_Squash, __set_Squash, 0x142);
+		T_PROPERTY(BOOLEAN, Sleeping, __get_Sleeping, __set_Sleeping, 0x143);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void CreateEffect();
+		void SetStatic();
+		void Shoot(PVZ::Projectile* pro, int targetid = -1);
+	};
+	
 
 #pragma endregion
 
@@ -292,8 +373,8 @@ public:
 	void Win();
 	void Bell(int countdown = 1);
 	int GetAllZombies(Zombie* zombies[]);
+	int GetAllPlants(Plant* plants[]);
 
 #pragma endregion
-
 
 };

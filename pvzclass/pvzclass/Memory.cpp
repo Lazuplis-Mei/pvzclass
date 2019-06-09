@@ -3,6 +3,7 @@
 HANDLE PVZ::Memory::hProcess = NULL;
 DWORD PVZ::Memory::processId = 0;
 int PVZ::Memory::Variable = 0;
+HWND PVZ::Memory::mainwindowhandle = NULL;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
 {

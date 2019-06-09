@@ -151,10 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Icetrace.cpp" />
+    <ClCompile Include="Lawn.cpp" />
+    <ClCompile Include="MainFunctions.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="pvzclass.cpp" />
+    <ClCompile Include="Wave.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h" />

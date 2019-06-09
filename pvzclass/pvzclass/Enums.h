@@ -135,6 +135,18 @@ IDENTIFIER(RouteType)
 	VNAME(Pool),
 };
 
+IDENTIFIER(MouseClickState)
+{
+	VNAME(MouseClickStateNone),
+		VNAME(LButton),
+		VNAME(RButton),
+		VNAME(LRButton),
+		VNAME(MidButton),
+		VNAME(LMidButton),
+		VNAME(RMidButton),
+		VNAME(LRMidButton),
+};
+
 IDENTIFIER(ZombieType)
 {
 #ifdef ENUMSTRING
@@ -296,6 +308,62 @@ IDENTIFIER(PlantType)
 	VNAME(LeftRepeater),
 };
 
+#ifdef ENUMSTRING
+const char* PlantEffectType[]
+{
+	"CherryBombEffect",
+	"PotatoMineEffect",
+	"IceshroonEffect",
+	"DoomshroonEffect",
+	"JalapenoEffect",
+	"BloverEffect",
+};
+#else
+enum PlantEffectType
+{
+	CherryBombEffect = 2,
+	PotatoMineEffect = 4,
+	IceshroonEffect = 14,
+	DoomshroonEffect = 15,
+	JalapenoEffect = 20,
+	BloverEffect = 27,
+};
+#endif
+
+IDENTIFIER(MotionType)
+{
+	VNAME(MotionTypeDirect),
+	VNAME(Throw),
+	VNAME(Slide),
+#ifdef ENUMSTRING
+		"Left",
+		"LeftSlide",
+#else
+		Left = 4,
+		LeftSlide = 6,
+#endif
+	VNAME(Float),
+	VNAME(Slow),
+	VNAME(Track),
+};
+
+IDENTIFIER(ProjectileType)
+{
+	VNAME(Pea),
+	VNAME(ProjectileSnowPea),
+	VNAME(Cabbage),
+	VNAME(Melon),
+	VNAME(Puff),
+	VNAME(ProjectileWinterMelon),
+	VNAME(FirePea),
+	VNAME(Star),
+	VNAME(ProjectileCactus),
+	VNAME(Basketball),
+	VNAME(Kernel),
+	VNAME(ProjectileCobCannon),
+	VNAME(Butter),
+	VNAME(ZombiePea),
+};
 
 
 #ifdef ENUMSTRING

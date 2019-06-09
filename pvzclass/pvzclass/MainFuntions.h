@@ -1,4 +1,4 @@
-#pragma once
+#include <Windows.h>
 
 #pragma region asm define
 
@@ -16,12 +16,14 @@
 #define JMP(b) 0xEB,b
 #define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
-#define MOV_EAX_PTR 0xA1
+#define MOV_EAX_PTR(d) 0xA1,INUMBER(d)
 #define MOV_PTR_ADDR_EAX 0xA3
+#define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
 
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
+#define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 
 #pragma endregion
 
@@ -34,54 +36,28 @@
 #define HIT INVOKE_DWORD(0x5317C0,0)
 #define BLAST INVOKE(0x532B70)
 #define BUTTER INVOKE(0x5326D0)
+#define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
+#define SETSTATIC INVOKE_DWORD(0x42A530,0)
+#define SHOOT INVOKE_DWORD_DWORD_BYTE_BYTE(0x466E00,0,0,0,0)
 
 #pragma endregion
 
-byte __asm__set_MusicVolume[] =
-{
-	MOV_ECX(0),
-	SET_MUSICVOLUME,
-	RET
-};
+extern byte __asm__set_MusicVolume[21];
 
-byte __asm__InjectDll[200] =
-{
-	LOADLIBRARYA,
-	RET
-};
+extern byte __asm__InjectDll[200];
 
-byte __asm_set_LevelScene[] =
-{
-	MOV_ESI(0),
-	SET_LEVELSCENE,
-	RET
-};
+extern byte __asm_set__LevelScene[19];
 
-byte __asm_Win[] =
-{
-	MOV_ECX(0),
-	WIN,
-	RET
-};
+extern byte __asm__Win[19];
 
-byte __asm_Hit[] =
-{
-	MOV_ESI(0),
-	MOV_EAX(0),
-	HIT,
-	RET
-};
+extern byte __asm__Hit[29];
 
-byte __asm_Blast[] =
-{
-	MOV_ECX(0),
-	BLAST,
-	RET
-};
+extern byte __asm__Blast[19];
 
-byte __asm_Butter[] =
-{
-	MOV_EAX(0),
-	BUTTER,
-	RET
-};
+extern byte __asm__Butter[19];
+
+extern byte __asm__CreateEffect[19];
+
+extern byte __asm__SetStatic[24];
+
+extern byte __asm__Shoot[34];
