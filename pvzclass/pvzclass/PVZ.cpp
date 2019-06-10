@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "0.5.0.190609";
+	return "0.6.0.190610";
 }
 
 PVZVersion PVZ::__get_GameVersion()
@@ -166,6 +166,11 @@ void PVZ::Bell(int countdown)
 	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);
 }
 
+PVZ::Mouse* PVZ::GetMouse()
+{
+	return new Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
+}
+
 int PVZ::GetAllZombies(Zombie* zombies[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
@@ -196,7 +201,43 @@ int PVZ::GetAllPlants(Plant* plants[])
 	return j;
 }
 
+int PVZ::GetAllProjectile(Projectile* projectiles[])
+{
+	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
+	int j = 0;
+	for (int i = 0; i < maxnum; i++)
+	{
+		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
+		{
+			projectiles[j] = new PVZ::Projectile(i);
+			j++;
+		}
+	}
+	return j;
+}
+
+int PVZ::GetAllCoins(Coin* coins[])
+{
+	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
+	int j = 0;
+	for (int i = 0; i < maxnum; i++)
+	{
+		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
+		{
+			coins[j] = new PVZ::Coin(i);
+			j++;
+		}
+	}
+	return j;
+}
+
+PVZ::MousePointer* PVZ::GetMousePointer()
+{
+	return new MousePointer(BaseAddress);
+}
+
 
 
 #pragma endregion
+
 

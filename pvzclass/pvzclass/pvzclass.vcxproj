@@ -91,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,11 +153,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="Griditem.cpp" />
     <ClCompile Include="Icetrace.cpp" />
     <ClCompile Include="Lawn.cpp" />
-    <ClCompile Include="MainFunctions.cpp" />
+    <ClCompile Include="AsmFunctions.cpp" />
+    <ClCompile Include="Lawnmover.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MousePointer.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -167,7 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="MainFuntions.h" />
+    <ClInclude Include="AsmFuntions.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
   </ItemGroup>

@@ -5,7 +5,7 @@ PVZ::Zombie::Zombie(int indexoraddress)
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(Memory::ReadMemory<int>(PVZ_BASE + 0x768) + 0x90) + indexoraddress * 0x15C;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x90) + indexoraddress * 0x15C;
 #if _DEBUG
 	DebugType = Type;
 #endif
@@ -20,7 +20,7 @@ void PVZ::Zombie::GetCollision(CollisionBox* collbox)
 {
 	collbox->X = Memory::ReadMemory<int>(BaseAddress + 0x8C);
 	collbox->Y = Memory::ReadMemory<int>(BaseAddress + 0x90);
-	collbox->Length = Memory::ReadMemory<int>(BaseAddress + 0x94);
+	collbox->Width = Memory::ReadMemory<int>(BaseAddress + 0x94);
 	collbox->Height = Memory::ReadMemory<int>(BaseAddress + 0x98);
 }
 
@@ -28,7 +28,7 @@ void PVZ::Zombie::SetCollision(CollisionBox* collbox)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x8C, collbox->X);
 	Memory::WriteMemory<int>(BaseAddress + 0x90, collbox->Y);
-	Memory::WriteMemory<int>(BaseAddress + 0x94, collbox->Length);
+	Memory::WriteMemory<int>(BaseAddress + 0x94, collbox->Width);
 	Memory::WriteMemory<int>(BaseAddress + 0x98, collbox->Height);
 }
 
@@ -36,7 +36,7 @@ void PVZ::Zombie::GetAttackCollision(CollisionBox* collbox)
 {
 	collbox->X = Memory::ReadMemory<int>(BaseAddress + 0x9C);
 	collbox->Y = Memory::ReadMemory<int>(BaseAddress + 0xA0);
-	collbox->Length = Memory::ReadMemory<int>(BaseAddress + 0xA4);
+	collbox->Width = Memory::ReadMemory<int>(BaseAddress + 0xA4);
 	collbox->Height = Memory::ReadMemory<int>(BaseAddress + 0xA8);
 }
 
@@ -44,7 +44,7 @@ void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x9C, collbox->X);
 	Memory::WriteMemory<int>(BaseAddress + 0xA0, collbox->Y);
-	Memory::WriteMemory<int>(BaseAddress + 0xA4, collbox->Length);
+	Memory::WriteMemory<int>(BaseAddress + 0xA4, collbox->Width);
 	Memory::WriteMemory<int>(BaseAddress + 0xA8, collbox->Height);
 }
 

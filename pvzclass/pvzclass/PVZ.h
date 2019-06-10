@@ -1,6 +1,6 @@
 #pragma once
 #include "Enums.h"
-#include "MainFuntions.h"
+#include "AsmFuntions.h"
 
 #pragma region definitions
 
@@ -9,6 +9,7 @@
 
 #define PAGE_SIZE 1024
 #define PVZ_BASE Memory::ReadMemory<int>(0x6A9EC0)
+#define PVZBASEADDRESS Memory::ReadMemory<int>(PVZ_BASE + 0x768)
 
 #define PROPERTY(type,getmethod,setmethod) type getmethod();void setmethod(type value);__declspec(property(get=getmethod,put=setmethod)) type
 #define READONLY_PROPERTY(type,getmethod) type getmethod();__declspec(property(get=getmethod)) type
@@ -25,6 +26,14 @@
 #define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
 
 #pragma endregion
+
+struct CollisionBox
+{
+	int X;
+	int Y;
+	int Width;
+	int Height;
+};
 
 /*Only version 1.0.0.1051 is fully supported*/
 class PVZ
@@ -116,7 +125,7 @@ public:
 	READONLY_PROPERTY_BINDING(
 		int,
 		__get_BaseAddress,
-		Memory::ReadMemory<int>(PVZ_BASE + 0x768)) BaseAddress;
+		PVZBASEADDRESS) BaseAddress;
 	INT_PROPERTY(ViewX, __get_ViewX, __set_ViewX, 0x30);
 	INT_PROPERTY(ViewY, __get_ViewY, __set_ViewY, 0x34);
 	INT_PROPERTY(ViewLength, __get_ViewLength, __set_ViewLength, 0x38);
@@ -214,10 +223,12 @@ public:
 	public:
 		Mouse(int baseaddress);
 		T_READONLY_PROPERTY(BOOLEAN, InGameArea, __get_InGameArea, 0xDC);
-		INT_READONLY_PROPERTY(X, __get_X, 0xE0);
-		INT_READONLY_PROPERTY(Y, __get_Y, 0xE4);
+		INT_PROPERTY(X, __get_X, __set_X, 0xE0);
+		INT_PROPERTY(Y, __get_Y, __set_Y, 0xE4);
 		T_READONLY_PROPERTY(MouseClickState, ClickState, __get_ClickState, 0xE8);
 		void WMClick(short x, short y);
+		void GameClick(int x, int y);
+		void MoveTo(int x, int y);
 	};
 	class Zombie
 	{
@@ -240,13 +251,6 @@ public:
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x68);
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x74);
-		struct CollisionBox
-		{
-			int X;
-			int Y;
-			int Length;
-			int Height;
-		};
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
 		void GetAttackCollision(CollisionBox* collbox);
@@ -358,7 +362,124 @@ public:
 		void SetStatic();
 		void Shoot(PVZ::Projectile* pro, int targetid = -1);
 	};
-	
+	class Coin
+	{
+		int BaseAddress;
+#if _DEBUG
+		CoinType DebugType;
+#endif
+	public:
+		Coin(int indexoraddress);
+		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
+		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
+		void GetCollision(CollisionBox* collbox);
+		void SetCollision(CollisionBox* collbox);
+		T_PROPERTY(BOOLEAN, InVisible, __get_InVisible, __set_InVisible, 0x18);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x34);
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x38);
+		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x4C);
+		T_PROPERTY(BOOLEAN, Collected, __get_Collected, __set_Collected, 0x50);
+		T_PROPERTY(CoinType, Type, __get_Type, __set_Type, 0x58);
+		T_PROPERTY(CoinMotionType, Motion, __get_Motion, __set_Motion, 0x5C);
+		T_PROPERTY(CardType::CardType, ContentCard, __get_ContentCard, __set_ContentCard, 0x68);
+		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void Collect();
+	};
+	class Lawnmover
+	{
+		int BaseAddress;
+#if _DEBUG
+		LawnmoverType DebugType;
+#endif
+	public:
+		Lawnmover(int indexoraddress);
+		INT_PROPERTY(X, __get_X, __set_X, 8);
+		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		INT_PROPERTY(State, __get_State, __set_State, 0x2C);
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
+		T_PROPERTY(LawnmoverType, Type, __get_Type, __set_Type, 0x24);
+		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+	};
+	class Griditem
+	{
+	protected:
+		int BaseAddress;
+#if _DEBUG
+		GriditemType DebugType;
+#endif
+	public:
+		Griditem(int indexoraddress);
+		T_PROPERTY(GriditemType, Type, __get_Type, __set_Type, 0x8);
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x1C);
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x20);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0xE8);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+	};
+	class Grave :public PVZ::Griditem
+	{
+	public:
+		Grave(int indexoraddress) :Griditem(indexoraddress) {};
+		INT_PROPERTY(AppearedValue, __get_AppearedValue, __set_AppearedValue, 0x18);
+	};
+	class Crater :public PVZ::Griditem
+	{
+	public:
+		Crater(int indexoraddress) :Griditem(indexoraddress) {};
+		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
+	};
+	class Brain :public PVZ::Griditem
+	{
+	public:
+		Brain(int indexoraddress) :Griditem(indexoraddress) {};
+		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+	};
+	class Vase :public PVZ::Griditem
+	{
+	public:
+		Vase(int indexoraddress) :Griditem(indexoraddress) {};
+		T_PROPERTY(VaseSkin, Skin, __get_Skin, __set_Skin, 0xC);
+		T_PROPERTY(ZombieType, ContentZombie, __get_ContentZombie, __set_ContentZombie, 0x3C);
+		T_PROPERTY(PlantType, ContentPlant, __get_ContentPlant, __set_ContentPlant, 0x40);
+		T_PROPERTY(VaseContent, Content, __get_Content, __set_Content, 0x44);
+		T_READONLY_PROPERTY(BOOLEAN, MouseEnter, __get_MouseEnter, 0x48);
+		INT_PROPERTY(TransparentCountDown, __get_TransparentCountDown, __set_TransparentCountDown, 0x4C);
+		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x50);
+	};
+	class MousePointer
+	{
+		int BaseAddress;
+	public:
+		MousePointer(int address);
+		INT_PROPERTY(CardIndex, __get_CardIndex, __set_CardIndex, 0x24);
+		T_PROPERTY(CardType::CardType, ContentCard, __get_ContentCard, __set_ContentCard, 0x28);
+		T_PROPERTY(CardType::CardType, ContentCardImitative, __get_ContentCardImitative, __set_ContentCardImitative, 0x2C);
+		T_PROPERTY(MouseType, Type, __get_Type, __set_Type, 0x30);
+		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
+		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
+	};
+	/*
+	Caption
+	CardSlot
+		SeedCard
+	Miscellaneous
+	Animation
+	SaveData
+		GardenPlant
+	Music
+	*/
 
 #pragma endregion
 
@@ -372,8 +493,12 @@ public:
 	void Assault(int countdown = 1);
 	void Win();
 	void Bell(int countdown = 1);
+	Mouse* GetMouse();
 	int GetAllZombies(Zombie* zombies[]);
 	int GetAllPlants(Plant* plants[]);
+	int GetAllProjectile(Projectile* projectiles[]);
+	int GetAllCoins(Coin* coins[]);
+	MousePointer* GetMousePointer();
 
 #pragma endregion
 

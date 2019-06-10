@@ -40,6 +40,8 @@
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
 #define SHOOT INVOKE_DWORD_DWORD_BYTE_BYTE(0x466E00,0,0,0,0)
 #define ONFIRE INVOKE(0x46ECB0)
+#define COLLECT INVOKE(0x432060)
+#define GAMECLICK INVOKE_DWORD(0x539390,0)
 
 #pragma endregion
 
@@ -64,3 +66,7 @@ extern byte __asm__SetStatic[24];
 extern byte __asm__Shoot[34];
 
 extern byte __asm__OnFire[19];
+
+extern  byte __asm__Collect[19];
+
+extern byte __asm__GameClick[34];

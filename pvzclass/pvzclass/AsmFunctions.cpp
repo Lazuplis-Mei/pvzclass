@@ -75,3 +75,19 @@ byte __asm__OnFire[]
 	ONFIRE,
 	RET,
 };
+
+byte __asm__Collect[]
+{
+	MOV_ECX(0),
+	COLLECT,
+	RET,
+};
+
+byte __asm__GameClick[]
+{
+	MOV_ECX(0),
+	MOV_EAX(0),
+	MOV_EBX(1),
+	GAMECLICK,
+	RET,
+};

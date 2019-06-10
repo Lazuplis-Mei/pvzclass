@@ -365,6 +365,216 @@ IDENTIFIER(ProjectileType)
 	VNAME(ZombiePea),
 };
 
+IDENTIFIER(CoinType)
+{
+#ifdef ENUMSTRING
+	"SilverDollar",
+#else
+	SilverDollar = 1,
+#endif
+	VNAME(GoldDollar),
+	VNAME(Diamond),
+	VNAME(NormalSun),
+	VNAME(MiniSun),
+	VNAME(LargeSun),
+#ifdef ENUMSTRING
+	"Trophy",
+	"Note",
+#else
+	Trophy = 8,
+	Note = 15,
+#endif
+	VNAME(PlantCard),
+	VNAME(PlantPresent),
+	VNAME(MoneyBag),
+};
+
+IDENTIFIER(CoinMotionType)
+{
+	VNAME(Fastfall),
+	VNAME(Slowfall),
+	VNAME(Product),
+	VNAME(Spray),
+	VNAME(Collected),
+	VNAME(DelayCollected),
+};
+
+#ifndef ENUMSTRING
+namespace CardType
+{
+#endif
+	IDENTIFIER(CardType)
+	{
+#ifdef ENUMSTRING
+		"CardTypeNone",
+#else
+		CardTypeNone = -1,
+#endif
+			VNAME(Peashooter),
+			VNAME(Sunflower),
+			VNAME(CherryBomb),
+			VNAME(Wallnut_Plant),
+			VNAME(PotatoMine),
+			VNAME(SnowPea),
+			VNAME(Chomper),
+			VNAME(Repeater),
+			VNAME(Puffshroon),
+			VNAME(Sunshroon),
+			VNAME(Fumeshroon),
+			VNAME(CraveBuster),
+			VNAME(Hypnoshroon),
+			VNAME(Scaredyshroon),
+			VNAME(Iceshroon),
+			VNAME(Doomshroon),
+			VNAME(LilyPad),
+			VNAME(Squash),
+			VNAME(Threepeater),
+			VNAME(TangleKelp),
+			VNAME(Jalapeno),
+			VNAME(Spickweed),
+			VNAME(Tochwood),
+			VNAME(Tallnut_Plant),
+			VNAME(Seashroon),
+			VNAME(Plantern),
+			VNAME(Cactus),
+			VNAME(Blover),
+			VNAME(SplitPea),
+			VNAME(Starfruit),
+			VNAME(Pumplin),
+			VNAME(Magnetshroom),
+			VNAME(Cabbagepult),
+			VNAME(FlowerPot),
+			VNAME(Kernelpult),
+			VNAME(CoffeeBean),
+			VNAME(Garlic),
+			VNAME(UmbrellaLeaf),
+			VNAME(Marigold),
+			VNAME(Melonpult),
+			VNAME(GatlingPea),
+			VNAME(TwinSunflower),
+			VNAME(Gloomshroom),
+			VNAME(Cattail),
+			VNAME(WinterMelon),
+			VNAME(GoldMagnet),
+			VNAME(Spikerock),
+			VNAME(CobCannon),
+			VNAME(Imitater),
+			VNAME(Explodenut),
+			VNAME(GiantWallnut),
+			VNAME(Sprout),
+			VNAME(LeftRepeater),
+#ifdef ENUMSTRING
+			"Refresh",
+#else
+			Refresh = 54,
+#endif
+			VNAME(Crater),
+			VNAME(Sun),
+			VNAME(Diamond),
+			VNAME(SnorkedZombie),
+			VNAME(Trophy),
+			VNAME(Zombie),
+			VNAME(ConeheadZombie),
+			VNAME(PoleVaultingZombie),
+			VNAME(BucketheadZombie),
+			VNAME(LadderZombie),
+			VNAME(DiggerZombie),
+			VNAME(BungeeZombie),
+			VNAME(FootballZombie),
+			VNAME(BalloonZombie),
+			VNAME(ScreenDoorZombie),
+			VNAME(Zomboin),
+			VNAME(PogoZombie),
+			VNAME(DancingZombie),
+			VNAME(Gigagargantuar),
+			VNAME(Imp),
+	};
+#ifndef ENUMSTRING
+}
+#endif
+
+IDENTIFIER(LawnmoverType)
+{
+	VNAME(LawnCleaner),
+	VNAME(PoolCleaner),
+	VNAME(RoofCleaner),
+	VNAME(Trickedout),
+};
+
+#ifdef ENUMSTRING
+const char* GriditemType[]
+{
+	"Grave",
+	"Crater",
+	"Ladder",
+	"PortalBlue",
+	"PortalYellow",
+	"Brain",
+	"Vase",
+	"Rake",
+};
+#else
+enum GriditemType
+{
+	Grave = 1,
+	Crater,
+	GriditemLadder,
+	PortalBlue,
+	PortalYellow,
+	Brain = 6,
+	Vase,
+	Rake = 11,
+};
+#endif
+
+#ifdef ENUMSTRING
+const char* VaseSkin[]
+{
+	"Unknow",
+	"Leaf",
+	"Zombie",
+};
+#else
+enum VaseSkin
+{
+	Unknow = 3,
+	Leaf,
+	Zombie,
+};
+#endif
+
+IDENTIFIER(VaseContent)
+{
+	VNAME(VaseContentNone),
+	VNAME(VaseContentPlant),
+	VNAME(VaseContentZombie),
+	VNAME(VaseContentSun),
+};
+
+IDENTIFIER(MouseType)
+{
+	VNAME(MouseTypeNone),
+	VNAME(Card),
+#ifdef ENUMSTRING
+	"Shovel",
+	"Crosshair",
+#else
+	Shovel = 6,
+	Crosshair = 8,
+#endif
+	VNAME(Watering),
+	VNAME(GoldenWatering),
+	VNAME(Fertilizer),
+	VNAME(BugSpray),
+	VNAME(Phonograph),
+	VNAME(Chocolate),
+	VNAME(GardeningGlove),
+	VNAME(Sell),
+	VNAME(WheelBarrow),
+	VNAME(TreeFood),
+};
+
+
 
 #ifdef ENUMSTRING
 };

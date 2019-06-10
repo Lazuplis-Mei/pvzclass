@@ -5,7 +5,7 @@ PVZ::Plant::Plant(int indexoraddress)
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(Memory::ReadMemory<int>(PVZ_BASE + 0x768) + 0xAC) + indexoraddress * 0x14C;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * 0x14C;
 #if _DEBUG
 	DebugType = Type;
 #endif
@@ -39,7 +39,7 @@ void PVZ::Plant::CreateEffect()
 
 void PVZ::Plant::SetStatic()
 {
-	SETARG(__asm__SetStatic, 1) = Memory::ReadMemory<int>(PVZ_BASE + 0x768) + 0x160;
+	SETARG(__asm__SetStatic, 1) = PVZBASEADDRESS + 0x160;
 	SETARG(__asm__SetStatic, 6) = BaseAddress;;
 	Memory::Execute(STRING(__asm__SetStatic));
 
