@@ -19,26 +19,26 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "0.6.0.190610";
+	return "0.7.0.190611";
 }
 
-PVZVersion PVZ::__get_GameVersion()
+PVZVersion::PVZVersion PVZ::__get_GameVersion()
 {
 	int ver = Memory::ReadMemory<int>(0x552013);
 	switch (ver)
 	{
 	case 0xC35EDB74:
-		return V1_0_0_1051;
+		return PVZVersion::V1_0_0_1051;
 	case 0x86831977:
-		return V1_2_0_1065;
+		return PVZVersion::V1_2_0_1065;
 	case 0x3B000001:
-		return V1_2_0_1073;
+		return PVZVersion::V1_2_0_1073;
 	case 0x878B0000:
-		return 中文年度加强版;
+		return PVZVersion::中文年度加强版;
 	case 0xA48F:
-		return 粘度汗化版;
+		return PVZVersion::粘度汗化版;
 	default:
-		return UnknowOrNotPVZ;
+		return PVZVersion::UnknowOrNotPVZ;
 	}
 }
 
@@ -66,14 +66,14 @@ void PVZ::__set_SoundFXVolume(double value)
 	Memory::Execute(STRING(__asm__set_MusicVolume));
 }
 
-SceneType PVZ::__get_LevelScene()
+SceneType::SceneType PVZ::__get_LevelScene()
 {
-	return Memory::ReadMemory<SceneType>(BaseAddress + 0x554C);
+	return Memory::ReadMemory<SceneType::SceneType>(BaseAddress + 0x554C);
 }
 
-void PVZ::__set_LevelScene(SceneType value)
+void PVZ::__set_LevelScene(SceneType::SceneType value)
 {
-	Memory::WriteMemory<SceneType>(BaseAddress + 0x554C, value);
+	Memory::WriteMemory<SceneType::SceneType>(BaseAddress + 0x554C, value);
 	SETARG(__asm_set__LevelScene, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm_set__LevelScene));
 }
@@ -126,14 +126,14 @@ PVZ::Wave* PVZ::GetWave(int index)
 		return NULL;
 }
 
-void PVZ::GetZombieSeed(ZombieType* ztypes)
+void PVZ::GetZombieSeed(ZombieType::ZombieType* ztypes)
 {
 	int p = 0;
 	for (int i = 0; i < 33; i++)
 	{
 		if (Memory::ReadMemory<byte>(BaseAddress + 0x54D4 + i))
 		{
-			ztypes[p] = ZombieType(i);
+			ztypes[p] = ZombieType::ZombieType(i);
 			p++;
 		}
 	}
@@ -156,7 +156,7 @@ void PVZ::Win()
 	SETARG(__asm__Win, 1) = BaseAddress;
 	if (LevelId > 0 && LevelId < 16)
 	{
-		if (GameState == Playing)Memory::Execute(STRING(__asm__Win));
+		if (GameState == PVZGameState::Playing)Memory::Execute(STRING(__asm__Win));
 	}
 	else Memory::Execute(STRING(__asm__Win));
 }
@@ -234,6 +234,21 @@ int PVZ::GetAllCoins(Coin* coins[])
 PVZ::MousePointer* PVZ::GetMousePointer()
 {
 	return new MousePointer(BaseAddress);
+}
+
+PVZ::Caption* PVZ::GetCaption()
+{
+	return new Caption(BaseAddress);
+}
+
+PVZ::Miscellaneous* PVZ::GetMiscellaneous()
+{
+	return new Miscellaneous(BaseAddress);
+}
+
+PVZ::SaveData* PVZ::GetSaveData()
+{
+	return new SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));
 }
 
 
