@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "0.7.0.190611";
+	return "1.0.0.190613";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -74,8 +74,8 @@ SceneType::SceneType PVZ::__get_LevelScene()
 void PVZ::__set_LevelScene(SceneType::SceneType value)
 {
 	Memory::WriteMemory<SceneType::SceneType>(BaseAddress + 0x554C, value);
-	SETARG(__asm_set__LevelScene, 1) = BaseAddress;
-	Memory::Execute(STRING(__asm_set__LevelScene));
+	SETARG(__asm__set__LevelScene, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__set__LevelScene));
 }
 
 int PVZ::__get_WaveCount()
@@ -249,6 +249,11 @@ PVZ::Miscellaneous* PVZ::GetMiscellaneous()
 PVZ::SaveData* PVZ::GetSaveData()
 {
 	return new SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));
+}
+
+PVZ::Music* PVZ::GetMusic()
+{
+	return new Music(Memory::ReadPointer(0x6A9EC0, 0x83C));
 }
 
 

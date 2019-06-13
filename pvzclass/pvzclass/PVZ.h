@@ -8,8 +8,8 @@
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 
 #define PAGE_SIZE 1024
-#define PVZ_BASE Memory::ReadMemory<int>(0x6A9EC0)
-#define PVZBASEADDRESS Memory::ReadMemory<int>(PVZ_BASE + 0x768)
+#define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
+#define PVZBASEADDRESS PVZ::Memory::ReadMemory<int>(PVZ_BASE + 0x768)
 
 #define PROPERTY(type,getmethod,setmethod) type getmethod();void setmethod(type value);__declspec(property(get=getmethod,put=setmethod)) type
 #define READONLY_PROPERTY(type,getmethod) type getmethod();__declspec(property(get=getmethod)) type
@@ -26,13 +26,22 @@
 
 #define LOGICALINCLUDE(c,v) (c&v)==v
 
-#define AP_ZOMBIESPEED	1
-#define AP_ZOMBIECOLOR	2
-#define AP_ZOMBIESCALE	4
-#define AP_PLANTCOLOR	8
-#define AP_PLANTSCALE	16
-
 #pragma endregion
+
+#define AP_ZOMBIESPEED		1
+#define AP_ZOMBIECOLOR		2
+#define AP_ZOMBIESCALE		4
+#define AP_PLANTCOLOR		8
+#define AP_PLANTSCALE		16
+
+#define GPD_RIGHT			0
+#define GPD_LEFT			1
+
+#define MINGAM_ENABLE		2
+#define MINGAM_DISABLE		-1
+
+#define MINGAME_STARTED		1
+#define MINGAME_NOTSTARTED	-1
 
 
 struct CollisionBox
@@ -51,6 +60,18 @@ struct Color
 	int Blue;
 };
 
+struct AccessoriesType1
+{
+	ZombieAccessoriesType1::ZombieAccessoriesType1 Type;
+	int Hp;
+	int MaxHp;
+};
+struct AccessoriesType2
+{
+	ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
+	int Hp;
+	int MaxHp;
+};
 
 /*Only version 1.0.0.1051 is fully supported*/
 class PVZ
@@ -302,18 +323,6 @@ public:
 		T_PROPERTY(BOOLEAN, SthinHandOrYetiLeft, __get_SthinHandOrYetiLeft, __set_SthinHandOrYetiLeft, 0xBC);
 		T_PROPERTY(BOOLEAN, InWater, __get_InWater, __set_InWater, 0xBD);
 		T_PROPERTY(BOOLEAN, GarlicBited, __get_GarlicBited, __set_GarlicBited, 0xBF);
-		struct AccessoriesType1
-		{
-			ZombieAccessoriesType1::ZombieAccessoriesType1 Type;
-			int Hp;
-			int MaxHp;
-		};
-		struct AccessoriesType2
-		{
-			ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
-			int Hp;
-			int MaxHp;
-		};
 		void GetAccessoriesType1(AccessoriesType1* acctype1);
 		void SetAccessoriesType1(AccessoriesType1* acctype1);
 		void GetAccessoriesType2(AccessoriesType2* acctype2);
@@ -601,14 +610,40 @@ public:
 		INT_PROPERTY(TreeFood, __get_TreeFood, __set_TreeFood, 0x230);//-1000
 		T_PROPERTY(BOOLEAN, HaveWallnutFirstAid, __get_HaveWallnutFirstAid, __set_HaveWallnutFirstAid, 0x234);
 		INT_READONLY_PROPERTY(GardenPlantCount, __get_GardenPlantCount, 0x350);
-
-
+		class GardenPlant
+		{
+			int BaseAddress;
+		public:
+			GardenPlant(int address);
+			T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 8);
+			T_PROPERTY(GardenScene::GardenScene, Location, __get_Location, __set_Location, 0xC);
+			INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+			INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+			//GPD_LEFT or GPD_RIGTHT
+			INT_PROPERTY(Direction, __get_Direction, __set_Direction, 0x18);
+			INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
+			T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
+		};
+		GardenPlant* GetGardenPlant(int index);
 
 	};
-	/*
-	GardenPlant
-	Music
-	*/
+	class Music
+	{
+		int BaseAddress;
+	public:
+		Music(int address);
+		PROPERTY(MusicType::MusicType, __get_Type, __set_Type) Type;
+		//MINGAM_ENABLE or MINGAM_DISABLE
+		INT_PROPERTY(INGAMEable, __get_INGAMEable, __set_INGAMEable, 0x10);
+		//MINGAME_STARTED or MINGAME_NOTSTARTED
+		INT_PROPERTY(INGAMEStart, __get_INGAMEStart, __set_INGAMEStart, 0x18);
+		INT_READONLY_PROPERTY(Tempo, __get_Tempo, 0x1C);
+		INT_READONLY_PROPERTY(Ticks_Row, __get_Ticks_Row, 0x20);
+		T_PROPERTY(INGAMEState::INGAMEState, State, __get_State, __set_State, 0x24);
+		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x28);
+		T_PROPERTY(INGAMEEffect::INGAMEEffect, INGAMEEffect, __get_INGAMEEffect, __set_INGAMEEffect, 0x2C);
+	};
+	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
 #pragma endregion
 
@@ -631,6 +666,7 @@ public:
 	Caption* GetCaption();
 	Miscellaneous* GetMiscellaneous();
 	SaveData* GetSaveData();
+	Music* GetMusic();
 
 #pragma endregion
 

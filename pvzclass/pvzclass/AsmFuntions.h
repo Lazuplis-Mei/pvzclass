@@ -17,7 +17,7 @@
 #define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
 #define MOV_EAX_PTR(d) 0xA1,INUMBER(d)
-#define MOV_PTR_ADDR_EAX 0xA3
+#define MOV_PTR_ADDR_EAX(address) 0xA3,INUMBER(address)
 #define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
 
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
@@ -42,6 +42,7 @@
 #define ONFIRE INVOKE(0x46ECB0)
 #define COLLECT INVOKE(0x432060)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
+#define MUSICSETTYPE INVOKE(0x45B750)
 
 #pragma endregion
 
@@ -49,7 +50,7 @@ extern byte __asm__set_MusicVolume[21];
 
 extern byte __asm__InjectDll[200];
 
-extern byte __asm_set__LevelScene[19];
+extern byte __asm__set__LevelScene[19];
 
 extern byte __asm__Win[19];
 
@@ -70,3 +71,5 @@ extern byte __asm__OnFire[19];
 extern  byte __asm__Collect[19];
 
 extern byte __asm__GameClick[34];
+
+extern byte __asm__Music__set_Type[24];

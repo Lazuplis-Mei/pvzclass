@@ -13,7 +13,7 @@ byte __asm__InjectDll[200]
 	RET
 };
 
-byte __asm_set__LevelScene[]
+byte __asm__set__LevelScene[]
 {
 	MOV_ESI(0),
 	SET_LEVELSCENE,
@@ -89,5 +89,13 @@ byte __asm__GameClick[]
 	MOV_EAX(0),
 	MOV_EBX(1),
 	GAMECLICK,
+	RET,
+};
+
+byte __asm__Music__set_Type[]
+{
+	MOV_EDI(0),
+	MOV_EAX(0),
+	MUSICSETTYPE,
 	RET,
 };

@@ -162,6 +162,27 @@
     <ClCompile Include="Enums\GardenScene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\GardenPlantState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MusicType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\INGAMEState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\INGAMEEffect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Music.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GardenPlant.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Creaters.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -255,6 +276,24 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\GardenScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenPlantState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MusicType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\INGAMEState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\INGAMEEffect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Creaters.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -165,22 +165,28 @@
     <ClCompile Include="Classes\Miscellaneous.cpp" />
     <ClCompile Include="Classes\Mouse.cpp" />
     <ClCompile Include="Classes\MousePointer.cpp" />
+    <ClCompile Include="Classes\Music.cpp" />
     <ClCompile Include="Classes\Plant.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
+    <ClCompile Include="Creaters.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
     <ClCompile Include="Enums\DamageType.cpp" />
     <ClCompile Include="Enums\DebugModeType.cpp" />
+    <ClCompile Include="Enums\GardenPlantState.cpp" />
     <ClCompile Include="Enums\GardenScene.cpp" />
     <ClCompile Include="Enums\GriditemType.cpp" />
+    <ClCompile Include="Enums\INGAMEEffect.cpp" />
+    <ClCompile Include="Enums\INGAMEState.cpp" />
     <ClCompile Include="Enums\LawnmoverType.cpp" />
     <ClCompile Include="Enums\LawnTypeEnum.cpp" />
     <ClCompile Include="Enums\MotionType.cpp" />
     <ClCompile Include="Enums\MouseClickState.cpp" />
     <ClCompile Include="Enums\MouseType.cpp" />
+    <ClCompile Include="Enums\MusicType.cpp" />
     <ClCompile Include="Enums\PaintState.cpp" />
     <ClCompile Include="Enums\PlantEffectType.cpp" />
     <ClCompile Include="Enums\PlantType.cpp" />
@@ -201,8 +207,10 @@
     <ClCompile Include="pvzclass.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
+    <ClCompile Include="Classes\GardenPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Creaters.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFuntions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />
@@ -211,13 +219,17 @@
     <ClInclude Include="Enums\CoinType.h" />
     <ClInclude Include="Enums\DamageType.h" />
     <ClInclude Include="Enums\DebugModeType.h" />
+    <ClInclude Include="Enums\GardenPlantState.h" />
     <ClInclude Include="Enums\GardenScene.h" />
     <ClInclude Include="Enums\GriditemType.h" />
+    <ClInclude Include="Enums\INGAMEEffect.h" />
+    <ClInclude Include="Enums\INGAMEState.h" />
     <ClInclude Include="Enums\LawnmoverType.h" />
     <ClInclude Include="Enums\LawnTypeEnum.h" />
     <ClInclude Include="Enums\MotionType.h" />
     <ClInclude Include="Enums\MouseClickState.h" />
     <ClInclude Include="Enums\MouseType.h" />
+    <ClInclude Include="Enums\MusicType.h" />
     <ClInclude Include="Enums\PaintState.h" />
     <ClInclude Include="Enums\PlantEffectType.h" />
     <ClInclude Include="Enums\PlantType.h" />
@@ -234,6 +246,7 @@
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
     <ClInclude Include="Enums\PVZVersionEnum.h" />
+    <ClInclude Include="Extensions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
