@@ -8,22 +8,35 @@
 #define MOV_EBX(d) 0xBB,INUMBER(d)
 #define MOV_ESI(d) 0xBE,INUMBER(d)
 #define MOV_EDI(d) 0xBF,INUMBER(d)
+#define POP_EBX 0x5B
 #define PUSHAD 0x60
 #define POPAD 0x61
 #define PUSH(b) 0x6A,b
+#define PUSH_PTR(address) 0xFF,0x35,INUMBER(address)
 #define PUSHDWORD(d) 0x68,INUMBER(d)
 #define CALL(d) 0xE8,INUMBER(d)
 #define JMP(b) 0xEB,b
+#define JNZ(b) 0x75,b
 #define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
+#define RETN(v) 0xC2,v,0
+#define MOV_EAX_EBX 0x8B,0xC3
 #define MOV_EAX_PTR(d) 0xA1,INUMBER(d)
 #define MOV_PTR_ADDR_EAX(address) 0xA3,INUMBER(address)
 #define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
+#define MOV_ECX_PTR_ADDR(address) 0x8B,0xD,INUMBER(address)
+#define MOV_PTR_EAX_ADD(v1,v2) 0xC7,0x40,v1,INUMBER(v2)
+#define FILD_PTR(address) 0xDB,5,INUMBER(address)
+#define FDIV_PTR(address) 0xD8,0x35,INUMBER(address)
+#define FSTP_PTR_EAX_ADD(v) 0xD9,0x58,v
 
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_BYTE_BYTE(address,b1,b2) PUSH(b2),PUSH(b1),INVOKE(address)
+#define INVOKE_DWORD_BYTE_BYTE_BYTE(address,d,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
+#define INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(address,d1,d2,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 
 #pragma endregion
 

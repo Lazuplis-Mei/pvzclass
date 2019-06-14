@@ -296,5 +296,8 @@
     <ClInclude Include="Extensions.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="pvzclass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

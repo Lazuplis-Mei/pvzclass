@@ -318,7 +318,7 @@ public:
 		INT_PROPERTY(FrozenCountdown, __get_FrozenCountdown, __set_FrozenCountdown, 0xB4);
 		T_PROPERTY(BOOLEAN, Hypnotized, __get_Hypnotized, __set_Hypnotized, 0xB8);
 		T_PROPERTY(BOOLEAN, Blowaway, __get_Blowaway, __set_Blowaway, 0xB9);
-		T_PROPERTY(BOOLEAN, Dying, __get_Dying, __set_Dying, 0xBA);
+		T_PROPERTY(BOOLEAN, NotDying, __get_NotDying, __set_NotDying, 0xBA);
 		T_READONLY_PROPERTY(BOOLEAN, HandBroken, __get_HandBroken, 0xBB);
 		T_PROPERTY(BOOLEAN, SthinHandOrYetiLeft, __get_SthinHandOrYetiLeft, __set_SthinHandOrYetiLeft, 0xBC);
 		T_PROPERTY(BOOLEAN, InWater, __get_InWater, __set_InWater, 0xBD);
@@ -458,12 +458,11 @@ public:
 	};
 	class Griditem
 	{
-	protected:
+	public:
 		int BaseAddress;
 #if _DEBUG
 		GriditemType::GriditemType DebugType;
 #endif
-	public:
 		Griditem(int indexoraddress);
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
@@ -662,6 +661,8 @@ public:
 	int GetAllPlants(Plant* plants[]);
 	int GetAllProjectile(Projectile* projectiles[]);
 	int GetAllCoins(Coin* coins[]);
+	int GetAllLawnmovers(Lawnmover* lawnmovers[]);
+	int GetAllGititem(Griditem* griditems[]);
 	MousePointer* GetMousePointer();
 	Caption* GetCaption();
 	Miscellaneous* GetMiscellaneous();

@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.0.0.190613";
+	return "1.1.0.190614";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -225,6 +225,36 @@ int PVZ::GetAllCoins(Coin* coins[])
 		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
 		{
 			coins[j] = new PVZ::Coin(i);
+			j++;
+		}
+	}
+	return j;
+}
+
+int PVZ::GetAllLawnmovers(Lawnmover* lawnmovers[])
+{
+	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
+	int j = 0;
+	for (int i = 0; i < maxnum; i++)
+	{
+		if (!Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i))
+		{
+			lawnmovers[j] = new PVZ::Lawnmover(i);
+			j++;
+		}
+	}
+	return j;
+}
+
+int PVZ::GetAllGititem(Griditem* griditems[])
+{
+	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
+	int j = 0;
+	for (int i = 0; i < maxnum; i++)
+	{
+		if (!Memory::ReadPointer(BaseAddress + 0x11C, 0x20 + 0xEC * i))
+		{
+			griditems[j] = new PVZ::Griditem(i);
 			j++;
 		}
 	}

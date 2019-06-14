@@ -1,19 +1,72 @@
 #pragma once
 #include "PVZ.h"
 
+namespace Creater
+{
 
-#define MOV_ECX_PTR_ADDR(address) 0x8B,0xD,INUMBER(address)
-#define INVOKE_BYTE_BYTE(address,b1,b2) PUSH(b2),PUSH(b1),INVOKE(address)
 inline short makeshort(byte b1, byte b2)
 {
 	return (b2 << 8) + b1;
 }
+inline void xytorc(int* x, int* y)
+{
+	int temp = *y;
+	*y = (*x - 40) / 80;
+	SceneType::SceneType scene = PVZ::Memory::ReadMemory<SceneType::SceneType>(PVZBASEADDRESS + 0x554C);
+	bool sixroute = (scene == SceneType::Pool) || (scene == SceneType::Fog);
+	*x = sixroute ? (temp - 80) / 85 : (temp - 80) / 100;
+}
 
+
+#define PI 3.1415926f
 #define CREATEZOMBIE INVOKE_BYTE_BYTE(0x42A0F0,0,0)
-#define MOV_EAX_EBX 0x8B,0xC3
-#define POP_EBX 0x5B
-#define RETN(v) 0xC2,v,0
+#define CREATEPLANT INVOKE_DWORD_BYTE_BYTE_BYTE(0x40D120,0,0,0,-1)
+#define CREATEPROJECTILE INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(0x40D620,0,0,0,0,0)
+#define CREATECOIN INVOKE_DWORD_DWORD_BYTE_BYTE(0x40CB10,0,0,0,0)
+#define RESETLAWNMOVER INVOKE_DWORD(0x40BC70,0)
+#define CREATEGRDITEM INVOKE(0x41E1C0)
+#define CREATEGRAVE INVOKE(0x426620)
+#define CREATELADDER INVOKE_BYTE(0x408F40,0)
 
 
+	PVZ::Zombie* CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
-PVZ::Zombie* CreateZombie(ZombieType::ZombieType type, int row, byte column);
+	PVZ::Plant* CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative = false);
+
+	PVZ::Projectile* CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
+
+	void AsmInit();
+
+	//你需要先调用一次AsmInit后才能使用这个函数
+	PVZ::Projectile* CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
+
+	PVZ::Coin* CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
+
+	void ResetLawnmover(PVZ* pvz);
+
+	//just a Bottom implementation
+	PVZ::Griditem* CreateGriditem();
+
+	void CreateGrave(int row, int column);
+
+	PVZ::Crater* CreateCrater(int row, int column,int duration);
+
+	PVZ::Griditem* CreateLadder(int row, byte column);
+
+	PVZ::Vase* CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, PlantType::PlantType plant = PlantType::Peashooter, int sun = 0);
+
+	struct VaseCreateInfo
+	{
+		int row;
+		int column;
+		VaseContent::VaseContent content;
+		VaseSkin::VaseSkin skin;
+		ZombieType::ZombieType zombie;
+		PlantType::PlantType plant;
+		int sun;
+	};
+
+	PVZ::Vase* CreateVase(VaseCreateInfo vaseinfo);
+
+
+}
