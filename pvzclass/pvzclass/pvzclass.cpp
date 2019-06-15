@@ -17,7 +17,6 @@ PVZ::Zombie* GetFirstZombie()
 
 int main()
 {
-
 	DWORD pid = ProcessOpener::Open();
 	
 	if (pid)
@@ -31,7 +30,7 @@ int main()
 		{
 			PVZ::Projectile* projectiles[10];
 			for (int i = 0; i < 10; i++)
-				projectiles[i] = Creater::CreateProjectile(ProjectileType::Star, 400, 300, 36 * i, 1);
+				projectiles[i] = Creater::CreateProjectile(ProjectileType::Star, 400, 300, 36.0f * i, 1);
 			
 			Sleep(1000);
 			

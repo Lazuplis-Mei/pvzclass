@@ -29,14 +29,22 @@
 #define FILD_PTR(address) 0xDB,5,INUMBER(address)
 #define FDIV_PTR(address) 0xD8,0x35,INUMBER(address)
 #define FSTP_PTR_EAX_ADD(v) 0xD9,0x58,v
+#define ADD_ESP(v) 0x83,0xC4,v
+#define LEA_ECX_ESP_ADD(v) 0x8D,0x4C,0x24,v
+#define LEA_EDX_ESP_ADD(v) 0x8D,0x54,0x24,v
+#define MOV_PTR_ESI_ADD(v1,v2) 0xC7,0x86,INUMBER(v1),INUMBER(v2)
+
 
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
+#define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_DWORD_DWORD_DWORD(address,d1,d2,d3,d4) PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_BYTE_BYTE(address,b1,b2) PUSH(b2),PUSH(b1),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE_BYTE(address,d,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(address,d1,d2,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(address,d1,b1,d2,d3,d4,b2,b3,b4) PUSH(b4),PUSH(b3),PUSH(b2),PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSH(b1),PUSHDWORD(d1),INVOKE(address)
 
 #pragma endregion
 

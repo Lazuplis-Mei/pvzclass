@@ -27,7 +27,14 @@ inline void xytorc(int* x, int* y)
 #define CREATEGRDITEM INVOKE(0x41E1C0)
 #define CREATEGRAVE INVOKE(0x426620)
 #define CREATELADDER INVOKE_BYTE(0x408F40,0)
-
+#define CREATERAKE INVOKE_DWORD_BYTE_BYTE(0x40B9C0,0,0,0)
+#define UNKNOWSTRINGFUNCTION INVOKE_DWORD(0x404450,0)
+#define CREATECAPTION INVOKE(0x459010)
+#define CREATEIMAGECAPTION INVOKE(0x40CA10)
+#define CREATEPLANTEFFECT INVOKE_DWORD(0x4666A0,0)
+#define CREATEEXPLOTION INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(0x41D8A0,0,0,0,0,0,0,0,0)
+#define CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
+#define CREATESOUND INVOKE_BYTE(0x515020,0)
 
 	PVZ::Zombie* CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
@@ -67,6 +74,22 @@ inline void xytorc(int* x, int* y)
 	};
 
 	PVZ::Vase* CreateVase(VaseCreateInfo vaseinfo);
+
+	void CreateRake(byte row, byte column);
+
+	void CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration = 500);
+
+	void CreateImageCaption(const char* str, int length);
+
+	void CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y);
+
+	void CreateExplosion(int x, int y, int radius, BOOLEAN cinder = true, byte bound = 5, BOOLEAN fromjackzombie = false);
+
+	void CreateEffect(int effectid, float x, float y);
+
+	void CreateSound(int soundid);
+
+
 
 
 }

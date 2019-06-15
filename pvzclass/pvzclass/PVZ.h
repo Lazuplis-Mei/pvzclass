@@ -6,6 +6,7 @@
 
 #define STRING(str) str,sizeof(str)/sizeof(*str)
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
+#define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
 #define PAGE_SIZE 1024
 #define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
