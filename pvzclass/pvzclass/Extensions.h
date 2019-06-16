@@ -8,7 +8,7 @@
 #define MEMMOD_SHORT(address,v,rv) PVZ::Memory::WriteMemory<short>(address,b?v:rv)
 #define JO 112
 #define JZ 116
-#define JNZ 117
+#define JNE 117
 #define JUMP 235
 #define JLE 126
 
@@ -25,9 +25,9 @@ void ShowHiddenLevel(BOOLEAN b = true)
 void EnablePortal(PVZ* pvz, BOOLEAN b = true)
 {
 	if (b)Creater::__CreatePortal(pvz);
-	MEMMOD_BYTE(0x467665, JO, JNZ);
-	MEMMOD_BYTE(0x41FFB4, JO, JNZ);
-	MEMMOD_BYTE(0x4248CE, JO, JNZ);
+	MEMMOD_BYTE(0x467665, JO, JNE);
+	MEMMOD_BYTE(0x41FFB4, JO, JNE);
+	MEMMOD_BYTE(0x4248CE, JO, JNE);
 }
 
 void FixPortal(BOOLEAN b = true)
@@ -69,7 +69,7 @@ void IgnoreResources(BOOLEAN b = true)
 void CancelCardCooldown(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x487296, JO, JLE);
-	MEMMOD_BYTE(0x488250, JUMP, JNZ);
+	MEMMOD_BYTE(0x488250, JUMP, JNE);
 	MEMMOD_BYTE(0x488E76, 1, 0);
 }
 

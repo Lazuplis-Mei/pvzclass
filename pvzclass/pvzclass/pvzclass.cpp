@@ -1,5 +1,6 @@
 ﻿#include "pvzclass.h"
 #include <iostream>
+#include <time.h> 
 
 using namespace std;
 
@@ -17,6 +18,8 @@ PVZ::Zombie* GetFirstZombie()
 
 int main()
 {
+	srand((unsigned)time(NULL));
+
 	DWORD pid = ProcessOpener::Open();
 	
 	if (pid)
@@ -29,8 +32,10 @@ int main()
 		while (pPVZ->BaseAddress)
 		{
 			PVZ::Projectile* projectiles[10];
+			int rx = (rand() % (500 - 100 + 1)) + 100;
+			int ry = (rand() % (500 - 100 + 1)) + 100;
 			for (int i = 0; i < 10; i++)
-				projectiles[i] = Creater::CreateProjectile(ProjectileType::Star, 400, 300, 36.0f * i, 1);
+				projectiles[i] = Creater::CreateProjectile(ProjectileType::Star, rx, ry, 36.0f * i, 1);
 			
 			Sleep(1000);
 			
