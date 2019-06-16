@@ -33,7 +33,8 @@
 #define LEA_ECX_ESP_ADD(v) 0x8D,0x4C,0x24,v
 #define LEA_EDX_ESP_ADD(v) 0x8D,0x54,0x24,v
 #define MOV_PTR_ESI_ADD(v1,v2) 0xC7,0x86,INUMBER(v1),INUMBER(v2)
-
+#define MOV_PTR_EAX_ADD_V_ECX(v) 0x89,0x48,v
+#define MOV_PTR_EAX_ADD_V_V(v1,v2) 0xC7,0x40,v1,INUMBER(v2)
 
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)

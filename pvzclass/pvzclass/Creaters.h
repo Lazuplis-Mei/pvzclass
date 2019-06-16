@@ -33,8 +33,15 @@ inline void xytorc(int* x, int* y)
 #define CREATEIMAGECAPTION INVOKE(0x40CA10)
 #define CREATEPLANTEFFECT INVOKE_DWORD(0x4666A0,0)
 #define CREATEEXPLOTION INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(0x41D8A0,0,0,0,0,0,0,0,0)
-#define CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
+#define _CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
 #define CREATESOUND INVOKE_BYTE(0x515020,0)
+#define FORZEALL INVOKE(0x466420)
+#define STOPSOUND INVOKE(0x515290)
+#define CREATEIZOMBIEFORMATION INVOKE_DWORD(0x42A890,0)
+#define CREATEVASEFORMATION INVOKE(0x4286F0)
+#define CREATEPORTAL INVOKE(0x426FC0)
+#define CLEARZOMBIEPREVIEW INVOKE(0x40DF70)
+#define CREATEZOMBIEINLEVEL INVOKE(0x4092E0)
 
 	PVZ::Zombie* CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
@@ -87,9 +94,27 @@ inline void xytorc(int* x, int* y)
 
 	void CreateEffect(int effectid, float x, float y);
 
+	//部分音效是持续的，需要用StopSound手动停止音效持续播放
 	void CreateSound(int soundid);
 
+	//当前关卡必须至少存在过一个植物，此函数才有效
+	void FrozeAll();
 
+	void StopSound(int soundid);
 
+	void CreateIZombieFormation(PVZLevel::PVZLevel izlevel);
+
+	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
+
+	//你需要先调用一次AsmInit后才能使用这个函数
+	void __CreatePortal(PVZ* pvz);
+
+	//你需要先调用一次AsmInit后才能使用这个函数
+	void CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
+
+	void __ClearZombiePreview();
+
+	//wave = 0 means defalt and Non-intervention
+	void CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, int wave = 0);
 
 }

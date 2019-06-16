@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.2.0.190615";
+	return "1.3.0.190616";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -246,7 +246,7 @@ int PVZ::GetAllLawnmovers(Lawnmover* lawnmovers[])
 	return j;
 }
 
-int PVZ::GetAllGititem(Griditem* griditems[])
+int PVZ::GetAllGititems(Griditem* griditems[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
 	int j = 0;

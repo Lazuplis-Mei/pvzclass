@@ -663,7 +663,7 @@ public:
 	int GetAllProjectile(Projectile* projectiles[]);
 	int GetAllCoins(Coin* coins[]);
 	int GetAllLawnmovers(Lawnmover* lawnmovers[]);
-	int GetAllGititem(Griditem* griditems[]);
+	int GetAllGititems(Griditem* griditems[]);
 	MousePointer* GetMousePointer();
 	Caption* GetCaption();
 	Miscellaneous* GetMiscellaneous();

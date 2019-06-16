@@ -88,6 +88,19 @@ byte __asm__CreateProjectile2[84]
 	RET,
 };
 
+byte __asm__CreatePortalpieces1[10]
+{
+	MOV_ECX(4),
+	JMPFAR(0),
+};
+
+byte __asm__CreatePortalpieces2[15]
+{
+	MOV_PTR_EAX_ADD_V_ECX(0x14),
+	MOV_PTR_EAX_ADD_V_V(0x1C,0x54B78),
+	JMPFAR(0),
+};
+
 void Creater::AsmInit()
 {
 	SETARG(__asm__CreateProjectile2, 50) = PVZ::Memory::Variable + 8;
@@ -96,6 +109,11 @@ void Creater::AsmInit()
 	SETARG(__asm__CreateProjectile2, 71) = PVZ::Memory::Variable + 4;
 	SETARG(__asm__CreateProjectile2, 79) = PVZ::Memory::Variable;
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 16, STRING(__asm__CreateProjectile2));
+	//protal
+	SETARG(__asm__CreatePortalpieces1, 6) = PVZ::Memory::Variable + 200 - 5 - 0x427071;
+	PVZ::Memory::WriteArray<byte>(0x42706C, STRING(__asm__CreatePortalpieces1));
+	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 510);
+	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
 }
 
 PVZ::Projectile* Creater::CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed)
@@ -253,7 +271,7 @@ void Creater::CreateRake(byte row, byte column)
 	__asm__CreateRake[1] = row;
 	__asm__CreateRake[3] = column;
 	SETARG(__asm__CreateRake, 5) = PVZBASEADDRESS;
-	PVZ::Memory::WriteMemory<short>(0x40B9E3, 0xA681);
+	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E3, 0xA681);
 	PVZ::Memory::WriteMemory<byte>(0x40BB2B, 0);
 	PVZ::Memory::WriteMemory<int>(0x40BB3B, 0x900C4D8B);
 	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x9010458B);
@@ -347,10 +365,10 @@ void Creater::CreateExplosion(int x, int y, int radius, BOOLEAN cinder, byte bou
 	PVZ::Memory::Execute(STRING(__asm__CreateExplosion));
 }
 
-byte __asm__CreateEffect[39]
+byte __asm___CreateEffect[39]
 {
 	MOV_ESI(0),
-	CREATEEFFECT,
+	_CREATEEFFECT,
 	RET,
 };
 
@@ -363,7 +381,7 @@ void Creater::CreateEffect(int effectid, float x, float y)
 	PVZ::Memory::Execute(STRING(__asm__CreateEffect));
 }
 
-byte __asm__CreateSound[]
+byte __asm__CreateSound[26]
 {
 	MOV_EAX(0),
 	MOV_ECX(0),
@@ -376,6 +394,158 @@ void Creater::CreateSound(int soundid)
 	SETARG(__asm__CreateSound, 1) = soundid;
 	SETARG(__asm__CreateSound, 6) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x784);
 	PVZ::Memory::Execute(STRING(__asm__CreateSound));
+}
+
+byte __asm__FrozeAll[19]
+{
+	MOV_EDI(0),
+	FORZEALL,
+	RET,
+};
+
+void Creater::FrozeAll()
+{
+	SETARG(__asm__FrozeAll, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC);
+	PVZ::Memory::Execute(STRING(__asm__FrozeAll));
+}
+
+byte __asm__StopSound[24]
+{
+	MOV_EDI(0),
+	MOV_EAX(0),
+	STOPSOUND,
+	RET,
+};
+
+void Creater::StopSound(int soundid)
+{
+	SETARG(__asm__StopSound, 1) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x784);
+	SETARG(__asm__StopSound, 6) = soundid;
+	PVZ::Memory::Execute(STRING(__asm__StopSound));
+}
+
+byte __asm__CreateIZombieFormation[19]
+{
+	CREATEIZOMBIEFORMATION,
+	RET,
+};
+
+void Creater::CreateIZombieFormation(PVZLevel::PVZLevel izlevel)
+{
+	if (izlevel >= PVZLevel::I_Zombie && izlevel <= PVZLevel::I_Zombie_Endless)
+	{
+		PVZLevel::PVZLevel curlevel = PVZ::Memory::ReadMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8);
+		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, izlevel);
+		SETARG(__asm__CreateIZombieFormation, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
+		PVZ::Memory::Execute(STRING(__asm__CreateIZombieFormation));
+		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
+	}
+}
+
+byte __asm__CreateVaseFormation[19]
+{
+	MOV_ESI(0),
+	CREATEVASEFORMATION,
+	RET,
+};
+
+void Creater::CreateVaseFormation(PVZLevel::PVZLevel vblevel)
+{
+	if (vblevel >= PVZLevel::Vasebreaker && vblevel <= PVZLevel::Vasebreaker_Endless)
+	{
+		PVZLevel::PVZLevel curlevel = PVZ::Memory::ReadMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8);
+		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, vblevel);
+		SETARG(__asm__CreateVaseFormation, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
+		PVZ::Memory::Execute(STRING(__asm__CreateVaseFormation));
+		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
+	}
+}
+
+byte __asm__CreatePortal[19]
+{
+	MOV_EDI(0),
+	CREATEPORTAL,
+	RET,
+};
+
+void Creater::__CreatePortal(PVZ* pvz)
+{
+	PVZ::Griditem* griditems[100];
+	int len = pvz->GetAllGititems(griditems);
+	for (int i = 0; i < len; i++)
+		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)
+			griditems[i]->NotExist = true;
+	SETARG(__asm__CreatePortal, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
+	PVZ::Memory::Execute(STRING(__asm__CreatePortal));
+}
+
+void Creater::CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column)
+{
+	PVZ::Memory::WriteMemory<int>(0x426FE9, yellow1Row);
+	PVZ::Memory::WriteMemory<int>(0x426FE2, yellow1Column);
+	PVZ::Memory::WriteMemory<int>(0x427014, yellow2Row);
+	PVZ::Memory::WriteMemory<int>(0x42700D, yellow2Column);
+	PVZ::Memory::WriteMemory<int>(0x427044, blue1Row);
+	PVZ::Memory::WriteMemory<int>(0x42703D, blue1Column);
+	PVZ::Memory::WriteMemory<int>(0x42706D, blue2Row);
+	PVZ::Memory::WriteMemory<int>(0x427068, blue2Column);
+	__CreatePortal(pvz);
+	PVZ::Memory::WriteMemory<int>(0x426FE9, 0);
+	PVZ::Memory::WriteMemory<int>(0x426FE2, 2);
+	PVZ::Memory::WriteMemory<int>(0x427014, 1);
+	PVZ::Memory::WriteMemory<int>(0x42700D, 9);
+	PVZ::Memory::WriteMemory<int>(0x427044, 3);
+	PVZ::Memory::WriteMemory<int>(0x42703D, 9);
+	PVZ::Memory::WriteMemory<int>(0x42706D, 4);
+	PVZ::Memory::WriteMemory<int>(0x427068, 2);
+}
+
+byte __asm__ClearZombiePreview[19]
+{
+	MOV_EBX(0),
+	CLEARZOMBIEPREVIEW,
+	RET,
+};
+
+void Creater::__ClearZombiePreview()
+{
+	SETARG(__asm__ClearZombiePreview, 1) = PVZBASEADDRESS;
+	PVZ::Memory::Execute(STRING(__asm__ClearZombiePreview));
+}
+
+byte __asm__CreateZombieInLevel[19]
+{
+	MOV_EDI(0),
+	CREATEZOMBIEINLEVEL,
+	RET,
+};
+
+void Creater::CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, int wave)
+{
+	if (wave)
+	{
+		PVZ::Memory::WriteMemory<int>(0x4092FD, wave);
+		PVZ::Memory::WriteMemory<int>(0x4093F2, wave);
+		PVZ::Memory::WriteMemory<int>(0x409466, wave);
+		PVZ::Memory::WriteMemory<int>(0x409472, wave);
+		PVZ::Memory::WriteMemory<int>(0x40947C, wave);
+		PVZ::Memory::WriteMemory<int>(0x40948A, wave);
+		PVZ::Memory::WriteMemory<int>(0x409499, wave);
+	}
+	__ClearZombiePreview();
+	SETARG(__asm__CreateZombieInLevel, 1) = PVZBASEADDRESS;
+	for (int i = 0; i < 33; i++)
+		PVZ::Memory::WriteMemory<byte>(PVZBASEADDRESS + 0x54D4 + i, 0);
+	for (int i = 0; i < length; i++)
+		PVZ::Memory::WriteMemory<byte>(PVZBASEADDRESS + 0x54D4 + ztypes[i], 1);
+	PVZ::Memory::Execute(STRING(__asm__CreateZombieInLevel));
+	PVZ::Memory::WriteMemory<int>(0x4092FD, 20);
+	PVZ::Memory::WriteMemory<int>(0x4093F2, 12);
+	PVZ::Memory::WriteMemory<int>(0x409466, 40);
+	PVZ::Memory::WriteMemory<int>(0x409472, 30);
+	PVZ::Memory::WriteMemory<int>(0x40947C, 0);
+	PVZ::Memory::WriteMemory<int>(0x40948A, 10);
+	PVZ::Memory::WriteMemory<int>(0x409499, 10);
 }
 
 
