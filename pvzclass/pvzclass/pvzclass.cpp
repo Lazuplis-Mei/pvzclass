@@ -18,42 +18,21 @@ PVZ::Zombie* GetFirstZombie()
 
 int main()
 {
-	srand((unsigned)time(NULL));
 
 	DWORD pid = ProcessOpener::Open();
 	
 	if (pid)
 	{
 		PVZ* pPVZ = new PVZ(pid);
-		PVZ::Mouse* pMouse = pPVZ->GetMouse();
 
-		EnableBackgroundRunning();
-		Creater::AsmInit();
-		while (pPVZ->BaseAddress)
+		if (pPVZ->BaseAddress)
 		{
-			PVZ::Projectile* projectiles[10];
-			int rx = (rand() % (500 - 100 + 1)) + 100;
-			int ry = (rand() % (500 - 100 + 1)) + 100;
-			for (int i = 0; i < 10; i++)
-				projectiles[i] = Creater::CreateProjectile(ProjectileType::Star, rx, ry, 36.0f * i, 1);
-			
-			Sleep(1000);
-			
 			PVZ::Zombie* zombie = GetFirstZombie();
 			if (zombie)
 			{
-				for (int i = 0; i < 10; i++)
-				{
-					CollisionBox cbox;
-					zombie->GetCollision(&cbox);
-					float dx = zombie->X + cbox.X + cbox.Width / 2 - projectiles[i]->X;
-					float dy = zombie->Y + cbox.Y + cbox.Height / 2 - projectiles[i]->Y;
-					projectiles[i]->XSpeed = dx / 50.0f;
-					projectiles[i]->YSpeed = dx / 50.0f * dy / dx;
-				}
+				zombie->SetAnimation("anim_idle", APA_LOOP);//APA_LOOP或APA_ONCE_DISAPPEAR或APA_ONCE_STOP
 			}
 		}
-
 		delete pPVZ;
 	}
 	return 0;

@@ -65,6 +65,7 @@
 #define COLLECT INVOKE(0x432060)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
+#define ZOMBIE_SETANIMATION INVOKE_DWORD_BYTE_BYTE_BYTE(0x528B00,0,0,14,0)
 
 #pragma endregion
 
@@ -95,3 +96,5 @@ extern  byte __asm__Collect[19];
 extern byte __asm__GameClick[34];
 
 extern byte __asm__Music__set_Type[24];
+
+extern byte __asm__Zombie__setAnimation[100];

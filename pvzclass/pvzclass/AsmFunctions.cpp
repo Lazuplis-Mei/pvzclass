@@ -99,3 +99,10 @@ byte __asm__Music__set_Type[]
 	MUSICSETTYPE,
 	RET,
 };
+
+byte __asm__Zombie__setAnimation[100]
+{
+	MOV_EDI(0),
+	ZOMBIE_SETANIMATION,
+	RET,
+};

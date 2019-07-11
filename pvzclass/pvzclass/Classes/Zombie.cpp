@@ -114,3 +114,17 @@ void PVZ::Zombie::Butter()
 	Memory::Execute(STRING(__asm__Butter));
 }
 
+void PVZ::Zombie::SetAnimation(LPCSTR animName, byte animPlayArg)
+{
+	int Address = PVZ::Memory::AllocMemory();
+	SETARG(__asm__Zombie__setAnimation, 1) = BaseAddress;
+	__asm__Zombie__setAnimation[10] = animPlayArg;
+	SETARG(__asm__Zombie__setAnimation, 12) = Address + 30;
+	lstrcpyA((LPSTR)(__asm__Zombie__setAnimation + 30), animName);
+	PVZ::Memory::WriteArray<byte>(Address, STRING(__asm__Zombie__setAnimation));
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
+	PVZ::Memory::CreateThread(Address);
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
+	PVZ::Memory::FreeMemory(Address);
+}
+

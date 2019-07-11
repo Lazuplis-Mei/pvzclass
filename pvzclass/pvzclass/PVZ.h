@@ -44,6 +44,9 @@
 #define MINGAME_STARTED		1
 #define MINGAME_NOTSTARTED	-1
 
+#define APA_LOOP			1
+#define APA_ONCE_DISAPPEAR	2
+#define APA_ONCE_STOP		3
 
 struct CollisionBox
 {
@@ -197,6 +200,7 @@ public:
 	INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
 	T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
 	T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
+	INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
 
 #pragma region keyboard code
 
@@ -338,6 +342,8 @@ public:
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
 		void Butter();
+		//animPlayArg(APA_XXXXXX)
+		void SetAnimation(LPCSTR animName,byte animPlayArg);
 	};
 	class Projectile
 	{
