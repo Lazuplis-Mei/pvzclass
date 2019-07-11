@@ -249,6 +249,9 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
