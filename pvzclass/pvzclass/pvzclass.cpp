@@ -27,11 +27,7 @@ int main()
 
 		if (pPVZ->BaseAddress)
 		{
-			PVZ::Zombie* zombie = GetFirstZombie();
-			if (zombie)
-			{
-				zombie->SetAnimation("anim_idle", APA_LOOP);//APA_LOOP或APA_ONCE_DISAPPEAR或APA_ONCE_STOP
-			}
+			Creater::CreateEffect(4, 100.0f, 100.0f);
 		}
 		delete pPVZ;
 	}

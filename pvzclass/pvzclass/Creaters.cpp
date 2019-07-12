@@ -374,11 +374,11 @@ byte __asm___CreateEffect[39]
 
 void Creater::CreateEffect(int effectid, float x, float y)
 {
-	SETARG(__asm__CreateEffect, 1) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x820, 0);
-	SETARG(__asm__CreateEffect, 6) = effectid;
-	SETARGFLOAT(__asm__CreateEffect, 16) = y;
-	SETARGFLOAT(__asm__CreateEffect, 21) = x;
-	PVZ::Memory::Execute(STRING(__asm__CreateEffect));
+	SETARG(__asm___CreateEffect, 1) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x820, 0);
+	SETARG(__asm___CreateEffect, 6) = effectid;
+	SETARGFLOAT(__asm___CreateEffect, 16) = y;
+	SETARGFLOAT(__asm___CreateEffect, 21) = x;
+	PVZ::Memory::Execute(STRING(__asm___CreateEffect));
 }
 
 byte __asm__CreateSound[26]
