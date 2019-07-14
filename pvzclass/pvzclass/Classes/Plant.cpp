@@ -11,14 +11,14 @@ PVZ::Plant::Plant(int indexoraddress)
 #endif
 }
 
-void PVZ::Plant::GetAnimationPart1(PVZ::Animation* animation)
+PVZ::Animation* PVZ::Plant::GetAnimationPart1()
 {
-	animation = new Animation(Memory::ReadMemory<short>(BaseAddress + 0x94));
+	return new Animation(Memory::ReadMemory<short>(BaseAddress + 0x94));
 }
 
-void PVZ::Plant::GetAnimationPart2(PVZ::Animation* animation)
+PVZ::Animation* PVZ::Plant::GetAnimationPart2()
 {
-	animation = new Animation(Memory::ReadMemory<short>(BaseAddress + 0x98));
+	return new Animation(Memory::ReadMemory<short>(BaseAddress + 0x98));
 }
 
 void PVZ::Plant::Light(int cs)
@@ -45,7 +45,7 @@ void PVZ::Plant::SetStatic()
 
 }
 
-void PVZ::Plant::Shoot(PVZ::Projectile* pro, int targetid)
+PVZ::Projectile* PVZ::Plant::Shoot(int targetid)
 {
 	__asm__Shoot[3] = Row;
 	SETARG(__asm__Shoot, 10) = BaseAddress;
@@ -53,16 +53,30 @@ void PVZ::Plant::Shoot(PVZ::Projectile* pro, int targetid)
 	if (Type == PlantType::Starfruit)
 	{
 		Memory::Execute(STRING(__asm__Shoot));
-		return;
+		return NULL;
 	};
 	Projectile* re = new Projectile(Memory::Execute(STRING(__asm__Shoot)));
 	if (targetid == -1) 
 	{ 
-		pro = re;
-		return;
+		return re;
 	}
 	re->Motion = MotionType::Track;
 	re->DamageAbility = 15;
 	re->TracktargetId = targetid;
-	pro = re;
+	return re;
+}
+
+void PVZ::Plant::SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed)
+{
+	int Address = PVZ::Memory::AllocMemory();
+	SETARG(__asm__Plant__setAnimation, 1) = BaseAddress;
+	SETARG(__asm__Plant__setAnimation, 6) = imagespeed;
+	__asm__Plant__setAnimation[13] = animPlayArg;
+	SETARG(__asm__Plant__setAnimation, 15) = Address + 33;
+	lstrcpyA((LPSTR)(__asm__Plant__setAnimation + 33), animName);
+	PVZ::Memory::WriteArray<byte>(Address, STRING(__asm__Plant__setAnimation));
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
+	PVZ::Memory::CreateThread(Address);
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
+	PVZ::Memory::FreeMemory(Address);
 }

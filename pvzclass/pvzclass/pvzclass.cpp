@@ -27,7 +27,22 @@ int main()
 
 		if (pPVZ->BaseAddress)
 		{
-			Creater::CreateEffect(4, 100.0f, 100.0f);
+			PVZ::CardSlot* cardslot = pPVZ->GetCardSlot();
+			for (int i = 0; i < cardslot->CardsCount; i++)
+			{
+				PVZ::CardSlot::SeedCard* card = cardslot->GetCard(i);
+				//卡槽全部变成模仿者
+				if (card->ContentCard != CardType::Imitater)
+				{
+					card->ContentCardImitative = card->ContentCard;
+					card->ContentCard = CardType::Imitater;
+				}
+			}
+			PVZ::Plant* plant = Creater::CreatePlant(PlantType::Squash, 2, 4);
+			Sleep(1000);
+			plant->SetAnimation("anim_lookright", APA_LOOP,10);
+			plant->State = 3;
+			plant->AttributeCountdown = 100;
 		}
 		delete pPVZ;
 	}

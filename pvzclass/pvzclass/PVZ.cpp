@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.4.1.190711";
+	return "1.5.0.190714";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -269,6 +269,11 @@ PVZ::MousePointer* PVZ::GetMousePointer()
 PVZ::Caption* PVZ::GetCaption()
 {
 	return new Caption(BaseAddress);
+}
+
+PVZ::CardSlot* PVZ::GetCardSlot()
+{
+	return new CardSlot(BaseAddress);
 }
 
 PVZ::Miscellaneous* PVZ::GetMiscellaneous()

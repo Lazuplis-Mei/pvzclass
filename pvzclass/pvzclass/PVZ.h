@@ -335,7 +335,7 @@ public:
 		void GetBodyHp(int* hp, int* maxhp);
 		void SetBodyHp(int hp, int maxhp);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
-		void GetAnimation(PVZ::Animation* animation);
+		PVZ::Animation* GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -400,8 +400,8 @@ public:
 		INT_PROPERTY(ShootOrProductCountdown, __get_ShootOrProductCountdown, __set_ShootOrProductCountdown, 0x58);
 		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
-		void GetAnimationPart1(PVZ::Animation* animation);
-		void GetAnimationPart2(PVZ::Animation* animation);
+		PVZ::Animation* GetAnimationPart1();
+		PVZ::Animation* GetAnimationPart2();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
@@ -413,7 +413,9 @@ public:
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
 		void SetStatic();
-		void Shoot(PVZ::Projectile* pro, int targetid = -1);
+		PVZ::Projectile* Shoot(int targetid = -1);
+		//animPlayArg(APA_XXXXXX)
+		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
 	};
 	class Coin
 	{
@@ -672,6 +674,7 @@ public:
 	int GetAllGititems(Griditem* griditems[]);
 	MousePointer* GetMousePointer();
 	Caption* GetCaption();
+	CardSlot* GetCardSlot();
 	Miscellaneous* GetMiscellaneous();
 	SaveData* GetSaveData();
 	Music* GetMusic();
