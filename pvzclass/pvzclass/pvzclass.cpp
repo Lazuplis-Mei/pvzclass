@@ -37,6 +37,10 @@ int main()
 					card->ContentCardImitative = card->ContentCard;
 					card->ContentCard = CardType::Imitater;
 				}
+				else
+				{
+					card->ContentCard = card->ContentCardImitative;
+				}
 			}
 			PVZ::Plant* plant = Creater::CreatePlant(PlantType::Squash, 2, 4);
 			Sleep(1000);
