@@ -111,9 +111,9 @@ public:
 			return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
 		};
 		template <class T>
-		inline static BOOL WriteArray(int address, T* result, size_t length)
+		inline static BOOL WriteArray(int address, T* value, size_t length)
 		{
-			return WriteProcessMemory(hProcess, (LPVOID)address, result, length, NULL);
+			return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
 		};
 		static int ReadPointer(int baseaddress, int offset);
 		static int ReadPointer(int baseaddress, int offset, int offset1);
@@ -252,8 +252,8 @@ public:
 		int BaseAddress;
 	public:
 		Lawn(int baseaddress);
-		LawnType::LawnType GetGridType(int column, int row);
-		void SetGridType(int column, int row, LawnType::LawnType type);
+		LawnType::LawnType GetGridType(int row, int column);
+		void SetGridType(int row, int column, LawnType::LawnType type);
 		RouteType::RouteType GetRouteType(int route);
 		void SetRouteType(int route, RouteType::RouteType type);
 	};

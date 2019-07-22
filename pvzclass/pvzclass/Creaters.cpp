@@ -284,11 +284,12 @@ void Creater::CreateRake(byte row, byte column)
 
 byte __asm__CreateCaption[70]
 {
+	PUSHDWORD(0),
 	LEA_ECX_ESP_ADD(0x30),
 	UNKNOWSTRINGFUNCTION,
 	MOV_ESI(0),
-	MOV_ECX(0),
-	LEA_EDX_ESP_ADD(0x24),
+	MOV_ECX(6),
+	LEA_EDX_ESP_ADD(0x2C),
 	CREATECAPTION,
 	MOV_PTR_ESI_ADD(0x88,0),
 	MOV_PTR_ESI_ADD(0x8C,0),
@@ -298,7 +299,7 @@ byte __asm__CreateCaption[70]
 void Creater::CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
-	SETARG(__asm__CreateCaption, 5) = PVZ::Memory::Variable + 100;
+	SETARG(__asm__CreateCaption, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__CreateCaption, 23) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x140);
 	SETARG(__asm__CreateCaption, 55) = duration;
 	SETARG(__asm__CreateCaption, 65) = style;

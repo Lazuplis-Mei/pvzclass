@@ -12,7 +12,7 @@ LawnType::LawnType PVZ::Lawn::GetGridType(int row, int column)
 	return LawnType::None;
 };
 
-void PVZ::Lawn::SetGridType(int column, int row, LawnType::LawnType type)
+void PVZ::Lawn::SetGridType(int row, int column, LawnType::LawnType type)
 {
 	if (row >= 0 && row < 6 && column >= 0 && column < 9)
 		Memory::WriteMemory<LawnType::LawnType>(BaseAddress + 0x168 + 4 * (6 * column + row), type);
