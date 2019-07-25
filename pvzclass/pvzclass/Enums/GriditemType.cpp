@@ -18,6 +18,8 @@ const char* GriditemType::ToString(GriditemType griditemt)
 		return "Brain";
 	case GriditemType::Vase:
 		return "Vase";
+	case GriditemType::Snail:
+		return "Snail";
 	case GriditemType::Rake:
 		return "Rake";
 	default:

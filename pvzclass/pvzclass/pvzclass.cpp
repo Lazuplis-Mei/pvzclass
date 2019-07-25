@@ -1,8 +1,29 @@
 ﻿#include "pvzclass.h"
 #include <iostream>
-#include <time.h> 
+#include <math.h>
 
 using namespace std;
+typedef bool (*GWhere) (PVZ::Griditem*);
+bool IsSnail(PVZ::Griditem* griditem)
+{
+	return griditem->Type == GriditemType::Snail;
+}
+int WhereAllGriditems(PVZ* pvz, GWhere condition, PVZ::Griditem* griditems[])
+{
+	PVZ::Griditem* allgriditems[100];
+	int len = pvz->GetAllGriditems(allgriditems);
+	int j = 0;
+	for (int i = 0; i < len; i++)
+	{
+		if (condition(allgriditems[i]))
+		{
+			griditems[j] = allgriditems[i];
+			j++;
+		}
+	}
+	return j;
+}
+
 
 
 PVZ::Zombie* GetFirstZombie()
@@ -24,29 +45,37 @@ int main()
 	if (pid)
 	{
 		PVZ* pPVZ = new PVZ(pid);
-
-		if (pPVZ->BaseAddress)
+		/*
+		在蜗牛范围(110)内的僵尸每1秒持续受到1次冰冻伤害并冻结，离开范围后解除冰冻伤害
+		*/
+		while (pPVZ->BaseAddress)
 		{
-			PVZ::CardSlot* cardslot = pPVZ->GetCardSlot();
-			for (int i = 0; i < cardslot->CardsCount; i++)
+			PVZ::Griditem* allsnails[10];
+			int len = WhereAllGriditems(pPVZ, IsSnail, allsnails);
+			for (int i = 0; i < len; i++)
 			{
-				PVZ::CardSlot::SeedCard* card = cardslot->GetCard(i);
-				//卡槽全部变成模仿者
-				if (card->ContentCard != CardType::Imitater)
+				PVZ::Snail* snail = (PVZ::Snail*)allsnails[i];
+				PVZ::Zombie* zombies[100];
+				int num = pPVZ->GetAllZombies(zombies);
+				for (int i = 0; i < num; i++)
 				{
-					card->ContentCardImitative = card->ContentCard;
-					card->ContentCard = CardType::Imitater;
-				}
-				else
-				{
-					card->ContentCard = card->ContentCardImitative;
+					CollisionBox cbox;
+					zombies[i]->GetCollision(&cbox);
+					float a = zombies[i]->X + cbox.Width / 2 - snail->X;
+					float b = snail->Y - (zombies[i]->Y + cbox.Height / 2);
+					float c = sqrt(a * a + b * b);
+					if (c <= 110 && zombies[i]->Temp >= 100)
+					{
+						zombies[i]->Hit(20, DamageType::Sputter_Ice);
+						zombies[i]->FrozenCountdown = 300;
+						zombies[i]->Butter();
+						zombies[i]->FixedCountdown = 0;
+						zombies[i]->Temp = 0;
+					}
+					zombies[i]->Temp++;
 				}
 			}
-			PVZ::Plant* plant = Creater::CreatePlant(PlantType::Squash, 2, 4);
-			Sleep(1000);
-			plant->SetAnimation("anim_lookright", APA_LOOP,10);
-			plant->State = 3;
-			plant->AttributeCountdown = 100;
+			Sleep(10);//1cs
 		}
 		delete pPVZ;
 	}

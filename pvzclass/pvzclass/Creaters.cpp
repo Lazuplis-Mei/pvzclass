@@ -309,6 +309,7 @@ void Creater::CreateCaption(const char* str, int length, CaptionStyle::CaptionSt
 byte __asm__CreateImageCaption[50]
 {
 	MOV_EDI(0),
+	PUSHDWORD(0),
 	LEA_ECX_ESP_ADD(0x10),
 	UNKNOWSTRINGFUNCTION,
 	MOV_ECX(0xF),
@@ -321,7 +322,7 @@ void Creater::CreateImageCaption(const char* str, int length)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
 	SETARG(__asm__CreateImageCaption, 1) = PVZBASEADDRESS;
-	SETARG(__asm__CreateImageCaption, 10) = PVZ::Memory::Variable + 100;
+	SETARG(__asm__CreateImageCaption, 6) = PVZ::Memory::Variable + 100;
 	PVZ::Memory::Execute(STRING(__asm__CreateImageCaption));
 }
 
@@ -472,7 +473,7 @@ byte __asm__CreatePortal[19]
 void Creater::__CreatePortal(PVZ* pvz)
 {
 	PVZ::Griditem* griditems[100];
-	int len = pvz->GetAllGititems(griditems);
+	int len = pvz->GetAllGriditems(griditems);
 	for (int i = 0; i < len; i++)
 		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)
 			griditems[i]->NotExist = true;

@@ -11,6 +11,7 @@ namespace GriditemType
 		PortalYellow,
 		Brain = 6,
 		Vase,
+		Snail = 10,
 		Rake = 11,
 	};
 

@@ -337,6 +337,8 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		PVZ::Animation* GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
+		//¡Ÿ ±±‰¡ø
+		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
@@ -499,6 +501,15 @@ public:
 		Brain(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+	};
+	class Snail :public PVZ::Griditem
+	{
+	public:
+		Snail(int indexoraddress) :Griditem(indexoraddress) {};
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+		T_PROPERTY(FLOAT, TargetX, __get_TargetX, __set_TargetX, 0x2C);
+		T_PROPERTY(FLOAT, TargetY, __get_TargetY, __set_TargetY, 0x30);
 	};
 	class Vase :public PVZ::Griditem
 	{
@@ -671,7 +682,7 @@ public:
 	int GetAllProjectile(Projectile* projectiles[]);
 	int GetAllCoins(Coin* coins[]);
 	int GetAllLawnmovers(Lawnmover* lawnmovers[]);
-	int GetAllGititems(Griditem* griditems[]);
+	int GetAllGriditems(Griditem* griditems[]);
 	MousePointer* GetMousePointer();
 	Caption* GetCaption();
 	CardSlot* GetCardSlot();
