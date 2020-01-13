@@ -8,6 +8,7 @@ PVZ::Mouse::Mouse(int baseaddress)
 
 void PVZ::Mouse::WMClick(short x, short y)
 {
+	SetForegroundWindow(Memory::mainwindowhandle);
 	SendMessage(Memory::mainwindowhandle, WM_LBUTTONDOWN, NULL, MAKELONG(x, y));
 	SendMessage(Memory::mainwindowhandle, WM_LBUTTONUP, NULL, MAKELONG(x, y));
 }
