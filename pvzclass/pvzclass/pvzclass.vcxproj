@@ -201,6 +201,7 @@
     <ClCompile Include="Enums\ZombieAccessoriesType1.cpp" />
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
+    <ClCompile Include="events.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="Enums\ZombieAccessoriesType1.h" />
     <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
     <ClInclude Include="Enums\ZombieType.h" />
+    <ClInclude Include="events.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
@@ -248,9 +250,13 @@
     <ClInclude Include="Enums\PVZVersionEnum.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pvzclass.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

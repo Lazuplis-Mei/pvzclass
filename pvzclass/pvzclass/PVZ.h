@@ -379,11 +379,16 @@ public:
 	};
 	class Plant
 	{
+		//EventHandler Start
+	public:
+		//EventHandler End
 		int BaseAddress;
 #if _DEBUG
 		PlantType::PlantType DebugType;
 #endif
-	public:
+		//EventHandler Start
+	//public:
+		//EventHandler End
 		Plant(int indexoraddress);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
