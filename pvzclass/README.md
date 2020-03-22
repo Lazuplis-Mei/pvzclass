@@ -15,6 +15,7 @@ EventHandler(PVZ* pvz);
 + `PlantUpgradeEvent`-PVZ::Plant*
 + `LevelOpenEvent`-void
 + `LevelCloseEvent`-void
++ `LevelWaveEvent`-int
 
 格式：
 `注册名`——`函数传递参数`
@@ -44,6 +45,10 @@ void open(void)//其实这里void可以拿走
 {
         cout << "open" << endl;
 }
+void wave(int w)
+{
+        cout << "wave is: " << wave << endl;
+}
 //...
 int main()
 {
@@ -52,7 +57,7 @@ int main()
 	e.registerPlantPlantEvent(plant);
 	e.registerLevelOpenEvent(open);
 	while (1)
-		e.run();      //run once
+		e.run();      //进行一次监听
 //...
 }
 ```
