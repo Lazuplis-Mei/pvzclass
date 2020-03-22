@@ -10,9 +10,15 @@ EventHandler(PVZ* pvz);
 
 这个类可以注册所有的监听器：
 
-+ `PlantPlantEvent`
-+ `PlantRemoveEvent`
-+ `PlantUpgradeEvent`
++ `PlantPlantEvent`-PVZ::Plant*
++ `PlantRemoveEvent`-PVZ::Plant*
++ `PlantUpgradeEvent`-PVZ::Plant*
++ `LevelOpenEvent`-void
++ `LevelCloseEvent`-void
++ `LevelWaveEvent`-int
+
+格式：
+`注册名`——`函数传递参数`
 
 注册监听器需要将register放到前面。
 
@@ -31,9 +37,17 @@ EventHandler(PVZ* pvz);
 ```cpp
 #include "events.h"
 ///...
-void plant(PVZ::Plant e)
+void plant(PVZ::Plant e)//e与参数对应
 {
 	cout << "found Plant on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
+}
+void open(void)//其实这里void可以拿走
+{
+        cout << "open" << endl;
+}
+void wave(int w)
+{
+        cout << "wave is: " << wave << endl;
 }
 //...
 int main()
@@ -41,8 +55,9 @@ int main()
 //...
 	EventHandler e(pvz);
 	e.registerPlantPlantEvent(plant);
+	e.registerLevelOpenEvent(open);
 	while (1)
-		e.run();      //run once
+		e.run();      //进行一次监听
 //...
 }
 ```

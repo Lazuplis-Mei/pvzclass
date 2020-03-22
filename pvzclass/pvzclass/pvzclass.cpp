@@ -1,19 +1,25 @@
 ﻿#include "pvzclass.h"
-#include "events.h"
 #include <iostream>
-using namespace std;
+#include "events.h"
 
-void plant(PVZ::Plant e)
+using namespace std;
+void onPlant(PVZ::Plant* plant)
 {
-	cout << "found Plant on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
+	//...
+	cout << plant->Row << " " << plant->Column << " " << ToString(plant->Type) << endl;
+	//plant->Type = PlantType::Cattail;
 }
-void remove(PVZ::Plant e)
+void onOpen()
 {
-	cout << "found Remove on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
+	cout << "OPEN" << endl;
 }
-void upgrade(PVZ::Plant e)
+void onClose()
 {
-	cout << "found Upgrade on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
+	cout << "CLOSE" << endl;
+}
+void onWave(int wave)
+{
+	cout << wave << endl;
 }
 int main()
 {
@@ -23,14 +29,21 @@ int main()
 	cout << pid << endl;
 	PVZ* pvz = new PVZ(pid);
 	cout << pvz->BaseAddress << endl;
-	if (!pvz->BaseAddress)
-		return 2;
+	//if (!pvz->BaseAddress)
+	//	return 2;
+	//EventHandler start
 	EventHandler e(pvz);
-	e.registerPlantPlantEvent(plant);
-	e.registerPlantRemoveEvent(remove);
-	e.registerPlantUpgradeEvent(upgrade);
-	while (1)
+	e.registerPlantPlantEvent(onPlant);
+	e.registerLevelOpenEvent(onOpen);
+	e.registerLevelCloseEvent(onClose);
+	e.registerLevelWaveEvent(onWave);
+	while (1){
+		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
 		e.run();
+		Sleep(10);
+	}
+
+	//EventHandler end
 	delete pvz;
 	return 0;
 }
