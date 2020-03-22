@@ -183,7 +183,10 @@
     <ClCompile Include="Creaters.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="events.cpp">
+    <ClCompile Include="PlantEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
