@@ -210,6 +210,7 @@
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
+    <ClCompile Include="ZombieEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creaters.h" />
@@ -252,6 +253,7 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

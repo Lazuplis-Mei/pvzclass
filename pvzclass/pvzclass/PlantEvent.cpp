@@ -10,14 +10,9 @@ std::vector<Plant*> EventHandler::getAllPlants()
 {
 	std::vector<Plant*> rt;
 	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
-	int j = 0;
 	for (int i = 0; i < n; i++)
-	{
 		if (!PVZ::Memory::ReadMemory<byte>(PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xAC) + 0x141 + 0x14C * i))
-		{
 			rt.push_back(new Plant(i));
-		}
-	}
 	return rt;
 }
 bool EventHandler::equals(Plant* a, Plant* b)
@@ -64,7 +59,11 @@ bool operator < (pair a, pair b)
 void EventHandler::updatePlants()
 {
 	if (!address)
+	{
+		if(list.size())
+			list.clear();
 		return;
+	}
 	std::vector<Plant*> plant = getAllPlants();
 	std::set<pair> pardon;
 	// another plant is list.
