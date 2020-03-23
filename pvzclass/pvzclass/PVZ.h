@@ -295,11 +295,13 @@ public:
 	};
 	class Zombie
 	{
+		//eventhandler start
+	public:
+		//eventhandler end
 		int BaseAddress;
 #if _DEBUG
 		ZombieType::ZombieType DebugType;
 #endif
-	public:
 		Zombie(int indexoraddress);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
