@@ -22,15 +22,15 @@ EventHandler(PVZ* pvz);
 
 注册监听器需要将register放到前面。
 
-+ `registerPlantPlantEvent(...)`
++ `RegisterPlantPlantEvent(...)`
 
-`run` 代表运行一次监听器。
+`Run` 代表运行一次监听器。
 
-**注意：run只能进行一次监听，不能持久，不会多开线程**
+**注意：Run只能进行一次监听，不能持久，不会多开线程**
 
 监听的函数必须有一个相对应的参数。
 
-`void onPlant( PVZ::Plant e )`
+`void onPlant( PVZ::Plant *e )`
 
 代码：
 
@@ -54,10 +54,10 @@ int main()
 {
 //...
 	EventHandler e(pvz);
-	e.registerPlantPlantEvent(plant);
-	e.registerLevelOpenEvent(open);
+	e.RegisterPlantPlantEvent(plant);
+	e.RegisterLevelOpenEvent(open);
 	while (1)
-		e.run();      //进行一次监听
+		e.Run();      //进行一次监听
 //...
 }
 ```
