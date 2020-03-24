@@ -1,45 +1,48 @@
 #pragma once
-#include "PVZ.h"
 
 namespace Utils
 {
 	typedef PVZ::Memory Memory;
-	int read(int address)
+	int Read(int address)
 	{
 		return Memory::ReadMemory<int>(address);
 	}
-	void write(int address, int value)
+	void Write(int address, int value)
 	{
 		Memory::WriteMemory(address,value);
 	}
-	int getPlantCost(PlantType::PlantType type)
+	int GetPlantCost(PlantType::PlantType type)
 	{
 		int address = 0x69F2C0 + 0x24 * type;
-		return read(address);
+		return Read(address);
 	}
-	void setPlantCost(PlantType::PlantType type, int cost)
+	void SetPlantCost(PlantType::PlantType type, int cost)
 	{
 		int address = 0x69F2C0 + 0x24 * type;
-		write(address, cost);
+		Write(address, cost);
 	}
-	int getPlantCooldown(PlantType::PlantType type)
+	int GetPlantCooldown(PlantType::PlantType type)
 	{
 		int address = 0x69F2C4 + 0x24 * type;
-		return read(address);
+		return Read(address);
 	}
-	void setPlantCooldown(PlantType::PlantType type, int cooldown)
+	void SetPlantCooldown(PlantType::PlantType type, int cooldown)
 	{
 		int address = 0x69F2C4 + 0x24 * type;
-		write(address, cooldown);
+		Write(address, cooldown);
 	}
-	int getPlantSpeed(PlantType::PlantType type)
+	int GetPlantSpeed(PlantType::PlantType type)
 	{
 		int address = 0x69F2CC + 0x24 * type;
-		return read(address);
+		return Read(address);
 	}
-	void setPlantSpeed(PlantType::PlantType type, int speed)
+	void SetPlantSpeed(PlantType::PlantType type, int speed)
 	{
 		int address = 0x69F2CC + 0x24 * type;
-		write(address, speed);
+		Write(address, speed);
+	}
+	void SetSun(int sun)
+	{
+		Write(0x4309F0, sun);
 	}
 }
