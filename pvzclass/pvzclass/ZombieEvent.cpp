@@ -2,7 +2,7 @@
 
 typedef PVZ::Zombie Zombie;
 
-std::vector<Zombie*> EventHandler::getAllZombies()
+std::vector<Zombie*> EventHandler::GetAllZombies()
 {
 	std::vector<Zombie*> rt;
 	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0x94);
@@ -11,35 +11,35 @@ std::vector<Zombie*> EventHandler::getAllZombies()
 			rt.push_back(new Zombie(i));
 	return rt;
 }
-void EventHandler::invokeZombieSpawnEvent(Zombie* zombie)
+void EventHandler::InvokeZombieSpawnEvent(Zombie* zombie)
 {
-	int lim = functionZombieSpawnEvent.size();
+	int lim = FunctionZombieSpawnEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionZombieSpawnEvent[i](zombie);
+		FunctionZombieSpawnEvent[i](zombie);
 }
-void EventHandler::invokeZombieRemoveEvent(Zombie* zombie)
+void EventHandler::InvokeZombieRemoveEvent(Zombie* zombie)
 {
-	int lim = functionZombieRemoveEvent.size();
+	int lim = FunctionZombieRemoveEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionZombieRemoveEvent[i](zombie);
+		FunctionZombieRemoveEvent[i](zombie);
 }
-void EventHandler::updateZombies()
+void EventHandler::UpdateZombies()
 {
-	if (!address)
+	if (!Address)
 	{
-		if(zombielist.size())
-			zombielist.clear();
+		if(ZombieList.size())
+			ZombieList.clear();
 		return;
 	}
-	std::vector<Zombie*> now = getAllZombies();
+	std::vector<Zombie*> now = GetAllZombies();
 	int nown = now.size();
-	int lastn = zombielist.size();
+	int lastn = ZombieList.size();
 	for (int i = 0; i < nown; i++)
 	{
 		bool ok = 1;
 		Zombie* x = now[i];
 		for(int j=0;j<lastn;j++)
-			if (x->BaseAddress == zombielist[j]->BaseAddress)
+			if (x->BaseAddress == ZombieList[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
@@ -47,13 +47,13 @@ void EventHandler::updateZombies()
 		if (ok)
 		{
 			//didn't found x in last, spawns
-			invokeZombieSpawnEvent(x);
+			InvokeZombieSpawnEvent(x);
 		}
 	}
 	for (int i = 0; i < lastn; i++)
 	{
 		bool ok = 1;
-		Zombie* x = zombielist[i];
+		Zombie* x = ZombieList[i];
 		for(int j=0;j<nown;j++)
 			if (x->BaseAddress == now[j]->BaseAddress)
 			{
@@ -63,17 +63,17 @@ void EventHandler::updateZombies()
 		if (ok)
 		{
 			//didn't found x in now, remove
-			invokeZombieRemoveEvent(x);
+			InvokeZombieRemoveEvent(x);
 		}
 	}
-	zombielist.clear();
-	zombielist = now;
+	ZombieList.clear();
+	ZombieList = now;
 }
-void EventHandler::registerZombieSpawnEvent(void function(Zombie*))
+void EventHandler::RegisterZombieSpawnEvent(void function(Zombie*))
 {
-	functionZombieSpawnEvent.push_back(function);
+	FunctionZombieSpawnEvent.push_back(function);
 }
-void EventHandler::registerZombieRemoveEvent(void function(Zombie*))
+void EventHandler::RegisterZombieRemoveEvent(void function(Zombie*))
 {
-	functionZombieRemoveEvent.push_back(function);
+	FunctionZombieRemoveEvent.push_back(function);
 }

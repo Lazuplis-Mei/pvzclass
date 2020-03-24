@@ -6,7 +6,7 @@
 typedef PVZ::Plant Plant;
 
 
-std::vector<Plant*> EventHandler::getAllPlants()
+std::vector<Plant*> EventHandler::GetAllPlants()
 {
 	std::vector<Plant*> rt;
 	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
@@ -15,29 +15,29 @@ std::vector<Plant*> EventHandler::getAllPlants()
 			rt.push_back(new Plant(i));
 	return rt;
 }
-bool EventHandler::equals(Plant* a, Plant* b)
+bool EventHandler::Equals(Plant* a, Plant* b)
 {
 	return a->BaseAddress == b->BaseAddress;
 }
 
-void EventHandler::invokePlantPlantEvent(Plant* plant)
+void EventHandler::InvokePlantPlantEvent(Plant* plant)
 {
-	int lim = functionPlantPlantEvent.size();
+	int lim = FunctionPlantPlantEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionPlantPlantEvent[i](plant);
+		FunctionPlantPlantEvent[i](plant);
 }
 
-void EventHandler::invokePlantRemoveEvent(Plant* plant)
+void EventHandler::InvokePlantRemoveEvent(Plant* plant)
 {
-	int lim = functionPlantRemoveEvent.size();
+	int lim = FunctionPlantRemoveEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionPlantRemoveEvent[i](plant);
+		FunctionPlantRemoveEvent[i](plant);
 }
-void EventHandler::invokePlantUpgradeEvent(Plant* plant)
+void EventHandler::InvokePlantUpgradeEvent(Plant* plant)
 {
-	int lim = functionPlantUpgradeEvent.size();
+	int lim = FunctionPlantUpgradeEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionPlantUpgradeEvent[i](plant);
+		FunctionPlantUpgradeEvent[i](plant);
 }
 struct pair
 {
@@ -56,26 +56,26 @@ bool operator < (pair a, pair b)
 {
 	return a.first == b.first ? a.second < b.second : a.first < b.first;
 }
-void EventHandler::updatePlants()
+void EventHandler::UpdatePlants()
 {
-	if (!address)
+	if (!Address)
 	{
-		if(list.size())
-			list.clear();
+		if(List.size())
+			List.clear();
 		return;
 	}
-	std::vector<Plant*> plant = getAllPlants();
+	std::vector<Plant*> plant = GetAllPlants();
 	std::set<pair> pardon;
 	// another plant is list.
 	// The time complication is O(n^2).
-	int listn = list.size();
+	int listn = List.size();
 	int plantn = plant.size();
 	for (int i = 0; i < plantn; i++)
 	{
 		Plant* x = plant[i];
 		bool ok = 1;
 		for (int j = 0; j < listn; j++)
-			if (equals(x, list[j]))
+			if (Equals(x, List[j]))
 			{
 				ok = 0;
 				break;
@@ -88,16 +88,16 @@ void EventHandler::updatePlants()
 				//DO NOT PLANT TOO MANY PLANTS IN ONE PLACE
 				std::cerr << x->Row << " " << x->Column << std::endl;
 				pardon.insert(pair(x->Row, x->Column));
-				invokePlantUpgradeEvent(x);
+				InvokePlantUpgradeEvent(x);
 			}
 			else if (x->Type == PlantType::CobCannon)
 			{
 				pardon.insert(pair(x->Row, x->Column));
 				pardon.insert(pair(x->Row, x->Column + 1));
-				invokePlantUpgradeEvent(x);
+				InvokePlantUpgradeEvent(x);
 			}
 			else
-				invokePlantPlantEvent(x);
+				InvokePlantPlantEvent(x);
 		}
 	}
 	//if (pardon.size())std::cerr << "LIST:" << std::endl;
@@ -105,10 +105,10 @@ void EventHandler::updatePlants()
 	//	std::cerr << p.first << " " << p.second << std::endl;
 	for (int i = 0; i < listn; i++)
 	{
-		Plant* x = list[i];
+		Plant* x = List[i];
 		bool ok = 1;
 		for (int j = 0; j < plantn; j++)
-			if (equals(x, plant[j]))
+			if (Equals(x, plant[j]))
 			{
 				ok = 0;
 				break;
@@ -119,28 +119,28 @@ void EventHandler::updatePlants()
 			if (!pardon.count(pair(x->Row, x->Column)))
 			{
 				//std::cerr << "didn't find\n";
-				invokePlantRemoveEvent(x);
+				InvokePlantRemoveEvent(x);
 			}
 		}
 	}
 	pardon.clear();
-	list.clear();
-	list = plant;
+	List.clear();
+	List = plant;
 }
 
 
 
-void EventHandler::registerPlantPlantEvent(void function(Plant*))
+void EventHandler::RegisterPlantPlantEvent(void function(Plant*))
 {
-	functionPlantPlantEvent.push_back(function);
+	FunctionPlantPlantEvent.push_back(function);
 }
 
-void EventHandler::registerPlantRemoveEvent(void function(Plant*))
+void EventHandler::RegisterPlantRemoveEvent(void function(Plant*))
 {
-	functionPlantRemoveEvent.push_back(function);
+	FunctionPlantRemoveEvent.push_back(function);
 }
 
-void EventHandler::registerPlantUpgradeEvent(void function(Plant*))
+void EventHandler::RegisterPlantUpgradeEvent(void function(Plant*))
 {
-	functionPlantUpgradeEvent.push_back(function);
+	FunctionPlantUpgradeEvent.push_back(function);
 }

@@ -12,69 +12,70 @@ private:
 	PVZ* pvz;
 	typedef PVZ::Plant Plant;
 	typedef PVZ::Zombie Zombie;
-	std::vector<Plant*> getAllPlants();
-	std::vector<Zombie*> getAllZombies();
-	bool equals(Plant* a, Plant* b);
+	std::vector<Plant*> GetAllPlants();
+	std::vector<Zombie*> GetAllZombies();
+	bool Equals(Plant* a, Plant* b);
 	typedef std::vector<void (*)(Plant*)> vecplant;
 	typedef std::vector<void (*)()> vecvoid;
 	typedef std::vector<void (*)(int)> vecint;
 	typedef std::vector<void (*)(Zombie*)> veczombie;
-	std::vector<Plant*> list;
-	std::vector<Zombie*> zombielist;
-	int address;
+	std::vector<Plant*> List;
+	std::vector<Zombie*> ZombieList;
+	int Address;
+	bool Started;
 	/*Starts the events.*/
-	vecplant	functionPlantPlantEvent;
-	vecplant	functionPlantRemoveEvent;
-	vecplant	functionPlantUpgradeEvent;
-	vecvoid		functionLevelOpenEvent;
-	vecvoid		functionLevelCloseEvent;
-	vecint		functionLevelWaveEvent;
-	veczombie	functionZombieSpawnEvent;
-	veczombie	functionZombieRemoveEvent;
-	void		invokePlantPlantEvent(Plant*);
-	void		invokePlantRemoveEvent(Plant*);
-	void		invokePlantUpgradeEvent(Plant*);
-	void		invokeLevelOpenEvent();
-	void		invokeLevelCloseEvent();
-	void		invokeLevelWaveEvent(int);
-	void		invokeZombieSpawnEvent(Zombie*);
-	void		invokeZombieRemoveEvent(Zombie*);
+	vecplant	FunctionPlantPlantEvent;
+	vecplant	FunctionPlantRemoveEvent;
+	vecplant	FunctionPlantUpgradeEvent;
+	vecvoid		FunctionLevelOpenEvent;
+	vecvoid		FunctionLevelCloseEvent;
+	vecint		FunctionLevelWaveEvent;
+	veczombie	FunctionZombieSpawnEvent;
+	veczombie	FunctionZombieRemoveEvent;
+	void		InvokePlantPlantEvent(Plant*);
+	void		InvokePlantRemoveEvent(Plant*);
+	void		InvokePlantUpgradeEvent(Plant*);
+	void		InvokeLevelOpenEvent();
+	void		InvokeLevelCloseEvent();
+	void		InvokeLevelWaveEvent(int);
+	void		InvokeZombieSpawnEvent(Zombie*);
+	void		InvokeZombieRemoveEvent(Zombie*);
 	/*end of the events.*/
-	void update()
+	void Update()
 	{
-		updateLevels();
+		UpdateLevels();
 		//For some reason, we should first invoke
-		updatePlants();
-		updateZombies();
+		UpdatePlants();
+		UpdateZombies();
 	}
-	void updatePlants();
-	void updateLevels();
-	void updateZombies();
+	void UpdatePlants();
+	void UpdateLevels();
+	void UpdateZombies();
 	
 public:
 	EventHandler(PVZ* pvz)
 	{
 		this->pvz = pvz;
-		list = getAllPlants();
-		address = pvz->BaseAddress;
+		Address = 0;
+		Started = 0;
 	}
 	~EventHandler()
 	{
 
 	}
-	void run()
+	void Run()
 	{
-		update();
+		Update();
 	}
 	/*Starts the events.*/
 	/*You should never access ANY api in Remove event.*/
-	void	registerPlantPlantEvent(void function(Plant*));
-	void	registerPlantRemoveEvent(void function(Plant*));
-	void	registerPlantUpgradeEvent(void function(Plant*));
-	void	registerLevelOpenEvent(void function());
-	void	registerLevelCloseEvent(void function());
-	void	registerLevelWaveEvent(void function(int));
-	void	registerZombieSpawnEvent(void function(Zombie*));
-	void	registerZombieRemoveEvent(void function(Zombie*));
+	void	RegisterPlantPlantEvent(void function(Plant*));
+	void	RegisterPlantRemoveEvent(void function(Plant*));
+	void	RegisterPlantUpgradeEvent(void function(Plant*));
+	void	RegisterLevelOpenEvent(void function());
+	void	RegisterLevelCloseEvent(void function());
+	void	RegisterLevelWaveEvent(void function(int));
+	void	RegisterZombieSpawnEvent(void function(Zombie*));
+	void	RegisterZombieRemoveEvent(void function(Zombie*));
 	/*end of the events.*/
 };

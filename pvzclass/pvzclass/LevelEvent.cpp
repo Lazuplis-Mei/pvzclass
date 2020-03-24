@@ -2,61 +2,61 @@
 #include <iostream>
 
 int wave;
-void EventHandler::invokeLevelOpenEvent()
+void EventHandler::InvokeLevelOpenEvent()
 {
-	int lim = functionLevelOpenEvent.size();
+	int lim = FunctionLevelOpenEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionLevelOpenEvent[i]();
+		FunctionLevelOpenEvent[i]();
 }
-void EventHandler::invokeLevelCloseEvent()
+void EventHandler::InvokeLevelCloseEvent()
 {
-	int lim = functionLevelCloseEvent.size();
+	int lim = FunctionLevelCloseEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionLevelCloseEvent[i]();
+		FunctionLevelCloseEvent[i]();
 }
-void EventHandler::invokeLevelWaveEvent(int wave)
+void EventHandler::InvokeLevelWaveEvent(int wave)
 {
-	int lim = functionLevelWaveEvent.size();
+	int lim = FunctionLevelWaveEvent.size();
 	for (int i = 0; i < lim; i++)
-		functionLevelWaveEvent[i](wave);
+		FunctionLevelWaveEvent[i](wave);
 }
-void EventHandler::updateLevels()
+void EventHandler::UpdateLevels()
 {
 	//std::cerr << address << " " << pvz->BaseAddress << std::endl;
-	if (address == NULL && pvz->BaseAddress != NULL)
+	if (Address == NULL && pvz->BaseAddress != NULL)
 	{
-		address = pvz->BaseAddress;
+		Address = pvz->BaseAddress;
 		wave = pvz->WaveCount;
-		invokeLevelOpenEvent();
+		InvokeLevelOpenEvent();
 	}
 	//std::cerr << address << "!" << pvz->BaseAddress << std::endl;
-	if (address != NULL && pvz->BaseAddress == NULL)
+	if (Address != NULL && pvz->BaseAddress == NULL)
 	{
-		address = NULL;
-		invokeLevelCloseEvent();
+		Address = NULL;
+		InvokeLevelCloseEvent();
 	}
-	if (address)
+	if (Address)
 	{
 		//std::cerr << pvz->WaveCount << "\n";
 		//pvz->GetWave 
 		if (wave != pvz->RefreshedWave)
 		{
 			wave = pvz->RefreshedWave;
-			invokeLevelWaveEvent(wave);
+			InvokeLevelWaveEvent(wave);
 		}
 	}
 }
-void EventHandler::registerLevelOpenEvent(void function())
+void EventHandler::RegisterLevelOpenEvent(void function())
 {
-	functionLevelOpenEvent.push_back(function);
+	FunctionLevelOpenEvent.push_back(function);
 }
 
-void EventHandler::registerLevelCloseEvent(void function())
+void EventHandler::RegisterLevelCloseEvent(void function())
 {
-	functionLevelCloseEvent.push_back(function);
+	FunctionLevelCloseEvent.push_back(function);
 }
 
-void EventHandler::registerLevelWaveEvent(void function(int))
+void EventHandler::RegisterLevelWaveEvent(void function(int))
 {
-	functionLevelWaveEvent.push_back(function);
+	FunctionLevelWaveEvent.push_back(function);
 }
