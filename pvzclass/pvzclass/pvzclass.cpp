@@ -24,22 +24,25 @@ void onWave(int wave)
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
+
 	if (!pid)
 		return 1;
 	cout << pid << endl;
 	PVZ* pvz = new PVZ(pid);
+
 	cout << pvz->BaseAddress << endl;
 	//if (!pvz->BaseAddress)
 	//	return 2;
 	//EventHandler start
 	EventHandler e(pvz);
-	e.registerPlantPlantEvent(onPlant);
-	e.registerLevelOpenEvent(onOpen);
-	e.registerLevelCloseEvent(onClose);
-	e.registerLevelWaveEvent(onWave);
-	while (1){
+	e.RegisterPlantPlantEvent(onPlant);
+	e.RegisterLevelOpenEvent(onOpen);
+	e.RegisterLevelCloseEvent(onClose);
+	e.RegisterLevelWaveEvent(onWave);
+	while (pvz->BaseAddress)
+	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
-		e.run();
+		e.Run();
 		Sleep(10);
 	}
 

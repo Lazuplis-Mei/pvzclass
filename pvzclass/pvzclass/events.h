@@ -2,44 +2,47 @@
 #include "PVZ.h"
 #include <vector>
 #include <queue>
+
+typedef PVZ::Plant Plant;
+typedef PVZ::Zombie Zombie;
+typedef std::vector<void (*)(Plant*)> vecplant;
+typedef std::vector<void (*)()> vecvoid;
+typedef std::vector<void (*)(int)> vecint;
+typedef std::vector<void (*)(Zombie*)> veczombie;
+
 /*
 **testing**
 The EventHandler API
 */
+
 class EventHandler
 {
 private:
 	PVZ* pvz;
-	typedef PVZ::Plant Plant;
-	typedef PVZ::Zombie Zombie;
 	std::vector<Plant*> GetAllPlants();
 	std::vector<Zombie*> GetAllZombies();
 	bool Equals(Plant* a, Plant* b);
-	typedef std::vector<void (*)(Plant*)> vecplant;
-	typedef std::vector<void (*)()> vecvoid;
-	typedef std::vector<void (*)(int)> vecint;
-	typedef std::vector<void (*)(Zombie*)> veczombie;
-	std::vector<Plant*> List;
+	std::vector<Plant*> PlantList;
 	std::vector<Zombie*> ZombieList;
 	int Address;
 	bool Started;
 	/*Starts the events.*/
-	vecplant	FunctionPlantPlantEvent;
-	vecplant	FunctionPlantRemoveEvent;
-	vecplant	FunctionPlantUpgradeEvent;
+	vecplant		FunctionPlantPlantEvent;
+	vecplant		FunctionPlantRemoveEvent;
+	vecplant		FunctionPlantUpgradeEvent;
 	vecvoid		FunctionLevelOpenEvent;
 	vecvoid		FunctionLevelCloseEvent;
 	vecint		FunctionLevelWaveEvent;
 	veczombie	FunctionZombieSpawnEvent;
 	veczombie	FunctionZombieRemoveEvent;
-	void		InvokePlantPlantEvent(Plant*);
-	void		InvokePlantRemoveEvent(Plant*);
-	void		InvokePlantUpgradeEvent(Plant*);
-	void		InvokeLevelOpenEvent();
-	void		InvokeLevelCloseEvent();
-	void		InvokeLevelWaveEvent(int);
-	void		InvokeZombieSpawnEvent(Zombie*);
-	void		InvokeZombieRemoveEvent(Zombie*);
+	void	InvokePlantPlantEvent(Plant*);
+	void	InvokePlantRemoveEvent(Plant*);
+	void	InvokePlantUpgradeEvent(Plant*);
+	void	InvokeLevelOpenEvent();
+	void	InvokeLevelCloseEvent();
+	void	InvokeLevelWaveEvent(int);
+	void	InvokeZombieSpawnEvent(Zombie*);
+	void	InvokeZombieRemoveEvent(Zombie*);
 	/*end of the events.*/
 	void Update()
 	{
