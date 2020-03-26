@@ -15,10 +15,6 @@ std::vector<Plant*> EventHandler::GetAllPlants()
 			rt.push_back(new Plant(i));
 	return rt;
 }
-bool EventHandler::Equals(Plant* a, Plant* b)
-{
-	return a->BaseAddress == b->BaseAddress;
-}
 
 void EventHandler::InvokePlantPlantEvent(Plant* plant)
 {
@@ -60,22 +56,22 @@ void EventHandler::UpdatePlants()
 {
 	if (!Address)
 	{
-		if(List.size())
-			List.clear();
+		if(PlantList.size())
+			PlantList.clear();
 		return;
 	}
 	std::vector<Plant*> plant = GetAllPlants();
 	std::set<pair> pardon;
 	// another plant is list.
 	// The time complication is O(n^2).
-	int listn = List.size();
+	int listn = PlantList.size();
 	int plantn = plant.size();
 	for (int i = 0; i < plantn; i++)
 	{
 		Plant* x = plant[i];
 		bool ok = 1;
 		for (int j = 0; j < listn; j++)
-			if (Equals(x, List[j]))
+			if (x->BaseAddress == PlantList[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
@@ -105,10 +101,10 @@ void EventHandler::UpdatePlants()
 	//	std::cerr << p.first << " " << p.second << std::endl;
 	for (int i = 0; i < listn; i++)
 	{
-		Plant* x = List[i];
+		Plant* x = PlantList[i];
 		bool ok = 1;
 		for (int j = 0; j < plantn; j++)
-			if (Equals(x, plant[j]))
+			if (x->BaseAddress == plant[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
@@ -124,8 +120,8 @@ void EventHandler::UpdatePlants()
 		}
 	}
 	pardon.clear();
-	List.clear();
-	List = plant;
+	PlantList.clear();
+	PlantList = plant;
 }
 
 

@@ -11,6 +11,10 @@ std::vector<Zombie*> EventHandler::GetAllZombies()
 			rt.push_back(new Zombie(i));
 	return rt;
 }
+std::vector<Projectile*> EventHandler::GetAllProjectiles()
+{
+	return std::vector<Projectile*>();
+}
 void EventHandler::InvokeZombieSpawnEvent(Zombie* zombie)
 {
 	int lim = FunctionZombieSpawnEvent.size();
