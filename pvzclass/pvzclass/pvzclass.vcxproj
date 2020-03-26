@@ -252,14 +252,10 @@
     <ClInclude Include="Enums\PVZVersionEnum.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="pvzclass.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,6 @@
 #pragma once
+#include "Enums/PlantType.h"
+#include "PVZ.h"
 
 namespace Utils
 {
@@ -41,7 +43,7 @@ namespace Utils
 		int address = 0x69F2CC + 0x24 * type;
 		Write(address, speed);
 	}
-	void SetSun(int sun)
+	void SetSunValue(int sun)
 	{
 		Write(0x4309F0, sun);
 	}
