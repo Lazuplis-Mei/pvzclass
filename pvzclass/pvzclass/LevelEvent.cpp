@@ -20,6 +20,12 @@ void EventHandler::InvokeLevelWaveEvent(int wave)
 	for (int i = 0; i < lim; i++)
 		FunctionLevelWaveEvent[i](wave);
 }
+void EventHandler::InvokeLevelStartEvent()
+{
+	int lim = FunctionLevelStartEvent.size();
+	for (int i = 0; i < lim; i++)
+		FunctionLevelStartEvent[i]();
+}
 void EventHandler::UpdateLevels()
 {
 	//std::cerr << address << " " << pvz->BaseAddress << std::endl;
@@ -33,12 +39,19 @@ void EventHandler::UpdateLevels()
 	if (Address != NULL && pvz->BaseAddress == NULL)
 	{
 		Address = NULL;
+		IsStarted = 0;
 		InvokeLevelCloseEvent();
 	}
 	if (Address)
 	{
 		//std::cerr << pvz->WaveCount << "\n";
 		//pvz->GetWave 
+		if (!IsStarted && pvz->GameState == 3)
+		{
+			IsStarted = 1;
+			InvokeLevelStartEvent();
+		}
+
 		if (wave != pvz->RefreshedWave)
 		{
 			wave = pvz->RefreshedWave;
@@ -59,4 +72,9 @@ void EventHandler::RegisterLevelCloseEvent(void function())
 void EventHandler::RegisterLevelWaveEvent(void function(int))
 {
 	FunctionLevelWaveEvent.push_back(function);
+}
+
+void EventHandler::RegisterLevelStartEvent(void function())
+{
+	FunctionLevelStartEvent.push_back(function);
 }

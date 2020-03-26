@@ -15,10 +15,6 @@ std::vector<Plant*> EventHandler::GetAllPlants()
 			rt.push_back(new Plant(i));
 	return rt;
 }
-bool EventHandler::Equals(Plant* a, Plant* b)
-{
-	return a->BaseAddress == b->BaseAddress;
-}
 
 void EventHandler::InvokePlantPlantEvent(Plant* plant)
 {
@@ -75,7 +71,7 @@ void EventHandler::UpdatePlants()
 		Plant* x = plant[i];
 		bool ok = 1;
 		for (int j = 0; j < listn; j++)
-			if (Equals(x, PlantList[j]))
+			if (x->BaseAddress == PlantList[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
@@ -108,7 +104,7 @@ void EventHandler::UpdatePlants()
 		Plant* x = PlantList[i];
 		bool ok = 1;
 		for (int j = 0; j < plantn; j++)
-			if (Equals(x, plant[j]))
+			if (x->BaseAddress == plant[j]->BaseAddress)
 			{
 				ok = 0;
 				break;

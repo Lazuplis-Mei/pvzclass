@@ -5,10 +5,12 @@
 
 typedef PVZ::Plant Plant;
 typedef PVZ::Zombie Zombie;
+typedef PVZ::Projectile Projectile;
 typedef std::vector<void (*)(Plant*)> vecplant;
 typedef std::vector<void (*)()> vecvoid;
 typedef std::vector<void (*)(int)> vecint;
 typedef std::vector<void (*)(Zombie*)> veczombie;
+typedef std::vector<void (*)(Projectile*)> vecproj;
 
 /*
 **testing**
@@ -21,28 +23,32 @@ private:
 	PVZ* pvz;
 	std::vector<Plant*> GetAllPlants();
 	std::vector<Zombie*> GetAllZombies();
-	bool Equals(Plant* a, Plant* b);
+	std::vector<Projectile*> GetAllProjectiles();//wait for Projectile event
 	std::vector<Plant*> PlantList;
 	std::vector<Zombie*> ZombieList;
+	std::vector<Projectile*> ProjectileList;//wait for projectile event
 	int Address;
 	bool Started;
+	bool IsStarted;
 	/*Starts the events.*/
-	vecplant		FunctionPlantPlantEvent;
-	vecplant		FunctionPlantRemoveEvent;
-	vecplant		FunctionPlantUpgradeEvent;
-	vecvoid		FunctionLevelOpenEvent;
-	vecvoid		FunctionLevelCloseEvent;
-	vecint		FunctionLevelWaveEvent;
-	veczombie	FunctionZombieSpawnEvent;
-	veczombie	FunctionZombieRemoveEvent;
-	void	InvokePlantPlantEvent(Plant*);
-	void	InvokePlantRemoveEvent(Plant*);
-	void	InvokePlantUpgradeEvent(Plant*);
-	void	InvokeLevelOpenEvent();
-	void	InvokeLevelCloseEvent();
-	void	InvokeLevelWaveEvent(int);
-	void	InvokeZombieSpawnEvent(Zombie*);
-	void	InvokeZombieRemoveEvent(Zombie*);
+	vecplant    FunctionPlantPlantEvent;
+	vecplant    FunctionPlantRemoveEvent;
+	vecplant    FunctionPlantUpgradeEvent;
+	vecvoid     FunctionLevelOpenEvent;
+	vecvoid     FunctionLevelCloseEvent;
+	vecint      FunctionLevelWaveEvent;
+	vecvoid	    FunctionLevelStartEvent;
+	veczombie   FunctionZombieSpawnEvent;
+	veczombie   FunctionZombieRemoveEvent;
+	void        InvokePlantPlantEvent(Plant*);
+	void        InvokePlantRemoveEvent(Plant*);
+	void        InvokePlantUpgradeEvent(Plant*);
+	void        InvokeLevelOpenEvent();
+	void        InvokeLevelCloseEvent();
+	void        InvokeLevelWaveEvent(int);
+	void        InvokeLevelStartEvent();
+	void        InvokeZombieSpawnEvent(Zombie*);
+	void        InvokeZombieRemoveEvent(Zombie*);
 	/*end of the events.*/
 	void Update()
 	{
@@ -61,6 +67,7 @@ public:
 		this->pvz = pvz;
 		Address = 0;
 		Started = 0;
+		IsStarted = 0;
 	}
 	~EventHandler()
 	{
@@ -78,6 +85,7 @@ public:
 	void	RegisterLevelOpenEvent(void function());
 	void	RegisterLevelCloseEvent(void function());
 	void	RegisterLevelWaveEvent(void function(int));
+	void    RegisterLevelStartEvent(void function());
 	void	RegisterZombieSpawnEvent(void function(Zombie*));
 	void	RegisterZombieRemoveEvent(void function(Zombie*));
 	/*end of the events.*/
