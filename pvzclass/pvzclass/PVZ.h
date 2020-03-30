@@ -351,11 +351,13 @@ public:
 	};
 	class Projectile
 	{
+		//EventHandler Start
+	public:
+		//EventHandler End
 		int BaseAddress;
 #if _DEBUG
 		ProjectileType::ProjectileType DebugType;
 #endif
-	public:
 		Projectile(int indexoraddress);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);

@@ -5,14 +5,8 @@
 namespace Utils
 {
 	typedef PVZ::Memory Memory;
-	int Read(int address)
-	{
-		return Memory::ReadMemory<int>(address);
-	}
-	void Write(int address, int value)
-	{
-		Memory::WriteMemory(address,value);
-	}
+#define Read(x) (Memory::ReadMemory<int>(x))
+#define Write(x,y) (Memory::WriteMemory<int>(x,y))
 	int GetPlantCost(PlantType::PlantType type)
 	{
 		int address = 0x69F2C0 + 0x24 * type;
@@ -143,7 +137,7 @@ namespace Utils
 		for (int i = 0; i < (int)v.size() - 1; i++)
 		{
 			int ll = v[i] + 1;
-			int rr = v[i + 1];
+			int rr = v[int((long long)i + 1LL)];
 			//		for(int i=ll;i<rr;i++)
 			//			cerr<<s[i];
 			//		cerr<<endl;
@@ -159,4 +153,6 @@ namespace Utils
 		}
 		return rt;
 	}
+#undef Read(x)
+#undef Write(x,y)
 }

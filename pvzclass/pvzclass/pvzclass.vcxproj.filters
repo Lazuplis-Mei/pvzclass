@@ -192,6 +192,9 @@
     <ClCompile Include="ZombieEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectileEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
