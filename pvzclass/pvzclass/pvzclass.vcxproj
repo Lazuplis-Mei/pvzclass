@@ -205,6 +205,7 @@
     <ClCompile Include="PlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
+    <ClCompile Include="ProjectileEvent.cpp" />
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="pvzclass.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
