@@ -11,18 +11,6 @@ std::vector<Zombie*> EventHandler::GetAllZombies()
 			rt.push_back(new Zombie(i));
 	return rt;
 }
-void EventHandler::InvokeZombieSpawnEvent(Zombie* zombie)
-{
-	int lim = FunctionZombieSpawnEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionZombieSpawnEvent[i](zombie);
-}
-void EventHandler::InvokeZombieRemoveEvent(Zombie* zombie)
-{
-	int lim = FunctionZombieRemoveEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionZombieRemoveEvent[i](zombie);
-}
 void EventHandler::UpdateZombies()
 {
 	if (!Address)
@@ -47,7 +35,7 @@ void EventHandler::UpdateZombies()
 		if (ok)
 		{
 			//didn't found x in last, spawns
-			InvokeZombieSpawnEvent(x);
+			InvokeEvent(FunctionZombieSpawnEvent, x);
 		}
 	}
 	for (int i = 0; i < lastn; i++)
@@ -63,7 +51,7 @@ void EventHandler::UpdateZombies()
 		if (ok)
 		{
 			//didn't found x in now, remove
-			InvokeZombieRemoveEvent(x);
+			InvokeEvent(FunctionZombieRemoveEvent, x);
 		}
 	}
 	ZombieList.clear();

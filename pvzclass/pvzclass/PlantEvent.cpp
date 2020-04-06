@@ -16,25 +16,6 @@ std::vector<Plant*> EventHandler::GetAllPlants()
 	return rt;
 }
 
-void EventHandler::InvokePlantPlantEvent(Plant* plant)
-{
-	int lim = FunctionPlantPlantEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionPlantPlantEvent[i](plant);
-}
-
-void EventHandler::InvokePlantRemoveEvent(Plant* plant)
-{
-	int lim = FunctionPlantRemoveEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionPlantRemoveEvent[i](plant);
-}
-void EventHandler::InvokePlantUpgradeEvent(Plant* plant)
-{
-	int lim = FunctionPlantUpgradeEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionPlantUpgradeEvent[i](plant);
-}
 struct pair
 {
 	int first, second;
@@ -84,16 +65,16 @@ void EventHandler::UpdatePlants()
 				//DO NOT PLANT TOO MANY PLANTS IN ONE PLACE
 				std::cerr << x->Row << " " << x->Column << std::endl;
 				pardon.insert(pair(x->Row, x->Column));
-				InvokePlantUpgradeEvent(x);
+				InvokeEvent(FunctionPlantUpgradeEvent, x);
 			}
 			else if (x->Type == PlantType::CobCannon)
 			{
 				pardon.insert(pair(x->Row, x->Column));
 				pardon.insert(pair(x->Row, x->Column + 1));
-				InvokePlantUpgradeEvent(x);
+				InvokeEvent(FunctionPlantUpgradeEvent, x);
 			}
 			else
-				InvokePlantPlantEvent(x);
+				InvokeEvent(FunctionPlantPlantEvent, x);
 		}
 	}
 	//if (pardon.size())std::cerr << "LIST:" << std::endl;
@@ -115,7 +96,7 @@ void EventHandler::UpdatePlants()
 			if (!pardon.count(pair(x->Row, x->Column)))
 			{
 				//std::cerr << "didn't find\n";
-				InvokePlantRemoveEvent(x);
+				InvokeEvent(FunctionPlantRemoveEvent,x);
 			}
 		}
 	}

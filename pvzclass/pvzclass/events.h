@@ -1,8 +1,8 @@
 #pragma once
+#define InvokeEvent(a,b) {for(int i=0;i<a.size();i++)a[i](b);}
 #include "PVZ.h"
 #include <vector>
 #include <queue>
-
 typedef PVZ::Plant Plant;
 typedef PVZ::Zombie Zombie;
 typedef PVZ::Projectile Projectile;
@@ -40,19 +40,9 @@ private:
 	vecvoid	    FunctionLevelStartEvent;
 	veczombie   FunctionZombieSpawnEvent;
 	veczombie   FunctionZombieRemoveEvent;
+	veczombie   FunctionZombieDeathEvent;
 	vecproj     FunctionProjectileFireEvent;
 	vecproj     FunctionProjectileRemoveEvent;
-	void        InvokePlantPlantEvent(Plant*);
-	void        InvokePlantRemoveEvent(Plant*);
-	void        InvokePlantUpgradeEvent(Plant*);
-	void        InvokeLevelOpenEvent();
-	void        InvokeLevelCloseEvent();
-	void        InvokeLevelWaveEvent(int);
-	void        InvokeLevelStartEvent();
-	void        InvokeZombieSpawnEvent(Zombie*);
-	void        InvokeZombieRemoveEvent(Zombie*);
-	void        InvokeProjectileFireEvent(Projectile*);
-	void        InvokeProjectileRemoveEvent(Projectile*);
 	/*end of the events.*/
 	void Update()
 	{
