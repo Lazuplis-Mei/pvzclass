@@ -40,6 +40,7 @@ private:
 	vecvoid	    FunctionLevelStartEvent;
 	veczombie   FunctionZombieSpawnEvent;
 	veczombie   FunctionZombieRemoveEvent;
+	veczombie   FunctionZombieDeadEvent;
 	vecproj     FunctionProjectileFireEvent;
 	vecproj     FunctionProjectileRemoveEvent;
 	void        InvokePlantPlantEvent(Plant*);
@@ -51,6 +52,7 @@ private:
 	void        InvokeLevelStartEvent();
 	void        InvokeZombieSpawnEvent(Zombie*);
 	void        InvokeZombieRemoveEvent(Zombie*);
+	void	    InvokeZombieDeadEvent(Zombie*);
 	void        InvokeProjectileFireEvent(Projectile*);
 	void        InvokeProjectileRemoveEvent(Projectile*);
 	/*end of the events.*/
@@ -94,6 +96,7 @@ public:
 	void    RegisterLevelStartEvent(void function());
 	void	RegisterZombieSpawnEvent(void function(Zombie*));
 	void	RegisterZombieRemoveEvent(void function(Zombie*));
+	void	RegisterZombieDeadEvent(void function(Zombie*));
 	void    RegisterProjectileFireEvent(void function(Projectile*));
 	void    RegisterProjectileRemoveEvent(void function(Projectile*));
 	/*end of the events.*/

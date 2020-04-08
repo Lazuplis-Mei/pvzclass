@@ -3,24 +3,11 @@
 #include "events.h"
 
 using namespace std;
-void onPlant(PVZ::Plant* plant)
+void OnDeath(Zombie* zombie)
 {
-	//...
-	cout << plant->Row << " " << plant->Column << " " << ToString(plant->Type) << endl;
-	//plant->Type = PlantType::Cattail;
+	std::cout << zombie->Index<<endl;
 }
-void onOpen()
-{
-	cout << "OPEN" << endl;
-}
-void onClose()
-{
-	cout << "CLOSE" << endl;
-}
-void onWave(int wave)
-{
-	cout << wave << endl;
-}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -35,15 +22,11 @@ int main()
 	//	return 2;
 	//EventHandler start
 	EventHandler e(pvz);
-	e.RegisterPlantPlantEvent(onPlant);
-	e.RegisterLevelOpenEvent(onOpen);
-	e.RegisterLevelCloseEvent(onClose);
-	e.RegisterLevelWaveEvent(onWave);
+	e.RegisterZombieDeadEvent(OnDeath);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
 		e.Run();
-		Sleep(10);
 	}
 
 	//EventHandler end

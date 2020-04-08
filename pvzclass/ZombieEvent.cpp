@@ -11,6 +11,7 @@ std::vector<Zombie*> EventHandler::GetAllZombies()
 			rt.push_back(new Zombie(i));
 	return rt;
 }
+
 void EventHandler::InvokeZombieSpawnEvent(Zombie* zombie)
 {
 	int lim = FunctionZombieSpawnEvent.size();
@@ -23,6 +24,13 @@ void EventHandler::InvokeZombieRemoveEvent(Zombie* zombie)
 	for (int i = 0; i < lim; i++)
 		FunctionZombieRemoveEvent[i](zombie);
 }
+void EventHandler::InvokeZombieDeadEvent(Zombie* zombie)
+{
+	int lim = FunctionZombieDeadEvent.size();
+	for (int i = 0; i < lim; i++)
+		FunctionZombieDeadEvent[i](zombie); 
+}
+bool isPostedZombieDead[10000] = {};
 void EventHandler::UpdateZombies()
 {
 	if (!Address)
@@ -38,6 +46,7 @@ void EventHandler::UpdateZombies()
 	{
 		bool ok = 1;
 		Zombie* x = now[i];
+		
 		for(int j=0;j<lastn;j++)
 			if (x->BaseAddress == ZombieList[j]->BaseAddress)
 			{
@@ -66,6 +75,37 @@ void EventHandler::UpdateZombies()
 			InvokeZombieRemoveEvent(x);
 		}
 	}
+	for (int i = 0; i < nown; i++)
+	{
+		bool ok = 1;
+		Zombie* x = now[i];
+
+		for (int j = 0; j < lastn; j++)
+			if (x->BaseAddress == ZombieList[j]->BaseAddress)
+			{
+				ok = 0;
+				break;
+			}
+		if (ok)
+		{
+			//didn't found x in last, spawns
+			InvokeZombieSpawnEvent(x);
+		}
+	}
+	now.clear();
+	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0x94);
+	for (int i = 0; i < n; i++)
+		now.push_back(new Zombie(i));
+	for (int i = 0; i < now.size(); i++)
+	{
+		Zombie* x = now[i];
+		if (x->NotExist && !isPostedZombieDead[x->Index])
+		{
+			isPostedZombieDead[x->Index] = true;
+			InvokeZombieDeadEvent(x);
+		}
+	}
+	now = GetAllZombies();
 	ZombieList.clear();
 	ZombieList = now;
 }
@@ -76,4 +116,8 @@ void EventHandler::RegisterZombieSpawnEvent(void function(Zombie*))
 void EventHandler::RegisterZombieRemoveEvent(void function(Zombie*))
 {
 	FunctionZombieRemoveEvent.push_back(function);
+}
+void EventHandler::RegisterZombieDeadEvent(void function(Zombie*))
+{
+	FunctionZombieDeadEvent.push_back(function);
 }
