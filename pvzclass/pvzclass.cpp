@@ -3,88 +3,50 @@
 #include "events.h"
 
 using namespace std;
-PVZ *pvz;
-
-void onNutDead(Plant* plant)
+void onPlant(PVZ::Plant* plant)
 {
-	if (plant->Type == PlantType::Wallnut)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 1; j++)
-			{
-				Creater::CreateProjectile(ProjectileType::Cactus, plant->Row, plant->X, i * 36, 10);
-			}
-		}
-	}
-	else if(plant->Type == PlantType::Tallnut)
-	{
-		Creater::CreateExplosion(plant->X, plant->Y, 2);
-		for (int i = 0; i < 20; i++)
-		{
-			for (int j = 0; j < 1; j++)
-			{
-				Creater::CreateProjectile(ProjectileType::Melon, plant->Row, plant->X, i * 36, 10);
-			}
-		}
-	}
+	//...
+	cout << plant->Row << " " << plant->Column << " " << ToString(plant->Type) << endl;
+	//plant->Type = PlantType::Cattail;
 }
-
-void onBloverPlant(Plant* plant)
+void onOpen()
 {
-	if (plant->Type == PlantType::Blover)
-	{
-		PVZ::Zombie* zombies[1000];
-		int num = pvz->GetAllZombies(zombies);
-		while(num--)
-		{
-			zombies[num]->FixedCountdown = max(zombies[num]->FixedCountdown,10);
-			int hp, maxhp;
-			zombies[num]->GetBodyHp(&hp, &maxhp);
-			zombies[num]->SetBodyHp(max(hp-10,0), maxhp);
-		}
-	}
+	cout << "OPEN" << endl;
 }
-
-void onEnergyBeen(Plant* plant)
+void onClose()
 {
-	using namespace PlantType;
-	if (plant->Type == CoffeeBean)
-	{
-		PVZ::Plant* plants[1000];
-		int num = pvz->GetAllPlants(plants);
-		while (num--)
-		{
-			if (plants[num]->Row == plant->Row && plants[num]->Column == plant->Column && plants[num]->Type != CoffeeBean)
-			{
-				switch (plants[num]->Type)
-				{
-				case Peashooter:
-					for (int i = 0; i < 20; i++)
-					{
-						Creater::CreateProjectile(ProjectileType::Pea, plants[num]->X, plants[num]->Y, 0, 20);
-					}
-					break;
-				}
-			}
-		}
-	}
+	cout << "CLOSE" << endl;
 }
-
+void onWave(int wave)
+{
+	cout << wave << endl;
+}
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
+
 	if (!pid)
 		return 1;
-	pvz = new PVZ(pid);
-	EventHandler eventBus(pvz);
-	Creater::AsmInit();
-	eventBus.RegisterPlantPlantEvent(onBloverPlant);
-	eventBus.RegisterPlantPlantEvent(onEnergyBeen);
-	while (true)
+	cout << pid << endl;
+	PVZ* pvz = new PVZ(pid);
+
+	cout << pvz->BaseAddress << endl;
+	//if (!pvz->BaseAddress)
+	//	return 2;
+	//EventHandler start
+	EventHandler e(pvz);
+	e.RegisterPlantPlantEvent(onPlant);
+	e.RegisterLevelOpenEvent(onOpen);
+	e.RegisterLevelCloseEvent(onClose);
+	e.RegisterLevelWaveEvent(onWave);
+	while (pvz->BaseAddress)
 	{
-		eventBus.Run();
+		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
+		e.Run();
+		Sleep(10);
 	}
+
+	//EventHandler end
 	delete pvz;
 	return 0;
 }
