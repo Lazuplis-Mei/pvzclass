@@ -39,7 +39,21 @@ void EventHandler::UpdateZombies()
 			ZombieList.clear();
 		return;
 	}
-	std::vector<Zombie*> now = GetAllZombies();
+	std::vector<Zombie*> now;
+	now.clear();
+	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0x94);
+	for (int i = 0; i < n; i++)
+		now.push_back(new Zombie(i));
+	now = GetAllZombies();
+	for (int i = 0; i < now.size(); i++)
+	{
+		Zombie* x = now[i];
+		if (x->NotExist && !isPostedZombieDead[x->Index])
+		{
+			isPostedZombieDead[x->Index] = true;
+			InvokeZombieDeadEvent(x);
+		}
+	}
 	int nown = now.size();
 	int lastn = ZombieList.size();
 	for (int i = 0; i < nown; i++)
@@ -92,20 +106,6 @@ void EventHandler::UpdateZombies()
 			InvokeZombieSpawnEvent(x);
 		}
 	}
-	now.clear();
-	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0x94);
-	for (int i = 0; i < n; i++)
-		now.push_back(new Zombie(i));
-	for (int i = 0; i < now.size(); i++)
-	{
-		Zombie* x = now[i];
-		if (x->NotExist && !isPostedZombieDead[x->Index])
-		{
-			isPostedZombieDead[x->Index] = true;
-			InvokeZombieDeadEvent(x);
-		}
-	}
-	now = GetAllZombies();
 	ZombieList.clear();
 	ZombieList = now;
 }
