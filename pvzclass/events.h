@@ -95,8 +95,8 @@ public:
 	void	RegisterLevelWaveEvent(void function(int));
 	void    RegisterLevelStartEvent(void function());
 	void	RegisterZombieSpawnEvent(void function(Zombie*));
-	void	RegisterZombieRemoveEvent(void function(Zombie*));
 	void	RegisterZombieDeadEvent(void function(Zombie*));
+	void	RegisterZombieRemoveEvent(void function(Zombie*));
 	void    RegisterProjectileFireEvent(void function(Projectile*));
 	void    RegisterProjectileRemoveEvent(void function(Projectile*));
 	/*end of the events.*/
