@@ -1,17 +1,5 @@
 #include "events.h"
 #include <vector>
-void EventHandler::InvokeProjectileFireEvent(Projectile* projectile)
-{
-	int lim = FunctionProjectileFireEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionProjectileFireEvent[i](projectile);
-}
-void EventHandler::InvokeProjectileRemoveEvent(Projectile * projectile)
-{
-	int lim = FunctionProjectileRemoveEvent.size();
-	for (int i = 0; i < lim; i++)
-		FunctionProjectileRemoveEvent[i](projectile);
-}
 std::vector<Projectile*> EventHandler::GetAllProjectiles()
 {
 	std::vector<Projectile*> rt;
@@ -43,7 +31,7 @@ void EventHandler::UpdateProjectiles()
 				break;
 			}
 		if (ok)
-			InvokeProjectileFireEvent(x);
+			InvokeEvent(FunctionProjectileFireEvent, x);
 	}
 	for (int i = 0; i < lastn; i++)
 	{
@@ -56,7 +44,7 @@ void EventHandler::UpdateProjectiles()
 				break;
 			}
 		if (ok)
-			InvokeProjectileRemoveEvent(x);
+			InvokeEvent(FunctionProjectileRemoveEvent, x);
 	}
 	ProjectileList.clear();
 	ProjectileList = list;
