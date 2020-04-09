@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{703410A4-A7E7-4FFF-A8D0-C7B8B5329575}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>pvzclass</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PreprocessToFile>false</PreprocessToFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Classes\Animation.cpp" />
+    <ClCompile Include="Classes\Caption.cpp" />
+    <ClCompile Include="Classes\CardSlot.cpp" />
+    <ClCompile Include="Classes\Coin.cpp" />
+    <ClCompile Include="Classes\Griditem.cpp" />
+    <ClCompile Include="Classes\Icetrace.cpp" />
+    <ClCompile Include="Classes\Lawn.cpp" />
+    <ClCompile Include="AsmFunctions.cpp" />
+    <ClCompile Include="Classes\Lawnmover.cpp" />
+    <ClCompile Include="Classes\Memory.cpp" />
+    <ClCompile Include="Classes\Miscellaneous.cpp" />
+    <ClCompile Include="Classes\Mouse.cpp" />
+    <ClCompile Include="Classes\MousePointer.cpp" />
+    <ClCompile Include="Classes\Music.cpp" />
+    <ClCompile Include="Classes\Plant.cpp" />
+    <ClCompile Include="Classes\SaveData.cpp" />
+    <ClCompile Include="Classes\SeedCard.cpp" />
+    <ClCompile Include="Creaters.cpp" />
+    <ClCompile Include="Enums\CaptionStyle.cpp" />
+    <ClCompile Include="Enums\CardType.cpp" />
+    <ClCompile Include="Enums\CoinMotionType.cpp" />
+    <ClCompile Include="Enums\CoinType.cpp" />
+    <ClCompile Include="Enums\DamageType.cpp" />
+    <ClCompile Include="Enums\DebugModeType.cpp" />
+    <ClCompile Include="Enums\GardenPlantState.cpp" />
+    <ClCompile Include="Enums\GardenScene.cpp" />
+    <ClCompile Include="Enums\GriditemType.cpp" />
+    <ClCompile Include="Enums\INGAMEEffect.cpp" />
+    <ClCompile Include="Enums\INGAMEState.cpp" />
+    <ClCompile Include="Enums\LawnmoverType.cpp" />
+    <ClCompile Include="Enums\LawnTypeEnum.cpp" />
+    <ClCompile Include="Enums\MotionType.cpp" />
+    <ClCompile Include="Enums\MouseClickState.cpp" />
+    <ClCompile Include="Enums\MouseType.cpp" />
+    <ClCompile Include="Enums\MusicType.cpp" />
+    <ClCompile Include="Enums\PaintState.cpp" />
+    <ClCompile Include="Enums\PlantEffectType.cpp" />
+    <ClCompile Include="Enums\PlantType.cpp" />
+    <ClCompile Include="Enums\ProjectileType.cpp" />
+    <ClCompile Include="Enums\PVZGameStateEnum.cpp" />
+    <ClCompile Include="Enums\PVZLevelEnum.cpp" />
+    <ClCompile Include="Enums\PVZVersionEnum.cpp" />
+    <ClCompile Include="Enums\RouteTypeEnum.cpp" />
+    <ClCompile Include="Enums\SceneType.cpp" />
+    <ClCompile Include="Enums\VaseContent.cpp" />
+    <ClCompile Include="Enums\VaseSkin.cpp" />
+    <ClCompile Include="Enums\ZombieAccessoriesType1.cpp" />
+    <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
+    <ClCompile Include="Enums\ZombieType.cpp" />
+    <ClCompile Include="LevelEvent.cpp" />
+    <ClCompile Include="PlantEvent.cpp" />
+    <ClCompile Include="ProcessOpener.cpp" />
+    <ClCompile Include="Classes\Projectile.cpp" />
+    <ClCompile Include="ProjectileEvent.cpp" />
+    <ClCompile Include="PVZ.cpp" />
+    <ClCompile Include="pvzclass.cpp" />
+    <ClCompile Include="Classes\Wave.cpp" />
+    <ClCompile Include="Classes\Zombie.cpp" />
+    <ClCompile Include="Classes\GardenPlant.cpp" />
+    <ClCompile Include="ZombieEvent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Creaters.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="AsmFuntions.h" />
+    <ClInclude Include="Enums\CaptionStyle.h" />
+    <ClInclude Include="Enums\CardType.h" />
+    <ClInclude Include="Enums\CoinMotionType.h" />
+    <ClInclude Include="Enums\CoinType.h" />
+    <ClInclude Include="Enums\DamageType.h" />
+    <ClInclude Include="Enums\DebugModeType.h" />
+    <ClInclude Include="Enums\GardenPlantState.h" />
+    <ClInclude Include="Enums\GardenScene.h" />
+    <ClInclude Include="Enums\GriditemType.h" />
+    <ClInclude Include="Enums\INGAMEEffect.h" />
+    <ClInclude Include="Enums\INGAMEState.h" />
+    <ClInclude Include="Enums\LawnmoverType.h" />
+    <ClInclude Include="Enums\LawnTypeEnum.h" />
+    <ClInclude Include="Enums\MotionType.h" />
+    <ClInclude Include="Enums\MouseClickState.h" />
+    <ClInclude Include="Enums\MouseType.h" />
+    <ClInclude Include="Enums\MusicType.h" />
+    <ClInclude Include="Enums\PaintState.h" />
+    <ClInclude Include="Enums\PlantEffectType.h" />
+    <ClInclude Include="Enums\PlantType.h" />
+    <ClInclude Include="Enums\ProjectileType.h" />
+    <ClInclude Include="Enums\RouteTypeEnum.h" />
+    <ClInclude Include="Enums\SceneType.h" />
+    <ClInclude Include="Enums\VaseContent.h" />
+    <ClInclude Include="Enums\VaseSkin.h" />
+    <ClInclude Include="Enums\ZombieAccessoriesType1.h" />
+    <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
+    <ClInclude Include="Enums\ZombieType.h" />
+    <ClInclude Include="events.h" />
+    <ClInclude Include="ProcessOpener.h" />
+    <ClInclude Include="PVZ.h" />
+    <ClInclude Include="Enums\PVZGameStateEnum.h" />
+    <ClInclude Include="Enums\PVZLevelEnum.h" />
+    <ClInclude Include="Enums\PVZVersionEnum.h" />
+    <ClInclude Include="Extensions.h" />
+    <ClInclude Include="pvzclass.h" />
+    <ClInclude Include="utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pvzclass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PVZ.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AsmFunctions.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Coin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Griditem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Icetrace.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Lawn.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Lawnmover.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Memory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\MousePointer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Plant.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Projectile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Wave.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Zombie.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessOpener.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\LawnTypeEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PVZGameStateEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PVZLevelEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PVZVersionEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\RouteTypeEnum.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MouseClickState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ZombieType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\SceneType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\DebugModeType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ZombieAccessoriesType1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ZombieAccessoriesType2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\DamageType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PlantType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PlantEffectType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MotionType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ProjectileType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\CoinType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\CoinMotionType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\CardType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\LawnmoverType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GriditemType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\VaseSkin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\VaseContent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MouseType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\CaptionStyle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Caption.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\CardSlot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SeedCard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Miscellaneous.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\PaintState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SaveData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GardenScene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GardenPlantState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MusicType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\INGAMEState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\INGAMEEffect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Music.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GardenPlant.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Creaters.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PlantEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ProcessOpener.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PVZ.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AsmFuntions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PVZVersionEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PVZLevelEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PVZGameStateEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LawnTypeEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\RouteTypeEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MouseClickState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SceneType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\DebugModeType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieAccessoriesType1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieAccessoriesType2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\DamageType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PlantType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PlantEffectType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MotionType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ProjectileType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CoinType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CoinMotionType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CardType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LawnmoverType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GriditemType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VaseSkin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VaseContent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MouseType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CaptionStyle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\PaintState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenScene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenPlantState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MusicType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\INGAMEState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\INGAMEEffect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Creaters.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pvzclass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="events.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+</Project>
