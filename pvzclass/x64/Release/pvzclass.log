@@ -3,11 +3,20 @@ E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(704,1): warning C4312: �
 E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(704,1): message : 此诊断出现在编译器生成的函数“T PVZ::Memory::ReadMemory(int)”中
 E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(704,1): warning C4312: “类型强制转换”: 从“int”转换到更大的“void *”
 E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(704,1): message : 此诊断出现在编译器生成的函数“BOOL PVZ::Memory::WriteMemory(int,T)”中
-E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(17,43): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(23,44): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(29,42): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(43,23): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(44,31): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(17,47): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(21,42): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(25,42): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(32,48): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(36,43): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(40,43): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(47,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(51,41): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(55,41): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(63,52): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(67,47): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(71,47): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(103,23): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\ZombieEvent.cpp(104,31): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(100,1): warning C4312: “类型强制转换”: 从“int”转换到更大的“LPCVOID”
 E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(137): message : 查看对正在编译的函数 模板 实例化“T PVZ::Memory::ReadMemory<int>(int)”的引用
           with
@@ -21,8 +30,8 @@ E:\pvz\我的改版制作\PVZ++\pvzclass\pvzclass\PVZ.h(148): message : 查看�
               T=PVZLevel::PVZLevel
           ]
   正在生成代码
-  15 of 436 functions ( 3.4%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    16 functions had inline decision re-evaluated but remain unchanged
+  4 of 439 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   pvzclass.vcxproj -> E:\pvz\我的改版制作\PVZ++\pvzclass\x64\Release\pvzclass.exe

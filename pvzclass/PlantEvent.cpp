@@ -18,22 +18,49 @@ std::vector<Plant*> EventHandler::GetAllPlants()
 
 void EventHandler::InvokePlantPlantEvent(Plant* plant)
 {
-	int lim = FunctionPlantPlantEvent.size();
+	int lim = FunctionPlantPlantEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionPlantPlantEvent[i](plant);
+		if (FunctionPlantPlantEventHigh[i](plant))
+			return;
+	lim = FunctionPlantPlantEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantPlantEventMid[i](plant))
+			return;
+	lim = FunctionPlantPlantEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantPlantEventLow[i](plant))
+			return;
 }
 
 void EventHandler::InvokePlantRemoveEvent(Plant* plant)
 {
-	int lim = FunctionPlantRemoveEvent.size();
+	int lim = FunctionPlantRemoveEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionPlantRemoveEvent[i](plant);
+		if (FunctionPlantRemoveEventHigh[i](plant))
+			return;
+	lim = FunctionPlantRemoveEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantRemoveEventMid[i](plant))
+			return;
+	lim = FunctionPlantRemoveEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantRemoveEventLow[i](plant))
+			return;
 }
 void EventHandler::InvokePlantUpgradeEvent(Plant* plant)
 {
-	int lim = FunctionPlantUpgradeEvent.size();
+	int lim = FunctionPlantUpgradeEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionPlantUpgradeEvent[i](plant);
+		if (FunctionPlantUpgradeEventHigh[i](plant))
+			return;
+	lim = FunctionPlantUpgradeEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantUpgradeEventMid[i](plant))
+			return;
+	lim = FunctionPlantUpgradeEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionPlantUpgradeEventLow[i](plant))
+			return;
 }
 struct pair
 {
@@ -126,17 +153,32 @@ void EventHandler::UpdatePlants()
 
 
 
-void EventHandler::RegisterPlantPlantEvent(void function(Plant*))
+void EventHandler::RegisterPlantPlantEvent(bool function(Plant*), int level)
 {
-	FunctionPlantPlantEvent.push_back(function);
+	if(level==Event_Low)
+		FunctionPlantPlantEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionPlantPlantEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionPlantPlantEventHigh.push_back(function);
 }
 
-void EventHandler::RegisterPlantRemoveEvent(void function(Plant*))
+void EventHandler::RegisterPlantRemoveEvent(bool function(Plant*), int level)
 {
-	FunctionPlantRemoveEvent.push_back(function);
-}
+	if (level == Event_Low)
+		FunctionPlantRemoveEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionPlantRemoveEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionPlantRemoveEventHigh.push_back(function);
+}	
 
-void EventHandler::RegisterPlantUpgradeEvent(void function(Plant*))
+void EventHandler::RegisterPlantUpgradeEvent(bool function(Plant*), int level)
 {
-	FunctionPlantUpgradeEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionPlantUpgradeEventLow.push_back(function);
+	else if(level == Event_Mid)
+		FunctionPlantUpgradeEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionPlantUpgradeEventHigh.push_back(function);
 }
