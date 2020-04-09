@@ -3,9 +3,16 @@
 #include "events.h"
 
 using namespace std;
-void OnDeath(Zombie* zombie)
+bool OnDeath(Zombie* zombie)
 {
-	std::cout << zombie->Index<<endl;
+	std::cout << endl << zombie->Index;
+	return true;
+}
+
+bool OnDeath2(Zombie* zombie)
+{
+	std::cout << endl <<"2"<< zombie->Index ;
+	return true;
 }
 
 int main()
@@ -22,7 +29,8 @@ int main()
 	//	return 2;
 	//EventHandler start
 	EventHandler e(pvz);
-	e.RegisterZombieDeadEvent(OnDeath);
+	e.RegisterZombieDeadEvent(OnDeath, Event_High);
+	e.RegisterZombieDeadEvent(OnDeath2, Event_Low);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;

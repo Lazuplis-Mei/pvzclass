@@ -2,15 +2,33 @@
 #include <vector>
 void EventHandler::InvokeProjectileFireEvent(Projectile* projectile)
 {
-	int lim = FunctionProjectileFireEvent.size();
+	int lim = FunctionProjectileFireEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionProjectileFireEvent[i](projectile);
+		if (FunctionProjectileFireEventHigh[i](projectile))
+			return; 
+	lim = FunctionProjectileFireEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionProjectileFireEventMid[i](projectile))
+			return;
+	lim = FunctionProjectileFireEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionProjectileFireEventLow[i](projectile))
+			return;
 }
 void EventHandler::InvokeProjectileRemoveEvent(Projectile * projectile)
 {
-	int lim = FunctionProjectileRemoveEvent.size();
+	int lim = FunctionProjectileRemoveEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionProjectileRemoveEvent[i](projectile);
+		if (FunctionProjectileRemoveEventHigh[i](projectile))
+			return; 
+	lim = FunctionLevelStartEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionProjectileRemoveEventMid[i](projectile))
+			return;
+	lim = FunctionProjectileRemoveEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionProjectileRemoveEventLow[i](projectile))
+			return;
 }
 std::vector<Projectile*> EventHandler::GetAllProjectiles()
 {
@@ -62,11 +80,21 @@ void EventHandler::UpdateProjectiles()
 	ProjectileList = list;
 }
 
-void EventHandler::RegisterProjectileFireEvent(void function(Projectile*))
+void EventHandler::RegisterProjectileFireEvent(bool function(Projectile*), int level)
 {
-	FunctionProjectileFireEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionProjectileFireEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionProjectileFireEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionProjectileFireEventHigh.push_back(function);
 }
-void EventHandler::RegisterProjectileRemoveEvent(void function(Projectile*))
+void EventHandler::RegisterProjectileRemoveEvent(bool function(Projectile*), int level)
 {
-	FunctionProjectileRemoveEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionProjectileRemoveEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionProjectileRemoveEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionProjectileRemoveEventHigh.push_back(function);
 }

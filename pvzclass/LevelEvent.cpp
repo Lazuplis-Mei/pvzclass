@@ -4,27 +4,63 @@
 int wave;
 void EventHandler::InvokeLevelOpenEvent()
 {
-	int lim = FunctionLevelOpenEvent.size();
+	int lim = FunctionLevelOpenEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionLevelOpenEvent[i]();
+		if (FunctionLevelOpenEventHigh[i]())
+			return;
+	lim = FunctionLevelOpenEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelOpenEventMid[i]())
+			return;
+	lim = FunctionLevelOpenEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelOpenEventLow[i]())
+			return;
 }
 void EventHandler::InvokeLevelCloseEvent()
 {
-	int lim = FunctionLevelCloseEvent.size();
+	int lim = FunctionLevelCloseEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionLevelCloseEvent[i]();
+		if (FunctionLevelCloseEventHigh[i]())
+			return; 
+	lim = FunctionLevelOpenEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelCloseEventMid[i]())
+			return;
+	lim = FunctionLevelCloseEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelCloseEventLow[i]())
+			return;
 }
 void EventHandler::InvokeLevelWaveEvent(int wave)
 {
-	int lim = FunctionLevelWaveEvent.size();
+	int lim = FunctionLevelWaveEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionLevelWaveEvent[i](wave);
+		if (FunctionLevelWaveEventHigh[i](wave))
+			return;
+	lim = FunctionLevelWaveEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelWaveEventMid[i](wave))
+			return;
+	lim = FunctionLevelWaveEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelWaveEventLow[i](wave))
+			return;
 }
 void EventHandler::InvokeLevelStartEvent()
 {
-	int lim = FunctionLevelStartEvent.size();
+	int lim = FunctionLevelStartEventHigh.size();
 	for (int i = 0; i < lim; i++)
-		FunctionLevelStartEvent[i]();
+		if (FunctionLevelStartEventHigh[i]())
+			return;
+	lim = FunctionLevelStartEventMid.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelStartEventMid[i]())
+			return;
+	lim = FunctionLevelStartEventLow.size();
+	for (int i = 0; i < lim; i++)
+		if (FunctionLevelStartEventLow[i]())
+			return;
 }
 void EventHandler::UpdateLevels()
 {
@@ -59,22 +95,42 @@ void EventHandler::UpdateLevels()
 		}
 	}
 }
-void EventHandler::RegisterLevelOpenEvent(void function())
+void EventHandler::RegisterLevelOpenEvent(bool function(), int level)
 {
-	FunctionLevelOpenEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionLevelOpenEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionLevelOpenEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionLevelOpenEventHigh.push_back(function);
 }
 
-void EventHandler::RegisterLevelCloseEvent(void function())
+void EventHandler::RegisterLevelCloseEvent(bool function(), int level)
 {
-	FunctionLevelCloseEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionLevelCloseEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionLevelCloseEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionLevelCloseEventHigh.push_back(function);
 }
 
-void EventHandler::RegisterLevelWaveEvent(void function(int))
+void EventHandler::RegisterLevelWaveEvent(bool function(int), int level)
 {
-	FunctionLevelWaveEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionLevelWaveEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionLevelWaveEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionLevelWaveEventHigh.push_back(function);
 }
 
-void EventHandler::RegisterLevelStartEvent(void function())
+void EventHandler::RegisterLevelStartEvent(bool function(), int level)
 {
-	FunctionLevelStartEvent.push_back(function);
+	if (level == Event_Low)
+		FunctionLevelStartEventLow.push_back(function);
+	else if (level == Event_Mid)
+		FunctionLevelStartEventMid.push_back(function);
+	else if (level == Event_High)
+		FunctionLevelStartEventHigh.push_back(function);
 }
