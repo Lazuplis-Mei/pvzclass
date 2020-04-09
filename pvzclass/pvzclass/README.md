@@ -1,6 +1,5 @@
 # pvzlass 是一个用于控制植物大战僵尸游戏内部运行实体的一套框架
 
-<<<<<<< HEAD
 ## 框架将游戏内部的对象进行了封装，供监视和控制，同时提供了一系列内部的方法，以下有几个注意点
 
 * 要编译这个框架，你需要使用 **Visual Studio 2019 (v142平台工具集)**
@@ -203,66 +202,3 @@ int num = pPVZ->GetAllZombies(zombies);//返回实际获取到的对象数量
 3. CreatePortal
 
 * FrozeAll函数需要在关卡出现过植物的情况下才有效果
-=======
-## pvzclass-with-events 附加
-
-### EventHandler是一个类。这个类可以被构造：
-
-```cpp
-EventHandler(PVZ* pvz);
-```
-
-这个类可以注册所有的监听器：
-
-+ `PlantPlantEvent`-PVZ::Plant*
-+ `PlantRemoveEvent`-PVZ::Plant*
-+ `PlantUpgradeEvent`-PVZ::Plant*
-+ `LevelOpenEvent`-void
-+ `LevelCloseEvent`-void
-+ `LevelWaveEvent`-int
-
-格式：
-`注册名`——`函数传递参数`
-
-注册监听器需要将register放到前面。
-
-+ `RegisterPlantPlantEvent(...)`
-
-`Run` 代表运行一次监听器。
-
-**注意：Run只能进行一次监听，不能持久，不会多开线程**
-
-监听的函数必须有一个相对应的参数。
-
-`void onPlant( PVZ::Plant *e )`
-
-代码：
-
-```cpp
-#include "events.h"
-///...
-void plant(PVZ::Plant e)//e与参数对应
-{
-	cout << "found Plant on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
-}
-void open(void)//其实这里void可以拿走
-{
-        cout << "open" << endl;
-}
-void wave(int w)
-{
-        cout << "wave is: " << wave << endl;
-}
-//...
-int main()
-{
-//...
-	EventHandler e(pvz);
-	e.RegisterPlantPlantEvent(plant);
-	e.RegisterLevelOpenEvent(open);
-	while (1)
-		e.Run();      //进行一次监听
-//...
-}
-```
->>>>>>> 68a069ecf44f19bb2c8f60f8a0a930b0703eddd1
