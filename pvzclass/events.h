@@ -83,6 +83,7 @@ public:
 	/*end of the events.*/
 };
 
+/*Plant Event*/
 class EventPlantPlant : public Event
 {
 public:
@@ -116,6 +117,32 @@ public:
 	}
 };
 
+class EventPlantDamage : public Event
+{
+public:
+	Plant* plant;
+	Zombie* zombie;
+	EventPlantDamage(Plant* plant, Zombie* zombie)
+	{
+		name = "PlantDamage";
+		this->plant = plant;
+		this->zombie = zombie;
+	}
+};
+
+class EventPlantDead : public Event
+{
+public:
+	Plant* plant;
+	Zombie* zombie;
+	EventPlantDead(Plant* plant)
+	{
+		name = "PlantDead";
+		this->plant = plant;
+	}
+};
+
+/*Level Event*/
 class EventLevelOpen : public Event
 {
 public:
@@ -154,6 +181,7 @@ public:
 	}
 };
 
+/*Projectile Event*/
 class EventProjectileFire : public Event
 {
 public:
@@ -176,6 +204,7 @@ public:
 	}
 };
 
+/*Zombie Event*/
 class EventZombieSpawn : public Event
 {
 public:
@@ -217,5 +246,18 @@ public:
 	{
 		name="ZombieHypnotized";
 		this->zombie = zombie;
+	}
+};
+
+class EventZombieDamage : public Event
+{
+public:
+	Zombie* zombie;
+	Projectile* projectile;
+	EventZombieDamage(Zombie* zombie, Projectile* projectile)
+	{
+		name = "ZombieDamage";
+		this->zombie = zombie;
+		this->projectile = projectile;
 	}
 };

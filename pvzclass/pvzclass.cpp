@@ -14,6 +14,21 @@ void OnDeath2(Event* e)
 	std::cout << endl <<"2 "<< ((EventZombieDead*)e)->zombie->Index;
 }
 
+void OnDamage(Event* e)
+{
+	((EventZombieDamage*)e)->zombie->Hypnotized=true;
+}
+
+void OnPlantDead(Event* e)
+{
+	Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+}
+
+void OnPlantDamage(Event* e)
+{
+	((EventPlantDamage*)e)->zombie->Hypnotized = true;
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -30,6 +45,9 @@ int main()
 	EventHandler e(pvz);
 	e.RegistryListeners("ZombieDead",OnDeath, Event_High);
 	e.RegistryListeners("ZombieDead",OnDeath2, Event_Low);
+	//e.RegistryListeners("ZombieDamage", OnDamage);
+	e.RegistryListeners("PlantDead", OnPlantDead);
+	e.RegistryListeners("PlantDamage", OnPlantDamage);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
