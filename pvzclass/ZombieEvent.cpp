@@ -44,7 +44,7 @@ void EventHandler::UpdateZombies()
 	{
 		bool ok = 1;
 		Zombie* x = now[i];
-		
+
 		for(int j=0;j<lastn;j++)
 			if (x->BaseAddress == ZombieList[j]->BaseAddress)
 			{

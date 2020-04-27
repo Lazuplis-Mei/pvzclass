@@ -201,6 +201,7 @@
     <ClCompile Include="Enums\ZombieAccessoriesType1.cpp" />
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
+    <ClCompile Include="events.cpp" />
     <ClCompile Include="LevelEvent.cpp" />
     <ClCompile Include="PlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />

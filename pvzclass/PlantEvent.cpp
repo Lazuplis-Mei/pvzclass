@@ -34,6 +34,9 @@ bool operator < (pair a, pair b)
 	return a.first == b.first ? a.second < b.second : a.first < b.first;
 }
 
+std::vector<int>PlantsLastHealt;
+std::vector<bool>PlantLastDead;
+
 void EventHandler::UpdatePlants()
 {
 	if (!Address)
@@ -48,6 +51,22 @@ void EventHandler::UpdatePlants()
 	// The time complication is O(n^2).
 	int listn = PlantList.size();
 	int plantn = plant.size();
+	for (int i = 0; i < plant.size(); i++) {
+		if (PlantsLastHealt.size() <= i) {
+			PlantsLastHealt.push_back(plant[i]->Hp);
+		}
+		else {
+			if (PlantsLastHealt[i] > plant[i]->Hp) {
+				std::vector<Zombie*>zombies = GetAllZombies();
+				for (int j = 0; j < zombies.size(); j++) {
+					if (abs(zombies[j]->X - plant[i]->X) <= 100) {
+						InvokeEvent(new EventPlantDamage(plant[i], zombies[j]), true);
+					}
+				}
+			}
+		}
+	}
+
 	for (int i = 0; i < plantn; i++)
 	{
 		Plant* x = plant[i];
@@ -72,6 +91,21 @@ void EventHandler::UpdatePlants()
 			}
 			else
 				InvokeEvent(new EventPlantPlant(x),true);
+		}
+	}
+
+	std::vector<Plant*> allPlant;
+	int allPlantNum = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
+	for (int i = 0; i < allPlantNum; i++)
+		allPlant.push_back(new Plant(i));
+	for (int i = 0; i < allPlant.size(); i++) {
+		if (PlantLastDead.size() <= i) {
+			PlantLastDead.push_back(false);
+			PlantLastDead.push_back(false);
+			PlantLastDead.push_back(false);
+		}
+		if (!PlantLastDead[i]&&allPlant[i]->NotExist) {
+			InvokeEvent(new EventPlantDead(allPlant[i]), true);
 		}
 	}
 	//if (pardon.size())std::cerr << "LIST:" << std::endl;
