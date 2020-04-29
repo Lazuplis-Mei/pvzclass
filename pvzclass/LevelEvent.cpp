@@ -11,6 +11,9 @@ void EventHandler::UpdateLevels()
 		Address = pvz->BaseAddress;
 		wave = pvz->WaveCount;
 		InvokeEvent(new EventLevelOpen(),true);
+		PlantList = GetAllPlants();
+		ZombieList = GetAllZombies();
+		ProjectileList = GetAllProjectiles();
 	}
 	//std::cerr << address << "!" << pvz->BaseAddress << std::endl;
 	if (Address != NULL && pvz->BaseAddress == NULL)
