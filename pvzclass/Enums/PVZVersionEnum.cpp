@@ -10,10 +10,10 @@ const char* PVZVersion::ToString(PVZVersion pvzver)
 		return "V1_2_0_1065";
 	case PVZVersion::V1_2_0_1073:
 		return "V1_2_0_1073";
-	case PVZVersion::ÖÐÎÄÄê¶È¼ÓÇ¿°æ:
-		return "ÖÐÎÄÄê¶È¼ÓÇ¿°æ";
-	case PVZVersion::Õ³¶Èº¹»¯°æ:
-		return "Õ³¶Èº¹»¯°æ";
+	case PVZVersion::CHINESE_ENHANCED:
+		return "ä¸­æ–‡å¹´åº¦åŠ å¼ºç‰ˆ";
+	case PVZVersion::CHINESE_VISCOSITY:
+		return "ç²˜åº¦æ±—åŒ–ç‰ˆ";
 	case PVZVersion::UnknowOrNotPVZ:
 		return "UnknowOrNotPVZ";
 	default:
