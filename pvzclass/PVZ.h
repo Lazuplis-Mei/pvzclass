@@ -309,7 +309,7 @@ public:
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
-		INT_PROPERTY(State, __get_State, __set_State, 0x28);
+		T_PROPERTY(ZombieState::ZombieState, State, __get_State, __set_State, 0x28);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x30);
 		void Light(int cs = 100);

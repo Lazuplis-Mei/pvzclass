@@ -5,18 +5,14 @@
 using namespace std;
 void OnDeath(Event* e)
 {
-	//e->CancleState = true;
-	std::cout << endl << ((EventZombieDead*)e)->zombie->Index;
+	e->CancleState = true;
+	//std::cout << endl << ((EventZombieDead*)e)->zombie->Index;
+	std::cout << endl << ZombieState::ToString(((EventZombieDead*)e)->zombie->State);
 }
 
 void OnDeath2(Event* e)
 {
 	std::cout << endl <<"2 "<< ((EventZombieDead*)e)->zombie->Index;
-}
-
-void OnDamage(Event* e)
-{
-	((EventZombieDamage*)e)->zombie->Hypnotized=true;
 }
 
 void OnPlantDead(Event* e)
@@ -45,7 +41,6 @@ int main()
 	EventHandler e(pvz);
 	e.RegistryListeners("ZombieDead",OnDeath, Event_High);
 	e.RegistryListeners("ZombieDead",OnDeath2, Event_Low);
-	//e.RegistryListeners("ZombieDamage", OnDamage);
 	e.RegistryListeners("PlantDead", OnPlantDead);
 	e.RegistryListeners("PlantDamage", OnPlantDamage);
 	while (pvz->BaseAddress)

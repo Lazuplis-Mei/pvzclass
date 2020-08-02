@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 namespace PVZVersion
 {
 
@@ -7,8 +7,8 @@ namespace PVZVersion
 		V1_0_0_1051,
 		V1_2_0_1065,
 		V1_2_0_1073,
-		ÖÐÎÄÄê¶È¼ÓÇ¿°æ,
-		Õ³¶Èº¹»¯°æ,
+		CHINESE_ENHANCED,
+		CHINESE_VISCOSITY,
 		UnknowOrNotPVZ,
 	};
 

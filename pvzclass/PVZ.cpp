@@ -1,4 +1,4 @@
-#include "PVZ.h"
+ï»¿#include "PVZ.h"
 
 
 PVZ::PVZ(DWORD pid)
@@ -34,9 +34,9 @@ PVZVersion::PVZVersion PVZ::__get_GameVersion()
 	case 0x3B000001:
 		return PVZVersion::V1_2_0_1073;
 	case 0x878B0000:
-		return PVZVersion::ÖÐÎÄÄê¶È¼ÓÇ¿°æ;
+		return PVZVersion::CHINESE_ENHANCED;
 	case 0xA48F:
-		return PVZVersion::Õ³¶Èº¹»¯°æ;
+		return PVZVersion::CHINESE_VISCOSITY;
 	default:
 		return PVZVersion::UnknowOrNotPVZ;
 	}

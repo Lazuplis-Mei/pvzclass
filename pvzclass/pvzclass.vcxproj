@@ -200,6 +200,7 @@
     <ClCompile Include="Enums\VaseSkin.cpp" />
     <ClCompile Include="Enums\ZombieAccessoriesType1.cpp" />
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
+    <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="events.cpp" />
     <ClCompile Include="LevelEvent.cpp" />

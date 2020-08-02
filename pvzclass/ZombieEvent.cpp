@@ -31,7 +31,7 @@ void EventHandler::UpdateZombies()
 	for (int i = 0; i < now.size(); i++)
 	{
 		Zombie* x = now[i];
-		if (x->NotExist && !isPostedZombieDead[x->Index])
+		if ((x->State==ZombieState::DYING|| x->State == ZombieState::DYING_FROM_INSTANT_KILL || x->State == ZombieState::DYING_FROM_LAWNMOWER) && !isPostedZombieDead[x->Index])
 		{
 			isPostedZombieDead[x->Index] = true;
 			InvokeEvent(new EventZombieDead(x),true);
