@@ -56,16 +56,16 @@
 ├─4B0\\鼠标指针样式
 ├─4D0\\游戏窗口状态
 ├─511\\[逻辑值]无视线程消息队列
-├─┬─5AC\\[逻辑值]调试按键是否开启(ctrl+alt+d开启)
+├─┬─5AC\\[逻辑值]调试按键是否开启(CTRL+ALT+D开启)
 │ ├─F3\\显示帧率/鼠标坐标
 │ ├─SHIFT+F3\\切换帧率/鼠标坐标
 │ ├─SHIFT+F8\\切换3d加速
 │ ├─F8\\显示内存信息
 │ ├─F11\\截图(保存在C:\ProgramData\PopCap Games\PlantsVsZombies\_screenshots)
-│ └─F12\\导出内存图片(保存在C:\ProgramData\PopCap Games\PlantsVsZombies\_dump)
+│ └─SHIFT+F11\\导出内存图片(保存在C:\ProgramData\PopCap Games\PlantsVsZombies\_dump)
 ├─5B8\\[逻辑值]垂直同步是否开启
 ├─┬─768\\[窗口]关卡界面窗口
-│ ├─28\\游戏窗口刷新次数
+│ ├─28\\\窗口刷新次数
 │ ├─30\\画面横坐标(向左递增,正常游戏时为0)
 │ ├─34\\画面纵坐标(向下递增,正常游戏时为0)
 │ ├─38\\横向长度
