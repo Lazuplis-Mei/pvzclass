@@ -52,33 +52,34 @@ void EventHandler::UpdateProjectiles()
 				lastDead.push_back(false);
 			}
 		}
-		if (lpros[i] != NULL)
+		if (lpros[i]->NotExist&&!lastDead[lpros[i]->Index])
 		{
-			if (lpros[i]->NotExist&&!lastDead[lpros[i]->Index])
+			lastDead[lpros[i]->Index] = true;
+			std::vector<Zombie*> zombies = GetAllZombies();
+			int minn=9999999;
+			Zombie* x;
+			if (zombies.size())
 			{
-				lastDead[lpros[i]->Index] = true;
-				std::vector<Zombie*> zombies = GetAllZombies();
-				int minn=9999999;
-				Zombie* x=zombies[0];
+				x = zombies[0];
 				for (int j = 0; j < zombies.size(); j++) {
-					if (abs(zombies[j]->X - lpros[i]->X) + abs(zombies[j]->Y - lpros[i]->Y)<minn) {
+					if (abs(zombies[j]->X - lpros[i]->X) + abs(zombies[j]->Y - lpros[i]->Y) < minn) {
 						x = zombies[j];
 						minn = abs(zombies[j]->X - lpros[i]->X) + abs(zombies[j]->Y - lpros[i]->Y);
 					}
 				}
-				if (minn!=9999999)
+				if (minn != 9999999)
 				{
 					InvokeEvent(new EventZombieDamage(x, lpros[i]), true);
 				}
-			}
-			else if(!lpros[i]->NotExist){
-				if (lastDead.size() <= lpros[i]->Index) {
-					while (lastDead.size() <= lpros[i]->Index + 3) {
-						lastDead.push_back(false);
-					}
+			}	
+		}
+		else if(!lpros[i]->NotExist){
+			if (lastDead.size() <= lpros[i]->Index) {
+				while (lastDead.size() <= lpros[i]->Index + 3) {
+					lastDead.push_back(false);
 				}
-				lastDead[lpros[i]->Index] = false;
 			}
+			lastDead[lpros[i]->Index] = false;
 		}
 	}
 	
