@@ -244,7 +244,7 @@ PVZ::Vase* Creater::CreateVase(int row, int column, VaseContent::VaseContent con
 	PVZ::Vase* vase = new PVZ::Vase(CreateGriditem()->BaseAddress);
 	vase->Row = row;
 	vase->Column = column;
-	vase->Layer = vase->Column * 0x2710 + 0x49ED0;
+	vase->Layer = vase->Row * 0x2710 + 0x49BB0;
 	vase->Type = GriditemType::Vase;
 	vase->Skin = skin;
 	vase->ContentZombie = zombie;
