@@ -4,21 +4,21 @@ void EventHandler::InvokeEvent(Event *event,bool isDelete)
 {
     std::vector<listener> vec = this->listenersHigh[event->name];
     for(int i=0;i<vec.size();i++){
-        vec[i](event);
+        vec[i](event, pvz);
         if(event->CancleState){
             return;
         }
     }
     vec = this->listenersMid[event->name];
     for(int i=0;i<vec.size();i++){
-        vec[i](event);
+        vec[i](event, pvz);
         if(event->CancleState){
             return;
         }
     }
     vec = this->listenersLow[event->name];
     for(int i=0;i<vec.size();i++){
-        vec[i](event);
+        vec[i](event, pvz);
         if(event->CancleState){
             return;
         }
@@ -45,3 +45,21 @@ void EventHandler::RegistryListeners(std::string event,listener lis,int Level)
             break;
     }
 }
+
+
+std::string EventPlantPlant::Name = "PlantPlant";
+std::string EventPlantRemove::Name = "PlantRemove";
+std::string EventPlantUpgrade::Name = "PlantUpgrade";
+std::string EventPlantDamage::Name = "PlantDamage";
+std::string EventPlantDead::Name = "PlantDead";
+std::string EventLevelOpen::Name = "LevelOpen";
+std::string EventLevelClose::Name = "LevelClose";
+std::string EventLevelWave::Name = "LevelWave";
+std::string EventLevelStart::Name = "LevelStart";
+std::string EventProjectileFire::Name = "ProjectileFire";
+std::string EventProjectileRemove::Name = "ProjectileRemove";
+std::string EventZombieSpawn::Name = "ZombieSpawn";
+std::string EventZombieDamage::Name = "ZombieDamage";
+std::string EventZombieHypnotized::Name = "ZombieHypnotized";
+std::string EventZombieRemove::Name = "ZombieRemove";
+std::string EventZombieDead::Name = "ZombieDead";

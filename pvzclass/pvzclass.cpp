@@ -3,26 +3,27 @@
 #include "events.h"
 
 using namespace std;
-void OnDeath(Event* e)
+void OnDeath(EventZombieDead* e, PVZ* pvz)
 {
 	e->CancleState = true;
-	//std::cout << endl << ((EventZombieDead*)e)->zombie->Index;
-	std::cout << endl << ZombieState::ToString(((EventZombieDead*)e)->zombie->State);
+	std::cout << endl << ZombieState::ToString(e->zombie->State);
 }
 
-void OnDeath2(Event* e)
+void OnDeath2(EventZombieDead* e, PVZ* pvz)
 {
-	std::cout << endl <<"2 "<< ((EventZombieDead*)e)->zombie->Index;
+	std::cout << endl << "2 "<< e->zombie->Index;
 }
 
-void OnPlantDead(Event* e)
+void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 {
-	Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+	// Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
+	Creater::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
 }
 
-void OnPlantDamage(Event* e)
+void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
 {
-	((EventPlantDamage*)e)->zombie->Hypnotized = true;
+	e->zombie->Hypnotized = true;
 }
 
 int main()
@@ -39,10 +40,10 @@ int main()
 	//	return 2;
 	//EventHandler start
 	EventHandler e(pvz);
-	e.RegistryListeners("ZombieDead",OnDeath, Event_High);
-	e.RegistryListeners("ZombieDead",OnDeath2, Event_Low);
-	e.RegistryListeners("PlantDead", OnPlantDead);
-	e.RegistryListeners("PlantDamage", OnPlantDamage);
+	e.RegistryListeners<EventZombieDead>(OnDeath, Event_High);
+	e.RegistryListeners<EventZombieDead>(OnDeath2, Event_Low);
+	e.RegistryListeners<EventPlantDead>(OnPlantDead);
+	e.RegistryListeners<EventPlantDamage>(OnPlantDamage);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
