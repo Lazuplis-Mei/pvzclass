@@ -401,7 +401,7 @@ public:
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 0x24);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
-		INT_PROPERTY(State, __get_State, __set_State, 0x3C);
+		T_PROPERTY(PlantState::PlantState, State, __get_State, __set_State, 0x3C);
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x40);
 		INT_PROPERTY(MaxHp, __get_MaxHp, __set_MaxHp, 0x44);
 		T_PROPERTY(BOOLEAN, Aggressive, __get_Aggressive, __set_Aggressive, 0x48);
