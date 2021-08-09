@@ -16,26 +16,10 @@ std::vector<Plant*> EventHandler::GetAllPlants()
 	return rt;
 }
 
-struct pair
-{
-	int first, second;
-	pair(int a, int b)
-	{
-		first = a;
-		second = b;
-	}
-	bool operator == (pair b)
-	{
-		return first == b.first && second == b.second;
-	}
-};
-bool operator < (pair a, pair b)
-{
-	return a.first == b.first ? a.second < b.second : a.first < b.first;
-}
-
-std::vector<int>PlantsLastHealt;
-std::vector<bool>PlantLastDead;
+std::map<int, int> PlantLastHealth;
+std::map<int, bool> PlantIsDead;
+std::map<int, std::pair<int, int>> PlantLastPosition;
+std::map<int, std::pair<int, int>> PlantLastRowAndColumn;
 
 void EventHandler::UpdatePlants()
 {
@@ -45,93 +29,85 @@ void EventHandler::UpdatePlants()
 			PlantList.clear();
 		return;
 	}
-	std::vector<Plant*> plant = GetAllPlants();
-	std::set<pair> pardon;
-	// another plant is list.
+	// all plants list.
+	std::vector<Plant*> plants = GetAllPlants();
 	// The time complication is O(n^2).
-	int listn = PlantList.size();
-	int plantn = plant.size();
-	for (int i = 0; i < plant.size(); i++) {
-		if (PlantsLastHealt.size() <= i) {
-			PlantsLastHealt.push_back(plant[i]->Hp);
-		}
-		else {
-			if (PlantsLastHealt[i] > plant[i]->Hp) {
-				std::vector<Zombie*>zombies = GetAllZombies();
-				for (int j = 0; j < zombies.size(); j++) {
-					if (abs(zombies[j]->X - plant[i]->X) <= 100) {
-						InvokeEvent(new EventPlantDamage(plant[i], zombies[j]), true);
-					}
+	int list_num = PlantList.size();
+	int plants_num = plants.size();
+	for (int i = 0; i < plants_num; i++) {
+		Plant* plant = plants[i];
+		if (PlantLastHealth[i] > plants[i]->Hp) {
+			std::vector<Zombie*>zombies = GetAllZombies();
+			for (int j = 0; j < zombies.size(); j++) {
+				if (abs(zombies[j]->X - plant->X) <= 100) {
+					InvokeEvent(new EventPlantDamage(plant, zombies[j]), true);
 				}
 			}
 		}
+		PlantLastHealth[plant->Index] = plant->Hp;
+		PlantLastPosition[plants[i]->Index] = std::make_pair(plant->X, plant->Y);
+		PlantLastRowAndColumn[plants[i]->Index] = std::make_pair(plant->Row, plant->Column);
 	}
 
-	for (int i = 0; i < plantn; i++)
+	std::set<std::pair<int, int>> pardon;
+	for (int i = 0; i < plants_num; i++)
 	{
-		Plant* x = plant[i];
+		Plant* plant = plants[i];
 		bool ok = 1;
-		for (int j = 0; j < listn; j++)
-			if (x->BaseAddress == PlantList[j]->BaseAddress)
+		for (int j = 0; j < list_num; j++)
+			if (plant->BaseAddress == PlantList[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
 			}
 		if (ok)
 		{
-			//that means didn't found current x in last. fire event PlantPlantEvent
-			if (x->Type >= PlantType::GatlingPea && x->Type <= PlantType::CobCannon)
+			//that means didn't found current plant in last. fire event PlantPlantEvent
+			if (plant->Type >= PlantType::GatlingPea && plant->Type <= PlantType::CobCannon)
 			{
-				pardon.insert(pair(x->Row, x->Column));
-				if(x->Type == PlantType::CobCannon)
+				pardon.insert(std::make_pair(plant->Row, plant->Column));
+				if(plant->Type == PlantType::CobCannon)
 				{
-					pardon.insert(pair(x->Row, x->Column + 1));
+					pardon.insert(std::make_pair(plant->Row, plant->Column + 1));
 				}
-				InvokeEvent(new EventPlantUpgrade(x),true);
+				InvokeEvent(new EventPlantUpgrade(plant),true);
 			}
 			else
-				InvokeEvent(new EventPlantPlant(x),true);
+				InvokeEvent(new EventPlantPlant(plant),true);
+			PlantIsDead[plant->Index] = false;
 		}
 	}
 
-	std::vector<Plant*> allPlant;
 	int allPlantNum = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
-	for (int i = 0; i < allPlantNum; i++)
-		allPlant.push_back(new Plant(i));
-	for (int i = 0; i < allPlant.size(); i++) {
-		if (PlantLastDead.size() <= i) {
-			PlantLastDead.push_back(false);
-			PlantLastDead.push_back(false);
-			PlantLastDead.push_back(false);
-		}
-		if (!PlantLastDead[i]&&allPlant[i]->NotExist) {
-			InvokeEvent(new EventPlantDead(allPlant[i]), true);
+	for (int i = 0; i < allPlantNum; i++) {
+		Plant* plant = new Plant(i);
+		if (! PlantIsDead[i] && plant->NotExist) {
+			InvokeEvent(new EventPlantDead(plant, PlantLastPosition[i], PlantLastRowAndColumn[plants[i]->Index]), true);
+			PlantIsDead[i] = true;
 		}
 	}
-	//if (pardon.size())std::cerr << "LIST:" << std::endl;
-	//for (pair p : pardon)
-	//	std::cerr << p.first << " " << p.second << std::endl;
-	for (int i = 0; i < listn; i++)
+
+	for (int i = 0; i < list_num; i++)
 	{
-		Plant* x = PlantList[i];
+		Plant* plant = PlantList[i];
 		bool ok = 1;
-		for (int j = 0; j < plantn; j++)
-			if (x->BaseAddress == plant[j]->BaseAddress)
+		for (int j = 0; j < plants_num; j++)
+			if (plant->BaseAddress == plants[j]->BaseAddress)
 			{
 				ok = 0;
 				break;
 			}
 		if (ok)
 		{
-			//that means didn't found last x in current. fire event PlantRemoveEvent
-			if (!pardon.count(pair(x->Row, x->Column)))
+			//that means didn't found last plant in current. fire event PlantRemoveEvent
+			if (! pardon.count(std::make_pair(plant->Row, plant->Column)))
 			{
 				//std::cerr << "didn't find\n";
-				InvokeEvent(new EventPlantRemove(x),true);
+				InvokeEvent(new EventPlantRemove(plant),true);
 			}
 		}
 	}
 	pardon.clear();
 	PlantList.clear();
-	PlantList = plant;
+	PlantList = plants;
 }

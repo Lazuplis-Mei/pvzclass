@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace ZombieState {
 	enum ZombieState {
 		WALKING = 0x0,
@@ -14,8 +16,8 @@ namespace ZombieState {
 		BUNGEE_IDLE = 0xA,
 		POLE_VALUTING_RUNNING = 0xB,
 		POLE_VALUTING_JUMPPING = 0xC,
-		POLE_VALUTING_WALKING = 0xD,
-		RISING_FROM_GROUNG = 0xE,
+		POLE_VAULTING_WALKING = 0xD,
+		RISING_FROM_GROUND = 0xE,
 		JACKBOX_WALKING = 0xF,
 		JACKBOX_POP = 0x10,
 		POGO_WITH_STICK = 0x14,
@@ -31,7 +33,6 @@ namespace ZombieState {
 		DIGGER_DIZZY = 0x24,
 		DIGGER_WALK_RIGHT = 0x25,
 		DIGGER_WALK_LEFT = 0x26,
-		DIGGER_IDLE = 0x27,
 		DANCING_MOONWALK = 0x28,
 		DANCING_POINT = 0x29,
 		DANCING_WAIT_SUMMONING = 0x2A,
@@ -57,17 +58,18 @@ namespace ZombieState {
 		SNORKEL_FINIED_EAT = 0x3E,
 		CATAPULT_SHOOT = 0x43,
 		CATAPULT_IDLE = 0x44,
+		GARGANTUAR_THROW = 0x45,
+		GARGANTUAR_SMASH = 0x46,
+		IMP_FLYING = 0x47,
+		IMP_LANDING = 0x48,
 		BALLOON_FLYING = 0x49,
 		BALLOON_FALLING = 0x4A,
 		BALLOON_WALKING = 0x4B,
-		IMP_FLYING = 0x47,
-		IMP_LANDING = 0x48,
-		GARGANTUAR_THROW = 0x45,
-		GARGANTUAR_SMASH = 0x46,
 		LADDER_WALKING = 0x4C,
 		LADDER_PLACING = 0x4D,
-		YETI_ESCAPE = 0x5B
+		YETI_ESCAPE = 0x5B,
+		DIGGER_IDLE = 0x27A
 	};
 
-	extern const char* ToString(ZombieState state);//WIP
+	std::string ToString(ZombieState state);
 }

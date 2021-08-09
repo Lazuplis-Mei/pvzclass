@@ -238,6 +238,7 @@
     <ClInclude Include="Enums\MusicType.h" />
     <ClInclude Include="Enums\PaintState.h" />
     <ClInclude Include="Enums\PlantEffectType.h" />
+    <ClInclude Include="Enums\PlantState.h" />
     <ClInclude Include="Enums\PlantType.h" />
     <ClInclude Include="Enums\ProjectileType.h" />
     <ClInclude Include="Enums\RouteTypeEnum.h" />
