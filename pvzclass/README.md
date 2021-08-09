@@ -1,4 +1,4 @@
-﻿# pvzlass 是一个用于控制植物大战僵尸游戏内部运行实体的一套框架
+﻿# pvzclass 是一个用于控制植物大战僵尸游戏内部运行实体的一套框架
 
 ## 框架将游戏内部的对象进行了封装，供监视和控制，同时提供了一系列内部的方法，以下有几个注意点
 
@@ -168,7 +168,7 @@ int num = pPVZ->GetAllZombies(zombies);//返回实际获取到的对象数量
 3. Plant
 4. Coin
 5. Lawnmover
-6. Griditem(Grave,Crater,Brain,Vase类的基类)
+6. Griditem(Grave,Crater,AquariumBrain,Snail,Vase,IZBrain类的基类)
 7. CardSlot
 
 ### 关于SeedCard类和GardenPlant类
