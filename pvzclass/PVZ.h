@@ -345,7 +345,7 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//¡Ÿ ±±‰¡ø
+		//√Å√ô√ä¬±¬±√§√Å¬ø
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -510,11 +510,11 @@ public:
 		Crater(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
 	};
-	class Brain :public PVZ::Griditem
+	class AquariumBrain :public PVZ::Griditem
 	{
 	public:
-		Brain(int indexoraddress) :Griditem(indexoraddress) {};
-		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
+		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	class Snail :public PVZ::Griditem
@@ -537,6 +537,13 @@ public:
 		T_READONLY_PROPERTY(BOOLEAN, MouseEnter, __get_MouseEnter, 0x48);
 		INT_PROPERTY(TransparentCountDown, __get_TransparentCountDown, __set_TransparentCountDown, 0x4C);
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x50);
+	};
+	class IZBrain :public PVZ::Griditem
+	{
+	public:
+		IZBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	class MousePointer
 	{
