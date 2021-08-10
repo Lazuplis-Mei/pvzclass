@@ -26,7 +26,7 @@ void EventHandler::UpdateLevels()
 	{
 		//std::cerr << pvz->WaveCount << "\n";
 		//pvz->GetWave 
-		if (!IsStarted && pvz->GameState == 3)
+		if (!IsStarted && pvz->GameState == PVZGameState::Preparing)
 		{
 			IsStarted = 1;
 			InvokeEvent(new EventLevelStart(),true);

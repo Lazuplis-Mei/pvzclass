@@ -14,7 +14,7 @@ typedef std::vector<bool (*)()> vecvoid;
 typedef std::vector<bool (*)(int)> vecint;
 typedef std::vector<bool (*)(Zombie*)> veczombie;
 typedef std::vector<bool (*)(Projectile*)> vecproj;
-typedef void(*listener)(Event*);
+typedef void(*listener)(Event*, PVZ*);
 
 #define Event_Low 1
 #define Event_Mid 2
@@ -37,12 +37,12 @@ class EventHandler
 {
 private:
 	PVZ* pvz;
-	std::vector<Plant*> GetAllPlants();
-	std::vector<Zombie*> GetAllZombies();
-	std::vector<Projectile*> GetAllProjectiles();//wait for Projectile event
-	std::vector<Plant*> PlantList;
-	std::vector<Zombie*> ZombieList;
-	std::vector<Projectile*> ProjectileList;//wait for projectile event
+	std::vector<SPT<Plant>> GetAllPlants();
+	std::vector<SPT<Zombie>> GetAllZombies();
+	std::vector<SPT<Projectile>> GetAllProjectiles();//wait for Projectile event
+	std::vector<SPT<Plant>> PlantList;
+	std::vector<SPT<Zombie>> ZombieList;
+	std::vector<SPT<Projectile>> ProjectileList;//wait for projectile event
 	std::map<std::string, std::vector<listener> > listenersLow;
 	std::map<std::string, std::vector<listener>> listenersMid;
 	std::map<std::string, std::vector<listener>> listenersHigh;
@@ -82,7 +82,7 @@ public:
 	/*Starts the events.*/
 	/*You should never access ANY api in Remove event.*/
 	void RegistryListeners(std::string event,listener lis,int Level = Event_Mid);
-	template<typename EventType> void RegistryListeners(void(*lis)(EventType*), int Level = Event_Mid) {
+	template<typename EventType> void RegistryListeners(void(*lis)(EventType*, PVZ*), int Level = Event_Mid) {
 		RegistryListeners(EventType::Name, LISTENER(lis), Level);
 	}
 	/*end of the events.*/

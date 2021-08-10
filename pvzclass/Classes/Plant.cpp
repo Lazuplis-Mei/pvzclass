@@ -11,14 +11,14 @@ PVZ::Plant::Plant(int indexoraddress)
 #endif
 }
 
-PVZ::Animation* PVZ::Plant::GetAnimationPart1()
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart1()
 {
-	return new Animation(Memory::ReadMemory<short>(BaseAddress + 0x94));
+	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x94));
 }
 
-PVZ::Animation* PVZ::Plant::GetAnimationPart2()
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart2()
 {
-	return new Animation(Memory::ReadMemory<short>(BaseAddress + 0x98));
+	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x98));
 }
 
 void PVZ::Plant::Light(int cs)
@@ -45,7 +45,7 @@ void PVZ::Plant::SetStatic()
 
 }
 
-PVZ::Projectile* PVZ::Plant::Shoot(int targetid)
+SPT<PVZ::Projectile> PVZ::Plant::Shoot(int targetid)
 {
 	__asm__Shoot[3] = Row;
 	SETARG(__asm__Shoot, 10) = BaseAddress;
@@ -55,7 +55,7 @@ PVZ::Projectile* PVZ::Plant::Shoot(int targetid)
 		Memory::Execute(STRING(__asm__Shoot));
 		return NULL;
 	};
-	Projectile* re = new Projectile(Memory::Execute(STRING(__asm__Shoot)));
+	SPT<Projectile> re = MKS<Projectile>(Memory::Execute(STRING(__asm__Shoot)));
 	if (targetid == -1) 
 	{ 
 		return re;

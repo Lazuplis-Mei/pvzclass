@@ -17,7 +17,7 @@ byte __asm__CreateZombie__pieces[6]
 	RETN(8),
 };
 
-PVZ::Zombie* Creater::CreateZombie(ZombieType::ZombieType type, int row, byte column)
+SPT<PVZ::Zombie> Creater::CreateZombie(ZombieType::ZombieType type, int row, byte column)
 {
 	PVZ::Memory::WriteArray(0x42A209, STRING(__asm__CreateZombie__pieces));
 	PVZ::Memory::WriteMemory<short>(0x42A1E4, makeshort(JMP(0x23)));
@@ -27,7 +27,7 @@ PVZ::Zombie* Creater::CreateZombie(ZombieType::ZombieType type, int row, byte co
 	__asm__CreateZombie[12] = column;
 	__asm__CreateZombie[14] = type;
 	SETARG(__asm__CreateZombie, 29) = PVZ::Memory::Variable;
-	return new PVZ::Zombie(PVZ::Memory::Execute(STRING(__asm__CreateZombie)));
+	return MKS<PVZ::Zombie>(PVZ::Memory::Execute(STRING(__asm__CreateZombie)));
 }
 
 byte __asm__CreatePlant[35]
@@ -38,7 +38,7 @@ byte __asm__CreatePlant[35]
 	RET,
 };
 
-PVZ::Plant* Creater::CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative)
+SPT<PVZ::Plant> Creater::CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative)
 {
 	if (imitative)__asm__CreatePlant[6] = type;
 	__asm__CreatePlant[8] = imitative ? PlantType::Imitater : type;
@@ -46,7 +46,7 @@ PVZ::Plant* Creater::CreatePlant(PlantType::PlantType type, int row, byte column
 	SETARG(__asm__CreatePlant, 1) = row;
 	SETARG(__asm__CreatePlant, 12) = PVZBASEADDRESS;
 	SETARG(__asm__CreatePlant, 30) = PVZ::Memory::Variable;
-	return new PVZ::Plant(PVZ::Memory::Execute(STRING(__asm__CreatePlant)));
+	return MKS<PVZ::Plant>(PVZ::Memory::Execute(STRING(__asm__CreatePlant)));
 }
 
 byte __asm__CreateProjectile[47]
@@ -58,7 +58,7 @@ byte __asm__CreateProjectile[47]
 	RET,
 };
 
-PVZ::Projectile* Creater::CreateProjectile(ProjectileType::ProjectileType type, byte row, int x)
+SPT<PVZ::Projectile> Creater::CreateProjectile(ProjectileType::ProjectileType type, byte row, int x)
 {
 	SETARG(__asm__CreateProjectile, 1) = PVZBASEADDRESS;
 	__asm__CreateProjectile[6] = type;
@@ -69,7 +69,7 @@ PVZ::Projectile* Creater::CreateProjectile(ProjectileType::ProjectileType type, 
 	SETARG(__asm__CreateProjectile, 12) = y;
 	SETARG(__asm__CreateProjectile, 17) = x;
 	SETARG(__asm__CreateProjectile, 42) = PVZ::Memory::Variable;
-	return new PVZ::Projectile(PVZ::Memory::Execute(STRING(__asm__CreateProjectile)));
+	return MKS<PVZ::Projectile>(PVZ::Memory::Execute(STRING(__asm__CreateProjectile)));
 }
 
 byte __asm__CreateProjectile2[84]
@@ -116,7 +116,7 @@ void Creater::AsmInit()
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
 }
 
-PVZ::Projectile* Creater::CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed)
+SPT<PVZ::Projectile> Creater::CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed)
 {
 	angle = angle / 180 * PI;
 	int xspeed = (int)(sin(angle) * speed * 10000);
@@ -133,7 +133,7 @@ PVZ::Projectile* Creater::CreateProjectile(ProjectileType::ProjectileType type, 
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
 	PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
-	return new PVZ::Projectile(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
+	return MKS<PVZ::Projectile>(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
 }
 
 byte __asm__CreateCoin[38]
@@ -144,7 +144,7 @@ byte __asm__CreateCoin[38]
 	RET,
 };
 
-PVZ::Coin* Creater::CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionType::CoinMotionType motion)
+SPT<PVZ::Coin> Creater::CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionType::CoinMotionType motion)
 {
 	SETARG(__asm__CreateCoin, 1) = PVZBASEADDRESS;
 	__asm__CreateCoin[6] = motion;
@@ -152,7 +152,7 @@ PVZ::Coin* Creater::CreateCoin(CoinType::CoinType type, int x, int y, CoinMotion
 	SETARG(__asm__CreateCoin, 10) = x;
 	SETARG(__asm__CreateCoin, 15) = y;
 	SETARG(__asm__CreateCoin, 33) = PVZ::Memory::Variable;
-	return new PVZ::Coin(PVZ::Memory::Execute(STRING(__asm__CreateCoin)));
+	return MKS<PVZ::Coin>(PVZ::Memory::Execute(STRING(__asm__CreateCoin)));
 }
 
 byte __asm__ResetLawnmover[19]
@@ -168,7 +168,7 @@ void Creater::ResetLawnmover(PVZ* pvz)
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JMP(0x60)));
 	PVZ::Memory::WriteMemory<byte>(0x40BD17, 1);
 	SETARG(__asm__ResetLawnmover, 1) = PVZBASEADDRESS;
-	PVZ::Lawnmover* lawnmovers[18];
+	SPT<PVZ::Lawnmover> lawnmovers[18];
 	int len = pvz->GetAllLawnmovers(lawnmovers);
 	for (int i = 0; i < len; i++)
 		lawnmovers[i]->NotExist = true;
@@ -186,11 +186,11 @@ byte __asm__CreateGriditem[24]
 	RET,
 };
 
-PVZ::Griditem* Creater::CreateGriditem()
+SPT<PVZ::Griditem> Creater::CreateGriditem()
 {
 	SETARG(__asm__CreateGriditem, 1) = PVZBASEADDRESS + 0x11C;
 	SETARG(__asm__CreateGriditem, 19) = PVZ::Memory::Variable;
-	return new PVZ::Griditem(PVZ::Memory::Execute(STRING(__asm__CreateGriditem)));
+	return MKS<PVZ::Griditem>(PVZ::Memory::Execute(STRING(__asm__CreateGriditem)));
 }
 
 byte __asm__CreateGrave[30]
@@ -210,9 +210,9 @@ void Creater::CreateGrave(int row, int column)
 	PVZ::Memory::Execute(STRING(__asm__CreateGrave));
 }
 
-PVZ::Crater* Creater::CreateCrater(int row, int column, int duration)
+SPT<PVZ::Crater> Creater::CreateCrater(int row, int column, int duration)
 {
-	PVZ::Crater* crater = new PVZ::Crater(CreateGriditem()->BaseAddress);
+	SPT<PVZ::Crater> crater = MKS<PVZ::Crater>(CreateGriditem()->BaseAddress);
 	crater->Row = row;
 	crater->Column = column;
 	crater->Layer = crater->Column * 0x2710 + 0x49ED0;
@@ -230,18 +230,18 @@ byte __asm__CreateLadder[31]
 	RET,
 };
 
-PVZ::Griditem* Creater::CreateLadder(int row, byte column)
+SPT<PVZ::Griditem> Creater::CreateLadder(int row, byte column)
 {
 	SETARG(__asm__CreateLadder, 1) = PVZBASEADDRESS;
 	SETARG(__asm__CreateLadder, 6) = row;
 	__asm__CreateLadder[11] = column;
 	SETARG(__asm__CreateLadder, 26) = PVZ::Memory::Variable;;
-	return new PVZ::Griditem(PVZ::Memory::Execute(STRING(__asm__CreateLadder)));
+	return MKS<PVZ::Griditem>(PVZ::Memory::Execute(STRING(__asm__CreateLadder)));
 }
 
-PVZ::Vase* Creater::CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin, ZombieType::ZombieType zombie, PlantType::PlantType plant, int sun)
+SPT<PVZ::Vase> Creater::CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin, ZombieType::ZombieType zombie, PlantType::PlantType plant, int sun)
 {
-	PVZ::Vase* vase = new PVZ::Vase(CreateGriditem()->BaseAddress);
+	SPT<PVZ::Vase> vase = MKS<PVZ::Vase>(CreateGriditem()->BaseAddress);
 	vase->Row = row;
 	vase->Column = column;
 	vase->Layer = vase->Row * 0x2710 + 0x49BB0;
@@ -254,7 +254,7 @@ PVZ::Vase* Creater::CreateVase(int row, int column, VaseContent::VaseContent con
 	return vase;
 }
 
-PVZ::Vase* Creater::CreateVase(VaseCreateInfo vaseinfo)
+SPT<PVZ::Vase> Creater::CreateVase(VaseCreateInfo vaseinfo)
 {
 	return CreateVase(vaseinfo.row, vaseinfo.column, vaseinfo.content, vaseinfo.skin, vaseinfo.zombie, vaseinfo.plant, vaseinfo.sun);
 }
@@ -472,7 +472,7 @@ byte __asm__CreatePortal[19]
 
 void Creater::__CreatePortal(PVZ* pvz)
 {
-	PVZ::Griditem* griditems[100];
+	SPT<PVZ::Griditem> griditems[100];
 	int len = pvz->GetAllGriditems(griditems);
 	for (int i = 0; i < len; i++)
 		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)

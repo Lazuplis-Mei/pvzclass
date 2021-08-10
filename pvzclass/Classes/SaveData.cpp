@@ -17,10 +17,10 @@ BOOLEAN PVZ::SaveData::HavePurpleCard(CardType::CardType purplecard)
 	return false;
 }
 
-PVZ::SaveData::GardenPlant* PVZ::SaveData::GetGardenPlant(int index)
+SPT<PVZ::SaveData::GardenPlant> PVZ::SaveData::GetGardenPlant(int index)
 {
 	if (index >= 0 && index < GardenPlantCount)
-		return new GardenPlant(BaseAddress + 0x350 + index * 0x50);
+		return MKS<GardenPlant>(BaseAddress + 0x350 + index * 0x50);
 	else
 		return NULL;
 }
