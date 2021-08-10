@@ -6,13 +6,13 @@
 typedef PVZ::Plant Plant;
 
 
-std::vector<Plant*> EventHandler::GetAllPlants()
+std::vector<SPT<Plant>> EventHandler::GetAllPlants()
 {
-	std::vector<Plant*> rt;
+	std::vector<SPT<Plant>> rt;
 	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
 	for (int i = 0; i < n; i++)
 		if (!PVZ::Memory::ReadMemory<byte>(PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xAC) + 0x141 + 0x14C * i))
-			rt.push_back(new Plant(i));
+			rt.push_back(MKS<Plant>(i));
 	return rt;
 }
 
@@ -30,17 +30,17 @@ void EventHandler::UpdatePlants()
 		return;
 	}
 	// all plants list.
-	std::vector<Plant*> plants = GetAllPlants();
+	std::vector<SPT<Plant>> plants = GetAllPlants();
 	// The time complication is O(n^2).
 	int list_num = PlantList.size();
 	int plants_num = plants.size();
 	for (int i = 0; i < plants_num; i++) {
-		Plant* plant = plants[i];
+		Plant* plant = plants[i].get();
 		if (PlantLastHealth[i] > plants[i]->Hp) {
-			std::vector<Zombie*>zombies = GetAllZombies();
+			std::vector<SPT<Zombie>>zombies = GetAllZombies();
 			for (int j = 0; j < zombies.size(); j++) {
 				if (abs(zombies[j]->X - plant->X) <= 100) {
-					InvokeEvent(new EventPlantDamage(plant, zombies[j]), true);
+					InvokeEvent(new EventPlantDamage(plant, zombies[j].get()), true);
 				}
 			}
 		}
@@ -52,7 +52,7 @@ void EventHandler::UpdatePlants()
 	std::set<std::pair<int, int>> pardon;
 	for (int i = 0; i < plants_num; i++)
 	{
-		Plant* plant = plants[i];
+		Plant* plant = plants[i].get();
 		bool ok = 1;
 		for (int j = 0; j < list_num; j++)
 			if (plant->BaseAddress == PlantList[j]->BaseAddress)
@@ -89,7 +89,7 @@ void EventHandler::UpdatePlants()
 
 	for (int i = 0; i < list_num; i++)
 	{
-		Plant* plant = PlantList[i];
+		Plant* plant = PlantList[i].get();
 		bool ok = 1;
 		for (int j = 0; j < plants_num; j++)
 			if (plant->BaseAddress == plants[j]->BaseAddress)

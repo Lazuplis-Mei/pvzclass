@@ -37,12 +37,12 @@ class EventHandler
 {
 private:
 	PVZ* pvz;
-	std::vector<Plant*> GetAllPlants();
-	std::vector<Zombie*> GetAllZombies();
-	std::vector<Projectile*> GetAllProjectiles();//wait for Projectile event
-	std::vector<Plant*> PlantList;
-	std::vector<Zombie*> ZombieList;
-	std::vector<Projectile*> ProjectileList;//wait for projectile event
+	std::vector<SPT<Plant>> GetAllPlants();
+	std::vector<SPT<Zombie>> GetAllZombies();
+	std::vector<SPT<Projectile>> GetAllProjectiles();//wait for Projectile event
+	std::vector<SPT<Plant>> PlantList;
+	std::vector<SPT<Zombie>> ZombieList;
+	std::vector<SPT<Projectile>> ProjectileList;//wait for projectile event
 	std::map<std::string, std::vector<listener> > listenersLow;
 	std::map<std::string, std::vector<listener>> listenersMid;
 	std::map<std::string, std::vector<listener>> listenersHigh;

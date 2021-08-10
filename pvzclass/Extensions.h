@@ -126,7 +126,7 @@ void AutoCollect(PVZ* pvz, BOOLEAN b = true)
 {
 	if (b)
 	{
-		PVZ::Coin* coins[100];
+		SPT<PVZ::Coin> coins[100];
 		int len = pvz->GetAllCoins(coins);
 		for (int i = 0; i < len; i++)
 			coins[i]->Collect();

@@ -43,31 +43,31 @@ inline void xytorc(int* x, int* y)
 #define CLEARZOMBIEPREVIEW INVOKE(0x40DF70)
 #define CREATEZOMBIEINLEVEL INVOKE(0x4092E0)
 
-	PVZ::Zombie* CreateZombie(ZombieType::ZombieType type, int row, byte column);
+	SPT<PVZ::Zombie> CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
-	PVZ::Plant* CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative = false);
+	SPT<PVZ::Plant> CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative = false);
 
-	PVZ::Projectile* CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
+	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
 
 	void AsmInit();
 
 	//你需要先调用一次AsmInit后才能使用这个函数
-	PVZ::Projectile* CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
+	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 
-	PVZ::Coin* CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
+	SPT<PVZ::Coin> CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
 
 	void ResetLawnmover(PVZ* pvz);
 
 	//just a Bottom implementation
-	PVZ::Griditem* CreateGriditem();
+	SPT<PVZ::Griditem> CreateGriditem();
 
 	void CreateGrave(int row, int column);
 
-	PVZ::Crater* CreateCrater(int row, int column,int duration);
+	SPT<PVZ::Crater> CreateCrater(int row, int column,int duration);
 
-	PVZ::Griditem* CreateLadder(int row, byte column);
+	SPT<PVZ::Griditem> CreateLadder(int row, byte column);
 
-	PVZ::Vase* CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, PlantType::PlantType plant = PlantType::Peashooter, int sun = 0);
+	SPT<PVZ::Vase> CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, PlantType::PlantType plant = PlantType::Peashooter, int sun = 0);
 
 	struct VaseCreateInfo
 	{
@@ -80,7 +80,7 @@ inline void xytorc(int* x, int* y)
 		int sun;
 	};
 
-	PVZ::Vase* CreateVase(VaseCreateInfo vaseinfo);
+	SPT<PVZ::Vase> CreateVase(VaseCreateInfo vaseinfo);
 
 	void CreateRake(byte row, byte column);
 

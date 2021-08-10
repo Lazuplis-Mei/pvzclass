@@ -89,9 +89,9 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 	Memory::WriteMemory<int>(BaseAddress + 0xCC, maxhp);
 }
 
-PVZ::Animation* PVZ::Zombie::GetAnimation()
+SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
 {
-	return new Animation(Memory::ReadMemory<short>(BaseAddress + 0x118));
+	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x118));
 }
 
 void PVZ::Zombie::Hit(int damge, DamageType::DamageType type)

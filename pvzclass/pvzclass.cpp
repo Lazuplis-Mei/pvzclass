@@ -40,10 +40,10 @@ int main()
 	//	return 2;
 	//EventHandler start
 	EventHandler e(pvz);
-	e.RegistryListeners<EventZombieDead>(OnDeath, Event_High);
-	e.RegistryListeners<EventZombieDead>(OnDeath2, Event_Low);
-	e.RegistryListeners<EventPlantDead>(OnPlantDead);
-	e.RegistryListeners<EventPlantDamage>(OnPlantDamage);
+	e.RegistryListeners(OnDeath, Event_High);
+	e.RegistryListeners(OnDeath2, Event_Low);
+	e.RegistryListeners(OnPlantDead);
+	e.RegistryListeners(OnPlantDamage);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;

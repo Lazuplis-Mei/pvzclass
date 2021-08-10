@@ -1,6 +1,7 @@
 #pragma once
 #include "Enums.h"
 #include "AsmFuntions.h"
+#include <memory>
 
 #pragma region definitions
 
@@ -26,6 +27,11 @@
 #define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
 
 #define LOGICALINCLUDE(c,v) (c&v)==v
+
+#define SPT std::shared_ptr 
+#define UPT std::unique_ptr
+#define MKU std::make_unique
+#define MKS std::make_shared
 
 #pragma endregion
 
@@ -337,7 +343,7 @@ public:
 		void GetBodyHp(int* hp, int* maxhp);
 		void SetBodyHp(int hp, int maxhp);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
-		PVZ::Animation* GetAnimation();
+		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		//¡Ÿ ±±‰¡ø
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
@@ -411,8 +417,8 @@ public:
 		INT_PROPERTY(ShootOrProductCountdown, __get_ShootOrProductCountdown, __set_ShootOrProductCountdown, 0x58);
 		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
-		PVZ::Animation* GetAnimationPart1();
-		PVZ::Animation* GetAnimationPart2();
+		SPT<PVZ::Animation> GetAnimationPart1();
+		SPT<PVZ::Animation> GetAnimationPart2();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
@@ -424,7 +430,7 @@ public:
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
 		void SetStatic();
-		PVZ::Projectile* Shoot(int targetid = -1);
+		SPT<PVZ::Projectile> Shoot(int targetid = -1);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
 	};
@@ -587,7 +593,7 @@ public:
 			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x4D);
 			INT_PROPERTY(UsageCount, __get_UsageCount, __set_UsageCount, 0x50);
 		};
-		SeedCard* GetCard(int index);
+		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
 	};
 	class Miscellaneous
 	{
@@ -652,7 +658,7 @@ public:
 			INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
 			T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
 		};
-		GardenPlant* GetGardenPlant(int index);
+		SPT<GardenPlant> GetGardenPlant(int index);
 
 	};
 	class Music
@@ -677,27 +683,27 @@ public:
 
 #pragma region methods
 
-	Lawn* GetLawn();
-	Icetrace* GetIcetrace();
-	Wave* GetWave(int index);
+	SPT<Lawn> GetLawn();
+	SPT<Icetrace> GetIcetrace();
+	SPT<Wave> GetWave(int index);
 	void GetZombieSeed(ZombieType::ZombieType* ztypes);
 	void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
 	void Assault(int countdown = 1);
 	void Win();
 	void Bell(int countdown = 1);
-	Mouse* GetMouse();
-	int GetAllZombies(Zombie* zombies[]);
-	int GetAllPlants(Plant* plants[]);
-	int GetAllProjectile(Projectile* projectiles[]);
-	int GetAllCoins(Coin* coins[]);
-	int GetAllLawnmovers(Lawnmover* lawnmovers[]);
-	int GetAllGriditems(Griditem* griditems[]);
-	MousePointer* GetMousePointer();
-	Caption* GetCaption();
-	CardSlot* GetCardSlot();
-	Miscellaneous* GetMiscellaneous();
-	SaveData* GetSaveData();
-	Music* GetMusic();
+	SPT<Mouse> GetMouse();
+	int GetAllZombies(SPT<Zombie> zombies[]);
+	int GetAllPlants(SPT<Plant> plants[]);
+	int GetAllProjectile(SPT<Projectile> projectiles[]);
+	int GetAllCoins(SPT<Coin> coins[]);
+	int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
+	int GetAllGriditems(SPT<Griditem> griditems[]);
+	SPT<MousePointer> GetMousePointer();
+	SPT<Caption> GetCaption();
+	SPT<CardSlot> GetCardSlot();
+	SPT<Miscellaneous> GetMiscellaneous();
+	SPT<SaveData> GetSaveData();
+	SPT<Music> GetMusic();
 
 #pragma endregion
 

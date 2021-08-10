@@ -108,20 +108,20 @@ void PVZ::Memory::InjectDll(LPCSTR dllname)
 	FreeMemory(Address);
 }
 
-PVZ::Lawn* PVZ::GetLawn()
+SPT<PVZ::Lawn> PVZ::GetLawn()
 {
-	return new Lawn(BaseAddress);
+	return MKS<Lawn>(BaseAddress);
 }
 
-PVZ::Icetrace* PVZ::GetIcetrace()
+SPT<PVZ::Icetrace> PVZ::GetIcetrace()
 {
-	return new Icetrace(BaseAddress);
+	return MKS<Icetrace>(BaseAddress);
 }
 
-PVZ::Wave* PVZ::GetWave(int index)
+SPT<PVZ::Wave> PVZ::GetWave(int index)
 {
 	if (index >= 0 && index <= WaveCount)
-		return new Wave(BaseAddress + 0x6B4 + index * 200);
+		return MKS<Wave>(BaseAddress + 0x6B4 + index * 200);
 	else
 		return NULL;
 }
@@ -166,12 +166,12 @@ void PVZ::Bell(int countdown)
 	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);
 }
 
-PVZ::Mouse* PVZ::GetMouse()
+SPT<PVZ::Mouse> PVZ::GetMouse()
 {
-	return new Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
+	return MKS<Mouse>(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
-int PVZ::GetAllZombies(Zombie* zombies[])
+int PVZ::GetAllZombies(SPT<Zombie> zombies[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
 	int j = 0;
@@ -179,14 +179,14 @@ int PVZ::GetAllZombies(Zombie* zombies[])
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + 0x15C * i))
 		{
-			zombies[j] = new PVZ::Zombie(i);
+			zombies[j] = MKS<PVZ::Zombie>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-int PVZ::GetAllPlants(Plant* plants[])
+int PVZ::GetAllPlants(SPT<Plant> plants[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
 	int j = 0;
@@ -194,14 +194,14 @@ int PVZ::GetAllPlants(Plant* plants[])
 	{
 		if (!Memory::ReadMemory<byte>(Memory::ReadMemory<int>(BaseAddress + 0xAC) + 0x141 + 0x14C * i))
 		{
-			plants[j] = new PVZ::Plant(i);
+			plants[j] = MKS<PVZ::Plant>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-int PVZ::GetAllProjectile(Projectile* projectiles[])
+int PVZ::GetAllProjectile(SPT<Projectile> projectiles[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
 	int j = 0;
@@ -209,14 +209,14 @@ int PVZ::GetAllProjectile(Projectile* projectiles[])
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
 		{
-			projectiles[j] = new PVZ::Projectile(i);
+			projectiles[j] = MKS<PVZ::Projectile>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-int PVZ::GetAllCoins(Coin* coins[])
+int PVZ::GetAllCoins(SPT<Coin> coins[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
 	int j = 0;
@@ -224,14 +224,14 @@ int PVZ::GetAllCoins(Coin* coins[])
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
 		{
-			coins[j] = new PVZ::Coin(i);
+			coins[j] = MKS<PVZ::Coin>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-int PVZ::GetAllLawnmovers(Lawnmover* lawnmovers[])
+int PVZ::GetAllLawnmovers(SPT<Lawnmover> lawnmovers[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
 	int j = 0;
@@ -239,14 +239,14 @@ int PVZ::GetAllLawnmovers(Lawnmover* lawnmovers[])
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i))
 		{
-			lawnmovers[j] = new PVZ::Lawnmover(i);
+			lawnmovers[j] = MKS<PVZ::Lawnmover>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-int PVZ::GetAllGriditems(Griditem* griditems[])
+int PVZ::GetAllGriditems(SPT<Griditem> griditems[])
 {
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
 	int j = 0;
@@ -254,41 +254,41 @@ int PVZ::GetAllGriditems(Griditem* griditems[])
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x11C, 0x20 + 0xEC * i))
 		{
-			griditems[j] = new PVZ::Griditem(i);
+			griditems[j] = MKS<PVZ::Griditem>(i);
 			j++;
 		}
 	}
 	return j;
 }
 
-PVZ::MousePointer* PVZ::GetMousePointer()
+SPT<PVZ::MousePointer> PVZ::GetMousePointer()
 {
-	return new MousePointer(BaseAddress);
+	return MKS<MousePointer>(BaseAddress);
 }
 
-PVZ::Caption* PVZ::GetCaption()
+SPT<PVZ::Caption> PVZ::GetCaption()
 {
-	return new Caption(BaseAddress);
+	return MKS<Caption>(BaseAddress);
 }
 
-PVZ::CardSlot* PVZ::GetCardSlot()
+SPT<PVZ::CardSlot> PVZ::GetCardSlot()
 {
-	return new CardSlot(BaseAddress);
+	return MKS<CardSlot>(BaseAddress);
 }
 
-PVZ::Miscellaneous* PVZ::GetMiscellaneous()
+SPT<PVZ::Miscellaneous> PVZ::GetMiscellaneous()
 {
-	return new Miscellaneous(BaseAddress);
+	return MKS<Miscellaneous>(BaseAddress);
 }
 
-PVZ::SaveData* PVZ::GetSaveData()
+SPT<PVZ::SaveData> PVZ::GetSaveData()
 {
-	return new SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));
+	return MKS<SaveData>(Memory::ReadPointer(0x6A9EC0, 0x82C));
 }
 
-PVZ::Music* PVZ::GetMusic()
+SPT<PVZ::Music> PVZ::GetMusic()
 {
-	return new Music(Memory::ReadPointer(0x6A9EC0, 0x83C));
+	return MKS<Music>(Memory::ReadPointer(0x6A9EC0, 0x83C));
 }
 
 
