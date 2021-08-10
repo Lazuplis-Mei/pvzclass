@@ -336,10 +336,10 @@ public:
 		T_PROPERTY(BOOLEAN, SthinHandOrYetiLeft, __get_SthinHandOrYetiLeft, __set_SthinHandOrYetiLeft, 0xBC);
 		T_PROPERTY(BOOLEAN, InWater, __get_InWater, __set_InWater, 0xBD);
 		T_PROPERTY(BOOLEAN, GarlicBited, __get_GarlicBited, __set_GarlicBited, 0xBF);
-		void GetAccessoriesType1(AccessoriesType1* acctype1);
-		void SetAccessoriesType1(AccessoriesType1* acctype1);
-		void GetAccessoriesType2(AccessoriesType2* acctype2);
-		void SetAccessoriesType2(AccessoriesType2* acctype2);
+		AccessoriesType1 GetAccessoriesType1();
+		void SetAccessoriesType1(AccessoriesType1 acctype1);
+		AccessoriesType2 GetAccessoriesType2();
+		void SetAccessoriesType2(AccessoriesType2 acctype2);
 		void GetBodyHp(int* hp, int* maxhp);
 		void SetBodyHp(int hp, int maxhp);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);

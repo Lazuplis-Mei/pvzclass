@@ -48,32 +48,36 @@ void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
 	Memory::WriteMemory<int>(BaseAddress + 0xA8, collbox->Height);
 }
 
-void PVZ::Zombie::GetAccessoriesType1(AccessoriesType1* acctype1)
+AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
 {
-	acctype1->Type = Memory::ReadMemory<ZombieAccessoriesType1::ZombieAccessoriesType1>(BaseAddress + 0xC4);
-	acctype1->Hp = Memory::ReadMemory<int>(BaseAddress + 0xD0);
-	acctype1->MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xD4);
+	AccessoriesType1 acctype1;
+	acctype1.Type = Memory::ReadMemory<ZombieAccessoriesType1::ZombieAccessoriesType1>(BaseAddress + 0xC4);
+	acctype1.Hp = Memory::ReadMemory<int>(BaseAddress + 0xD0);
+	acctype1.MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xD4);
+	return acctype1;
 }
 
-void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1* acctype1)
+void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1 acctype1)
 {
-	Memory::WriteMemory<ZombieAccessoriesType1::ZombieAccessoriesType1>(BaseAddress + 0xC4, acctype1->Type);
-	Memory::WriteMemory<int>(BaseAddress + 0xD0, acctype1->Hp);
-	Memory::WriteMemory<int>(BaseAddress + 0xD4, acctype1->MaxHp);
+	Memory::WriteMemory<ZombieAccessoriesType1::ZombieAccessoriesType1>(BaseAddress + 0xC4, acctype1.Type);
+	Memory::WriteMemory<int>(BaseAddress + 0xD0, acctype1.Hp);
+	Memory::WriteMemory<int>(BaseAddress + 0xD4, acctype1.MaxHp);
 }
 
-void PVZ::Zombie::GetAccessoriesType2(AccessoriesType2* acctype2)
+AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
 {
-	acctype2->Type = Memory::ReadMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8);
-	acctype2->Hp = Memory::ReadMemory<int>(BaseAddress + 0xDC);
-	acctype2->MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xE0);
+	AccessoriesType2 acctype2;
+	acctype2.Type = Memory::ReadMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8);
+	acctype2.Hp = Memory::ReadMemory<int>(BaseAddress + 0xDC);
+	acctype2.MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xE0);
+	return acctype2;
 }
 
-void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2* acctype2)
+void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
 {
-	Memory::WriteMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8, acctype2->Type);
-	Memory::WriteMemory<int>(BaseAddress + 0xDC, acctype2->Hp);
-	Memory::WriteMemory<int>(BaseAddress + 0xE0, acctype2->MaxHp);
+	Memory::WriteMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8, acctype2.Type);
+	Memory::WriteMemory<int>(BaseAddress + 0xDC, acctype2.Hp);
+	Memory::WriteMemory<int>(BaseAddress + 0xE0, acctype2.MaxHp);
 
 }
 
