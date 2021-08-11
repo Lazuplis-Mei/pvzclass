@@ -36,8 +36,28 @@ void EventHandler::UpdateProjectiles()
 				ok = 0;
 				break;
 			}
-		if (ok)
-			InvokeEvent(new EventProjectileFire(x),true);
+		if (ok) {
+			std::vector<SPT<Plant>> plants = GetAllPlants();
+			int minn = INT_MAX;
+			Plant* plant;
+			if (plants.size())
+			{
+				plant = plants[0].get();
+				for (int j = 0; j < plants.size(); j++) {
+					if (abs(plants[j]->X - proj->X) + abs(plants[j]->Y - proj->Y) < minn) {
+						plant = plants[j].get();
+						minn = abs(plants[j]->X - proj->X) + abs(plants[j]->Y - proj->Y);
+					}
+				}
+				if (minn != INT_MAX)
+				{
+					InvokeEvent(new EventProjectileFire(proj, plant), true);
+				}
+				else {
+					InvokeEvent(new EventProjectileSpawn(proj), true);
+				}
+			}
+		}
 	}
 
 	std::vector<Projectile*> lpros;
