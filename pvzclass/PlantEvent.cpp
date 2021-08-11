@@ -45,7 +45,7 @@ void EventHandler::UpdatePlants()
 			}
 		}
 		PlantLastHealth[plant->Index] = plant->Hp;
-		PlantLastPosition[plants[i]->Index] = std::make_pair(plant->X, plant->Y);
+		PlantLastPosition[plants[i]->Index] = std::make_pair(plant->Y, plant->X);
 		PlantLastRowAndColumn[plants[i]->Index] = std::make_pair(plant->Row, plant->Column);
 	}
 

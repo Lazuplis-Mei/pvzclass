@@ -195,8 +195,20 @@ class EventProjectileFire : public Event
 {
 public:
 	static std::string Name;
+	Plant* plant;
 	Projectile* projectile;
-	EventProjectileFire(Projectile* projectile) : projectile(projectile)
+	EventProjectileFire(Projectile* projectile, Plant* plant) : projectile(projectile), plant(plant)
+	{
+		name = Name;
+	}
+};
+
+class EventProjectileSpawn : public Event
+{
+public:
+	static std::string Name;
+	Projectile* projectile;
+	EventProjectileSpawn(Projectile* projectile) : projectile(projectile)
 	{
 		name = Name;
 	}
