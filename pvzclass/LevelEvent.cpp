@@ -32,7 +32,7 @@ void EventHandler::UpdateLevels()
 			InvokeEvent(new EventLevelStart(),true);
 		}
 
-		if (wave != pvz->RefreshedWave && IsStarted)
+		if (wave != pvz->RefreshedWave && pvz->GameState == PVZGameState::Playing)
 		{
 			wave = pvz->RefreshedWave;
 			InvokeEvent(new EventLevelWave(wave),true);
