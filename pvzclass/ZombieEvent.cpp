@@ -88,11 +88,11 @@ void EventHandler::UpdateZombies()
 		}
 		if (zombie->Type == ZombieType::PoleVaultingZombie && zombie->State == ZombieState::POLE_VALUTING_JUMPPING && !isPoleVaultingZombieJumped[zombie->Index]) {
 			isPoleVaultingZombieJumped[zombie->Index] = true;
-			InvokeEvent(new EventZombieNewspaperAngried(zombie), true);
+			InvokeEvent(new EventZombiePoleVaultingJumped(zombie), true);
 		}
 		if (zombie->Type == ZombieType::PoleVaultingZombie && zombie->State == ZombieState::POLE_VAULTING_WALKING && !isPoleVaultingZombieWalked[zombie->Index]) {
 			isPoleVaultingZombieWalked[zombie->Index] = true;
-			InvokeEvent(new EventZombieNewspaperAngried(zombie), true);
+			InvokeEvent(new EventZombiePoleVaultingWalked(zombie), true);
 		}
 	}
 	for (int i = 0; i < lastn; i++)
