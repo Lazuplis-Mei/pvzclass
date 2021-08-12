@@ -26,6 +26,15 @@ void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
 	e->zombie->Hypnotized = true;
 }
 
+void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
+	e->plant->Type = PlantType::FlowerPot;
+	std::cout << "!";
+}
+
+void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
+	e->zombie->Type = ZombieType::ConeheadZombie;
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -44,6 +53,8 @@ int main()
 	e.RegistryListeners(OnDeath2, Event_Low);
 	e.RegistryListeners(OnPlantDead);
 	e.RegistryListeners(OnPlantDamage);
+	e.RegistryListeners(OnPotatoMineSproutOut);
+	e.RegistryListeners(OnPoleVaultingJumping);
 	while (pvz->BaseAddress)
 	{
 		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;

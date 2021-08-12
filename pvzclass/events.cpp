@@ -52,6 +52,7 @@ std::string EventPlantRemove::Name = "PlantRemove";
 std::string EventPlantUpgrade::Name = "PlantUpgrade";
 std::string EventPlantDamage::Name = "PlantDamage";
 std::string EventPlantDead::Name = "PlantDead";
+std::string EventPlantPotatoMineSproutOuted::Name = "PlantPotatoMineSproutOuted";
 
 std::string EventLevelOpen::Name = "LevelOpen";
 std::string EventLevelClose::Name = "LevelClose";
@@ -67,3 +68,7 @@ std::string EventZombieDamage::Name = "ZombieDamage";
 std::string EventZombieHypnotized::Name = "ZombieHypnotized";
 std::string EventZombieRemove::Name = "ZombieRemove";
 std::string EventZombieDead::Name = "ZombieDead";
+std::string EventZombieNewspaperDestoryed::Name = "ZombieNewspaperDestoryed";
+std::string EventZombieNewspaperAngried::Name = "ZombieNewspaperAngried";
+std::string EventZombiePoleVaultingJumped::Name = "ZombiePoleVaultingJumped";
+std::string EventZombiePoleVaultingWalked::Name = "ZombiePoleVaultingWalked";

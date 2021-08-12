@@ -149,8 +149,8 @@ SPT<PVZ::Coin> Creater::CreateCoin(CoinType::CoinType type, int x, int y, CoinMo
 	SETARG(__asm__CreateCoin, 1) = PVZBASEADDRESS;
 	__asm__CreateCoin[6] = motion;
 	__asm__CreateCoin[8] = type;
-	SETARG(__asm__CreateCoin, 10) = x;
-	SETARG(__asm__CreateCoin, 15) = y;
+	SETARG(__asm__CreateCoin, 10) = y;
+	SETARG(__asm__CreateCoin, 15) = x;
 	SETARG(__asm__CreateCoin, 33) = PVZ::Memory::Variable;
 	return MKS<PVZ::Coin>(PVZ::Memory::Execute(STRING(__asm__CreateCoin)));
 }
