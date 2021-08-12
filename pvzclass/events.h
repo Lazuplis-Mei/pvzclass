@@ -148,6 +148,17 @@ public:
 	}
 };
 
+class EventPlantPotatoMineSproutOuted : public Event
+{
+public:
+	static std::string Name;
+	Plant* plant;
+	EventPlantPotatoMineSproutOuted(Plant* plant) : plant(plant)
+	{
+		name = Name;
+	}
+};
+
 /*Level Event*/
 class EventLevelOpen : public Event
 {
@@ -277,6 +288,50 @@ public:
 	Zombie* zombie;
 	Projectile* projectile;
 	EventZombieDamage(Zombie* zombie, Projectile* projectile) : zombie(zombie), projectile(projectile)
+	{
+		name = Name;
+	}
+};
+
+class EventZombieNewspaperDestoryed : public Event
+{
+public:
+	static std::string Name;
+	Zombie* zombie;
+	EventZombieNewspaperDestoryed(Zombie* zombie) : zombie(zombie)
+	{
+		name = Name;
+	}
+};
+
+class EventZombieNewspaperAngried : public Event
+{
+public:
+	static std::string Name;
+	Zombie* zombie;
+	EventZombieNewspaperAngried(Zombie* zombie) : zombie(zombie)
+	{
+		name = Name;
+	}
+};
+
+class EventZombiePoleVaultingJumped : public Event
+{
+public:
+	static std::string Name;
+	Zombie* zombie;
+	EventZombiePoleVaultingJumped(Zombie* zombie) : zombie(zombie)
+	{
+		name = Name;
+	}
+};
+
+class EventZombiePoleVaultingWalked : public Event
+{
+public:
+	static std::string Name;
+	Zombie* zombie;
+	EventZombiePoleVaultingWalked(Zombie* zombie) : zombie(zombie)
 	{
 		name = Name;
 	}

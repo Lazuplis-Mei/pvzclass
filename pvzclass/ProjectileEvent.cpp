@@ -21,6 +21,8 @@ void EventHandler::UpdateProjectiles()
 	{
 		if (ProjectileList.size())
 			ProjectileList.clear();
+		if (lastDead.size())
+			lastDead.clear();
 		return;
 	}
 	std::vector<SPT<Projectile>> list = GetAllProjectiles();
@@ -29,9 +31,9 @@ void EventHandler::UpdateProjectiles()
 	for (int i = 0; i < nown; i++)
 	{
 		bool ok = 1;
-		Projectile* x = list[i].get();
+		Projectile* proj = list[i].get();
 		for (int j = 0; j < lastn; j++)
-			if (x->BaseAddress == ProjectileList[j]->BaseAddress)
+			if (proj->BaseAddress == ProjectileList[j]->BaseAddress)
 			{
 				ok = 0;
 				break;

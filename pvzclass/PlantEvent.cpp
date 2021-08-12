@@ -20,6 +20,7 @@ std::map<int, int> PlantLastHealth;
 std::map<int, bool> PlantIsDead;
 std::map<int, std::pair<int, int>> PlantLastPosition;
 std::map<int, std::pair<int, int>> PlantLastRowAndColumn;
+std::map<int, bool> PotatoIsSproutOuted;
 
 void EventHandler::UpdatePlants()
 {
@@ -27,6 +28,12 @@ void EventHandler::UpdatePlants()
 	{
 		if(PlantList.size())
 			PlantList.clear();
+		if (PlantIsDead.size())
+			PlantIsDead.clear();
+		if (PlantLastPosition.size())
+			PlantLastPosition.clear();
+		if (PlantLastRowAndColumn.size())
+			PlantLastRowAndColumn.clear();
 		return;
 	}
 	// all plants list.
@@ -45,8 +52,12 @@ void EventHandler::UpdatePlants()
 			}
 		}
 		PlantLastHealth[plant->Index] = plant->Hp;
-		PlantLastPosition[plants[i]->Index] = std::make_pair(plant->X, plant->Y);
-		PlantLastRowAndColumn[plants[i]->Index] = std::make_pair(plant->Row, plant->Column);
+		PlantLastPosition[plant->Index] = std::make_pair(plant->X, plant->Y);
+		PlantLastRowAndColumn[plant->Index] = std::make_pair(plant->Row, plant->Column);
+		if (plant->Type == PlantType::PotatoMine && plant->State == PlantState::POTATO_SPROUT_OUT && !PotatoIsSproutOuted[plant->Index]) {
+			PotatoIsSproutOuted[plant->Index] = true;
+			InvokeEvent(new EventPlantPotatoMineSproutOuted(plant), true);
+		}
 	}
 
 	std::set<std::pair<int, int>> pardon;
@@ -75,6 +86,7 @@ void EventHandler::UpdatePlants()
 			else
 				InvokeEvent(new EventPlantPlant(plant),true);
 			PlantIsDead[plant->Index] = false;
+			PotatoIsSproutOuted[i] = false;
 		}
 	}
 
@@ -82,7 +94,8 @@ void EventHandler::UpdatePlants()
 	for (int i = 0; i < allPlantNum; i++) {
 		Plant* plant = new Plant(i);
 		if (! PlantIsDead[i] && plant->NotExist) {
-			InvokeEvent(new EventPlantDead(plant, PlantLastPosition[i], PlantLastRowAndColumn[plants[i]->Index]), true);
+			InvokeEvent(new EventPlantDead(plant, PlantLastPosition[plant->Index], PlantLastRowAndColumn[plant->Index]), true);
+
 			PlantIsDead[i] = true;
 		}
 	}

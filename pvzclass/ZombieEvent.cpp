@@ -14,6 +14,10 @@ std::vector<SPT<Zombie>> EventHandler::GetAllZombies()
 
 std::map<int,bool> isPostedZombieDead;
 std::map<int, bool> isPostedZombieHypnotized;
+std::map<int, bool> isNewspaperDestroyed;
+std::map<int, bool> isNewspaperZombieAngried;
+std::map<int, bool> isPoleVaultingZombieJumped;
+std::map<int, bool> isPoleVaultingZombieWalked;
 
 void EventHandler::UpdateZombies()
 {
@@ -21,6 +25,18 @@ void EventHandler::UpdateZombies()
 	{
 		if(ZombieList.size())
 			ZombieList.clear();
+		if (isPostedZombieDead.size())
+			isPostedZombieDead.clear();
+		if (isPostedZombieHypnotized.size())
+			isPostedZombieHypnotized.clear();
+		if (isNewspaperDestroyed.size())
+			isNewspaperDestroyed.clear();
+		if (isNewspaperZombieAngried.size())
+			isNewspaperZombieAngried.clear();
+		if (isPoleVaultingZombieJumped.size())
+			isPoleVaultingZombieJumped.clear();
+		if (isPoleVaultingZombieWalked.size())
+			isPoleVaultingZombieWalked.clear();
 		return;
 	}
 	std::vector<SPT<Zombie>> now;
@@ -57,13 +73,26 @@ void EventHandler::UpdateZombies()
 			InvokeEvent(new EventZombieSpawn(zombie),true);
 		}
 
-		if (zombie->Hypnotized)
+		if (zombie->Hypnotized && !isPostedZombieHypnotized[zombie->Index])
 		{
-			if (!isPostedZombieHypnotized[zombie->Index])
-			{
-				isPostedZombieHypnotized[zombie->Index] = true;
-				InvokeEvent(new EventZombieHypnotized(zombie),true);
-			}
+			isPostedZombieHypnotized[zombie->Index] = true;
+			InvokeEvent(new EventZombieHypnotized(zombie),true);
+		}
+		if (zombie->Type == ZombieType::NewspaperZombie && zombie->State == ZombieState::NEWSPAPER_DESTORYED && ! isNewspaperDestroyed[zombie->Index]) {
+			isNewspaperDestroyed[zombie->Index] = true;
+			InvokeEvent(new EventZombieNewspaperDestoryed(zombie), true);
+		}
+		if (zombie->Type == ZombieType::NewspaperZombie && zombie->State == ZombieState::NEWSPAPER_RUNNING && !isNewspaperZombieAngried[zombie->Index]) {
+			isNewspaperZombieAngried[zombie->Index] = true;
+			InvokeEvent(new EventZombieNewspaperAngried(zombie), true);
+		}
+		if (zombie->Type == ZombieType::PoleVaultingZombie && zombie->State == ZombieState::POLE_VALUTING_JUMPPING && !isPoleVaultingZombieJumped[zombie->Index]) {
+			isPoleVaultingZombieJumped[zombie->Index] = true;
+			InvokeEvent(new EventZombieNewspaperAngried(zombie), true);
+		}
+		if (zombie->Type == ZombieType::PoleVaultingZombie && zombie->State == ZombieState::POLE_VAULTING_WALKING && !isPoleVaultingZombieWalked[zombie->Index]) {
+			isPoleVaultingZombieWalked[zombie->Index] = true;
+			InvokeEvent(new EventZombieNewspaperAngried(zombie), true);
 		}
 	}
 	for (int i = 0; i < lastn; i++)
