@@ -189,6 +189,7 @@
     <ClCompile Include="Enums\MusicType.cpp" />
     <ClCompile Include="Enums\PaintState.cpp" />
     <ClCompile Include="Enums\PlantEffectType.cpp" />
+    <ClCompile Include="Enums\PlantState.cpp" />
     <ClCompile Include="Enums\PlantType.cpp" />
     <ClCompile Include="Enums\ProjectileType.cpp" />
     <ClCompile Include="Enums\PVZGameStateEnum.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Enums\VaseSkin.h" />
     <ClInclude Include="Enums\ZombieAccessoriesType1.h" />
     <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
+    <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="ProcessOpener.h" />

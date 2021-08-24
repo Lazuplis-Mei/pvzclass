@@ -55,6 +55,7 @@ std::string EventPlantDead::Name = "PlantDead";
 std::string EventPlantPotatoMineSproutOuted::Name = "PlantPotatoMineSproutOuted";
 
 std::string EventLevelOpen::Name = "LevelOpen";
+std::string EventLevelRestart::Name = "LevelRestart";
 std::string EventLevelClose::Name = "LevelClose";
 std::string EventLevelWave::Name = "LevelWave";
 std::string EventLevelStart::Name = "LevelStart";

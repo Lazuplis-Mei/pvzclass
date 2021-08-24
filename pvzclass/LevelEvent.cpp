@@ -23,6 +23,8 @@ void EventHandler::UpdateLevels()
 		wave = 0;
 		InvokeEvent(new EventLevelClose(),true);
 	}
+	if (Address != NULL && Address != pvz->BaseAddress)
+		InvokeEvent(new EventLevelRestart(), true);
 	if (Address)
 	{
 		//std::cerr << pvz->WaveCount << "\n";

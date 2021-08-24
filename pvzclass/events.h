@@ -170,6 +170,16 @@ public:
 	}
 };
 
+class EventLevelRestart : public Event
+{
+public:
+	static std::string Name;
+	EventLevelRestart()
+	{
+		name = Name;
+	}
+};
+
 class EventLevelClose : public Event
 {
 public:
