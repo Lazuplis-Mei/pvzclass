@@ -201,6 +201,9 @@
     <ClCompile Include="Enums\ZombieState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\PlantState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -324,6 +327,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PlantState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieState.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
