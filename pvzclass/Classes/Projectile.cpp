@@ -16,3 +16,10 @@ void PVZ::Projectile::OnFire()
 	SETARG(__asm__OnFire, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__OnFire));
 }
+
+void PVZ::Projectile::Remove()
+{
+	SETARG(__asm__Projectile__Remove, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Projectile__Remove));
+	return;
+}

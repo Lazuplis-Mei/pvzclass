@@ -63,10 +63,10 @@ namespace Utils
 	inline int GetAddress(const char* s, int l = 0, int r = -1)
 	{
 		if (r == -1)
-			r = strlen(s);
+			r = std::strlen(s);
 		if (!isvalid(s, l, r))
 			return -1;
-		stack<int> st;
+		std::stack<int> st;
 		int ptr = 0, tmp = 0;
 		for (int i = l; i < r; i++)
 		{
