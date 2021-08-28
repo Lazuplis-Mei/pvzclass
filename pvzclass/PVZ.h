@@ -353,6 +353,7 @@ public:
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
 		void Butter();
+		void Remove();
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName,byte animPlayArg);
 	};
@@ -387,6 +388,7 @@ public:
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x90);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void OnFire();
+		void Remove();
 	};
 	class Plant
 	{
@@ -431,6 +433,7 @@ public:
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
 		void SetStatic();
+		void Remove();
 		SPT<PVZ::Projectile> Shoot(int targetid = -1);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);

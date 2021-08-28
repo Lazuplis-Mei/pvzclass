@@ -98,6 +98,7 @@ void EventHandler::UpdatePlants()
 
 			PlantIsDead[i] = true;
 		}
+		delete(plant);
 	}
 
 	for (int i = 0; i < list_num; i++)

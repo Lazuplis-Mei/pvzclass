@@ -94,7 +94,8 @@ void EventHandler::UpdateProjectiles()
 			lastDead[lpros[i]->Index] = false;
 		}
 	}
-	
+	for (int i = 0; i < lpros.size(); i++)
+		delete(lpros[i]);
 
 	for (int i = 0; i < lastn; i++)
 	{

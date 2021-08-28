@@ -45,6 +45,13 @@ void PVZ::Plant::SetStatic()
 
 }
 
+void PVZ::Plant::Remove()
+{
+	SETARG(__asm__Plant__Remove, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Plant__Remove));
+	return;
+}
+
 SPT<PVZ::Projectile> PVZ::Plant::Shoot(int targetid)
 {
 	__asm__Shoot[3] = Row;

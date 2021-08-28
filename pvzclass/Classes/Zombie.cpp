@@ -118,6 +118,13 @@ void PVZ::Zombie::Butter()
 	Memory::Execute(STRING(__asm__Butter));
 }
 
+void PVZ::Zombie::Remove()
+{
+	SETARG(__asm__Zombie__Remove, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Zombie__Remove));
+	return;
+}
+
 void PVZ::Zombie::SetAnimation(LPCSTR animName, byte animPlayArg)
 {
 	int Address = PVZ::Memory::AllocMemory();

@@ -49,6 +49,13 @@ byte __asm__Butter[]
 	RET
 };
 
+byte __asm__Zombie__Remove[]
+{
+	MOV_ECX(0),
+	ZOMBIE_REMOVE,
+	RET
+};
+
 byte __asm__CreateEffect[]
 {
 	CREATEEFFECT,
@@ -60,6 +67,12 @@ byte __asm__SetStatic[]
 	MOV_EAX_PTR(0),
 	SETSTATIC,
 	RET,
+};
+
+byte __asm__Plant__Remove[]
+{
+	PLANT_REMOVE,
+	RET
 };
 
 byte __asm__Shoot[]
@@ -74,6 +87,13 @@ byte __asm__OnFire[]
 	MOV_ECX(0),
 	ONFIRE,
 	RET,
+};
+
+byte __asm__Projectile__Remove[]
+{
+	MOV_EAX(0),
+	PROJECTILE_REMOVE,
+	RET
 };
 
 byte __asm__Collect[]

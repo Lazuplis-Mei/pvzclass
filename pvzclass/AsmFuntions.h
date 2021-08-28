@@ -58,10 +58,13 @@
 #define HIT INVOKE_DWORD(0x5317C0,0)
 #define BLAST INVOKE(0x532B70)
 #define BUTTER INVOKE(0x5326D0)
+#define ZOMBIE_REMOVE INVOKE(0x530510)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
+#define PLANT_REMOVE INVOKE_DWORD(0x4679B0,0)
 #define SHOOT INVOKE_DWORD_DWORD_BYTE_BYTE(0x466E00,0,0,0,0)
 #define ONFIRE INVOKE(0x46ECB0)
+#define PROJECTILE_REMOVE INVOKE(0x46EB20)
 #define COLLECT INVOKE(0x432060)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
@@ -84,15 +87,21 @@ extern byte __asm__Blast[19];
 
 extern byte __asm__Butter[19];
 
+extern byte __asm__Zombie__Remove[19];
+
 extern byte __asm__CreateEffect[19];
 
 extern byte __asm__SetStatic[24];
+
+extern byte __asm__Plant__Remove[19];
 
 extern byte __asm__Shoot[34];
 
 extern byte __asm__OnFire[19];
 
-extern  byte __asm__Collect[19];
+extern byte __asm__Projectile__Remove[19];
+
+extern byte __asm__Collect[19];
 
 extern byte __asm__GameClick[34];
 
