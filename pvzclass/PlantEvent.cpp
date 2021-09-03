@@ -61,30 +61,27 @@ void EventHandler::UpdatePlants()
 	}
 
 	std::set<std::pair<int, int>> pardon;
-	for (int i = 0; i < plants_num; i++)
+
+	for (int i = 0, j = 0; i < plants_num ; i++)
 	{
 		Plant* plant = plants[i].get();
-		bool ok = 1;
-		for (int j = 0; j < list_num; j++)
-			if (plant->BaseAddress == PlantList[j]->BaseAddress)
-			{
-				ok = 0;
+		for (; j < list_num; j++)
+			if (PlantList[j]->BaseAddress >= plant->BaseAddress)
 				break;
-			}
-		if (ok)
+		if (j == list_num || PlantList[j]->BaseAddress != plant->BaseAddress)
 		{
 			//that means didn't found current plant in last. fire event PlantPlantEvent
 			if (plant->Type >= PlantType::GatlingPea && plant->Type <= PlantType::CobCannon)
 			{
 				pardon.insert(std::make_pair(plant->Row, plant->Column));
-				if(plant->Type == PlantType::CobCannon)
+				if (plant->Type == PlantType::CobCannon)
 				{
 					pardon.insert(std::make_pair(plant->Row, plant->Column + 1));
 				}
-				InvokeEvent(new EventPlantUpgrade(plant),true);
+				InvokeEvent(new EventPlantUpgrade(plant), true);
 			}
 			else
-				InvokeEvent(new EventPlantPlant(plant),true);
+				InvokeEvent(new EventPlantPlant(plant), true);
 			PlantIsDead[plant->Index] = false;
 			PotatoIsSproutOuted[i] = false;
 		}
@@ -101,22 +98,18 @@ void EventHandler::UpdatePlants()
 		delete(plant);
 	}
 
-	for (int i = 0; i < list_num; i++)
+	for (int i = 0, j = 0; i < list_num; i++)
 	{
 		Plant* plant = PlantList[i].get();
 		bool ok = 1;
-		for (int j = 0; j < plants_num; j++)
-			if (plant->BaseAddress == plants[j]->BaseAddress)
-			{
-				ok = 0;
+		for (; j < plants_num; j++)
+			if (plants[j]->BaseAddress >= plant->BaseAddress)
 				break;
-			}
-		if (ok)
+		if (j == plants_num || plants[j]->BaseAddress != plant->BaseAddress)
 		{
 			//that means didn't found last plant in current. fire event PlantRemoveEvent
 			if (! pardon.count(std::make_pair(plant->Row, plant->Column)))
 			{
-				//std::cerr << "didn't find\n";
 				InvokeEvent(new EventPlantRemove(plant),true);
 			}
 		}
