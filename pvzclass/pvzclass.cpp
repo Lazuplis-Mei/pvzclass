@@ -1,67 +1,56 @@
-﻿#include "pvzclass.h"
-#include <iostream>
+﻿#include<cstdio>
+#include "pvzclass.h"
 #include "events.h"
+#include "Injectors.h"
 
-using namespace std;
-void OnDeath(EventZombieDead* e, PVZ* pvz)
+PVZ* pPVZ;
+
+byte asmZombieHurt[7]
 {
-	e->CancleState = true;
-	std::cout << endl << ZombieState::ToString(e->zombie->State);
-}
+	MOV_PTR_ADDR_ESI(0),
+	RET
+};
 
-void OnDeath2(EventZombieDead* e, PVZ* pvz)
+void onPlantPlant(EventPlantPlant* e,PVZ *pvz)
 {
-	std::cout << endl << "2 "<< e->zombie->Index;
+	Creater::CreateCoin(CoinType::MiniSun,e->plant->X,e->plant->Y,CoinMotionType::Product);
+	return;
 }
 
-void OnPlantDead(EventPlantDead* e, PVZ* pvz)
+void onPlantPlant2(EventPlantPlant* e, PVZ* pvz)
 {
-	// Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
-	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
-	Creater::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
-}
-
-void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
-{
-	e->zombie->Hypnotized = true;
-}
-
-void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
-	e->plant->Type = PlantType::FlowerPot;
-	std::cout << "!";
-}
-
-void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
-	e->zombie->Type = ZombieType::ConeheadZombie;
+	if (e->plant->Column == 0)
+		pvz->Sun >>= 1,e->CancleState = true;
+	return;
 }
 
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
-
 	if (!pid)
-		return 1;
-	cout << pid << endl;
-	PVZ* pvz = new PVZ(pid);
-
-	cout << pvz->BaseAddress << endl;
-	//if (!pvz->BaseAddress)
-	//	return 2;
-	//EventHandler start
-	EventHandler e(pvz);
-	e.RegistryListeners(OnDeath, Event_High);
-	e.RegistryListeners(OnDeath2, Event_Low);
-	e.RegistryListeners(OnPlantDead);
-	e.RegistryListeners(OnPlantDamage);
-	e.RegistryListeners(OnPotatoMineSproutOut);
-	e.RegistryListeners(OnPoleVaultingJumping);
-	while (pvz->BaseAddress)
+		return(-2);
+	std::printf("%u\n",pid);
+	pPVZ = new PVZ(pid);
+	EventHandler EvntHdl(pPVZ);
+	Injector InjZombieHurt(0x5317C9, 5);
+	
+	SETARG(asmZombieHurt, 2) = InjZombieHurt.InjectPos + 0x3C0; 
+	InjZombieHurt.Insert(asmZombieHurt, 7);
+	EvntHdl.RegistryListeners(onPlantPlant);
+	EvntHdl.RegistryListeners(onPlantPlant2, Event_High);
+	
+	while (PVZBASEADDRESS)
 	{
-		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
-		e.Run();
+		EvntHdl.Run();
+		if (PVZ::Memory::ReadMemory<int>(InjZombieHurt.InjectPos + 0x3C0))
+		{
+			SPT<PVZ::Zombie> tmpZ = MKS<PVZ::Zombie>(PVZ::Memory::ReadMemory<int>(InjZombieHurt.InjectPos + 0x3C0));
+			std::printf("%s\n", ZombieType::ToString(tmpZ->Type));
+			PVZ::Memory::WriteMemory<int>(InjZombieHurt.InjectPos + 0x3C0, 0);
+		}
 	}
-
-	//EventHandler end
-	delete pvz;
-	return 0;
+	
+	InjZombieHurt.Remove();
+	delete(pPVZ);
+	return(0);
 }

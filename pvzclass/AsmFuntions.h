@@ -20,10 +20,12 @@
 #define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
 #define RETN(v) 0xC2,v,0
+#define NOP 0x90
 #define MOV_EAX_EBX 0x8B,0xC3
 #define MOV_EAX_PTR(d) 0xA1,INUMBER(d)
 #define MOV_PTR_ADDR_EAX(address) 0xA3,INUMBER(address)
 #define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
+#define MOV_PTR_ADDR_ESI(address) 0x89,0x35,INUMBER(address)
 #define MOV_ECX_PTR_ADDR(address) 0x8B,0xD,INUMBER(address)
 #define MOV_PTR_EAX_ADD(v1,v2) 0xC7,0x40,v1,INUMBER(v2)
 #define FILD_PTR(address) 0xDB,5,INUMBER(address)

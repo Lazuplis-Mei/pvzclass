@@ -251,6 +251,7 @@
     <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="events.h" />
+    <ClInclude Include="Injectors.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />

@@ -332,6 +332,9 @@
     <ClInclude Include="Enums\ZombieState.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Injectors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
