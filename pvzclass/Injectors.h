@@ -11,7 +11,7 @@ class Injector
 		unsigned int InjectPos, FromPos;
 		Injector()
 		{
-			ReplaceRange = InjectPos = FromPos = 0;
+			ReplaceRange = InjectPos = FromPos = -1;
 			return;
 		}
 		Injector(int OriPTR, int OriLen)
@@ -21,7 +21,7 @@ class Injector
 			int tmpl = OriLen - 5;
 			if (tmpl < 0)
 			{
-				std::printf("YOU ARE FINDING FAULT WITH ME DELIBERATELY, AREN'T YOU!\n YOU INJECT IT OR NOT!\n");
+				InjectPos = FromPos = ReplaceRange = -1;
 				return;
 			}
 			byte tmp[1024];
@@ -36,7 +36,7 @@ class Injector
 			PVZ::Memory::WriteMemory<byte>(OriPTR, 0xE9);
 			PVZ::Memory::WriteMemory<unsigned int>(OriPTR + 1, InjectPos - OriPTR + 0x33B);
 			for (register int i = 1; i <= tmpl; i++)
-				PVZ::Memory::WriteMemory(OriPTR + i + 4, NOP);
+				PVZ::Memory::WriteMemory<byte>(OriPTR + i + 4, NOP);
 			return;
 		}
 		~Injector()
@@ -46,18 +46,20 @@ class Injector
 		}
 		inline void Insert(byte* ASMCode, int CodeLen)
 		{
-			if(InjectPos)
+			if(InjectPos != -1)
 				PVZ::Memory::WriteArray(InjectPos, ASMCode, CodeLen);
 			return;
 		}
 		inline void Erase()
 		{
-			if (InjectPos)
+			if (InjectPos != -1)
 				PVZ::Memory::WriteMemory<byte>(InjectPos, RET);
 			return;
 		}
 		inline void Remove()
 		{
+			if (InjectPos == -1)
+				return;
 			byte tmp[1024];
 			PVZ::Memory::ReadArray<byte>(InjectPos + 0x345, tmp, ReplaceRange);
 			PVZ::Memory::WriteArray<byte>(FromPos, tmp, ReplaceRange);
