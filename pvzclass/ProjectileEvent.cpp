@@ -28,17 +28,15 @@ void EventHandler::UpdateProjectiles()
 	std::vector<SPT<Projectile>> list = GetAllProjectiles();
 	int nown = list.size();
 	int lastn = ProjectileList.size();
-	for (int i = 0; i < nown; i++)
+	for (int i = 0, j = 0; i < nown; i++)
 	{
 		bool ok = 1;
 		Projectile* proj = list[i].get();
-		for (int j = 0; j < lastn; j++)
-			if (proj->BaseAddress == ProjectileList[j]->BaseAddress)
-			{
-				ok = 0;
+		for (; j < lastn; j++)
+			if (ProjectileList[j]->BaseAddress >= proj->BaseAddress)
 				break;
-			}
-		if (ok) {
+		if (j == lastn || ProjectileList[j]->BaseAddress != proj->BaseAddress)
+		{
 			std::vector<SPT<Plant>> plants = GetAllPlants();
 			int minn = INT_MAX;
 			Plant* plant;
@@ -97,17 +95,14 @@ void EventHandler::UpdateProjectiles()
 	for (int i = 0; i < lpros.size(); i++)
 		delete(lpros[i]);
 
-	for (int i = 0; i < lastn; i++)
+	for (int i = 0, j = 0; i < lastn; i++)
 	{
 		bool ok = 1;
 		Projectile* proj = ProjectileList[i].get();
-		for (int j = 0; j < nown; j++)
-			if (proj->BaseAddress == list[j]->BaseAddress)
-			{
-				ok = 0;
+		for (; j < nown; j++)
+			if (list[j]->BaseAddress >= proj->BaseAddress)
 				break;
-			}
-		if (ok)
+		if (j == nown || list[j]->BaseAddress != proj->BaseAddress)
 			InvokeEvent(new EventProjectileRemove(proj),true);
 	}
 	ProjectileList.clear();
