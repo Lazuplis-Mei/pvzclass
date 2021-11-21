@@ -1,56 +1,70 @@
-﻿#include<cstdio>
 #include "pvzclass.h"
+#include <iostream>
 #include "events.h"
-#include "Injectors.h"
 
-PVZ* pPVZ;
-
-byte asmZombieHurt[7]
+using namespace std;
+void OnDeath(EventZombieDead* e, PVZ* pvz)
 {
-	MOV_PTR_ADDR_ESI(0),
-	RET
-};
-
-void onPlantPlant(EventPlantPlant* e,PVZ *pvz)
-{
-	Creater::CreateCoin(CoinType::MiniSun,e->plant->X,e->plant->Y,CoinMotionType::Product);
-	return;
+	e->CancleState = true;
+	std::cout << endl << ZombieState::ToString(e->zombie->State);
 }
 
-void onPlantPlant2(EventPlantPlant* e, PVZ* pvz)
+void OnDeath2(EventZombieDead* e, PVZ* pvz)
 {
-	if (e->plant->Column == 0)
-		pvz->Sun >>= 1,e->CancleState = true;
-	return;
+	std::cout << endl << "2 "<< e->zombie->Index;
+}
+
+void OnPlantDead(EventPlantDead* e, PVZ* pvz)
+{
+	// Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
+	Creater::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
+}
+
+void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
+{
+	e->zombie->Hypnotize();
+	e->zombie->Froze(1000);
+	e->zombie->Decelerate(5000);
+}
+
+void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
+	e->plant->Type = PlantType::FlowerPot;
+	std::cout << "!";
+}
+
+void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
+	e->zombie->Type = ZombieType::ConeheadZombie;
 }
 
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
+
 	if (!pid)
-		return(-2);
-	std::printf("%u\n",pid);
-	pPVZ = new PVZ(pid);
-	EventHandler EvntHdl(pPVZ);
-	Injector InjZombieHurt(0x5317C9, 5);
-	
-	SETARG(asmZombieHurt, 2) = InjZombieHurt.InjectPos + 0x3C0; 
-	InjZombieHurt.Insert(asmZombieHurt, 7);
-	EvntHdl.RegistryListeners(onPlantPlant);
-	EvntHdl.RegistryListeners(onPlantPlant2, Event_High);
-	
-	while (PVZBASEADDRESS)
+		return 1;
+	cout << pid << endl;
+	PVZ* pvz = new PVZ(pid);
+
+	cout << pvz->BaseAddress << endl;
+	DisableInitialLawnmover();
+	//if (!pvz->BaseAddress)
+	//	return 2;
+	//EventHandler start
+	EventHandler e(pvz);
+	e.RegistryListeners(OnDeath, Event_High);
+	e.RegistryListeners(OnDeath2, Event_Low);
+	e.RegistryListeners(OnPlantDead);
+	e.RegistryListeners(OnPlantDamage);
+	e.RegistryListeners(OnPotatoMineSproutOut);
+	e.RegistryListeners(OnPoleVaultingJumping);
+	while (pvz->BaseAddress)
 	{
-		EvntHdl.Run();
-		if (PVZ::Memory::ReadMemory<int>(InjZombieHurt.InjectPos + 0x3C0))
-		{
-			SPT<PVZ::Zombie> tmpZ = MKS<PVZ::Zombie>(PVZ::Memory::ReadMemory<int>(InjZombieHurt.InjectPos + 0x3C0));
-			std::printf("%s\n", ZombieType::ToString(tmpZ->Type));
-			PVZ::Memory::WriteMemory<int>(InjZombieHurt.InjectPos + 0x3C0, 0);
-		}
+		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
+		e.Run();
 	}
-	
-	InjZombieHurt.Remove();
-	delete(pPVZ);
-	return(0);
+
+	//EventHandler end
+	delete pvz;
+	return 0;
 }
