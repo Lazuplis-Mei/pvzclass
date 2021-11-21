@@ -137,3 +137,8 @@ void AutoCollect(PVZ* pvz, BOOLEAN b = true)
 	else
 		PVZ::Memory::WriteArray<byte>(0x40CCDA, STRING(__autocollect_reset));
 }
+
+void DisableInitialLawnmover(BOOLEAN b = true)
+{
+	MEMMOD_SHORT(0x43A6A6, 11499, 7548);
+}

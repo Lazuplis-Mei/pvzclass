@@ -57,9 +57,13 @@
 #define LOADLIBRARYA INVOKE_DWORD((int)LoadLibraryA,0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
 #define WIN INVOKE(0x40C3E0)
+#define LOSE INVOKE(0x413400)
 #define HIT INVOKE_DWORD(0x5317C0,0)
 #define BLAST INVOKE(0x532B70)
 #define BUTTER INVOKE(0x5326D0)
+#define DECELERATE INVOKE_BYTE(0x530950, 0)
+#define FROZE INVOKE(0x5323D0)
+#define HYPNOTIZE INVOKE(0x52FA60)
 #define ZOMBIE_REMOVE INVOKE(0x530510)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
@@ -83,11 +87,19 @@ extern byte __asm__set__LevelScene[19];
 
 extern byte __asm__Win[19];
 
+extern byte __asm__Lose[21];
+
 extern byte __asm__Hit[29];
 
 extern byte __asm__Blast[19];
 
 extern byte __asm__Butter[19];
+
+extern byte __asm__Decelerate[21];
+
+extern byte __asm__Froze[19];
+
+extern byte __asm__Hypnotize[19];
 
 extern byte __asm__Zombie__Remove[19];
 

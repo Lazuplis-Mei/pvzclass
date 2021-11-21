@@ -27,6 +27,14 @@ byte __asm__Win[]
 	RET
 };
 
+byte __asm__Lose[]
+{
+	PUSH(0),
+	PUSHDWORD(0),
+	LOSE,
+	RET
+};
+
 byte __asm__Hit[]
 {
 	MOV_ESI(0),
@@ -46,6 +54,28 @@ byte __asm__Butter[]
 {
 	MOV_EAX(0),
 	BUTTER,
+	RET
+};
+
+byte __asm__Decelerate[]
+{
+	MOV_EAX(0),
+	DECELERATE,
+	RET
+};
+
+byte __asm__Froze[]
+{
+	MOV_EAX(0),
+	FROZE,
+	RET
+};
+
+
+byte __asm__Hypnotize[]
+{
+	MOV_ESI(0),
+	HYPNOTIZE,
 	RET
 };
 

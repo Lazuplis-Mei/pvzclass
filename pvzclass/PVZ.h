@@ -352,7 +352,10 @@ public:
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
-		void Butter();
+		void Butter(int countdown);
+		void Decelerate(int countdown);
+		void Froze(int countdown);
+		void Hypnotize();
 		void Remove();
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName,byte animPlayArg);
@@ -668,6 +671,7 @@ public:
 			INT_PROPERTY(Direction, __get_Direction, __set_Direction, 0x18);
 			INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
 			T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
+			INT_PROPERTY(WateredCount, __get_WateredCount, __set_WateredCount, 0x30);
 		};
 		SPT<GardenPlant> GetGardenPlant(int index);
 
@@ -701,6 +705,7 @@ public:
 	void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
 	void Assault(int countdown = 1);
 	void Win();
+	void Lose();
 	void Bell(int countdown = 1);
 	SPT<Mouse> GetMouse();
 	int GetAllZombies(SPT<Zombie> zombies[]);

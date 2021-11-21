@@ -161,6 +161,17 @@ void PVZ::Win()
 	else Memory::Execute(STRING(__asm__Win));
 }
 
+void PVZ::Lose()
+{
+	if (LevelId == PVZLevel::Zombiguarium || (LevelId >= 61 && LevelId <= 70))
+	{
+		SETARG(__asm__Lose, 3) = BaseAddress;
+		Memory::Execute(STRING(__asm__Lose));
+	}
+	else
+		this->GameState = PVZGameState::Losing;
+}
+
 void PVZ::Bell(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);

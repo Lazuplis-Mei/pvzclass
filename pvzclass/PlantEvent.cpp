@@ -43,7 +43,7 @@ void EventHandler::UpdatePlants()
 	int plants_num = plants.size();
 	for (int i = 0; i < plants_num; i++) {
 		Plant* plant = plants[i].get();
-		if (PlantLastHealth[i] > plants[i]->Hp) {
+		if (PlantLastHealth[plant->Index] > plant->Hp) {
 			std::vector<SPT<Zombie>>zombies = GetAllZombies();
 			for (int j = 0; j < zombies.size(); j++) {
 				if (abs(zombies[j]->X - plant->X) <= 100) {
