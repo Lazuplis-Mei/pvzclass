@@ -112,17 +112,45 @@ void PVZ::Zombie::Blast()
 	Memory::Execute(STRING(__asm__Blast));
 }
 
-void PVZ::Zombie::Butter()
+void PVZ::Zombie::Butter(int countdown = 400)
 {
+	int temp = FixedCountdown;
 	SETARG(__asm__Butter, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Butter));
+	FixedCountdown = max(temp, countdown);
+}
+
+void PVZ::Zombie::Decelerate(int countdown = 1000)
+{
+	int temp = DecelerateCountdown;
+	SETARG(__asm__Decelerate, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Decelerate));
+	DecelerateCountdown = max(temp, countdown);
+}
+
+void PVZ::Zombie::Froze(int countdown = 300)
+{
+	Memory::WriteMemory<byte>(0x532493, 0);
+	Memory::WriteMemory<byte>(0x5319E5, 112);
+	int temp = FrozenCountdown, temp2 = DecelerateCountdown;
+	SETARG(__asm__Froze, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Froze));
+	Memory::WriteMemory<byte>(0x532493, 20);
+	Memory::WriteMemory<byte>(0x5319E5, 117);
+	DecelerateCountdown = temp2;
+	FrozenCountdown = max(temp, countdown);
+}
+
+void PVZ::Zombie::Hypnotize()
+{
+	SETARG(__asm__Hypnotize, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Hypnotize));
 }
 
 void PVZ::Zombie::Remove()
 {
 	SETARG(__asm__Zombie__Remove, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Zombie__Remove));
-	return;
 }
 
 void PVZ::Zombie::SetAnimation(LPCSTR animName, byte animPlayArg)

@@ -219,7 +219,7 @@
   <ItemGroup>
     <ClInclude Include="Creaters.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="AsmFuntions.h" />
+    <ClInclude Include="AsmFunctions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />
     <ClInclude Include="Enums\CardType.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />

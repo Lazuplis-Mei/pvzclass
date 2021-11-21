@@ -1,6 +1,4 @@
 #pragma once
-#include<cstdio>
-#include<cstring>
 #include "PVZ.h"
 
 class Injector

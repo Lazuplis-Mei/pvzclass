@@ -29,6 +29,10 @@ class Event
 public:
 	bool CancleState;
 	std::string name;
+	Event()
+	{
+		this->CancleState = false;
+	}
 };
 
 #define LISTENER(x) ((listener)x)
@@ -47,7 +51,6 @@ private:
 	std::map<std::string, std::vector<listener>> listenersMid;
 	std::map<std::string, std::vector<listener>> listenersHigh;
 	int Address;
-	bool Started;
 	bool IsStarted;
 	void InvokeEvent(Event *event,bool isDelete=false);
 	void Update()
@@ -68,7 +71,6 @@ public:
 	{
 		this->pvz = pvz;
 		Address = 0;
-		Started = 0;
 		IsStarted = 0;
 	}
 	~EventHandler()
