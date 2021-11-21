@@ -215,7 +215,7 @@
     <ClInclude Include="Enums.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AsmFuntions.h">
+    <ClInclude Include="AsmFunctions.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PVZVersionEnum.h">

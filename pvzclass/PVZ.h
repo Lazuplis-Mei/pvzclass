@@ -1,6 +1,6 @@
 #pragma once
 #include "Enums.h"
-#include "AsmFuntions.h"
+#include "AsmFunctions.h"
 #include <memory>
 
 #pragma region definitions

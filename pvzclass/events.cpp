@@ -5,21 +5,30 @@ void EventHandler::InvokeEvent(Event *event,bool isDelete)
     std::vector<listener> vec = this->listenersHigh[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
     vec = this->listenersMid[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
     vec = this->listenersLow[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
