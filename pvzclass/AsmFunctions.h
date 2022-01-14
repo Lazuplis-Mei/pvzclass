@@ -16,7 +16,6 @@
 #define PUSHDWORD(d) 0x68,INUMBER(d)
 #define CALL(d) 0xE8,INUMBER(d)
 #define JMP(b) 0xEB,b
-#define JNZ(b) 0x75,b
 #define JMPFAR(d) 0xE9,INUMBER(d)
 #define RET 0xC3
 #define RETN(v) 0xC2,v,0
@@ -42,12 +41,64 @@
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
+#define INVOKE_DWORD_BYTE_DWORD(address,d1,b,d2) PUSHDWORD(d2),PUSH(b),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD_DWORD(address,d1,d2,d3,d4) PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_BYTE_BYTE(address,b1,b2) PUSH(b2),PUSH(b1),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE_BYTE(address,d,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(address,d1,d2,b1,b2,b3) PUSH(b3),PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(address,d1,b1,d2,d3,d4,b2,b3,b4) PUSH(b4),PUSH(b3),PUSH(b2),PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSH(b1),PUSHDWORD(d1),INVOKE(address)
+
+#pragma endregion
+
+#pragma region asm extra
+
+#define REG_EAX 0
+#define REG_ECX 1
+#define REG_EDX 2
+#define REG_EBX 3
+#define REG_ESP 4
+#define REG_EBP 5
+#define REG_ESI 6
+#define REG_EDI 7
+
+#define JNO(b) 0x71,b
+#define JB(b) 0x72,b
+#define JNB(b) 0x73,b
+#define JE(b) 0x74,b
+#define JNZ(b) 0x75,b
+#define JNA(b) 0x76,b
+#define JA(b) 0x77,b
+#define JS(b) 0x78,b
+#define JNS(b) 0x79,b
+#define JP(b) 0x7A,b
+#define JNP(b) 0x7B,b
+#define JL(b) 0x7C,b
+#define JNL(b) 0x7D,b
+#define JNG(b) 0x7E,b
+#define JG(b) 0x7F,b
+#define TEST_AL_AL 0x84,0xC0
+
+#define MOV_EUX(ux,d) 0xB8+(ux),INUMBER(d)
+#define MOV_EUX_EVX(ux,vx) 0x8B,0xC0+(ux)*8+(vx)
+#define CMP_EUX(ux,b) 0x83,0xF8+(ux),b
+#define CMP_EUX_DWORD(ux,d) 0x81,0xF8+(ux),INUMBER(d)
+#define ADD_EUX_EVX(ux,vx) 1,0xC0+(ux)+(vx)*8
+#define IMUL_EUX_EVX_V(ux,vx,b) 0x6B,0xC0+(ux)*8+(vx),b
+#define IMUL_EUX_EVX_DWORD(ux,vx,d) 0x69,0xC0+(ux)*8+(vx),INUMBER(d)
+#define AND_EUX(ux,b) 0x83,0xE0+(ux),b
+#define AND_EUX_DWORD(ux,d) 0x81,0xE0+(ux),INUMBER(d)
+
+//Not for esp
+#define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b//vx,NFesp
+#define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)//vx,NFesp
+#define CMP_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x78+(ux),v1,v2
+#define CMP_PTR_EUX_ADD(ux,v1,v2) 0x81,0xB8+(ux),INUMBER(v1),INUMBER(v2)
+#define ADD_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x40+(ux),v1,v2
+#define ADD_PTR_EUX_ADD(ux,v1,v2) 0x81,0x80+(ux),INUMBER(v1),INUMBER(v2)
+#define SUB_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x68+(ux),v1,v2
+#define SUB_PTR_EUX_ADD(ux,v1,v2) 0x81,0xA8+(ux),INUMBER(v1),INUMBER(v2)
+//End not
 
 #pragma endregion
 
@@ -72,6 +123,7 @@
 #define ONFIRE INVOKE(0x46ECB0)
 #define PROJECTILE_REMOVE INVOKE(0x46EB20)
 #define COLLECT INVOKE(0x432060)
+#define PLANTABLE INVOKE_DWORD_BYTE_DWORD(0x40E020,0,0,0)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
 #define ZOMBIE_SETANIMATION INVOKE_DWORD_BYTE_BYTE_BYTE(0x528B00,0,0,14,0)
@@ -116,6 +168,8 @@ extern byte __asm__OnFire[19];
 extern byte __asm__Projectile__Remove[19];
 
 extern byte __asm__Collect[19];
+
+extern byte __asm__Plantable[36];
 
 extern byte __asm__GameClick[34];
 

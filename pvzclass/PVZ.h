@@ -262,6 +262,7 @@ public:
 		void SetGridType(int row, int column, LawnType::LawnType type);
 		RouteType::RouteType GetRouteType(int route);
 		void SetRouteType(int route, RouteType::RouteType type);
+		bool Plantable(int row, int column, PlantType::PlantType type);
 	};
 	class Icetrace
 	{

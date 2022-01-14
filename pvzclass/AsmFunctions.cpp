@@ -133,6 +133,14 @@ byte __asm__Collect[]
 	RET,
 };
 
+byte __asm__Plantable[]
+{
+	MOV_EUX(REG_EAX, 0),
+	PLANTABLE,
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
 byte __asm__GameClick[]
 {
 	MOV_ECX(0),

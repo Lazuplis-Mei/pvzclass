@@ -23,9 +23,14 @@ void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 
 void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
 {
-	e->zombie->Hypnotize();
-	e->zombie->Froze(1000);
-	e->zombie->Decelerate(5000);
+	SPT<PVZ::Lawn> lawn = pvz->GetLawn();
+	PVZ::Plant* plant = e->plant;
+	if (lawn->Plantable(plant->Row, plant->Column, PlantType::Pumplin) && plant->Row == e->zombie->Row)
+	{
+		e->zombie->Hypnotize();
+		e->zombie->Froze(1000);
+		e->zombie->Decelerate(5000);
+	}
 }
 
 void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
