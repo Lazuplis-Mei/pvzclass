@@ -189,6 +189,7 @@
     <ClCompile Include="Enums\MusicType.cpp" />
     <ClCompile Include="Enums\PaintState.cpp" />
     <ClCompile Include="Enums\PlantEffectType.cpp" />
+    <ClCompile Include="Enums\PlantState.cpp" />
     <ClCompile Include="Enums\PlantType.cpp" />
     <ClCompile Include="Enums\ProjectileType.cpp" />
     <ClCompile Include="Enums\PVZGameStateEnum.cpp" />
@@ -218,7 +219,7 @@
   <ItemGroup>
     <ClInclude Include="Creaters.h" />
     <ClInclude Include="Enums.h" />
-    <ClInclude Include="AsmFuntions.h" />
+    <ClInclude Include="AsmFunctions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />
     <ClInclude Include="Enums\CardType.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />
@@ -247,8 +248,10 @@
     <ClInclude Include="Enums\VaseSkin.h" />
     <ClInclude Include="Enums\ZombieAccessoriesType1.h" />
     <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
+    <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="events.h" />
+    <ClInclude Include="Injectors.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />

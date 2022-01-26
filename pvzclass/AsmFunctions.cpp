@@ -1,4 +1,4 @@
-#include "AsmFuntions.h"
+#include "AsmFunctions.h"
 
 byte __asm__set_MusicVolume[]
 {
@@ -27,6 +27,14 @@ byte __asm__Win[]
 	RET
 };
 
+byte __asm__Lose[]
+{
+	PUSH(0),
+	PUSHDWORD(0),
+	LOSE,
+	RET
+};
+
 byte __asm__Hit[]
 {
 	MOV_ESI(0),
@@ -49,6 +57,35 @@ byte __asm__Butter[]
 	RET
 };
 
+byte __asm__Decelerate[]
+{
+	MOV_EAX(0),
+	DECELERATE,
+	RET
+};
+
+byte __asm__Froze[]
+{
+	MOV_EAX(0),
+	FROZE,
+	RET
+};
+
+
+byte __asm__Hypnotize[]
+{
+	MOV_ESI(0),
+	HYPNOTIZE,
+	RET
+};
+
+byte __asm__Zombie__Remove[]
+{
+	MOV_ECX(0),
+	ZOMBIE_REMOVE,
+	RET
+};
+
 byte __asm__CreateEffect[]
 {
 	CREATEEFFECT,
@@ -60,6 +97,12 @@ byte __asm__SetStatic[]
 	MOV_EAX_PTR(0),
 	SETSTATIC,
 	RET,
+};
+
+byte __asm__Plant__Remove[]
+{
+	PLANT_REMOVE,
+	RET
 };
 
 byte __asm__Shoot[]
@@ -76,11 +119,26 @@ byte __asm__OnFire[]
 	RET,
 };
 
+byte __asm__Projectile__Remove[]
+{
+	MOV_EAX(0),
+	PROJECTILE_REMOVE,
+	RET
+};
+
 byte __asm__Collect[]
 {
 	MOV_ECX(0),
 	COLLECT,
 	RET,
+};
+
+byte __asm__Plantable[]
+{
+	MOV_EUX(REG_EAX, 0),
+	PLANTABLE,
+	MOV_PTR_ADDR_EAX(0),
+	RET
 };
 
 byte __asm__GameClick[]

@@ -5,21 +5,30 @@ void EventHandler::InvokeEvent(Event *event,bool isDelete)
     std::vector<listener> vec = this->listenersHigh[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
     vec = this->listenersMid[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
     vec = this->listenersLow[event->name];
     for(int i=0;i<vec.size();i++){
         vec[i](event, pvz);
-        if(event->CancleState){
+        if(event->CancleState)
+        {
+            if(isDelete)
+                delete event;
             return;
         }
     }
@@ -55,6 +64,7 @@ std::string EventPlantDead::Name = "PlantDead";
 std::string EventPlantPotatoMineSproutOuted::Name = "PlantPotatoMineSproutOuted";
 
 std::string EventLevelOpen::Name = "LevelOpen";
+std::string EventLevelRestart::Name = "LevelRestart";
 std::string EventLevelClose::Name = "LevelClose";
 std::string EventLevelWave::Name = "LevelWave";
 std::string EventLevelStart::Name = "LevelStart";

@@ -1,4 +1,4 @@
-﻿#include "pvzclass.h"
+#include "pvzclass.h"
 #include <iostream>
 #include "events.h"
 
@@ -23,7 +23,14 @@ void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 
 void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
 {
-	e->zombie->Hypnotized = true;
+	SPT<PVZ::Lawn> lawn = pvz->GetLawn();
+	PVZ::Plant* plant = e->plant;
+	if (lawn->Plantable(plant->Row, plant->Column, PlantType::Pumplin) && plant->Row == e->zombie->Row)
+	{
+		e->zombie->Hypnotize();
+		e->zombie->Froze(1000);
+		e->zombie->Decelerate(5000);
+	}
 }
 
 void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
@@ -45,6 +52,7 @@ int main()
 	PVZ* pvz = new PVZ(pid);
 
 	cout << pvz->BaseAddress << endl;
+	DisableInitialLawnmover();
 	//if (!pvz->BaseAddress)
 	//	return 2;
 	//EventHandler start

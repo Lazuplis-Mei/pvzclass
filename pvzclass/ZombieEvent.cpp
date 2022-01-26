@@ -12,7 +12,7 @@ std::vector<SPT<Zombie>> EventHandler::GetAllZombies()
 	return rt;
 }
 
-std::map<int,bool> isPostedZombieDead;
+std::map<int, bool> isPostedZombieDead;
 std::map<int, bool> isPostedZombieHypnotized;
 std::map<int, bool> isNewspaperDestroyed;
 std::map<int, bool> isNewspaperZombieAngried;
@@ -56,18 +56,15 @@ void EventHandler::UpdateZombies()
 	now = GetAllZombies();
 	int nown = now.size();
 	int lastn = ZombieList.size();
-	for (int i = 0; i < nown; i++)
+	for (int i = 0, j = 0; i < nown; i++)
 	{
 		bool ok = 1;
 		Zombie* zombie = now[i].get();
 
-		for(int j=0;j<lastn;j++)
-			if (zombie->BaseAddress == ZombieList[j]->BaseAddress)
-			{
-				ok = 0;
+		for(;j < lastn ; j++)
+			if (ZombieList[j]->BaseAddress >= zombie->BaseAddress)
 				break;
-			}
-		if (ok)
+		if (j == lastn || ZombieList[j]->BaseAddress != zombie->BaseAddress)
 		{
 			//didn't found x in last, spawns
 			InvokeEvent(new EventZombieSpawn(zombie),true);
@@ -95,17 +92,14 @@ void EventHandler::UpdateZombies()
 			InvokeEvent(new EventZombiePoleVaultingWalked(zombie), true);
 		}
 	}
-	for (int i = 0; i < lastn; i++)
+	for (int i = 0, j = 0; i < lastn; i++)
 	{
 		bool ok = 1;
 		Zombie* zombie = ZombieList[i].get();
-		for(int j=0;j<nown;j++)
-			if (zombie->BaseAddress == now[j]->BaseAddress)
-			{
-				ok = 0;
+		for (; j < nown; j++)
+			if (now[j]->BaseAddress >= zombie->BaseAddress)
 				break;
-			}
-		if (ok)
+		if (j == nown || now[j]->BaseAddress != zombie->BaseAddress)
 		{
 			//didn't found x in now, remove
 			InvokeEvent(new EventZombieRemove(zombie),true);
