@@ -53,8 +53,13 @@ int main()
 
 	cout << pvz->BaseAddress << endl;
 	DisableInitialLawnmover();
-	//if (!pvz->BaseAddress)
-	//	return 2;
+
+	Creater::AsmInit();
+	
+	pvz->Sun = 9990;
+
+	if (!pvz->BaseAddress)
+		return 2;
 	//EventHandler start
 	EventHandler e(pvz);
 	e.RegistryListeners(OnDeath, Event_High);
@@ -65,7 +70,7 @@ int main()
 	e.RegistryListeners(OnPoleVaultingJumping);
 	while (pvz->BaseAddress)
 	{
-		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
+		cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
 		e.Run();
 	}
 

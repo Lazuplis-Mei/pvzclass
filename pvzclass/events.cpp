@@ -62,6 +62,7 @@ std::string EventPlantUpgrade::Name = "PlantUpgrade";
 std::string EventPlantDamage::Name = "PlantDamage";
 std::string EventPlantDead::Name = "PlantDead";
 std::string EventPlantPotatoMineSproutOuted::Name = "PlantPotatoMineSproutOuted";
+std::string EventPlantScaredyShroonScared::Name = "PlantScaredyShroonScared";
 
 std::string EventLevelOpen::Name = "LevelOpen";
 std::string EventLevelRestart::Name = "LevelRestart";

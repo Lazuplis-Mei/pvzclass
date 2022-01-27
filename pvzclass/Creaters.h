@@ -92,7 +92,7 @@ inline void xytorc(int* x, int* y)
 
 	void CreateExplosion(int x, int y, int radius, BOOLEAN cinder = true, byte bound = 5, BOOLEAN fromjackzombie = false);
 
-	void CreateEffect(int effectid, float x, float y);
+	void CreateEffect(EffectType::EffectType type, float x, float y);
 
 	//部分音效是持续的，需要用StopSound手动停止音效持续播放
 	void CreateSound(int soundid);

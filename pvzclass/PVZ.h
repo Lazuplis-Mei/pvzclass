@@ -246,8 +246,8 @@ public:
 		T_PROPERTY(FLOAT, YScale, __get_YScale, __set_YScale, 0x30);
 		T_PROPERTY(FLOAT, YSlant, __get_YSlant, __set_YSlant, 0x34);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
-		void GetColor(Color* color);
-		void SetColor(Color* color);
+		Color GetColor();
+		void SetColor(Color color);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
