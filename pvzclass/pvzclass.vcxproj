@@ -176,6 +176,7 @@
     <ClCompile Include="Enums\CoinType.cpp" />
     <ClCompile Include="Enums\DamageType.cpp" />
     <ClCompile Include="Enums\DebugModeType.cpp" />
+    <ClCompile Include="Enums\EffectType.cpp" />
     <ClCompile Include="Enums\GardenPlantState.cpp" />
     <ClCompile Include="Enums\GardenScene.cpp" />
     <ClCompile Include="Enums\GriditemType.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Enums\CoinType.h" />
     <ClInclude Include="Enums\DamageType.h" />
     <ClInclude Include="Enums\DebugModeType.h" />
+    <ClInclude Include="Enums\EffectType.h" />
     <ClInclude Include="Enums\GardenPlantState.h" />
     <ClInclude Include="Enums\GardenScene.h" />
     <ClInclude Include="Enums\GriditemType.h" />

@@ -374,10 +374,10 @@ byte __asm___CreateEffect[39]
 	RET,
 };
 
-void Creater::CreateEffect(int effectid, float x, float y)
+void Creater::CreateEffect(EffectType::EffectType type, float x, float y)
 {
 	SETARG(__asm___CreateEffect, 1) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x820, 0);
-	SETARG(__asm___CreateEffect, 6) = effectid;
+	SETARG(__asm___CreateEffect, 6) = type;
 	SETARGFLOAT(__asm___CreateEffect, 16) = y;
 	SETARGFLOAT(__asm___CreateEffect, 21) = x;
 	PVZ::Memory::Execute(STRING(__asm___CreateEffect));
