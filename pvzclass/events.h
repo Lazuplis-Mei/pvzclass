@@ -161,6 +161,16 @@ public:
 	}
 };
 
+class EventPlantScaredyShroonScared : public Event {
+public:
+	static std::string Name;
+	Plant* plant;
+	EventPlantScaredyShroonScared(Plant* plant) : plant(plant) 
+	{
+		name = Name;
+	}
+};
+
 /*Level Event*/
 class EventLevelOpen : public Event
 {
