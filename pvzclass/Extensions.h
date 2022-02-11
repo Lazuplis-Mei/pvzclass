@@ -138,5 +138,6 @@ inline void AutoCollect(PVZ* pvz, BOOLEAN b = true)
 
 inline void DisableInitialLawnmover(BOOLEAN b = true)
 {
-	MEMMOD_SHORT(0x43A6A6, 11499, 7548);
+	MEMMOD_INT(0x40BC8C, 34793, 1965488771);
+	MEMMOD_BYTE(0x40BC90, 0, 5);
 }
