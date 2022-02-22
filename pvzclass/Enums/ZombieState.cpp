@@ -34,6 +34,12 @@ std::string ZombieState::ToString(ZombieState state) {
 		return "JACKBOX_WALKING";
 	case JACKBOX_POP:
 		return "JACKBOX_POP";
+	case BOBSLET_ENTER:
+		return "BOBSLET_ENTER";
+	case BOBSLED_BOARDING:
+		return "BOBSLED_BOARDING";
+	case BOBSLED_GETOFF:
+		return "BOBSLED_GETOFF";
 	case POGO_WITH_STICK:
 		return "POGO_WITH_STICK";
 	case POGO_IDLE_BEFORE_TARGET:
@@ -60,6 +66,8 @@ std::string ZombieState::ToString(ZombieState state) {
 		return "DIGGER_WALK_RIGHT";
 	case DIGGER_WALK_LEFT:
 		return "DIGGER_WALK_LEFT";
+	case DIGGER_IDLE:
+		return "DIGGER_IDLE";
 	case DANCING_MOONWALK:
 		return "DANCING_MOONWALK";
 	case DANCING_POINT:
@@ -128,10 +136,38 @@ std::string ZombieState::ToString(ZombieState state) {
 		return "LADDER_WALKING";
 	case LADDER_PLACING:
 		return "LADDER_PLACING";
+	case ZOMBOSS_UP:
+		return "ZOMBOSS_UP";
+	case ZOMBOSS_SUMMON:
+		return "ZOMBOSS_SUMMON";
+	case ZOMBOSS_BUNGEE_FALL:
+		return "ZOMBOSS_BUNGEE_FALL";
+	case ZOMBOSS_BUNGEE_DOWN:
+		return "ZOMBOSS_BUNGEE_DOWN";
+	case ZOMBOSS_BUNGEE_RISE:
+		return "ZOMBOSS_BUNGEE_RISE";
+	case ZOMBOSS_THROW:
+		return "ZOMBOSS_THROW";
+	case ZOMBOSS_FALL:
+		return "ZOMBOSS_FALL";
+	case ZOMBOSS_DOWN:
+		return "ZOMBOSS_DOWN";
+	case ZOMBOSS_PREPARE_RISE:
+		return "ZOMBOSS_PREPARE_RISE";
+	case ZOMBOSS_BALL:
+		return "ZOMBOSS_BALL";
+	case ZOMBOSS_RISE:
+		return "ZOMBOSS_RISE";
 	case YETI_ESCAPE:
 		return "YETI_ESCAPE";
-	case DIGGER_IDLE:
-		return "DIGGER_IDLE";
+	case SQUASH_WALK:
+		return "SQUASH_WALK";
+	case SQUASH_RISE:
+		return "SQUASH_RISE";
+	case SQUASH_FALL:
+		return "SQUASH_FALL";
+	case SQUASH_SMASH:
+		return "SQUASH_SMASH";
 	default:
 		return"UNKNOW";
 	}

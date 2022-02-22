@@ -26,6 +26,10 @@ const char* CoinType::ToString(CoinType coint)
 		return "PlantPresent";
 	case CoinType::MoneyBag:
 		return "MoneyBag";
+	case CoinType::SealedPresent:
+		return "SealedPresent";
+	case CoinType::DiamondBag:
+		return "DiamondBag";
 	default:
 		return "InValid_Value_Of_CoinType";
 	}

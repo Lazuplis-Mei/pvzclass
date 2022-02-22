@@ -15,6 +15,8 @@ namespace CoinType
 		PlantCard,
 		PlantPresent,
 		MoneyBag,
+		SealedPresent,
+		DiamondBag,
 	};
 
 	extern const char* ToString(CoinType coint);

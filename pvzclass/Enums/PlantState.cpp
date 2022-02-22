@@ -54,6 +54,10 @@ std::string PlantState::ToString(PlantState state) {
 		return "MAGNETSHROOM_WORKING";
 	case MAGNETSHROOM_INACTIVE_IDLE:
 		return "MAGNETSHROOM_INACTIVE_IDLE";
+	case BOWLING_RISE:
+		return "BOWLING_RISE";
+	case BOWLING_FALL:
+		return "BOWLING_FALL";
 	case CACTUS_SHORT_IDLE:
 		return "CACTUS_SHORT_IDLE";
 	case CACTUS_GROW_TALL:
