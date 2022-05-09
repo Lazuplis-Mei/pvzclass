@@ -17,6 +17,8 @@ namespace CoinType
 		MoneyBag,
 		SealedPresent,
 		DiamondBag,
+		SilverSunflower,
+		GoldSunflower
 	};
 
 	extern const char* ToString(CoinType coint);

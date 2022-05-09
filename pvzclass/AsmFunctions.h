@@ -87,8 +87,14 @@
 #define ADD_EUX_EVX(ux,vx) 1,0xC0+(ux)+(vx)*8
 #define IMUL_EUX_EVX_V(ux,vx,b) 0x6B,0xC0+(ux)*8+(vx),b
 #define IMUL_EUX_EVX_DWORD(ux,vx,d) 0x69,0xC0+(ux)*8+(vx),INUMBER(d)
+
 #define AND_EUX(ux,b) 0x83,0xE0+(ux),b
 #define AND_EUX_DWORD(ux,d) 0x81,0xE0+(ux),INUMBER(d)
+#define XOR_EUX_EVX(ux,vx) 0x31,0xC0+(ux)+(vx)*8
+#define SHL_EUX(ux,b) 0xC1,0xE0+(ux),b
+#define SHR_EUX(ux,b) 0xC1,0xE8+(ux),b
+#define SAL_EUX(ux,b) 0xC1,0xF0+(ux),b
+#define SAR_EUX(ux,b) 0xC1,0xF8+(ux),b
 
 //Not for esp
 #define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b//vx,NFesp

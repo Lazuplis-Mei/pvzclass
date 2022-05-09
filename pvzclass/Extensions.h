@@ -141,3 +141,8 @@ inline void DisableInitialLawnmover(BOOLEAN b = true)
 	MEMMOD_INT(0x40BC8C, 34793, 1965488771);
 	MEMMOD_BYTE(0x40BC90, 0, 5);
 }
+
+inline void DisableIceLevelFailSound(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x42492D, JUMP, JNE);
+}
