@@ -10,3 +10,9 @@ PVZ::Griditem::Griditem(int indexoraddress)
 	DebugType = Type;
 #endif
 }
+
+void PVZ::Griditem::Remove()
+{
+	SETARG(__asm__Griditem__Remove, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Griditem__Remove));
+}

@@ -505,6 +505,7 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x20);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xE8);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void Remove();
 	};
 	class Grave :public PVZ::Griditem
 	{
@@ -608,6 +609,7 @@ public:
 			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x4D);
 			INT_PROPERTY(UsageCount, __get_UsageCount, __set_UsageCount, 0x50);
 		};
+		void SetCardsCount(int num);
 		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
 	};
 	class Miscellaneous

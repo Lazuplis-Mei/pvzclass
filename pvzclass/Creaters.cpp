@@ -112,7 +112,7 @@ void Creater::AsmInit()
 	//protal
 	SETARG(__asm__CreatePortalpieces1, 6) = PVZ::Memory::Variable + 200 - 5 - 0x427071;
 	PVZ::Memory::WriteArray<byte>(0x42706C, STRING(__asm__CreatePortalpieces1));
-	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 510);
+	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 210);
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
 }
 
@@ -476,7 +476,7 @@ void Creater::__CreatePortal(PVZ* pvz)
 	int len = pvz->GetAllGriditems(griditems);
 	for (int i = 0; i < len; i++)
 		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)
-			griditems[i]->NotExist = true;
+			griditems[i]->Remove();
 	SETARG(__asm__CreatePortal, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
 	PVZ::Memory::Execute(STRING(__asm__CreatePortal));
 }

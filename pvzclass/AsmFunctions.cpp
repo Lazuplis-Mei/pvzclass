@@ -172,3 +172,18 @@ byte __asm__Plant__setAnimation[100]
 	PLANT_SETANIMATION,
 	RET,
 };
+
+byte __asm__Griditem__Remove[]
+{
+	MOV_EUX(REG_ESI, 0),
+	GRIDITEM_REMOVE,
+	RET
+};
+
+byte __asm__CardSlot__set_CardsCount[]
+{
+	MOV_EUX(REG_EAX, 0),
+	MOV_EUX(REG_ESI, 0),
+	CARDSLOT_SET_CARDSCOUNT,
+	RET
+};

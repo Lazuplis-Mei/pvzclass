@@ -45,21 +45,21 @@ void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
-
 	if (!pid)
 		return 1;
 	cout << pid << endl;
+
 	PVZ* pvz = new PVZ(pid);
-
 	cout << pvz->BaseAddress << endl;
-	DisableInitialLawnmover();
-
-	Creater::AsmInit();
-	
-	pvz->Sun = 9990;
-
 	if (!pvz->BaseAddress)
 		return 2;
+
+	pvz->Sun = 8000;
+	SPT<PVZ::CardSlot> CardSlot = pvz->GetCardSlot();
+	CardSlot->SetCardsCount(10);
+
+	Creater::AsmInit();
+	Creater::__CreatePortal(pvz);
 	//EventHandler start
 	EventHandler e(pvz);
 	e.RegistryListeners(OnDeath, Event_High);
@@ -70,7 +70,7 @@ int main()
 	e.RegistryListeners(OnPoleVaultingJumping);
 	while (pvz->BaseAddress)
 	{
-		cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
+		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
 		e.Run();
 	}
 
