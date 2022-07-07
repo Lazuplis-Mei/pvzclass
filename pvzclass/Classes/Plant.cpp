@@ -5,10 +5,62 @@ PVZ::Plant::Plant(int indexoraddress)
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * 0x14C;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
 #if _DEBUG
 	DebugType = Type;
 #endif
+}
+
+byte __asm__Plant_memset[]
+{
+	0x89, 0xBB, 0xBC, 0, 0, 0,
+	PUSH_EUX(REG_EAX),
+	MOV_EUX(REG_EAX, 0),
+	0x89, 0x3C, 0x18,
+	ADD_EUX(REG_EAX, 4),
+	CMP_EUX_DWORD(REG_EAX, 0),
+	JNG(-14),
+	POP_EUX(REG_EAX),
+	JMPFAR(0)
+};
+
+void PVZ::Plant::init(int NewSize = 0x14C, int NewCount = 1024)
+{
+	if (NewSize < 0x14C)
+		return;
+	Memory::WriteMemory<int>(0x407CC2, NewSize * NewCount);
+	Memory::WriteMemory<int>(0x4109F6, NewSize);
+	Memory::WriteMemory<int>(0x41BAED, NewSize);
+	Memory::WriteMemory<int>(0x41BAFF, NewSize);
+	Memory::WriteMemory<int>(0x41BB1E, NewSize);
+	Memory::WriteMemory<int>(0x41C965, NewSize);
+	Memory::WriteMemory<int>(0x41C971, NewSize);
+	Memory::WriteMemory<int>(0x41C989, NewSize);
+	Memory::WriteMemory<int>(0x41DE9D, NewSize);
+	Memory::WriteMemory<int>(0x41DEAF, NewSize);
+	Memory::WriteMemory<int>(0x41DEB6, NewSize - 4);
+	Memory::WriteMemory<int>(0x41DF11, NewSize);
+	Memory::WriteMemory<int>(0x41E5AA, NewSize);
+	Memory::WriteMemory<int>(0x41E5B3, NewSize);
+	Memory::WriteMemory<int>(0x41E5CD, NewSize);
+	Memory::WriteMemory<int>(0x41E5D5, NewSize);
+	Memory::WriteMemory<int>(0x438ACD, NewSize);
+	Memory::WriteMemory<int>(0x438F34, NewSize);
+	Memory::WriteMemory<int>(0x481CFD, NewSize);
+	Memory::WriteMemory<int>(0x481D09, NewSize);
+	Memory::WriteMemory<int>(0x481D2E, NewSize);
+	Memory::WriteMemory<int>(0x48235E, NewSize);
+	Memory::WriteMemory<int>(0x524DB6, NewSize);
+	Memory::WriteMemory<int>(0x52CBC0, NewSize);
+	Memory::WriteMemory<int>(0x530433, NewSize);
+	Memory::WriteMemory<int>(0x5304A5, NewSize);
+	Memory::WriteMemory<byte>(0x45DCA8, 0xE9);
+	Memory::WriteMemory<int>(0x45DCA9, PVZ::Memory::Variable + 400 - 5 - 0x45DCA8);
+	Memory::WriteMemory<byte>(0x45DCAD, NOP);
+	SETARG(__asm__Plant_memset, 8) = 0x14C;
+	SETARG(__asm__Plant_memset, 20) = NewSize - 4;
+	SETARG(__asm__Plant_memset, 28) = 0x45DCAE - 5 - (Memory::Variable + 427);
+	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 400, STRING(__asm__Plant_memset));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart1()

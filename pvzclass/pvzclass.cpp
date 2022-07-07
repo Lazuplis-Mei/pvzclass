@@ -3,6 +3,14 @@
 #include "events.h"
 
 using namespace std;
+
+class MyPlant: public PVZ::Plant
+{
+public:
+	static const int MemSize = 0x15C;
+	MyPlant(int indexoraddress): PVZ::Plant(indexoraddress) {}
+};
+
 void OnDeath(EventZombieDead* e, PVZ* pvz)
 {
 	e->CancleState = true;
@@ -50,6 +58,7 @@ int main()
 	cout << pid << endl;
 
 	PVZ* pvz = new PVZ(pid);
+	MyPlant::init(0x15C, 1024);
 	cout << pvz->BaseAddress << endl;
 	if (!pvz->BaseAddress)
 		return 2;

@@ -400,6 +400,7 @@ public:
 	public:
 		//EventHandler End
 		int BaseAddress;
+		static const int MemSize = 0x14C;
 #if _DEBUG
 		PlantType::PlantType DebugType;
 #endif
@@ -407,6 +408,8 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
+		//请在派生类中调用这个函数，而不是在基类中
+		static void init(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);

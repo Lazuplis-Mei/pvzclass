@@ -11,7 +11,7 @@ std::vector<SPT<Plant>> EventHandler::GetAllPlants()
 	std::vector<SPT<Plant>> rt;
 	int n = PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xB0);
 	for (int i = 0; i < n; i++)
-		if (!PVZ::Memory::ReadMemory<byte>(PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xAC) + 0x141 + 0x14C * i))
+		if (!PVZ::Memory::ReadMemory<byte>(PVZ::Memory::ReadMemory<int>(pvz->BaseAddress + 0xAC) + 0x141 + PVZ::Plant::MemSize * i))
 			rt.push_back(MKS<Plant>(i));
 	return rt;
 }
