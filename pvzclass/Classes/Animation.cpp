@@ -34,17 +34,17 @@ void PVZ::Animation::Lock()
 Color PVZ::Animation::GetColor()
 {
 	Color color;
-	color.Alpha = Memory::ReadMemory<int>(BaseAddress + 0x48);
-	color.Red = Memory::ReadMemory<int>(BaseAddress + 0x4C);
-	color.Green = Memory::ReadMemory<int>(BaseAddress + 0x50);
-	color.Blue = Memory::ReadMemory<int>(BaseAddress + 0x54);
+	color.Red = Memory::ReadMemory<int>(BaseAddress + 0x48);
+	color.Green = Memory::ReadMemory<int>(BaseAddress + 0x4C);
+	color.Blue = Memory::ReadMemory<int>(BaseAddress + 0x50);
+	color.Alpha = Memory::ReadMemory<int>(BaseAddress + 0x54);
 	return color;
 }
 
 void PVZ::Animation::SetColor(Color color)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x48, color.Alpha);
-	Memory::WriteMemory<int>(BaseAddress + 0x4C, color.Red);
-	Memory::WriteMemory<int>(BaseAddress + 0x50, color.Green);
-	Memory::WriteMemory<int>(BaseAddress + 0x54, color.Blue);
+	Memory::WriteMemory<int>(BaseAddress + 0x48, color.Red);
+	Memory::WriteMemory<int>(BaseAddress + 0x4C, color.Green);
+	Memory::WriteMemory<int>(BaseAddress + 0x50, color.Blue);
+	Memory::WriteMemory<int>(BaseAddress + 0x54, color.Alpha);
 }

@@ -64,10 +64,10 @@ struct CollisionBox
 
 struct Color
 {
-	int Alpha;
 	int Red;
 	int Green;
 	int Blue;
+	int Alpha;
 };
 
 struct AccessoriesType1
@@ -347,7 +347,7 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//ÃÃ™ÃŠÂ±Â±Ã¤ÃÂ¿
+		//ÁÙÊ±±äÁ¿
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -408,7 +408,7 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
-		//è¯·åœ¨æ´¾ç”Ÿç±»ä¸­è°ƒç”¨è¿™ä¸ªå‡½æ•°ï¼Œè€Œä¸æ˜¯åœ¨åŸºç±»ä¸­
+		//ÇëÔÚÅÉÉúÀàÖĞµ÷ÓÃÕâ¸öº¯Êı£¬¶ø²»ÊÇÔÚ»ùÀàÖĞ
 		static void init(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
@@ -429,6 +429,8 @@ public:
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
 		SPT<PVZ::Animation> GetAnimationPart1();
 		SPT<PVZ::Animation> GetAnimationPart2();
+		SPT<PVZ::Animation> GetAnimationPart3();
+		SPT<PVZ::Animation> GetAnimationPart4();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);

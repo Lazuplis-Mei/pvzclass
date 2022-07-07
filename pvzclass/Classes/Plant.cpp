@@ -73,6 +73,16 @@ SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart2()
 	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x98));
 }
 
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart3()
+{
+	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x9C));
+}
+
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart4()
+{
+	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0xA0));
+}
+
 void PVZ::Plant::Light(int cs)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0xB8, cs);
