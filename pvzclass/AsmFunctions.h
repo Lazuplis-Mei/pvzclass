@@ -87,9 +87,13 @@
 #define MOV_PTR_ADDR_EUX(ux,address) 0x89,5+(ux)*8,INUMBER(address)
 #define CMP_EUX(ux,b) 0x83,0xF8+(ux),b
 #define CMP_EUX_DWORD(ux,d) 0x81,0xF8+(ux),INUMBER(d)
+
 #define ADD_EUX(ux,b) 0x83,0xC0+(ux),b
 #define ADD_EUX_DWORD(ux,d) 0x81,0xC0+(ux),INUMBER(d)
 #define ADD_EUX_EVX(ux,vx) 1,0xC0+(ux)+(vx)*8
+#define SUB_EUX(ux,b) 0x83,0xE8+(ux),b
+#define SUB_EUX_DWORD(ux,d) 0x81,0xE8+(ux),INUMBER(d)
+#define SUB_EUX_EVX(ux,vx) 0x29,0xC0+(ux)+(vx)*8
 #define IMUL_EUX_EVX_V(ux,vx,b) 0x6B,0xC0+(ux)*8+(vx),b
 #define IMUL_EUX_EVX_DWORD(ux,vx,d) 0x69,0xC0+(ux)*8+(vx),INUMBER(d)
 
@@ -104,6 +108,8 @@
 //Not for esp
 #define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b//vx,NFesp
 #define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)//vx,NFesp
+#define MOV_PTR_EUX_ADD_V(ux,v1,v2) 0xC7,0x40+(ux),v1,INUMBER(v2)
+#define MOV_PTR_EUX_ADD(ux,v1,v2) 0xC7,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define CMP_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x78+(ux),v1,v2
 #define CMP_PTR_EUX_ADD(ux,v1,v2) 0x81,0xB8+(ux),INUMBER(v1),INUMBER(v2)
 #define ADD_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x40+(ux),v1,v2

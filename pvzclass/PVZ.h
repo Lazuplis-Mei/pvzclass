@@ -253,6 +253,14 @@ public:
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 	};
+	class Attachment
+	{
+		int BaseAddress;
+	public:
+		Attachment(int idoraddress);
+		SPT<PVZ::Animation> GetAnimation();
+		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
+	};
 	class Lawn
 	{
 		int BaseAddress;
@@ -320,10 +328,14 @@ public:
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x30);
 		T_PROPERTY(FLOAT, Speed, __get_Speed, __set_Speed, 0x34);
+		T_READONLY_PROPERTY(BOOLEAN, ShowingTongue, __get_HandBroken, 0x50);
+		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_HandBroken, 0x51);
 		void Light(int cs = 100);
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x68);
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x74);
+		INT_PROPERTY(BungeeColumn, __get_BungeeColumn, __set_BungeeColumn, 0x80);
+		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
 		void GetAttackCollision(CollisionBox* collbox);
@@ -408,7 +420,9 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
-		//请在派生类中调用这个函数，而不是在基类中
+		/*请在派生类中调用这个函数，而不是在基类中。
+		* 调用该函数后，请不要使用 Events 组件。
+		*/
 		static void init(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
@@ -431,6 +445,9 @@ public:
 		SPT<PVZ::Animation> GetAnimationPart2();
 		SPT<PVZ::Animation> GetAnimationPart3();
 		SPT<PVZ::Animation> GetAnimationPart4();
+		SPT<PVZ::Animation> GetAnimationEyeBlink();
+		SPT<PVZ::Animation> GetAnimationPotatoGlow();
+		SPT<PVZ::Animation> GetAnimationSleep();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
@@ -469,6 +486,7 @@ public:
 		T_PROPERTY(BOOLEAN, Collected, __get_Collected, __set_Collected, 0x50);
 		T_PROPERTY(CoinType::CoinType, Type, __get_Type, __set_Type, 0x58);
 		T_PROPERTY(CoinMotionType::CoinMotionType, Motion, __get_Motion, __set_Motion, 0x5C);
+		SPT<PVZ::Attachment> GetAttachment();
 		T_PROPERTY(CardType::CardType, ContentCard, __get_ContentCard, __set_ContentCard, 0x68);
 		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);

@@ -65,22 +65,44 @@ void PVZ::Plant::init(int NewSize = 0x14C, int NewCount = 1024)
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart1()
 {
-	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x94));
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x94);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart2()
 {
-	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x98));
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x98);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart3()
 {
-	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x9C));
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x9C);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart4()
 {
-	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0xA0));
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA0);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+}
+
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationEyeBlink()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA4);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+}
+
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationPotatoGlow()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA8);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+}
+
+SPT<PVZ::Animation> PVZ::Plant::GetAnimationSleep()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0xAC);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
 }
 
 void PVZ::Plant::Light(int cs)

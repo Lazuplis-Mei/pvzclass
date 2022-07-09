@@ -95,7 +95,8 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 
 SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
 {
-	return MKS<Animation>(Memory::ReadMemory<short>(BaseAddress + 0x118));
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x118);
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<PVZ::Animation>(ID & 0x00FFFF));
 }
 
 void PVZ::Zombie::Hit(int damge, DamageType::DamageType type)
