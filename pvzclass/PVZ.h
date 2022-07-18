@@ -328,8 +328,8 @@ public:
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x30);
 		T_PROPERTY(FLOAT, Speed, __get_Speed, __set_Speed, 0x34);
-		T_READONLY_PROPERTY(BOOLEAN, ShowingTongue, __get_HandBroken, 0x50);
-		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_HandBroken, 0x51);
+		T_READONLY_PROPERTY(BOOLEAN, ShowingTongue, __get_ShowingTongue, 0x50);
+		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_Eating, 0x51);
 		void Light(int cs = 100);
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x68);
@@ -421,9 +421,8 @@ public:
 		//EventHandler End
 		Plant(int indexoraddress);
 		/*请在派生类中调用这个函数，而不是在基类中。
-		* 调用该函数后，请不要使用 Events 组件。
-		*/
-		static void init(int NewSize, int NewCount);
+		调用该函数后，请不要使用基类，也不要使用 Events 组件*/
+		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);

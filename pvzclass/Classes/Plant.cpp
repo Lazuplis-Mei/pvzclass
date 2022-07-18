@@ -24,7 +24,7 @@ byte __asm__Plant_memset[]
 	JMPFAR(0)
 };
 
-void PVZ::Plant::init(int NewSize = 0x14C, int NewCount = 1024)
+void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 {
 	if (NewSize < 0x14C)
 		return;

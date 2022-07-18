@@ -213,6 +213,9 @@
     <ClCompile Include="Enums\CaptionStyle.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Attachment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">

@@ -8,7 +8,16 @@ class MyPlant: public PVZ::Plant
 {
 public:
 	static const int MemSize = 0x15C;
-	MyPlant(int indexoraddress): PVZ::Plant(indexoraddress) {}
+	MyPlant(int indexoraddress): PVZ::Plant(indexoraddress)
+	{
+		if (indexoraddress > 1024)
+			BaseAddress = indexoraddress;
+		else
+			BaseAddress = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
+#if _DEBUG
+		DebugType = Type;
+#endif
+	}
 };
 
 void OnDeath(EventZombieDead* e, PVZ* pvz)
@@ -58,7 +67,7 @@ int main()
 	cout << pid << endl;
 
 	PVZ* pvz = new PVZ(pid);
-	MyPlant::init(0x15C, 1024);
+	MyPlant::SetMemSize(0x15C, 1024);
 	cout << pvz->BaseAddress << endl;
 	if (!pvz->BaseAddress)
 		return 2;

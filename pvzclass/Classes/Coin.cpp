@@ -28,7 +28,7 @@ void PVZ::Coin::SetCollision(CollisionBox* collbox)
 SPT<PVZ::Attachment> PVZ::Coin::GetAttachment()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x60);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Attachment>(ID & 0x00FFFF));
 }
 
 void PVZ::Coin::Collect()
