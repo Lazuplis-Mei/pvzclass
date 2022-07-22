@@ -645,7 +645,7 @@ public:
 		BOOLEAN HaveCrater(int row, int column);
 		void SetCrater(int row, int column, BOOLEAN b);
 		T_PROPERTY(BOOLEAN, UpgradedRepeater, __get_UpgradedRepeater, __set_UpgradedRepeater, 0x4A);
-		T_PROPERTY(BOOLEAN, UpgradedFumeshroon, __get_UpgradedFumeshroon, __set_UpgradedFumeshroon, 0x4B);
+		T_PROPERTY(BOOLEAN, UpgradedFumeshroom, __get_UpgradedFumeshroom, __set_UpgradedFumeshroom, 0x4B);
 		T_PROPERTY(BOOLEAN, UpgradedTallnut, __get_UpgradedTallnut, __set_UpgradedTallnut, 0x4C);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x58);
 		INT_PROPERTY(LevelProcess, __get_LevelProcess, __set_LevelProcess, 0x60);

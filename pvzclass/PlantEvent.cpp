@@ -58,9 +58,9 @@ void EventHandler::UpdatePlants()
 			&& PlantLastStates[plant->Index] != PlantState::POTATO_SPROUT_OUT) {
 			InvokeEvent(new EventPlantPotatoMineSproutOuted(plant), true);
 		}
-		if (plant->Type == PlantType::Scaredyshroon && plant->State == PlantState::SCAREDYSHROOM_SCARED
+		if (plant->Type == PlantType::Scaredyshroom && plant->State == PlantState::SCAREDYSHROOM_SCARED
 			&& PlantLastStates[plant->Index] != PlantState::SCAREDYSHROOM_SCARED) {
-			InvokeEvent(new EventPlantScaredyShroonScared(plant), true);
+			InvokeEvent(new EventPlantScaredyShroomScared(plant), true);
 		}
 		PlantLastStates[plant->Index] = plant->State;
 	}

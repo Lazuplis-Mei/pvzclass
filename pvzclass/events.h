@@ -161,11 +161,11 @@ public:
 	}
 };
 
-class EventPlantScaredyShroonScared : public Event {
+class EventPlantScaredyShroomScared : public Event {
 public:
 	static std::string Name;
 	Plant* plant;
-	EventPlantScaredyShroonScared(Plant* plant) : plant(plant) 
+	EventPlantScaredyShroomScared(Plant* plant) : plant(plant) 
 	{
 		name = Name;
 	}

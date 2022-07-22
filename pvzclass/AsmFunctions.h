@@ -85,6 +85,7 @@
 #define MOV_EUX(ux,d) 0xB8+(ux),INUMBER(d)
 #define MOV_EUX_EVX(ux,vx) 0x8B,0xC0+(ux)*8+(vx)
 #define MOV_PTR_ADDR_EUX(ux,address) 0x89,5+(ux)*8,INUMBER(address)
+#define MOV_PTR_ADDR(address,d) 0xC7,5,INUMBER(address),INUMBER(d)
 #define CMP_EUX(ux,b) 0x83,0xF8+(ux),b
 #define CMP_EUX_DWORD(ux,d) 0x81,0xF8+(ux),INUMBER(d)
 

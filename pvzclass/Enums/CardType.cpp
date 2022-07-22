@@ -22,22 +22,22 @@ const char* CardType::ToString(CardType cardt)
 		return "Chomper";
 	case CardType::Repeater:
 		return "Repeater";
-	case CardType::Puffshroon:
-		return "Puffshroon";
-	case CardType::Sunshroon:
-		return "Sunshroon";
-	case CardType::Fumeshroon:
-		return "Fumeshroon";
+	case CardType::Puffshroom:
+		return "Puffshroom";
+	case CardType::Sunshroom:
+		return "Sunshroom";
+	case CardType::Fumeshroom:
+		return "Fumeshroom";
 	case CardType::CraveBuster:
 		return "CraveBuster";
-	case CardType::Hypnoshroon:
-		return "Hypnoshroon";
-	case CardType::Scaredyshroon:
-		return "Scaredyshroon";
-	case CardType::Iceshroon:
-		return "Iceshroon";
-	case CardType::Doomshroon:
-		return "Doomshroon";
+	case CardType::Hypnoshroom:
+		return "Hypnoshroom";
+	case CardType::Scaredyshroom:
+		return "Scaredyshroom";
+	case CardType::Iceshroom:
+		return "Iceshroom";
+	case CardType::Doomshroom:
+		return "Doomshroom";
 	case CardType::LilyPad:
 		return "LilyPad";
 	case CardType::Squash:
@@ -54,8 +54,8 @@ const char* CardType::ToString(CardType cardt)
 		return "Tochwood";
 	case CardType::Tallnut:
 		return "Tallnut";
-	case CardType::Seashroon:
-		return "Seashroon";
+	case CardType::Seashroom:
+		return "Seashroom";
 	case CardType::Plantern:
 		return "Plantern";
 	case CardType::Cactus:

@@ -8,10 +8,10 @@ const char* PlantEffectType::ToString(PlantEffectType plantef)
 		return "CherryBombEffect";
 	case PlantEffectType::PotatoMineEffect:
 		return "PotatoMineEffect";
-	case PlantEffectType::IceshroonEffect:
-		return "IceshroonEffect";
-	case PlantEffectType::DoomshroonEffect:
-		return "DoomshroonEffect";
+	case PlantEffectType::IceshroomEffect:
+		return "IceshroomEffect";
+	case PlantEffectType::DoomshroomEffect:
+		return "DoomshroomEffect";
 	case PlantEffectType::JalapenoEffect:
 		return "JalapenoEffect";
 	case PlantEffectType::BloverEffect:

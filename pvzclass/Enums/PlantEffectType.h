@@ -6,8 +6,8 @@ namespace PlantEffectType
 	{
 		CherryBombEffect = 2,
 		PotatoMineEffect = 4,
-		IceshroonEffect = 14,
-		DoomshroonEffect = 15,
+		IceshroomEffect = 14,
+		DoomshroomEffect = 15,
 		JalapenoEffect = 20,
 		BloverEffect = 27,
 	};

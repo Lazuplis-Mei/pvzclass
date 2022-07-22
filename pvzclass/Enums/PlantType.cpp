@@ -22,22 +22,22 @@ const char* PlantType::ToString(PlantType plantt)
 		return "Chomper";
 	case PlantType::Repeater:
 		return "Repeater";
-	case PlantType::Puffshroon:
-		return "Puffshroon";
-	case PlantType::Sunshroon:
-		return "Sunshroon";
-	case PlantType::Fumeshroon:
-		return "Fumeshroon";
+	case PlantType::Puffshroom:
+		return "Puffshroom";
+	case PlantType::Sunshroom:
+		return "Sunshroom";
+	case PlantType::Fumeshroom:
+		return "Fumeshroom";
 	case PlantType::CraveBuster:
 		return "CraveBuster";
-	case PlantType::Hypnoshroon:
-		return "Hypnoshroon";
-	case PlantType::Scaredyshroon:
-		return "Scaredyshroon";
-	case PlantType::Iceshroon:
-		return "Iceshroon";
-	case PlantType::Doomshroon:
-		return "Doomshroon";
+	case PlantType::Hypnoshroom:
+		return "Hypnoshroom";
+	case PlantType::Scaredyshroom:
+		return "Scaredyshroom";
+	case PlantType::Iceshroom:
+		return "Iceshroom";
+	case PlantType::Doomshroom:
+		return "Doomshroom";
 	case PlantType::LilyPad:
 		return "LilyPad";
 	case PlantType::Squash:
@@ -54,8 +54,8 @@ const char* PlantType::ToString(PlantType plantt)
 		return "Tochwood";
 	case PlantType::Tallnut:
 		return "Tallnut";
-	case PlantType::Seashroon:
-		return "Seashroon";
+	case PlantType::Seashroom:
+		return "Seashroom";
 	case PlantType::Plantern:
 		return "Plantern";
 	case PlantType::Cactus:
