@@ -4,11 +4,11 @@
 
 using namespace std;
 
-class MyPlant: public PVZ::Plant
+class MyZombie: public PVZ::Zombie
 {
 public:
-	static const int MemSize = 0x15C;
-	MyPlant(int indexoraddress): PVZ::Plant(indexoraddress)
+	static const int MemSize = 0x16C;
+	MyZombie(int indexoraddress): PVZ::Zombie(indexoraddress)
 	{
 		if (indexoraddress > 1024)
 			BaseAddress = indexoraddress;
@@ -67,17 +67,16 @@ int main()
 	cout << pid << endl;
 
 	PVZ* pvz = new PVZ(pid);
-	MyPlant::SetMemSize(0x15C, 1024);
+	MyZombie::SetMemSize(0x16C, 2048);
 	cout << pvz->BaseAddress << endl;
 	if (!pvz->BaseAddress)
 		return 2;
 
 	pvz->Sun = 8000;
-	SPT<PVZ::CardSlot> CardSlot = pvz->GetCardSlot();
-	CardSlot->SetCardsCount(10);
 
-	Creater::AsmInit();
-	Creater::__CreatePortal(pvz);
+	//EventHandler 的代码留在这里只是为了演示它的用法。
+	//若要深入了解，请把 SetMemSize() 删掉。
+	
 	//EventHandler start
 	EventHandler e(pvz);
 	e.RegistryListeners(OnDeath, Event_High);

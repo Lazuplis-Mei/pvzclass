@@ -11,6 +11,67 @@ PVZ::Zombie::Zombie(int indexoraddress)
 #endif
 }
 
+void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)
+{
+	if (NewSize < 0x15C)
+		return;
+	Memory::WriteMemory<int>(0x407CAA, NewSize * NewCount);
+
+	byte __asm__Mem1[] = { ADD_EAX_DWORD(NewSize) };
+	byte __asm__Mem2[] = { ADD_EUX_DWORD(REG_ESI, NewSize) };
+	byte __asm__Mem3[] = { ADD_EUX_DWORD(REG_EDI, NewSize) };
+	byte __asm__Mem4[] = { IMUL_EUX_EVX_DWORD(REG_EAX, REG_EAX, NewSize) };
+	byte __asm__Mem5[] = { IMUL_EUX_EVX_DWORD(REG_ECX, REG_ECX, NewSize) };
+	byte __asm__Mem6[] = { IMUL_EUX_EVX_DWORD(REG_EDX, REG_EDX, NewSize) };
+	byte __asm__Mem7[] = { IMUL_EUX_EVX_DWORD(REG_ESI, REG_ESI, NewSize) };
+	byte __asm__Mem8[] = { IMUL_EUX_EVX_DWORD(REG_EDI, REG_EDI, NewSize) };
+	byte __asm__Mem9[] = { PUSHDWORD(NewSize - 4) };
+	byte __asm__MemA[] = { 0x8D, 0xB5, INUMBER(NewSize)};
+
+	Memory::WriteArray<byte>(0x41BB64, STRING(__asm__Mem3));
+	Memory::WriteArray<byte>(0x41BB76, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41BB8A, STRING(__asm__Mem3));
+	Memory::WriteArray<byte>(0x41C802, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41C904, STRING(__asm__Mem1));
+	Memory::WriteArray<byte>(0x41C90F, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0x41C928, STRING(__asm__Mem1));
+	Memory::WriteArray<byte>(0x41DDBB, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41DDCD, STRING(__asm__Mem8));
+	Memory::WriteArray<byte>(0x41DDD5, STRING(__asm__Mem9));
+	Memory::WriteArray<byte>(0x41DE2F, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41E4DE, STRING(__asm__Mem2));
+	Memory::WriteArray<byte>(0x41E4E7, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41E502, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0x41E50A, STRING(__asm__Mem2));
+	Memory::WriteArray<byte>(0x4601B8, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x4602F6, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x4679E5, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x46D8E4, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x46D8E4, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x481D52, STRING(__asm__MemA));
+	Memory::WriteArray<byte>(0x481D5E, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x481D78, STRING(__asm__Mem2));
+	Memory::WriteArray<byte>(0x48226C, STRING(__asm__Mem7));
+	Memory::WriteArray<byte>(0x527FB6, STRING(__asm__Mem8));
+	Memory::WriteArray<byte>(0x52809A, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x5289AF, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x528A76, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x52C71B, STRING(__asm__Mem6));
+	Memory::WriteArray<byte>(0x52CB27, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x52EF5E, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x52EFA2, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x52FAC9, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x52FB1C, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x530345, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x53037B, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0x5303C4, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x5303EF, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0x5304DE, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x5346CF, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x5352E8, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x535364, STRING(__asm__Mem4));
+}
+
 void PVZ::Zombie::Light(int cs)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x54, cs);

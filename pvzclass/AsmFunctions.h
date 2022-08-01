@@ -121,6 +121,12 @@
 
 #pragma endregion
 
+#pragma region asm eax
+
+#define ADD_EAX_DWORD(d) 5,INUMBER(d)
+
+#pragma endregion
+
 #pragma region functions
 
 #define SET_MUSICVOLUME INVOKE_BYTE(0x554D00,0)

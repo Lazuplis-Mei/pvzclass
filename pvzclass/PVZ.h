@@ -318,6 +318,9 @@ public:
 		ZombieType::ZombieType DebugType;
 #endif
 		Zombie(int indexoraddress);
+		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。*/
+		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
@@ -420,8 +423,8 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
-		/*请在派生类中调用这个函数，而不是在基类中。
-		调用该函数后，请不要使用基类，也不要使用 Events 组件*/
+		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。*/
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
