@@ -42,6 +42,7 @@ namespace Utils
 	inline void SetSunValue(int sun)
 	{
 		Write(0x4309F0, sun);
+		Write(0x41B9B8, sun);
 	}
 	inline bool isvalid(const char* s, int l, int r)
 	{

@@ -215,7 +215,7 @@ SPT<PVZ::Crater> Creater::CreateCrater(int row, int column, int duration)
 	SPT<PVZ::Crater> crater = MKS<PVZ::Crater>(CreateGriditem()->BaseAddress);
 	crater->Row = row;
 	crater->Column = column;
-	crater->Layer = crater->Column * 0x2710 + 0x49ED0;
+	crater->Layer = crater->Row * 0x2710 + 0x30D41;
 	crater->DisappearCountdown = duration;
 	crater->Type = GriditemType::Crater;
 	return crater;

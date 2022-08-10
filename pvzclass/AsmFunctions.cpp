@@ -99,6 +99,12 @@ byte __asm__SetStatic[]
 	RET,
 };
 
+byte __asm__Smash[]
+{
+	SMASH,
+	RET
+};
+
 byte __asm__Plant__Remove[]
 {
 	PLANT_REMOVE,

@@ -66,43 +66,43 @@ void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart1()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x94);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart2()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x98);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart3()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x9C);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart4()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA0);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationEyeBlink()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA4);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationPotatoGlow()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA8);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 SPT<PVZ::Animation> PVZ::Plant::GetAnimationSleep()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xAC);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
 }
 
 void PVZ::Plant::Light(int cs)
@@ -124,9 +124,15 @@ void PVZ::Plant::CreateEffect()
 void PVZ::Plant::SetStatic()
 {
 	SETARG(__asm__SetStatic, 1) = PVZBASEADDRESS + 0x160;
-	SETARG(__asm__SetStatic, 6) = BaseAddress;;
+	SETARG(__asm__SetStatic, 6) = BaseAddress;
 	Memory::Execute(STRING(__asm__SetStatic));
 
+}
+
+void PVZ::Plant::Smash()
+{
+	SETARG(__asm__Smash, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Smash));
 }
 
 void PVZ::Plant::Remove()

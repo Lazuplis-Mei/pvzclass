@@ -54,6 +54,17 @@
 #define APA_ONCE_DISAPPEAR	2
 #define APA_ONCE_STOP		3
 
+#define ID_INDEX(id) ((id) & 0x0000FFFF)
+#define ID_RANK(id) ((id) & 0xFFFF0000)
+
+#define HZC_COMMON 1
+#define HZC_BALLOON_AIR 2
+#define HZC_SNORKED_UNDER 4
+#define HZC_NOT_GROUNDED 16
+#define HZC_DYING 32
+#define HZC_DIGGER_UNDER 64
+#define HZC_HYPNOTIZED 128
+
 struct CollisionBox
 {
 	int X;
@@ -319,7 +330,8 @@ public:
 #endif
 		Zombie(int indexoraddress);
 		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
-		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。*/
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
+		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。*/
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -396,6 +408,9 @@ public:
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x38);
 		T_PROPERTY(FLOAT, XSpeed, __get_XSpeed, __set_XSpeed, 0x3C);
 		T_PROPERTY(FLOAT, YSpeed, __get_YSpeed, __set_YSpeed, 0x40);
+		T_PROPERTY(FLOAT, HeightSpeed, __get_HeightSpeed, __set_HeightSpeed, 0x44);
+		T_PROPERTY(FLOAT, HeightAcceleration, __get_HeightAcceleration, __set_HeightAcceleration, 0x48);
+		T_PROPERTY(FLOAT, ShadowY, __get_ShadowY, __ShadowY, 0x4C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x50);
 		T_PROPERTY(MotionType::MotionType, Motion, __get_Motion, __set_Motion, 0x58);
 		T_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, __set_Type, 0x5C);
@@ -424,7 +439,8 @@ public:
 		//EventHandler End
 		Plant(int indexoraddress);
 		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
-		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。*/
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
+		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。*/
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
@@ -461,6 +477,7 @@ public:
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
 		void SetStatic();
+		void Smash();
 		void Remove();
 		SPT<PVZ::Projectile> Shoot(int targetid = -1);
 		//animPlayArg(APA_XXXXXX)

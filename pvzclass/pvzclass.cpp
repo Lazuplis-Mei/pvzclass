@@ -40,10 +40,10 @@ void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 
 void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
 {
-	SPT<PVZ::Lawn> lawn = pvz->GetLawn();
 	PVZ::Plant* plant = e->plant;
-	if (lawn->Plantable(plant->Row, plant->Column, PlantType::Pumplin) && plant->Row == e->zombie->Row)
+	if (plant->Row == e->zombie->Row)
 	{
+		plant->Smash();
 		e->zombie->Hypnotize();
 		e->zombie->Froze(1000);
 		e->zombie->Decelerate(5000);
@@ -67,7 +67,7 @@ int main()
 	cout << pid << endl;
 
 	PVZ* pvz = new PVZ(pid);
-	MyZombie::SetMemSize(0x16C, 2048);
+	MyZombie::SetMemSize(0x15C, 2048);
 	cout << pvz->BaseAddress << endl;
 	if (!pvz->BaseAddress)
 		return 2;
