@@ -33,9 +33,9 @@ void OnDeath2(EventZombieDead* e, PVZ* pvz)
 
 void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 {
-	// Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+	// Creator::CreatePlant(PlantType::Doomshroon, 3, 3);
 	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
-	Creater::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
+	Creator::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
 }
 
 void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
@@ -74,8 +74,8 @@ int main()
 
 	pvz->Sun = 8000;
 
-	//EventHandler µÄ´úÂëÁôÔÚÕâÀïÖ»ÊÇÎªÁËÑİÊ¾ËüµÄÓÃ·¨¡£
-	//ÈôÒªÉîÈëÁË½â£¬Çë°Ñ SetMemSize() É¾µô¡£
+	//EventHandler çš„ä»£ç ç•™åœ¨è¿™é‡Œåªæ˜¯ä¸ºäº†æ¼”ç¤ºå®ƒçš„ç”¨æ³•ã€‚
+	//è‹¥è¦æ·±å…¥äº†è§£ï¼Œè¯·æŠŠ SetMemSize() åˆ æ‰ã€‚
 	
 	//EventHandler start
 	EventHandler e(pvz);
