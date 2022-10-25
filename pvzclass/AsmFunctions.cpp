@@ -86,6 +86,14 @@ byte __asm__Zombie__Remove[]
 	RET
 };
 
+byte __asm__CanDecelerate[]
+{
+	MOV_ESI(0),
+	CANDELECERATE,
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
 byte __asm__CreateEffect[]
 {
 	CREATEEFFECT,

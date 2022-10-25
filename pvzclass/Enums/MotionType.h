@@ -4,7 +4,8 @@ namespace MotionType
 
 	enum MotionType
 	{
-		Direct,
+		None = -1,
+		Direct = 0,
 		Throw,
 		Slide,
 		Left = 4,

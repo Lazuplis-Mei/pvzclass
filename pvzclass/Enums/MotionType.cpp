@@ -4,6 +4,8 @@ const char* MotionType::ToString(MotionType motiont)
 {
 	switch (motiont)
 	{
+	case MotionType::None:
+		return "MotionTypeNone";
 	case MotionType::Direct:
 		return "Direct";
 	case MotionType::Throw:

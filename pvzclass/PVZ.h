@@ -381,12 +381,18 @@ public:
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
 		void Butter(int countdown);
+		//减速僵尸，无法减速默认免疫减速的僵尸。
 		void Decelerate(int countdown);
+		//冻结僵尸，无法冻结默认免疫冻结的僵尸。
+		//不造成冻结伤害，不影响减速时长。
 		void Froze(int countdown);
 		void Hypnotize();
 		void Remove();
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName,byte animPlayArg);
+
+		bool canDecelerate();
+		bool canFroze();
 	};
 	class Projectile
 	{
@@ -480,6 +486,7 @@ public:
 		void Smash();
 		void Remove();
 		SPT<PVZ::Projectile> Shoot(int targetid = -1);
+		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
 	};

@@ -141,6 +141,7 @@
 #define FROZE INVOKE(0x5323C0)
 #define HYPNOTIZE INVOKE(0x52FA60)
 #define ZOMBIE_REMOVE INVOKE(0x530510)
+#define CANDELECERATE INVOKE(0x531990)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
 #define SMASH INVOKE_DWORD(0x462B80,0)
@@ -182,6 +183,8 @@ extern byte __asm__Froze[19];
 extern byte __asm__Hypnotize[19];
 
 extern byte __asm__Zombie__Remove[19];
+
+extern byte __asm__CanDecelerate[24];
 
 extern byte __asm__CreateEffect[19];
 

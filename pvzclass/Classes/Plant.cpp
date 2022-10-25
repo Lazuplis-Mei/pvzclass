@@ -1,4 +1,4 @@
-#include "../PVZ.h"
+﻿#include "../PVZ.h"
 
 PVZ::Plant::Plant(int indexoraddress)
 {
@@ -144,7 +144,19 @@ void PVZ::Plant::Remove()
 
 SPT<PVZ::Projectile> PVZ::Plant::Shoot(int targetid)
 {
+	return(this->Shoot(targetid == -1 ? MotionType::None : MotionType::Track, targetid, false));
+}
+
+SPT<PVZ::Projectile> PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targetid, bool special)
+{
+	if (special)
+		__asm__Shoot[1] = 1;
 	__asm__Shoot[3] = Row;
+	if (targetid != -1)
+	{
+		SPT<Zombie> tmp = MKS<Zombie>(ID_INDEX(targetid));
+		SETARG(__asm__Shoot, 5) = tmp->BaseAddress;
+	}
 	SETARG(__asm__Shoot, 10) = BaseAddress;
 	SETARG(__asm__Shoot, 29) = Memory::Variable;
 	if (Type == PlantType::Starfruit)
@@ -153,13 +165,12 @@ SPT<PVZ::Projectile> PVZ::Plant::Shoot(int targetid)
 		return NULL;
 	};
 	SPT<Projectile> re = MKS<Projectile>(Memory::Execute(STRING(__asm__Shoot)));
-	if (targetid == -1) 
-	{ 
-		return re;
+	if (motiontype != MotionType::None) 
+	{
+		re->Motion = motiontype;
+		if (motiontype == MotionType::Track && targetid != -1)
+			re->TracktargetId = targetid;
 	}
-	re->Motion = MotionType::Track;
-	re->DamageAbility = 15;
-	re->TracktargetId = targetid;
 	return re;
 }
 

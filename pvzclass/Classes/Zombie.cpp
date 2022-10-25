@@ -1,4 +1,4 @@
-#include "../PVZ.h"
+﻿#include "../PVZ.h"
 
 PVZ::Zombie::Zombie(int indexoraddress)
 {
@@ -157,7 +157,7 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x118);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<PVZ::Animation>(ID & 0x00FFFF));
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
 }
 
 void PVZ::Zombie::Hit(int damge, DamageType::DamageType type)
@@ -193,7 +193,7 @@ void PVZ::Zombie::Decelerate(int countdown = 1000)
 void PVZ::Zombie::Froze(int countdown = 300)
 {
 	Memory::WriteMemory<byte>(0x532493, 0);
-	Memory::WriteMemory<byte>(0x5319E5, 112);
+	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
 	int temp = FrozenCountdown, temp2 = DecelerateCountdown;
 	SETARG(__asm__Froze, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Froze));
@@ -229,3 +229,40 @@ void PVZ::Zombie::SetAnimation(LPCSTR animName, byte animPlayArg)
 	PVZ::Memory::FreeMemory(Address);
 }
 
+bool PVZ::Zombie::canDecelerate()
+{
+	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
+	SETARG(__asm__CanDecelerate, 1) = BaseAddress;
+	SETARG(__asm__CanDecelerate, 19) = Memory::Variable;
+	return(Memory::Execute(STRING(__asm__Plantable)) == 1);
+	Memory::WriteMemory<byte>(0x5319E5, 117);
+}
+
+bool PVZ::Zombie::canFroze()
+{
+	if (!this->canDecelerate())
+		return(false);
+	ZombieState::ZombieState state = this->State;
+	switch (state)
+	{
+	case ZombieState::POLE_VALUTING_JUMPPING:
+	case ZombieState::DOPHIN_JUMP_IN_POOL:
+	case ZombieState::DOPHIN_JUMP:
+	case ZombieState::SNORKEL_JUMP_IN_THE_POOL:
+	case ZombieState::IMP_FLYING:
+	case ZombieState::IMP_LANDING:
+	case ZombieState::BALLOON_FLYING:
+	case ZombieState::BALLOON_FALLING:
+	case ZombieState::JACKBOX_POP:
+	case ZombieState::BOBSLED_GETOFF:
+	case ZombieState::SQUASH_RISE:
+	case ZombieState::SQUASH_FALL:
+	case ZombieState::SQUASH_SMASH:
+		return(false);
+	}
+	if (state >= 20 && state <= 28)
+		return(false);
+	if (this->Type == ZombieType::BungeeZombie && state != ZombieState::BUNGEE_IDLE_AFTER_DROP)
+		return(false);
+	return(true);
+}
