@@ -1,4 +1,4 @@
-#include "MusicType.h"
+﻿#include "MusicType.h"
 
 const char* MusicType::ToString(MusicType tmusic)
 {

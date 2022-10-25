@@ -1,4 +1,4 @@
-#include "ProjectileType.h"
+﻿#include "ProjectileType.h"
 
 const char* ProjectileType::ToString(ProjectileType projectilet)
 {

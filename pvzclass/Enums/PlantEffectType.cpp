@@ -1,4 +1,4 @@
-#include "PlantEffectType.h"
+﻿#include "PlantEffectType.h"
 
 const char* PlantEffectType::ToString(PlantEffectType plantef)
 {

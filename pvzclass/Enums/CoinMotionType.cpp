@@ -1,4 +1,4 @@
-#include "CoinMotionType.h"
+﻿#include "CoinMotionType.h"
 
 const char* CoinMotionType::ToString(CoinMotionType coinmt)
 {

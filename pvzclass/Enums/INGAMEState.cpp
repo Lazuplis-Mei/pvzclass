@@ -1,4 +1,4 @@
-#include "INGAMEState.h"
+﻿#include "INGAMEState.h"
 
 const char* INGAMEState::ToString(INGAMEState ingames)
 {

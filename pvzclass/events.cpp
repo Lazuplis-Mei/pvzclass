@@ -1,4 +1,4 @@
-#include "events.h"
+﻿#include "events.h"
 
 void EventHandler::InvokeEvent(Event *event,bool isDelete)
 {

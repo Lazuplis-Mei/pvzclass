@@ -1,4 +1,4 @@
-#include "pvzclass.h"
+ï»¿#include "pvzclass.h"
 #include <iostream>
 #include "events.h"
 
@@ -74,8 +74,8 @@ int main()
 
 	pvz->Sun = 8000;
 
-	//EventHandler µÄ´úÂëÁôÔÚÕâÀïÖ»ÊÇÎªÁËÑİÊ¾ËüµÄÓÃ·¨¡£
-	//ÈôÒªÉîÈëÁË½â£¬Çë°Ñ SetMemSize() É¾µô¡£
+	//EventHandler çš„ä»£ç ç•™åœ¨è¿™é‡Œåªæ˜¯ä¸ºäº†æ¼”ç¤ºå®ƒçš„ç”¨æ³•ã€‚
+	//è‹¥è¦æ·±å…¥äº†è§£ï¼Œè¯·æŠŠ SetMemSize() åˆ æ‰ã€‚
 	
 	//EventHandler start
 	EventHandler e(pvz);

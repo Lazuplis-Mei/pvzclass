@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Enums.h"
 #include "AsmFunctions.h"
 #include <memory>
@@ -329,9 +329,9 @@ public:
 		ZombieType::ZombieType DebugType;
 #endif
 		Zombie(int indexoraddress);
-		/*µ÷ÓÃ¸Ãº¯Êıºó£¬¶ÔÓ¦µÄ Events ×é¼ş¹¦ÄÜ¡¢GetAll()¡¢»ùÀàµÄ¹¹Ôìº¯Êı¶¼»áÊ§Ğ§¡£
-		Òò´Ë£¬ÇëÔÚÅÉÉúÀàÖĞµ÷ÓÃÕâ¸öº¯Êı£¬²¢ÇÒÎªÅÉÉúÀàµ¥¶À×«Ğ´ĞÂµÄ¹¹Ôìº¯ÊıºÍ GetAll() ¡£
-		ÁíÍâ£¬µ÷ÓÃ¸Ãº¯Êıºó£¬ĞÂÉú³ÉµÄ´æµµÓëÔ­°æ´æµµ²»¼æÈİ£¬Çë×¢ÒâÇåÀí¡£*/
+		/*è°ƒç”¨è¯¥å‡½æ•°åï¼Œå¯¹åº”çš„ Events ç»„ä»¶åŠŸèƒ½ã€GetAll()ã€åŸºç±»çš„æ„é€ å‡½æ•°éƒ½ä¼šå¤±æ•ˆã€‚
+		å› æ­¤ï¼Œè¯·åœ¨æ´¾ç”Ÿç±»ä¸­è°ƒç”¨è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”ä¸ºæ´¾ç”Ÿç±»å•ç‹¬æ’°å†™æ–°çš„æ„é€ å‡½æ•°å’Œ GetAll() ã€‚
+		å¦å¤–ï¼Œè°ƒç”¨è¯¥å‡½æ•°åï¼Œæ–°ç”Ÿæˆçš„å­˜æ¡£ä¸åŸç‰ˆå­˜æ¡£ä¸å…¼å®¹ï¼Œè¯·æ³¨æ„æ¸…ç†ã€‚*/
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -374,17 +374,17 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//ÁÙÊ±±äÁ¿
+		//ä¸´æ—¶å˜é‡
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
 		void Butter(int countdown);
-		//¼õËÙ½©Ê¬£¬ÎŞ·¨¼õËÙÄ¬ÈÏÃâÒß¼õËÙµÄ½©Ê¬¡£
+		//å‡é€Ÿåƒµå°¸ï¼Œæ— æ³•å‡é€Ÿé»˜è®¤å…ç–«å‡é€Ÿçš„åƒµå°¸ã€‚
 		void Decelerate(int countdown);
-		//¶³½á½©Ê¬£¬ÎŞ·¨¶³½áÄ¬ÈÏÃâÒß¶³½áµÄ½©Ê¬¡£
-		//²»Ôì³É¶³½áÉËº¦£¬²»Ó°Ïì¼õËÙÊ±³¤¡£
+		//å†»ç»“åƒµå°¸ï¼Œæ— æ³•å†»ç»“é»˜è®¤å…ç–«å†»ç»“çš„åƒµå°¸ã€‚
+		//ä¸é€ æˆå†»ç»“ä¼¤å®³ï¼Œä¸å½±å“å‡é€Ÿæ—¶é•¿ã€‚
 		void Froze(int countdown);
 		void Hypnotize();
 		void Remove();
@@ -444,9 +444,9 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
-		/*µ÷ÓÃ¸Ãº¯Êıºó£¬¶ÔÓ¦µÄ Events ×é¼ş¹¦ÄÜ¡¢GetAll()¡¢»ùÀàµÄ¹¹Ôìº¯Êı¶¼»áÊ§Ğ§¡£
-		Òò´Ë£¬ÇëÔÚÅÉÉúÀàÖĞµ÷ÓÃÕâ¸öº¯Êı£¬²¢ÇÒÎªÅÉÉúÀàµ¥¶À×«Ğ´ĞÂµÄ¹¹Ôìº¯ÊıºÍ GetAll() ¡£
-		ÁíÍâ£¬µ÷ÓÃ¸Ãº¯Êıºó£¬ĞÂÉú³ÉµÄ´æµµÓëÔ­°æ´æµµ²»¼æÈİ£¬Çë×¢ÒâÇåÀí¡£*/
+		/*è°ƒç”¨è¯¥å‡½æ•°åï¼Œå¯¹åº”çš„ Events ç»„ä»¶åŠŸèƒ½ã€GetAll()ã€åŸºç±»çš„æ„é€ å‡½æ•°éƒ½ä¼šå¤±æ•ˆã€‚
+		å› æ­¤ï¼Œè¯·åœ¨æ´¾ç”Ÿç±»ä¸­è°ƒç”¨è¿™ä¸ªå‡½æ•°ï¼Œå¹¶ä¸”ä¸ºæ´¾ç”Ÿç±»å•ç‹¬æ’°å†™æ–°çš„æ„é€ å‡½æ•°å’Œ GetAll() ã€‚
+		å¦å¤–ï¼Œè°ƒç”¨è¯¥å‡½æ•°åï¼Œæ–°ç”Ÿæˆçš„å­˜æ¡£ä¸åŸç‰ˆå­˜æ¡£ä¸å…¼å®¹ï¼Œè¯·æ³¨æ„æ¸…ç†ã€‚*/
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);

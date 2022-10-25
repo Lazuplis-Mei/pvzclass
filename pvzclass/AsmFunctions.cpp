@@ -1,4 +1,4 @@
-#include "AsmFunctions.h"
+﻿#include "AsmFunctions.h"
 
 byte __asm__set_MusicVolume[]
 {

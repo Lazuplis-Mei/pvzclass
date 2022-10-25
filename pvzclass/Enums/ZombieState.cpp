@@ -1,4 +1,4 @@
-#include "ZombieState.h"
+﻿#include "ZombieState.h"
 
 std::string ZombieState::ToString(ZombieState state) {
 	switch (state) {

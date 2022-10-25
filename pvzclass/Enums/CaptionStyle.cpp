@@ -1,4 +1,4 @@
-#include "CaptionStyle.h"
+﻿#include "CaptionStyle.h"
 
 const char* CaptionStyle::ToString(CaptionStyle captions)
 {

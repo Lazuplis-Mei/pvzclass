@@ -1,4 +1,4 @@
-#include "MouseClickState.h"
+﻿#include "MouseClickState.h"
 
 const char* MouseClickState::ToString(MouseClickState mousecs)
 {

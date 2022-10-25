@@ -1,4 +1,4 @@
-#include "MouseType.h"
+﻿#include "MouseType.h"
 
 const char* MouseType::ToString(MouseType mouset)
 {

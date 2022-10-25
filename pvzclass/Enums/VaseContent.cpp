@@ -1,4 +1,4 @@
-#include "VaseContent.h"
+﻿#include "VaseContent.h"
 
 const char* VaseContent::ToString(VaseContent vasec)
 {

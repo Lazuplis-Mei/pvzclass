@@ -1,4 +1,4 @@
-#include "DamageType.h"
+﻿#include "DamageType.h"
 
 const char* DamageType::ToString(DamageType damaget)
 {

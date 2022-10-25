@@ -1,4 +1,4 @@
-#include "PaintState.h"
+﻿#include "PaintState.h"
 
 const char* PaintState::ToString(PaintState paints)
 {

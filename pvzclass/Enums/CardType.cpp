@@ -1,4 +1,4 @@
-#include "CardType.h"
+﻿#include "CardType.h"
 
 const char* CardType::ToString(CardType cardt)
 {

@@ -1,1 +1,1 @@
-#include "./EffectType.h"
+﻿#include "./EffectType.h"

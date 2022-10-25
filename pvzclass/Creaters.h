@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "PVZ.h"
 
 namespace Creater
@@ -51,7 +51,7 @@ inline void xytorc(int* x, int* y)
 
 	void AsmInit();
 
-	//ÄãĞèÒªÏÈµ÷ÓÃÒ»´ÎAsmInitºó²ÅÄÜÊ¹ÓÃÕâ¸öº¯Êı
+	//ä½ éœ€è¦å…ˆè°ƒç”¨ä¸€æ¬¡AsmInitåæ‰èƒ½ä½¿ç”¨è¿™ä¸ªå‡½æ•°
 	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 
 	SPT<PVZ::Coin> CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
@@ -94,10 +94,10 @@ inline void xytorc(int* x, int* y)
 
 	void CreateEffect(EffectType::EffectType type, float x, float y);
 
-	//²¿·ÖÒôĞ§ÊÇ³ÖĞøµÄ£¬ĞèÒªÓÃStopSoundÊÖ¶¯Í£Ö¹ÒôĞ§³ÖĞø²¥·Å
+	//éƒ¨åˆ†éŸ³æ•ˆæ˜¯æŒç»­çš„ï¼Œéœ€è¦ç”¨StopSoundæ‰‹åŠ¨åœæ­¢éŸ³æ•ˆæŒç»­æ’­æ”¾
 	void CreateSound(int soundid);
 
-	//µ±Ç°¹Ø¿¨±ØĞëÖÁÉÙ´æÔÚ¹ıÒ»¸öÖ²Îï£¬´Ëº¯Êı²ÅÓĞĞ§
+	//å½“å‰å…³å¡å¿…é¡»è‡³å°‘å­˜åœ¨è¿‡ä¸€ä¸ªæ¤ç‰©ï¼Œæ­¤å‡½æ•°æ‰æœ‰æ•ˆ
 	void FrozeAll();
 
 	void StopSound(int soundid);
@@ -106,10 +106,10 @@ inline void xytorc(int* x, int* y)
 
 	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
 
-	//ÄãĞèÒªÏÈµ÷ÓÃÒ»´ÎAsmInitºó²ÅÄÜÊ¹ÓÃÕâ¸öº¯Êı
+	//ä½ éœ€è¦å…ˆè°ƒç”¨ä¸€æ¬¡AsmInitåæ‰èƒ½ä½¿ç”¨è¿™ä¸ªå‡½æ•°
 	void __CreatePortal(PVZ* pvz);
 
-	//ÄãĞèÒªÏÈµ÷ÓÃÒ»´ÎAsmInitºó²ÅÄÜÊ¹ÓÃÕâ¸öº¯Êı
+	//ä½ éœ€è¦å…ˆè°ƒç”¨ä¸€æ¬¡AsmInitåæ‰èƒ½ä½¿ç”¨è¿™ä¸ªå‡½æ•°
 	void CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
 
 	void __ClearZombiePreview();

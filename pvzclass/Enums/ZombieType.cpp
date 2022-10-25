@@ -1,4 +1,4 @@
-#include "ZombieType.h"
+﻿#include "ZombieType.h"
 
 const char* ZombieType::ToString(ZombieType zombiet)
 {

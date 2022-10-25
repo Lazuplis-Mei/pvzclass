@@ -1,4 +1,4 @@
-#include "DebugModeType.h"
+﻿#include "DebugModeType.h"
 
 const char* DebugModeType::ToString(DebugModeType debugmt)
 {

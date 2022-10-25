@@ -1,4 +1,4 @@
-#include "LawnmoverType.h"
+﻿#include "LawnmoverType.h"
 
 const char* LawnmoverType::ToString(LawnmoverType lawnmovert)
 {

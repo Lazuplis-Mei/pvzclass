@@ -1,4 +1,4 @@
-#include "GriditemType.h"
+﻿#include "GriditemType.h"
 
 const char* GriditemType::ToString(GriditemType griditemt)
 {

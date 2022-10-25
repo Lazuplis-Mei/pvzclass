@@ -1,4 +1,4 @@
-#include "INGAMEEffect.h"
+﻿#include "INGAMEEffect.h"
 
 const char* INGAMEEffect::ToString(INGAMEEffect ingamee)
 {

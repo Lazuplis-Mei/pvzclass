@@ -1,4 +1,4 @@
-#include "CoinType.h"
+﻿#include "CoinType.h"
 
 const char* CoinType::ToString(CoinType coint)
 {

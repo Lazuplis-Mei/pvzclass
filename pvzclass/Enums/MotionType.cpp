@@ -1,4 +1,4 @@
-#include "MotionType.h"
+﻿#include "MotionType.h"
 
 const char* MotionType::ToString(MotionType motiont)
 {

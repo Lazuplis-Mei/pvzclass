@@ -1,4 +1,4 @@
-#include "PVZVersionEnum.h"
+ï»¿#include "PVZVersionEnum.h"
 
 const char* PVZVersion::ToString(PVZVersion pvzver)
 {
@@ -11,9 +11,9 @@ const char* PVZVersion::ToString(PVZVersion pvzver)
 	case PVZVersion::V1_2_0_1073:
 		return "V1_2_0_1073";
 	case PVZVersion::CHINESE_ENHANCED:
-		return "ÖÐÎÄÄê¶È¼ÓÇ¿°æ";
+		return "ä¸­æ–‡å¹´åº¦åŠ å¼ºç‰ˆ";
 	case PVZVersion::CHINESE_VISCOSITY:
-		return "Õ³¶Èº¹»¯°æ";
+		return "ç²˜åº¦æ±—åŒ–ç‰ˆ";
 	case PVZVersion::UnknowOrNotPVZ:
 		return "UnknowOrNotPVZ";
 	default:

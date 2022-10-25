@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 namespace EffectType {
 	enum EffectType {

@@ -1,4 +1,4 @@
-#include "ZombieAccessoriesType2.h"
+﻿#include "ZombieAccessoriesType2.h"
 
 const char* ZombieAccessoriesType2::ToString(ZombieAccessoriesType2 zombieat2)
 {

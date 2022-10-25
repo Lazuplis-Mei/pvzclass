@@ -1,4 +1,4 @@
-#include "SceneType.h"
+﻿#include "SceneType.h"
 
 const char* SceneType::ToString(SceneType scenet)
 {
