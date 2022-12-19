@@ -18,6 +18,8 @@
 #include "Enums/CoinMotionType.h"
 #include "Enums/CardType.h"
 #include "Enums/LawnmoverType.h"
+#include "Enums/GardenPlantNeed.h"
+#include "Enums/GardenPlantState.h"
 #include "Enums/GriditemType.h"
 #include "Enums/VaseSkin.h"
 #include "Enums/VaseContent.h"

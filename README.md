@@ -1,4 +1,4 @@
-﻿# pvzclass 是一个用于控制植物大战僵尸游戏内部运行实体的一套框架
+# pvzclass 是一个用于控制植物大战僵尸游戏内部运行实体的一套框架
 
 ## pvzclass-with-events 附加
 
