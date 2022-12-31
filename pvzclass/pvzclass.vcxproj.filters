@@ -216,6 +216,9 @@
     <ClCompile Include="Classes\Attachment.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\GardenPlantNeed.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -349,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenPlantNeed.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

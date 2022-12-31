@@ -1,8 +1,8 @@
 #include ".\GardenPlantNeed.h"
 
-const char* GardenPlantNeed::ToString(CaptionStyle captions)
+const char* GardenPlantNeed::ToString(GardenPlantNeed gardenplant_need)
 {
-	switch (captions)
+	switch (gardenplant_need)
 	{
 	case GardenPlantNeed::None:
 		return "None";

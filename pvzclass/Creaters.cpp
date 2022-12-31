@@ -210,15 +210,22 @@ void Creater::CreateGrave(int row, int column)
 	PVZ::Memory::Execute(STRING(__asm__CreateGrave));
 }
 
+byte __asm__CreateCrater[31]
+{
+	MOV_EAX(0),
+	MOV_EDI(0),
+	CREATECRATER,
+	MOV_PTR_ADDR_EAX(0),
+	RET,
+};
+
 SPT<PVZ::Crater> Creater::CreateCrater(int row, int column, int duration)
 {
-	SPT<PVZ::Crater> crater = MKS<PVZ::Crater>(CreateGriditem()->BaseAddress);
-	crater->Row = row;
-	crater->Column = column;
-	crater->Layer = crater->Row * 0x2710 + 0x30D41;
-	crater->DisappearCountdown = duration;
-	crater->Type = GriditemType::Crater;
-	return crater;
+	SETARG(__asm__CreateCrater, 1) = PVZBASEADDRESS;
+	SETARG(__asm__CreateCrater, 6) = row;
+	__asm__CreateCrater[11] = column;
+	SETARG(__asm__CreateCrater, 26) = PVZ::Memory::Variable;;
+	return MKS<PVZ::Crater>(PVZ::Memory::Execute(STRING(__asm__CreateCrater)));
 }
 
 byte __asm__CreateLadder[31]

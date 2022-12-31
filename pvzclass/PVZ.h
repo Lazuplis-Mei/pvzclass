@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Enums.h"
 #include "AsmFunctions.h"
 #include <ctime>
@@ -330,9 +330,9 @@ public:
 		ZombieType::ZombieType DebugType;
 #endif
 		Zombie(int indexoraddress);
-		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
-		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
-		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。*/
+		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。 
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
+		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -375,17 +375,17 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//临时变量
+		//临时变量 
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
 		void Blast();
 		void Butter(int countdown);
-		//减速僵尸，无法减速默认免疫减速的僵尸。
+		//减速僵尸，无法减速默认免疫减速的僵尸。 
 		void Decelerate(int countdown);
-		//冻结僵尸，无法冻结默认免疫冻结的僵尸。
-		//不造成冻结伤害，不影响减速时长。
+		//冻结僵尸，无法冻结默认免疫冻结的僵尸。 
+		//不造成冻结伤害，不影响减速时长。 
 		void Froze(int countdown);
 		void Hypnotize();
 		void Remove();
@@ -447,7 +447,7 @@ public:
 		Plant(int indexoraddress);
 		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
-		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。*/
+		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
