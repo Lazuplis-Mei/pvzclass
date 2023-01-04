@@ -171,6 +171,7 @@
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
     <ClCompile Include="Creaters.cpp" />
+    <ClCompile Include="Creators.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
@@ -221,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Creaters.h" />
+    <ClInclude Include="Creators.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFunctions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />

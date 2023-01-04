@@ -35,7 +35,7 @@ namespace PlantType
 		Blover,
 		SplitPea,
 		Starfruit,
-		Pumplin,
+		Pumpkin,
 		Magnetshroom,
 		Cabbagepult,
 		FlowerPot,

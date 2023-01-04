@@ -66,8 +66,8 @@ const char* PlantType::ToString(PlantType plantt)
 		return "SplitPea";
 	case PlantType::Starfruit:
 		return "Starfruit";
-	case PlantType::Pumplin:
-		return "Pumplin";
+	case PlantType::Pumpkin:
+		return "Pumpkin";
 	case PlantType::Magnetshroom:
 		return "Magnetshroom";
 	case PlantType::Cabbagepult:

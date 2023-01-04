@@ -33,9 +33,9 @@ void OnDeath2(EventZombieDead* e, PVZ* pvz)
 
 void OnPlantDead(EventPlantDead* e, PVZ* pvz)
 {
-	// Creater::CreatePlant(PlantType::Doomshroon, 3, 3);
+	// Creator::CreatePlant(PlantType::Doomshroon, 3, 3);
 	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
-	Creater::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
+	Creator::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
 }
 
 void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)

@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include "PVZ.h"
 
-//Will be removed in the future.
-namespace Creater
+namespace Creator
 {
 
 inline short makeshort(byte b1, byte b2)

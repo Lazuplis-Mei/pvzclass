@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "PVZ.h"
-#include "Creaters.h"
+#include "Creators.h"
 
 
 #define MEMMOD_BYTE(address,v,rv) PVZ::Memory::WriteMemory<byte>(address,b?v:rv)
@@ -24,7 +24,7 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 
 inline void EnablePortal(PVZ* pvz, BOOLEAN b = true)
 {
-	if (b && pvz->BaseAddress != 0)Creater::__CreatePortal(pvz);
+	if (b && pvz->BaseAddress != 0)Creator::__CreatePortal(pvz);
 	MEMMOD_BYTE(0x467665, JO, JNE);
 	MEMMOD_BYTE(0x41FFB4, JO, JNE);
 	MEMMOD_BYTE(0x4248CE, JO, JNE);

@@ -35,7 +35,7 @@ namespace CardType
 		Blover,
 		SplitPea,
 		Starfruit,
-		Pumplin,
+		Pumpkin,
 		Magnetshroom,
 		Cabbagepult,
 		FlowerPot,

@@ -66,8 +66,8 @@ const char* CardType::ToString(CardType cardt)
 		return "SplitPea";
 	case CardType::Starfruit:
 		return "Starfruit";
-	case CardType::Pumplin:
-		return "Pumplin";
+	case CardType::Pumpkin:
+		return "Pumpkin";
 	case CardType::Magnetshroom:
 		return "Magnetshroom";
 	case CardType::Cabbagepult:
