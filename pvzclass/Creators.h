@@ -115,6 +115,7 @@ inline void xytorc(int* x, int* y)
 
 	void __ClearZombiePreview();
 
+	//生成出怪列表
 	//wave = 0 means defalt and Non-intervention
 	void CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, int wave = 0);
 

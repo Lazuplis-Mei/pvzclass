@@ -201,3 +201,11 @@ byte __asm__CardSlot__set_CardsCount[]
 	CARDSLOT_SET_CARDSCOUNT,
 	RET
 };
+
+byte __asm__ZenGarder_IsFull[]
+{
+	MOV_EUX(REG_ESI, 0),
+	ZENGARDEN_ISFULL,
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};

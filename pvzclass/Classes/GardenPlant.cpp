@@ -1,6 +1,6 @@
 ﻿#include "../PVZ.h"
 
-PVZ::SaveData::GardenPlant::GardenPlant(int address)
+PVZ::GardenPlant::GardenPlant(int address)
 {
 	BaseAddress = address;
 };

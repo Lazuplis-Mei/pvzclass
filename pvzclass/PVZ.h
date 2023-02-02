@@ -185,7 +185,7 @@ public:
 	READONLY_PROPERTY_BINDING(
 		int,
 		__get_BaseAddress,
-		PVZBASEADDRESS) BaseAddress;
+		PVZBASEADDRESS) BaseAddress;// the same as &Board
 	INT_PROPERTY(ViewX, __get_ViewX, __set_ViewX, 0x30);
 	INT_PROPERTY(ViewY, __get_ViewY, __set_ViewY, 0x34);
 	INT_PROPERTY(ViewLength, __get_ViewLength, __set_ViewLength, 0x38);
@@ -491,7 +491,27 @@ public:
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
 	};
-	class Coin
+	class GardenPlant
+	{
+		int BaseAddress;
+	public:
+		GardenPlant(int address);
+		T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 8);
+		T_PROPERTY(GardenScene::GardenScene, Location, __get_Location, __set_Location, 0xC);
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		//GPD_LEFT or GPD_RIGTHT
+		INT_PROPERTY(Direction, __get_Direction, __set_Direction, 0x18);
+		T_PROPERTY(std::time_t, LastWateredTime, __get_LastWateredTime, __set_LastWateredTime, 0x20);
+		INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
+		T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
+		INT_PROPERTY(WateredCount, __get_WateredCount, __set_WateredCount, 0x30);
+		INT_PROPERTY(LevelUpWaterNeed, __get_LevelUpWaterNeed, __set_LevelUpWaterNeed, 0x34);
+		T_PROPERTY(GardenPlantNeed::GardenPlantNeed, LevelUpNeed, __get_LevelUpNeed, __set_LevelUpNeed, 0x38);
+		T_PROPERTY(std::time_t, LastGoldTime, __get_LastGoldTime, __set_LastGoldTime, 0x40);
+		T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
+	};
+	class Coin //Item
 	{
 		int BaseAddress;
 #if _DEBUG
@@ -515,6 +535,7 @@ public:
 		T_PROPERTY(CoinMotionType::CoinMotionType, Motion, __get_Motion, __set_Motion, 0x5C);
 		SPT<PVZ::Attachment> GetAttachment();
 		T_PROPERTY(CardType::CardType, ContentCard, __get_ContentCard, __set_ContentCard, 0x68);
+		SPT<PVZ::GardenPlant> GetGardenPlant();
 		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -711,25 +732,10 @@ public:
 		INT_PROPERTY(TreeFood, __get_TreeFood, __set_TreeFood, 0x230);//-1000
 		T_PROPERTY(BOOLEAN, HaveWallnutFirstAid, __get_HaveWallnutFirstAid, __set_HaveWallnutFirstAid, 0x234);
 		INT_READONLY_PROPERTY(GardenPlantCount, __get_GardenPlantCount, 0x350);
-		class GardenPlant
+		class GardenPlant : public PVZ::GardenPlant
 		{
-			int BaseAddress;
 		public:
-			GardenPlant(int address);
-			T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 8);
-			T_PROPERTY(GardenScene::GardenScene, Location, __get_Location, __set_Location, 0xC);
-			INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
-			INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-			//GPD_LEFT or GPD_RIGTHT
-			INT_PROPERTY(Direction, __get_Direction, __set_Direction, 0x18);
-			T_PROPERTY(std::time_t, LastWateredTime, __get_LastWateredTime, __set_LastWateredTime, 0x20);
-			INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
-			T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
-			INT_PROPERTY(WateredCount, __get_WateredCount, __set_WateredCount, 0x30);
-			INT_PROPERTY(LevelUpWaterNeed, __get_LevelUpWaterNeed, __set_LevelUpWaterNeed, 0x34);
-			T_PROPERTY(GardenPlantNeed::GardenPlantNeed, LevelUpNeed, __get_LevelUpNeed, __set_LevelUpNeed, 0x38);
-			T_PROPERTY(std::time_t, LastGoldTime, __get_LastGoldTime, __set_LastGoldTime, 0x40);
-			T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
+			GardenPlant(int address) : PVZ::GardenPlant(address) {};
 		};
 		SPT<GardenPlant> GetGardenPlant(int index);
 	};
@@ -750,6 +756,14 @@ public:
 		T_PROPERTY(INGAMEEffect::INGAMEEffect, INGAMEEffect, __get_INGAMEEffect, __set_INGAMEEffect, 0x2C);
 	};
 	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
+
+	class ZenGarden
+	{
+		int BaseAddress;
+	public:
+		ZenGarden(int address);
+		bool IsFull(bool consider_items);
+	};
 
 #pragma endregion
 
@@ -777,6 +791,7 @@ public:
 	SPT<Miscellaneous> GetMiscellaneous();
 	SPT<SaveData> GetSaveData();
 	SPT<Music> GetMusic();
+	SPT<ZenGarden> GetZenGarden();
 
 #pragma endregion
 

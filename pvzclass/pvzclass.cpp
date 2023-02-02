@@ -73,6 +73,8 @@ int main()
 		return 2;
 
 	pvz->Sun = 8000;
+	SPT<PVZ::Coin> coin = MKS<PVZ::Coin>(1);
+	cout << coin->GetGardenPlant()->Type;
 
 	//EventHandler 的代码留在这里只是为了演示它的用法。
 	//若要深入了解，请把 SetMemSize() 删掉。

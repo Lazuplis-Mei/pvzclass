@@ -287,6 +287,11 @@ SPT<PVZ::CardSlot> PVZ::GetCardSlot()
 	return MKS<CardSlot>(BaseAddress);
 }
 
+SPT<PVZ::ZenGarden> PVZ::GetZenGarden()
+{
+	return MKS<ZenGarden>(Memory::ReadPointer(0x6A9EC0, 0x81C));
+}
+
 SPT<PVZ::Miscellaneous> PVZ::GetMiscellaneous()
 {
 	return MKS<Miscellaneous>(BaseAddress);
@@ -301,8 +306,6 @@ SPT<PVZ::Music> PVZ::GetMusic()
 {
 	return MKS<Music>(Memory::ReadPointer(0x6A9EC0, 0x83C));
 }
-
-
 
 #pragma endregion
 

@@ -189,9 +189,9 @@ int num = pPVZ->GetAllZombies(zombies);//返回实际获取到的对象数量
 * 提供了几个常用的修改功能
 * 参数是代表开启还是关闭功能
 
-### 关于Creater
+### 关于Creator
 
-* Creater是一个名称空间
+* Creator是一个名称空间
 * 声明和定义默认在pvzclass.h中被包含
 * 提供了在游戏中创建实体的函数
 * **AsmInit函数是部分方法的初始化函数**，只需要调用一次

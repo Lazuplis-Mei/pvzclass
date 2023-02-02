@@ -31,6 +31,11 @@ SPT<PVZ::Attachment> PVZ::Coin::GetAttachment()
 	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Attachment>(ID & 0x00FFFF));
 }
 
+SPT<PVZ::GardenPlant> PVZ::Coin::GetGardenPlant()
+{
+	return MKS<PVZ::GardenPlant>(this->BaseAddress + 0x68);
+}
+
 void PVZ::Coin::Collect()
 {
 	SETARG(__asm__Collect, 1) = BaseAddress;
