@@ -405,6 +405,11 @@ void Creator::CreateSound(int soundid)
 	PVZ::Memory::Execute(STRING(__asm__CreateSound));
 }
 
+void Creator::CreateSound(LowerSoundType::LowerSoundType sound)
+{
+	Creator::CreateSound((int)sound);
+}
+
 byte __asm__FrozeAll[19]
 {
 	MOV_EDI(0),

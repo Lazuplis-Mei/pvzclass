@@ -14,6 +14,8 @@ const char* MotionType::ToString(MotionType motiont)
 		return "Slide";
 	case MotionType::Left:
 		return "Left";
+	case MotionType::ShortDirect:
+		return "ShortDirect";
 	case MotionType::LeftSlide:
 		return "LeftSlide";
 	case MotionType::Float:

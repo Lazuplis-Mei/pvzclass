@@ -98,6 +98,8 @@ inline void xytorc(int* x, int* y)
 	//部分音效是持续的，需要用StopSound手动停止音效持续播放
 	void CreateSound(int soundid);
 
+	void CreateSound(LowerSoundType::LowerSoundType sound);
+
 	//当前关卡必须至少存在过一个植物，此函数才有效
 	void FrozeAll();
 

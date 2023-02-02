@@ -170,6 +170,7 @@
     <ClCompile Include="Classes\Plant.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
+    <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Enums\INGAMEState.h" />
     <ClInclude Include="Enums\LawnmoverType.h" />
     <ClInclude Include="Enums\LawnTypeEnum.h" />
+    <ClInclude Include="Enums\LowerSoundType.h" />
     <ClInclude Include="Enums\MotionType.h" />
     <ClInclude Include="Enums\MouseClickState.h" />
     <ClInclude Include="Enums\MouseType.h" />
