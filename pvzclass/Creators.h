@@ -36,6 +36,7 @@ inline void xytorc(int* x, int* y)
 #define CREATEEXPLOTION INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(0x41D8A0,0,0,0,0,0,0,0,0)
 #define _CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
 #define CREATESOUND INVOKE_BYTE(0x515020,0)
+#define CREATEUPPERSOUND INVOKE_DWORD(0x4560C0,0)
 #define FORZEALL INVOKE(0x466420)
 #define STOPSOUND INVOKE(0x515290)
 #define CREATEIZOMBIEFORMATION INVOKE_DWORD(0x42A890,0)
@@ -98,7 +99,9 @@ inline void xytorc(int* x, int* y)
 	//部分音效是持续的，需要用StopSound手动停止音效持续播放
 	void CreateSound(int soundid);
 
-	void CreateSound(LowerSoundType::LowerSoundType sound);
+	void CreateLowerSound(LowerSoundType::LowerSoundType sound);
+
+	void CreateUpperSound(UpperSoundType::UpperSoundType sound);
 
 	//当前关卡必须至少存在过一个植物，此函数才有效
 	void FrozeAll();

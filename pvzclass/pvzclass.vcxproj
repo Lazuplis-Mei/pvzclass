@@ -257,6 +257,8 @@
     <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
     <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
+    <ClInclude Include="Enums\UpperSoundType.h" />
+    <ClInclude Include="Enums\AnimationType.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="ProcessOpener.h" />

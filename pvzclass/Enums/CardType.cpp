@@ -50,8 +50,8 @@ const char* CardType::ToString(CardType cardt)
 		return "Jalapeno";
 	case CardType::Spickweed:
 		return "Spickweed";
-	case CardType::Tochwood:
-		return "Tochwood";
+	case CardType::Torchwood:
+		return "Torchwood";
 	case CardType::Tallnut:
 		return "Tallnut";
 	case CardType::Seashroom:

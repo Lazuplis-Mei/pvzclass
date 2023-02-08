@@ -54,7 +54,7 @@ namespace LowerSoundType
 		HammerHit,
 		Rain,
 		DolphinJump,
-		DolphinCry,
+		DolphinEnter,
 		ZombieEnterWater1,
 		ZombieEnterWater2,
 		BusterGnaw,
@@ -108,6 +108,6 @@ namespace LowerSoundType
 		DaveWawarowaro,
 	};
 
-	extern const char* ToString(LowerSoundType cardt);
+	extern const char* ToString(LowerSoundType sound);
 
 }

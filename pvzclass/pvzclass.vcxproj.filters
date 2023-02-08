@@ -362,6 +362,12 @@
     <ClInclude Include="Enums\LowerSoundType.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\UpperSoundType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\AnimationType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

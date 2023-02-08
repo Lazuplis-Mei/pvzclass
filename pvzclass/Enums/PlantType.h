@@ -27,7 +27,7 @@ namespace PlantType
 		TangleKelp,
 		Jalapeno,
 		Spickweed,
-		Tochwood,
+		Torchwood,
 		Tallnut,
 		Seashroom,
 		Plantern,

@@ -50,8 +50,8 @@ const char* PlantType::ToString(PlantType plantt)
 		return "Jalapeno";
 	case PlantType::Spickweed:
 		return "Spickweed";
-	case PlantType::Tochwood:
-		return "Tochwood";
+	case PlantType::Torchwood:
+		return "Torchwood";
 	case PlantType::Tallnut:
 		return "Tallnut";
 	case PlantType::Seashroom:

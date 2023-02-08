@@ -35,3 +35,5 @@
 #include "Enums/PlantState.h"
 #include "Enums/EffectType.h"
 #include "Enums/LowerSoundType.h"
+#include "Enums/UpperSoundType.h"
+#include "Enums/AnimationType.h"

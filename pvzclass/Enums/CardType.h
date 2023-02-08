@@ -27,7 +27,7 @@ namespace CardType
 		TangleKelp,
 		Jalapeno,
 		Spickweed,
-		Tochwood,
+		Torchwood,
 		Tallnut,
 		Seashroom,
 		Plantern,
