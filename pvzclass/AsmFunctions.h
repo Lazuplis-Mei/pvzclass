@@ -42,6 +42,7 @@
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_DWORD(address,d1,b,d2) PUSHDWORD(d2),PUSH(b),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_DWORD_DWORD(address,d1,d2,d3) PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD_DWORD(address,d1,d2,d3,d4) PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_BYTE_BYTE(address,b1,b2) PUSH(b2),PUSH(b1),INVOKE(address)
@@ -131,6 +132,7 @@
 
 #define SET_MUSICVOLUME INVOKE_BYTE(0x554D00,0)
 #define LOADLIBRARYA INVOKE_DWORD((int)LoadLibraryA,0)
+#define REANIMATION_DIE INVOKE(0x4733F0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
 #define WIN INVOKE(0x40C3E0)
 #define LOSE INVOKE(0x413400)
@@ -164,6 +166,8 @@
 extern byte __asm__set_MusicVolume[21];
 
 extern byte __asm__InjectDll[200];
+
+extern byte __asm__Reanimation__Die[19];
 
 extern byte __asm__set__LevelScene[19];
 

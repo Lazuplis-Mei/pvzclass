@@ -264,6 +264,7 @@ public:
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void Die();
 	};
 	class Attachment
 	{

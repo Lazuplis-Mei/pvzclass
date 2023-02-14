@@ -1,6 +1,26 @@
 ﻿#include "Creators.h"
 #include <iostream>
 
+byte __asm__CreateReanimation[44]
+{
+	MOV_EAX(0),
+	MOV_EBX(0),
+	CREATEREANIMATION,
+	MOV_PTR_ADDR_EAX(0),
+	RET,
+};
+
+SPT<PVZ::Animation> Creator::CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer)
+{
+	SETARG(__asm__CreateReanimation, 1) = PVZ_BASE;
+	SETARG(__asm__CreateReanimation, 6) = type;
+	SETARG(__asm__CreateReanimation, 11) = layer;
+	SETARGFLOAT(__asm__CreateReanimation, 16) = x;
+	SETARGFLOAT(__asm__CreateReanimation, 21) = y;
+	SETARG(__asm__CreateReanimation, 39) = PVZ::Memory::Variable;
+	return MKS<PVZ::Animation>(PVZ::Memory::Execute(STRING(__asm__CreateReanimation)));
+}
+
 byte __asm__CreateZombie[34]
 {
 	MOV_ECX_PTR_ADDR(0),

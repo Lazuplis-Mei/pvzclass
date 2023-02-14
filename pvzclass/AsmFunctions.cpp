@@ -13,6 +13,13 @@ byte __asm__InjectDll[200]
 	RET
 };
 
+byte __asm__Reanimation__Die[]
+{
+	MOV_ECX(0),
+	REANIMATION_DIE,
+	RET
+};
+
 byte __asm__set__LevelScene[]
 {
 	MOV_ESI(0),

@@ -48,3 +48,9 @@ void PVZ::Animation::SetColor(Color color)
 	Memory::WriteMemory<int>(BaseAddress + 0x50, color.Blue);
 	Memory::WriteMemory<int>(BaseAddress + 0x54, color.Alpha);
 }
+
+void PVZ::Animation::Die()
+{
+	SETARG(__asm__Reanimation__Die, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Reanimation__Die));
+}

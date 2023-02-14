@@ -67,18 +67,14 @@ int main()
 	cout << pid << endl;
 
 	PVZ* pvz = new PVZ(pid);
-	MyZombie::SetMemSize(0x15C, 2048);
-	cout << pvz->BaseAddress << endl;
-	if (!pvz->BaseAddress)
-		return 2;
 
 	pvz->Sun = 8000;
-	SPT<PVZ::Coin> coin = MKS<PVZ::Coin>(1);
+	SPT<PVZ::Coin> coin = MKS<PVZ::Coin>(0);
 	cout << coin->GetGardenPlant()->Type;
 
-	//EventHandler 的代码留在这里只是为了演示它的用法。
-	//若要深入了解，请把 SetMemSize() 删掉。
-	
+	SPT<PVZ::Animation> test = Creator::CreateReanimation(AnimationType::DolphinRiderZombie, 200.0, 500.0);
+	test->Die();
+
 	//EventHandler start
 	EventHandler e(pvz);
 	e.RegistryListeners(OnDeath, Event_High);

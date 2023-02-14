@@ -19,6 +19,7 @@ inline void xytorc(int* x, int* y)
 
 
 #define PI 3.1415926f
+#define CREATEREANIMATION INVOKE_DWORD_DWORD_DWORD(0x453C30,0,0,0)
 #define CREATEZOMBIE INVOKE_BYTE_BYTE(0x42A0F0,0,0)
 #define CREATEPLANT INVOKE_DWORD_BYTE_BYTE_BYTE(0x40D120,0,0,0,-1)
 #define CREATEPROJECTILE INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(0x40D620,0,0,0,0,0)
@@ -44,6 +45,8 @@ inline void xytorc(int* x, int* y)
 #define CREATEPORTAL INVOKE(0x426FC0)
 #define CLEARZOMBIEPREVIEW INVOKE(0x40DF70)
 #define CREATEZOMBIEINLEVEL INVOKE(0x4092E0)
+
+	SPT<PVZ::Animation> CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer = 0x310000);
 
 	SPT<PVZ::Zombie> CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
