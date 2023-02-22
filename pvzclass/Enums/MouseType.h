@@ -5,9 +5,14 @@ namespace MouseType
 	enum MouseType
 	{
 		None,
-		Card,
-		Shovel = 6,
-		Crosshair = 8,
+		SlotPlant,
+		CoinPlant,
+		GlovePlant,
+		DuplicatorPlant,
+		WheelBarrowPlant,
+		Shovel,
+		Hammer,
+		Crosshair,
 		Watering,
 		GoldenWatering,
 		Fertilizer,

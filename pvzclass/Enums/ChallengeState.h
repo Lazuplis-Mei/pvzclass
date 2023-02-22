@@ -1,0 +1,25 @@
+#pragma once
+namespace ChallengeState
+{
+	enum ChallengeState
+	{
+		NORMAL,
+		BEGHOULED_MOVING,
+		BEGHOULED_FALLING,
+		BEGHOULED_NO_MATCHES,
+		SLOT_MACHINE_ROLLING,
+		STORM_FLASH_1,
+		STORM_FLASH_2,
+		STORM_FLASH_3,
+		ZEN_FADING,
+		SCARY_POTTER_MALLETING,
+		LAST_STAND_ONSLAUGHT,
+		TREE_JUST_GREW,
+		TREE_GIVE_WISDOM,
+		TREE_WAITING_TO_BABBLE,
+		TREE_BABBLING
+	};
+
+	extern const char* ToString(ChallengeState challengest);
+
+}

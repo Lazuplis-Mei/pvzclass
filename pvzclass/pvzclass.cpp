@@ -69,11 +69,14 @@ int main()
 	PVZ* pvz = new PVZ(pid);
 
 	pvz->Sun = 8000;
-	SPT<PVZ::Coin> coin = MKS<PVZ::Coin>(0);
-	cout << coin->GetGardenPlant()->Type;
 
 	SPT<PVZ::Animation> test = Creator::CreateReanimation(AnimationType::DolphinRiderZombie, 200.0, 500.0);
 	test->Die();
+
+	Sleep(2000);
+
+	SPT<PVZ::MousePointer> mptr = pvz->GetMousePointer();
+	cout << mptr->Row << ' ' << mptr->Column << endl;
 
 	//EventHandler start
 	EventHandler e(pvz);

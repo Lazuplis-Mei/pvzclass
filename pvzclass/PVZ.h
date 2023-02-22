@@ -238,7 +238,24 @@ public:
 #pragma endregion
 
 #pragma region classes
-
+	//Do NOT construct this class!
+	class GameObject
+	{
+	protected:
+		int BaseAddress;
+	public:
+		GameObject()
+		{
+			this->BaseAddress = 0;
+		}
+		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
+		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
+		INT_PROPERTY(Width, __get_Width, __set_Width, 0x10);
+		INT_PROPERTY(Height, __get_Height, __set_Height, 0x14);
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
+	};
 	class Animation
 	{
 		int BaseAddress;
@@ -308,7 +325,7 @@ public:
 		void Del(int index);
 		void Add(ZombieType::ZombieType ztype);
 	};
-	class Mouse
+	class Mouse//+320
 	{
 		int BaseAddress;
 	public:
@@ -626,15 +643,20 @@ public:
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
-	class MousePointer
+	class MousePointer : public GameObject//+138
 	{
-		int BaseAddress;
 	public:
 		MousePointer(int address);
 		INT_PROPERTY(CardIndex, __get_CardIndex, __set_CardIndex, 0x24);
 		T_PROPERTY(CardType::CardType, ContentCard, __get_ContentCard, __set_ContentCard, 0x28);
 		T_PROPERTY(CardType::CardType, ContentCardImitative, __get_ContentCardImitative, __set_ContentCardImitative, 0x2C);
 		T_PROPERTY(MouseType::MouseType, Type, __get_Type, __set_Type, 0x30);
+		INT_PROPERTY(CoinID, __get_CoinID, __set_CoinID, 0x34);
+		INT_PROPERTY(GlovePlantID, __get_GlovePlantID, __set_GlovePlantID, 0x38);
+		INT_PROPERTY(ImitativePlantID, __get_ImitativePlantID, __set_ImitativePlantID, 0x3C);
+		INT_PROPERTY(CobCannonID, __get_CobCannonID, __set_CobCannonID, 0x40);
+		INT_PROPERTY(HammerDownCount, __get_HammerDownCount, __set_HammerDownCount, 0x44);
+		SPT<PVZ::Animation> GetAnimation();
 		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
 		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
 	};
@@ -690,16 +712,22 @@ public:
 	public:
 		Miscellaneous(int address);
 		T_READONLY_PROPERTY(BOOLEAN, DragingPlant, __get_DragingPlant, 8);
-		INT_READONLY_PROPERTY(DragingX, __get_DragingX, 0xC);
+		INT_READONLY_PROPERTY(DragingX, __get_DragingX, 0xC);	
 		INT_READONLY_PROPERTY(DragingY, __get_DragingY, 0x10);
 		BOOLEAN HaveCrater(int row, int column);
 		void SetCrater(int row, int column, BOOLEAN b);
 		T_PROPERTY(BOOLEAN, UpgradedRepeater, __get_UpgradedRepeater, __set_UpgradedRepeater, 0x4A);
 		T_PROPERTY(BOOLEAN, UpgradedFumeshroom, __get_UpgradedFumeshroom, __set_UpgradedFumeshroom, 0x4B);
 		T_PROPERTY(BOOLEAN, UpgradedTallnut, __get_UpgradedTallnut, __set_UpgradedTallnut, 0x4C);
+		T_PROPERTY(ChallengeState::ChallengeState, State, __get_State, __set_State, 0x54);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x58);
+		INT_PROPERTY(ConveyorCountdown, __get_ConveyorCountdown, __set_ConveyorCountdown, 0x5C);
 		INT_PROPERTY(LevelProcess, __get_LevelProcess, __set_LevelProcess, 0x60);
+		T_PROPERTY(CardType::CardType, ConveyorLastCard, __get_ConveyorLastCard, __set_ConveyorLastCard, 0x68);
 		INT_PROPERTY(Round, __get_Round, __set_Round, 0x6C);
+		INT_PROPERTY(SlotMachineRollCount, __get_SlotMachineRollCount, __set_SlotMachineRollCount, 0x70);
+		INT_READONLY_PROPERTY(VaseCount, __get_VaseCount, 0x0B0);
+		INT_READONLY_PROPERTY(TreeOfWisdomTalkIndex, __get_TreeOfWisdomTalkIndex, 0x0B8);
 	};
 	class SaveData
 	{

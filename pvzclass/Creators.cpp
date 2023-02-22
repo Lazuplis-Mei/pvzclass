@@ -313,7 +313,7 @@ byte __asm__CreateCaption[70]
 {
 	PUSHDWORD(0),
 	LEA_ECX_ESP_ADD(0x30),
-	UNKNOWSTRINGFUNCTION,
+	CHARSTRTOSTRING,
 	MOV_ESI(0),
 	MOV_ECX(6),
 	LEA_EDX_ESP_ADD(0x2C),
@@ -338,7 +338,7 @@ byte __asm__CreateImageCaption[50]
 	MOV_EDI(0),
 	PUSHDWORD(0),
 	LEA_ECX_ESP_ADD(0x10),
-	UNKNOWSTRINGFUNCTION,
+	CHARSTRTOSTRING,
 	MOV_ECX(0xF),
 	LEA_EDX_ESP_ADD(0xC),
 	CREATEIMAGECAPTION,
@@ -447,7 +447,7 @@ void Creator::CreateUpperSound(UpperSoundType::UpperSoundType sound)
 byte __asm__FrozeAll[19]
 {
 	MOV_EDI(0),
-	FORZEALL,
+	FREEZEALL,
 	RET,
 };
 

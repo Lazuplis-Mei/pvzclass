@@ -6,8 +6,8 @@ const char* MouseType::ToString(MouseType mouset)
 	{
 	case MouseType::None:
 		return "MouseTypeNone";
-	case MouseType::Card:
-		return "Card";
+	case MouseType::SlotPlant:
+		return "SlotPlant";
 	case MouseType::Shovel:
 		return "Shovel";
 	case MouseType::Crosshair:
