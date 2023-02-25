@@ -222,6 +222,9 @@
     <ClCompile Include="Classes\ZenGarden.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Definition.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -366,6 +369,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\AnimationType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ChallengeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

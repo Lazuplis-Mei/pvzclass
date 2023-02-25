@@ -157,6 +157,7 @@
     <ClCompile Include="Classes\Caption.cpp" />
     <ClCompile Include="Classes\CardSlot.cpp" />
     <ClCompile Include="Classes\Coin.cpp" />
+    <ClCompile Include="Classes\Definition.cpp" />
     <ClCompile Include="Classes\Griditem.cpp" />
     <ClCompile Include="Classes\Icetrace.cpp" />
     <ClCompile Include="Classes\Lawn.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="AsmFunctions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />
     <ClInclude Include="Enums\CardType.h" />
+    <ClInclude Include="Enums\ChallengeState.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />
     <ClInclude Include="Enums\CoinType.h" />
     <ClInclude Include="Enums\DamageType.h" />

@@ -794,6 +794,33 @@ public:
 		bool IsFull(bool consider_items);
 	};
 
+	class PlantDefinition
+	{
+		int BaseAddress;
+	public:
+		PlantDefinition(int id);
+		T_READONLY_PROPERTY(CardType::CardType, Type, __get_Type, 0);
+		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 8);
+		INT_READONLY_PROPERTY(PacketID, __get_PacketID, 0xC);
+		INT_PROPERTY(Cost, __get_Cost, __set_Cost, 0x10);
+		INT_PROPERTY(Cooldown, __get_Cooldown, __set_Cooldown, 0x14);
+		INT_PROPERTY(IsShooter, __get_IsShooter, __set_IsShooter, 0x18);
+		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
+	};
+
+	class ZombieDefinition
+	{
+		int BaseAddress;
+	public:
+		ZombieDefinition(int id);
+		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
+		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 4);
+		INT_PROPERTY(Value, __get_Value, __set_Value, 8);
+		INT_PROPERTY(StartingLevel, __get_StartingLevel, __set_StartingLevel, 0xC);
+		INT_PROPERTY(FirstAllowedWave, __get_FirstAllowedWave, __set_FirstAllowedWave, 0x10);
+		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
+	};
+
 #pragma endregion
 
 #pragma region methods
