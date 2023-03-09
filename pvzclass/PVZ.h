@@ -848,6 +848,8 @@ public:
 	SPT<SaveData> GetSaveData();
 	SPT<Music> GetMusic();
 	SPT<ZenGarden> GetZenGarden();
+	SPT<PlantDefinition> GetPlantDefinition(PlantType::PlantType type);
+	SPT<ZombieDefinition> GetZombieDefinition(ZombieType::ZombieType type);
 
 #pragma endregion
 

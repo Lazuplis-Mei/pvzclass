@@ -10,15 +10,26 @@ namespace CoinType
 		NormalSun,
 		MiniSun,
 		LargeSun,
-		Trophy = 8,
-		Note = 15,
+		FinalSeedPacket,
+		Trophy,
+		Shovel,
+		Almanac,
+		CarKets,
+		Vase,
+		WateringCan,
+		Taco,
+		Note,
 		PlantCard,
 		PlantPresent,
 		MoneyBag,
 		SealedPresent,
 		DiamondBag,
 		SilverSunflower,
-		GoldSunflower
+		GoldSunflower,
+		Chocolate,
+		AwardChocolate,
+		PresentMinigames,
+		PresentPuzzle
 	};
 
 	extern const char* ToString(CoinType coint);

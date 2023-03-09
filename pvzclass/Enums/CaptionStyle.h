@@ -5,12 +5,22 @@ namespace CaptionStyle
 	enum CaptionStyle
 	{
 		Lowermiddle = 1,
-		Lowerpart = 3,
-		Bottom = 6,
-		Center = 12,
-		BottomWhite = 14,
+		LowermiddleStay,
+		Lowerpart,
+		Later,
+		LaterStay,
+		Bottom,
+		BottomFast,
+		Stay,
+		TallFast,
+		Tall10Sec,
+		Tall8Sec,
+		Center,
+		CenterFast,
+		BottomWhite,
 		CenterRed,
 		TopYellow,
+		ZenGarden,
 	};
 
 	extern const char* ToString(CaptionStyle captions);

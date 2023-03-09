@@ -4,22 +4,6 @@
 
 using namespace std;
 
-class MyZombie: public PVZ::Zombie
-{
-public:
-	static const int MemSize = 0x16C;
-	MyZombie(int indexoraddress): PVZ::Zombie(indexoraddress)
-	{
-		if (indexoraddress > 1024)
-			BaseAddress = indexoraddress;
-		else
-			BaseAddress = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
-#if _DEBUG
-		DebugType = Type;
-#endif
-	}
-};
-
 void OnDeath(EventZombieDead* e, PVZ* pvz)
 {
 	e->CancleState = true;
@@ -77,6 +61,8 @@ int main()
 
 	SPT<PVZ::MousePointer> mptr = pvz->GetMousePointer();
 	cout << mptr->Row << ' ' << mptr->Column << endl;
+
+	cout << pvz->GetPlantDefinition(PlantType::Blover)->Cooldown << endl;
 
 	//EventHandler start
 	EventHandler e(pvz);

@@ -292,6 +292,16 @@ SPT<PVZ::ZenGarden> PVZ::GetZenGarden()
 	return MKS<ZenGarden>(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
+SPT<PVZ::PlantDefinition> PVZ::GetPlantDefinition(PlantType::PlantType type)
+{
+	return MKS<PlantDefinition>((int)type);
+}
+
+SPT<PVZ::ZombieDefinition> PVZ::GetZombieDefinition(ZombieType::ZombieType type)
+{
+	return MKS<ZombieDefinition>((int)type);
+}
+
 SPT<PVZ::Miscellaneous> PVZ::GetMiscellaneous()
 {
 	return MKS<Miscellaneous>(BaseAddress);
