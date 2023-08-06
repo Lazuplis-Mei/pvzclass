@@ -47,7 +47,6 @@ void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)
 	Memory::WriteArray<byte>(0x4602F6, STRING(__asm__Mem4));
 	Memory::WriteArray<byte>(0x4679E5, STRING(__asm__Mem4));
 	Memory::WriteArray<byte>(0x46D8E4, STRING(__asm__Mem4));
-	Memory::WriteArray<byte>(0x46D8E4, STRING(__asm__Mem4));
 	Memory::WriteArray<byte>(0x481D52, STRING(__asm__MemA));
 	Memory::WriteArray<byte>(0x481D5E, STRING(__asm__Mem4));
 	Memory::WriteArray<byte>(0x481D78, STRING(__asm__Mem2));
