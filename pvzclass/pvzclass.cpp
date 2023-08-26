@@ -1,84 +1,29 @@
 ﻿#include "pvzclass.h"
 #include <iostream>
-#include "events.h"
 
 using namespace std;
-
-void OnDeath(EventZombieDead* e, PVZ* pvz)
-{
-	e->CancleState = true;
-	std::cout << endl << ZombieState::ToString(e->zombie->State);
-}
-
-void OnDeath2(EventZombieDead* e, PVZ* pvz)
-{
-	std::cout << endl << "2 "<< e->zombie->Index;
-}
-
-void OnPlantDead(EventPlantDead* e, PVZ* pvz)
-{
-	// Creator::CreatePlant(PlantType::Doomshroon, 3, 3);
-	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
-	Creator::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
-}
-
-void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
-{
-	PVZ::Plant* plant = e->plant;
-	if (plant->Row == e->zombie->Row)
-	{
-		plant->Smash();
-		e->zombie->Hypnotize();
-		e->zombie->Froze(1000);
-		e->zombie->Decelerate(5000);
-	}
-}
-
-void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
-	e->plant->Type = PlantType::FlowerPot;
-	std::cout << "!";
-}
-
-void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
-	e->zombie->Type = ZombieType::ConeheadZombie;
-}
 
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
-	if (!pid)
-		return 1;
-	cout << pid << endl;
-
+	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
-	pvz->Sun = 8000;
-
-	SPT<PVZ::Animation> test = Creator::CreateReanimation(AnimationType::DolphinRiderZombie, 200.0, 500.0);
-	test->Die();
-
-	Sleep(2000);
-
-	SPT<PVZ::MousePointer> mptr = pvz->GetMousePointer();
-	cout << mptr->Row << ' ' << mptr->Column << endl;
-
-	cout << pvz->GetPlantDefinition(PlantType::Blover)->Cooldown << endl;
-
-	//EventHandler start
-	EventHandler e(pvz);
-	e.RegistryListeners(OnDeath, Event_High);
-	e.RegistryListeners(OnDeath2, Event_Low);
-	e.RegistryListeners(OnPlantDead);
-	e.RegistryListeners(OnPlantDamage);
-	e.RegistryListeners(OnPotatoMineSproutOut);
-	e.RegistryListeners(OnPoleVaultingJumping);
-	while (pvz->BaseAddress)
+	while (true)
 	{
-		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
-		e.Run();
+		int code = PVZ::Memory::ReadMemory<DWORD>(0x70000C);
+		if (code == 1)
+		{
+			shared_ptr<PVZ::Zombie> zombie = make_shared<PVZ::Zombie>(PVZ::Memory::ReadMemory<DWORD>(0x700000));
+			DamageType::DamageType type = (DamageType::DamageType)PVZ::Memory::ReadMemory<DWORD>(0x700004);
+			int amount = PVZ::Memory::ReadMemory<DWORD>(0x700008);
+
+			cout << ZombieType::ToString(zombie->Type) << " 收到了 " << amount << " 点伤害，类型为 " << DamageType::ToString(type) << endl;
+
+			PVZ::Memory::WriteMemory<DWORD>(0x70000C, 0);
+		}
 	}
 
-	//EventHandler end
 	delete pvz;
 	return 0;
 }
