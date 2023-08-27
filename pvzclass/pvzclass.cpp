@@ -1,84 +1,48 @@
 ﻿#include "pvzclass.h"
+#include "HookEvents/ZombieHitEvent.h"
 #include <iostream>
-#include "events.h"
 
 using namespace std;
 
-void OnDeath(EventZombieDead* e, PVZ* pvz)
+int listener0(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int amount)
 {
-	e->CancleState = true;
-	std::cout << endl << ZombieState::ToString(e->zombie->State);
+	cout << "listener0 触发，伤害翻倍" << endl;
+	amount *= 2;
+	return amount;
 }
 
-void OnDeath2(EventZombieDead* e, PVZ* pvz)
+int listener1(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int amount)
 {
-	std::cout << endl << "2 "<< e->zombie->Index;
+	cout << "listener1 触发" << endl;
+	return amount;
 }
 
-void OnPlantDead(EventPlantDead* e, PVZ* pvz)
+int listener2(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int amount)
 {
-	// Creator::CreatePlant(PlantType::Doomshroon, 3, 3);
-	std::cout << e->last_pos.first << " " << e->last_pos.second << std::endl;
-	Creator::CreateCoin(CoinType::NormalSun, e->last_pos.first, e->last_pos.second, CoinMotionType::Spray);
-}
-
-void OnPlantDamage(EventPlantDamage* e, PVZ* pvz)
-{
-	PVZ::Plant* plant = e->plant;
-	if (plant->Row == e->zombie->Row)
-	{
-		plant->Smash();
-		e->zombie->Hypnotize();
-		e->zombie->Froze(1000);
-		e->zombie->Decelerate(5000);
-	}
-}
-
-void OnPotatoMineSproutOut(EventPlantPotatoMineSproutOuted* e, PVZ* pvz) {
-	e->plant->Type = PlantType::FlowerPot;
-	std::cout << "!";
-}
-
-void OnPoleVaultingJumping(EventZombiePoleVaultingJumped* e, PVZ* pvz) {
-	e->zombie->Type = ZombieType::ConeheadZombie;
+	cout << "listener2 触发" << endl;
+	cout << ZombieType::ToString(zombie->Type) << " 受到了 " << amount << " 点伤害，类型为 " << DamageType::ToString(type) << endl;
+	return amount;
 }
 
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
-	if (!pid)
-		return 1;
-	cout << pid << endl;
-
+	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
-	pvz->Sun = 8000;
+	ZombieHitEvent e;
+	e.start();
+	e.addListener(listener0);
+	e.addListener(listener1);
+	e.addListener(listener2);
+	e.removeListener(1);
 
-	SPT<PVZ::Animation> test = Creator::CreateReanimation(AnimationType::DolphinRiderZombie, 200.0, 500.0);
-	test->Die();
-
-	Sleep(2000);
-
-	SPT<PVZ::MousePointer> mptr = pvz->GetMousePointer();
-	cout << mptr->Row << ' ' << mptr->Column << endl;
-
-	cout << pvz->GetPlantDefinition(PlantType::Blover)->Cooldown << endl;
-
-	//EventHandler start
-	EventHandler e(pvz);
-	e.RegistryListeners(OnDeath, Event_High);
-	e.RegistryListeners(OnDeath2, Event_Low);
-	e.RegistryListeners(OnPlantDead);
-	e.RegistryListeners(OnPlantDamage);
-	e.RegistryListeners(OnPotatoMineSproutOut);
-	e.RegistryListeners(OnPoleVaultingJumping);
-	while (pvz->BaseAddress)
+	while (true)
 	{
-		//cerr << pvz->WaveCount << " " << pvz->RefreshedWave << endl;
-		e.Run();
+		e.run();
 	}
 
-	//EventHandler end
+	e.end();
 	delete pvz;
 	return 0;
 }
