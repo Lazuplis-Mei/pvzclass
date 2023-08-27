@@ -220,8 +220,10 @@
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="ZombieEvent.cpp" />
+    <ClCompile Include="HookEvents\ZombieHitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HookEvents\BaseEvent.h" />
     <ClInclude Include="Creators.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFunctions.h" />
@@ -271,6 +273,7 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="HookEvents\ZombieHitEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
