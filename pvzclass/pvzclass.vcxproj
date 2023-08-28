@@ -225,6 +225,9 @@
     <ClCompile Include="HookEvents\ZombieHitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugEvents\BaseEvent.h" />
+    <ClInclude Include="DebugEvents\EventHandler.h" />
+    <ClInclude Include="DebugEvents\ZombieEatEvent.h" />
     <ClInclude Include="HookEvents\BaseEvent.h" />
     <ClInclude Include="Creators.h" />
     <ClInclude Include="Enums.h" />

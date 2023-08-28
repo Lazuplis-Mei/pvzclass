@@ -395,6 +395,15 @@
     <ClInclude Include="HookEvents\ZombieEatEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DebugEvents\BaseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\EventHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\ZombieEatEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
