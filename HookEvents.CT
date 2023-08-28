@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"ZombieHitEvent"</Description>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 
@@ -45,31 +45,114 @@ cmp ecx,10
     </CheatEntry>
     <CheatEntry>
       <ID>1</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>700000</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>2</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>700004</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>3</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>700008</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>4</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>70000C</Address>
+      <Description>"PlantShootEvent"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+466E09:
+jmp 700080
+nop 2
+
+466E7C:
+jmp 700060
+nop
+
+466E93:
+jmp 700060
+nop
+
+466EA9:
+jmp 700060
+nop
+
+46731D:
+jmp 700060
+nop
+
+467349:
+jmp 700060
+nop
+
+46737B:
+jmp 700060
+nop
+
+4673AA:
+jmp 700060
+nop
+
+46741F:
+jmp 700060
+nop
+
+467430:
+jmp 700060
+nop
+
+467550:
+jmp 700060
+nop
+
+700060:
+add esp,1C
+mov [700054],ecx
+mov [700058],1
+while:
+cmp [700058],0
+jne while
+ret 0010
+
+700080:
+mov ebp,[esp+28]
+mov eax,[ebp+24]
+mov [700050],ebp
+jmp 466E10
+
+[DISABLE]
+466E7C:
+add esp,1C
+ret 0010
+
+466E93:
+add esp,1C
+ret 0010
+
+466EA9:
+add esp,1C
+ret 0010
+
+46731D:
+add esp,1C
+ret 0010
+
+467349:
+add esp,1C
+ret 0010
+
+46737B:
+add esp,1C
+ret 0010
+
+4673AA:
+add esp,1C
+ret 0010
+
+46741F:
+add esp,1C
+ret 0010
+
+467430:
+add esp,1C
+ret 0010
+
+467550:
+add esp,1C
+ret 0010
+
+466E09:
+mov ebp,[esp+28]
+mov eax,[ebp+24]
+</AssemblerScript>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

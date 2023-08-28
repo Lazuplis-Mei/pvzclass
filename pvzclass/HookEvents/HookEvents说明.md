@@ -4,7 +4,7 @@
 
 这种实现方式经过排山倒海小游戏的测试，性能消耗不大，且不会出现误判；此外合适的 hook 位置可以提供先前的事件系统无法做到的功能。
 
-### 使用说明
+## 使用说明
 
 请参照同一个 commit 中的 pvzclass.cpp 文件。
 
@@ -50,7 +50,7 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 
 3. listener 会按照添加的先后顺序触发，请确保它们之间的正常运行逻辑。
 
-### 开发说明
+## 开发说明
 
 请参照同一个 commit 中的 ZombieHitEvent 相关文件。
 
@@ -63,3 +63,51 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 2. run 在监听事件时调用，将相关内存数据转换为对象，并调用各个 listener。
 
 3. end 在停用事件时调用，复原相关的 PVZ 代码，以避免过多的资源消耗以及阻塞。
+
+## 开发计划
+
+第一批开发的事件是 pvzclass 中使用了 Memory::Execute 的事件，列举如下：
+
+- [ ] CoinCreateEvent
+
+- [ ] CoinCollectEvent
+
+- [ ] GriditemCreateEvent
+
+- [ ] GriditemRemoveEvent
+
+- [ ] MouseClickEvent
+
+- [x] PlantShootEvent
+
+- [ ] PlantCreateEvent
+
+- [ ] PlantRemoveEvent
+
+- [ ] ProjectileOnFireEvent
+
+- [ ] ProjectileCreateEvent
+
+- [ ] ProjectileRemoveEvent
+
+- [x] ZombieHitEvent
+
+- [ ] ZombieBlastEvent
+
+- [ ] ZombieButterEvent
+
+- [ ] ZombieDecelerateEvent
+
+- [ ] ZombieFrozeEvent
+
+- [ ] ZombieHyponotizeEvent
+
+- [ ] ZombieCreateEvent
+
+- [ ] ZombieRemoveEvent
+
+- [ ] GraveCreateEvent
+
+- [ ] CraterCreateEvent
+
+- [ ] LadderCreateEvent

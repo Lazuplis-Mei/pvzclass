@@ -228,6 +228,9 @@
     <ClCompile Include="HookEvents\ZombieHitEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HookEvents\PlantShootEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -381,6 +384,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HookEvents\ZombieHitEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HookEvents\PlantShootEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -211,6 +211,7 @@
     <ClCompile Include="events.cpp" />
     <ClCompile Include="LevelEvent.cpp" />
     <ClCompile Include="PlantEvent.cpp" />
+    <ClCompile Include="HookEvents\PlantShootEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="ProjectileEvent.cpp" />
@@ -265,6 +266,7 @@
     <ClInclude Include="Enums\AnimationType.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="Injectors.h" />
+    <ClInclude Include="HookEvents\PlantShootEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
