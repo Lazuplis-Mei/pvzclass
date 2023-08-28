@@ -154,6 +154,31 @@ mov ebp,[esp+28]
 mov eax,[ebp+24]
 </AssemblerScript>
     </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"ZombieEatEvent"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+7000A0:
+mov [700094],edi
+mov [700098],ecx
+mov [70009C],1
+while:
+cmp [70009C],1
+je while
+call 52FB40
+jmp returnhere
+
+52F689:
+jmp 7000A0
+returnhere:
+
+[DISABLE]
+52F689:
+call 52FB40
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>

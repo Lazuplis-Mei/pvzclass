@@ -220,6 +220,7 @@
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
+    <ClCompile Include="HookEvents\ZombieEatEvent.cpp" />
     <ClCompile Include="ZombieEvent.cpp" />
     <ClCompile Include="HookEvents\ZombieHitEvent.cpp" />
   </ItemGroup>
@@ -276,6 +277,7 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="HookEvents\ZombieHitEvent.h" />
+    <ClInclude Include="HookEvents\ZombieEatEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

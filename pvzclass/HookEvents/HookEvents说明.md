@@ -90,6 +90,8 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 
 - [ ] ProjectileRemoveEvent
 
+- [x] ZombieEatEvent
+
 - [x] ZombieHitEvent
 
 - [ ] ZombieBlastEvent
