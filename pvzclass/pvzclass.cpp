@@ -1,13 +1,30 @@
 ﻿#include "pvzclass.h"
-#include "DebugEvents/EventHandler.h"
 #include "DebugEvents/ZombieEatEvent.h"
+#include "DebugEvents/ZombieHitEvent.h"
 #include <iostream>
 
 using namespace std;
 
 void listener0(shared_ptr<PVZ::Zombie> zombie, shared_ptr<PVZ::Plant> plant)
 {
-	cout << ZombieType::ToString(zombie->Type) << " 啃食了 " << PlantType::ToString(plant->Type) << endl;
+	cout << ZombieType::ToString(zombie->Type) << " 啃食了 ";
+}
+
+void listener1(shared_ptr<PVZ::Zombie> zombie, shared_ptr<PVZ::Plant> plant)
+{
+	cout << PlantType::ToString(plant->Type) << endl;
+}
+
+int listener2(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int amount)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 受到了 ";
+	return amount * 2;
+}
+
+int listener3(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int amount)
+{
+	cout << amount << " 点伤害，类型为：" << DamageType::ToString(type) << endl;
+	return amount;
 }
 
 int main()
@@ -20,25 +37,28 @@ int main()
 	eventHandlerStart(debugEvent);
 	CONTEXT context;
 	HANDLE hThread;
-	ZombieEatEvent e;
-	cout << 1;
-	e.start();
-	cout << 2;
-	e.addListener(listener0);
+	ZombieEatEvent e1;
+	e1.start();
+	e1.addListener(listener0);
+	e1.addListener(listener1);
+	ZombieHitEvent e2;
+	e2.start();
+	e2.addListener(listener2);
+	e2.addListener(listener3);
 
 	while (true)
 	{
-		cout << 3;
-		hThread = eventHandlerRun(debugEvent, context, -1);
-		cout << 4;
+		eventHandlerRun(debugEvent, context, hThread, -1);
 		if (hThread != NULL)
 		{
-			cout << 5;
-			e.handle(debugEvent, context, hThread);
+			e1.handle(debugEvent, context, hThread);
+			e2.handle(debugEvent, context, hThread);
 		}
+		Sleep(10);
 	}
 
-	e.end();
+	e1.end();
+	e2.end();
 	eventHandlerStop();
 	delete pvz;
 	return 0;

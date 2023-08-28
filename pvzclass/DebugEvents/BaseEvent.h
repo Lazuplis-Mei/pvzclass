@@ -1,5 +1,6 @@
 #pragma once
 #include "../PVZ.h"
+#include "EventHandler.h"
 #include <vector>
 #include <functional>
 
@@ -36,13 +37,12 @@ void BaseEvent<FunctionType>::start()
 template<class FunctionType>
 void BaseEvent<FunctionType>::afterHandle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread)
 {
+	eventHandled = true;
 	PVZ::Memory::WriteMemory<BYTE>(address, raw);
 	context.EFlags |= 0x100;
 	SetThreadContext(hThread, &context);
-	CloseHandle(hThread);
 	ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE);
 	PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
-	ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE);
 }
 
 template<class FunctionType>
