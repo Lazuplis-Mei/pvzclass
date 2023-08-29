@@ -6,7 +6,7 @@ class ZombieHitEvent : public BaseEvent<std::function<
 {
 public:
 	ZombieHitEvent();
-	bool handle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread);
+	bool handle(DebugEventHandler handler);
 };
 
 ZombieHitEvent::ZombieHitEvent()
@@ -14,17 +14,17 @@ ZombieHitEvent::ZombieHitEvent()
 	address = 0x5317C0;
 }
 
-bool ZombieHitEvent::handle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread)
+bool ZombieHitEvent::handle(DebugEventHandler handler)
 {
-	if (context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(context.Esi);
-	DamageType::DamageType type = (DamageType::DamageType)(context.Eax);
-	int amount = PVZ::Memory::ReadMemory<DWORD>(context.Esp + 4);
+	if (handler.context.Eip != address) return false;
+	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Esi);
+	DamageType::DamageType type = (DamageType::DamageType)(handler.context.Eax);
+	int amount = PVZ::Memory::ReadMemory<DWORD>(handler.context.Esp + 4);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		amount = listeners[i](zombie, type, amount);
 	}
-	PVZ::Memory::WriteMemory<DWORD>(context.Esp + 4, amount);
-	afterHandle(debugEvent, context, hThread);
+	PVZ::Memory::WriteMemory<DWORD>(handler.context.Esp + 4, amount);
+	afterHandle(handler);
 	return true;
 }

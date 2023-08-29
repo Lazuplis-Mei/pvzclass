@@ -1,6 +1,7 @@
 #pragma once
 #include "../PVZ.h"
-#include "EventHandler.h"
+#include "DebugEventHandler.h"
+#include <iostream>
 #include <vector>
 #include <functional>
 
@@ -8,17 +9,15 @@ template <class FunctionType> class BaseEvent
 {
 public:
 	void start();
-	// 处理这个事件，true为成功处理，false为跳过处理
-	//（因为不一定中断是由该事件引发的）
-	// 调用前需调用 eventHandlerRun()
-	virtual bool handle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread) = 0;
-	void end();
 	void addListener(FunctionType listener);
+	// 处理这个事件，返回是否是该事件引发的中断
+	virtual bool handle(DebugEventHandler handler) = 0;
+	void end();
 protected:
 	DWORD address;
 	BYTE raw;
 	std::vector<FunctionType> listeners;
-	void afterHandle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread);
+	void afterHandle(DebugEventHandler handler);
 };
 
 template<class FunctionType>
@@ -35,13 +34,10 @@ void BaseEvent<FunctionType>::start()
 }
 
 template<class FunctionType>
-void BaseEvent<FunctionType>::afterHandle(DEBUG_EVENT& debugEvent, CONTEXT& context, HANDLE hThread)
+void BaseEvent<FunctionType>::afterHandle(DebugEventHandler handler)
 {
-	eventHandled = true;
 	PVZ::Memory::WriteMemory<BYTE>(address, raw);
-	context.EFlags |= 0x100;
-	SetThreadContext(hThread, &context);
-	ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE);
+	handler.singleStep();
 	PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
 }
 

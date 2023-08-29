@@ -398,7 +398,7 @@
     <ClInclude Include="DebugEvents\BaseEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\EventHandler.h">
+    <ClInclude Include="DebugEvents\DebugEventHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DebugEvents\ZombieEatEvent.h">

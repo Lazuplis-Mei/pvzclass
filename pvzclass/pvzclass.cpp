@@ -33,10 +33,8 @@ int main()
 	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
-	DEBUG_EVENT debugEvent;
-	eventHandlerStart(debugEvent);
-	CONTEXT context;
-	HANDLE hThread;
+	DebugEventHandler handler;
+	handler.start();
 	ZombieEatEvent e1;
 	e1.start();
 	e1.addListener(listener0);
@@ -48,18 +46,17 @@ int main()
 
 	while (true)
 	{
-		eventHandlerRun(debugEvent, context, hThread, -1);
-		if (hThread != NULL)
+		if (handler.run(1))
 		{
-			e1.handle(debugEvent, context, hThread);
-			e2.handle(debugEvent, context, hThread);
+			e1.handle(handler);
+			e2.handle(handler);
+			handler.resume();
 		}
-		Sleep(10);
 	}
 
 	e1.end();
 	e2.end();
-	eventHandlerStop();
+	handler.stop();
 	delete pvz;
 	return 0;
 }
