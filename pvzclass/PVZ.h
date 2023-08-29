@@ -282,6 +282,7 @@ public:
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
+		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
 	};
 	class Attachment
 	{
@@ -409,6 +410,8 @@ public:
 		void Remove();
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName,byte animPlayArg);
+		void EquipBucket(int shield = 1100);
+		void EquipCone(int shield = 370);
 
 		bool canDecelerate();
 		bool canFroze();
@@ -571,10 +574,10 @@ public:
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x24);
 		INT_PROPERTY(State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
-		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x24);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -819,6 +822,16 @@ public:
 		INT_PROPERTY(StartingLevel, __get_StartingLevel, __set_StartingLevel, 0xC);
 		INT_PROPERTY(FirstAllowedWave, __get_FirstAllowedWave, __set_FirstAllowedWave, 0x10);
 		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
+	};
+
+	class ProjectileDefinition
+	{
+		int BaseAddress;
+	public:
+		ProjectileDefinition(ProjectileType::ProjectileType id);
+		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
+		INT_READONLY_PROPERTY(ImageRow, __get_ImageRow, 4);
+		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
 	};
 
 #pragma endregion

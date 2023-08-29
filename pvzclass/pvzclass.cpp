@@ -30,6 +30,15 @@ int main()
 	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
+	SPT<PVZ::Zombie> zombie = MKS<PVZ::Zombie>(0);
+	if (zombie != nullptr)
+	{
+		SPT<PVZ::Animation> anim = zombie->GetAnimation();
+		anim->AssignRenderGroupToPrefix(-1, "anim_cone");
+		zombie->SetAccessoriesType1({ ZombieAccessoriesType1::None, 0, 0 });
+		zombie->EquipBucket();
+	}
+
 	ZombieHitEvent e;
 	e.start();
 	e.addListener(listener0);

@@ -151,6 +151,7 @@ PVZ::Animation* anim = new PVZ::Animation(0);//获得第1个对象
 9. Music
 10. PlantDefinition(需要参数指定是哪种植物)
 11. ZombieDefinition(需要参数指定是哪种僵尸)
+11. ProjectileDefinition(需要参数指定是哪种子弹)
 
 ### 关于游戏内的对象实体类
 

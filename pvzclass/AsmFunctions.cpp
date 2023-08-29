@@ -20,6 +20,12 @@ byte __asm__Reanimation__Die[]
 	RET
 };
 
+byte __asm__Reanimation__AssignGroupToPrefix[]
+{
+	REANIMATION_ASSIGnGROUPPREFIX,
+	RET
+};
+
 byte __asm__set__LevelScene[]
 {
 	MOV_ESI(0),

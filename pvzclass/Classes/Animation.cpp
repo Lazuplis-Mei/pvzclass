@@ -1,4 +1,5 @@
-﻿#include "../PVZ.h"
+﻿#include <cstring>
+#include "../PVZ.h"
 
 PVZ::Animation::Animation(int idoraddress)
 {
@@ -53,4 +54,13 @@ void PVZ::Animation::Die()
 {
 	SETARG(__asm__Reanimation__Die, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Reanimation__Die));
+}
+
+void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, TrackName, std::strlen(TrackName));
+	__asm__Reanimation__AssignGroupToPrefix[1] = RenderGroup;
+	SETARG(__asm__Reanimation__AssignGroupToPrefix, 3) = PVZ::Memory::Variable + 100;
+	SETARG(__asm__Reanimation__AssignGroupToPrefix, 8) = this->BaseAddress;
+	PVZ::Memory::Execute(STRING(__asm__Reanimation__AssignGroupToPrefix));
 }
