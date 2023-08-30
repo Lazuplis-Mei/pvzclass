@@ -7,8 +7,13 @@
 class DebugEventHandler
 {
 private:
+	void failLog(int line, const char* message);
 	void getContext();
 	void setContext();
+	void continueDebug(int line);
+	void waitDebugInfinity(int line);
+	HANDLE getThread(int line);
+	void closeThread(HANDLE hThread, int line);
 
 public:
 	DEBUG_EVENT debugEvent;
@@ -32,50 +37,65 @@ public:
 	void stop();
 };
 
+void DebugEventHandler::failLog(int line, const char* message)
+{
+	std::cout << "[ERROR] line " << line << ": " << message << "\n";
+	system("pause");
+	exit(-1);
+}
+
 void DebugEventHandler::getContext()
 {
 	context.ContextFlags = CONTEXT_ALL;
-	HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
-	if (hThread == 0)
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": hThread is 0!\n";
-		system("pause");
-		exit(-1);
-	}
+	HANDLE hThread = getThread(__LINE__);
 	if (!GetThreadContext(hThread, &context))
 	{
-		std::cout << "[ERROR] line " << __LINE__ << ": GetThreadContext failed!\n";
-		system("pause");
-		exit(-1);
+		failLog(__LINE__, "GetThreadContext failed!");
 	}
-	if (!CloseHandle(hThread))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": CloseHandle failed!\n";
-		system("pause");
-		exit(-1);
-	}
+	closeThread(hThread, __LINE__);
 }
 
 void DebugEventHandler::setContext()
 {
+	HANDLE hThread = getThread(__LINE__);
+	if (!SetThreadContext(hThread, &context))
+	{
+		failLog(__LINE__, "SetThreadContext failed!");
+	}
+	closeThread(hThread, __LINE__);
+}
+
+void DebugEventHandler::continueDebug(int line)
+{
+	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
+	{
+		failLog(__LINE__, "ContinueDebugEvent failed!");
+	}
+}
+
+void DebugEventHandler::waitDebugInfinity(int line)
+{
+	if (!WaitForDebugEvent(&debugEvent, -1))
+	{
+		failLog(__LINE__, "WaitForDebugEvent failed!");
+	}
+}
+
+HANDLE DebugEventHandler::getThread(int line)
+{
 	HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 	if (hThread == 0)
 	{
-		std::cout << "[ERROR] line " << __LINE__ << ": hThread is 0!\n";
-		system("pause");
-		exit(-1);
+		failLog(__LINE__, "hThread is 0!");
 	}
-	if (!SetThreadContext(hThread, &context))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": SetThreadContext failed!\n";
-		system("pause");
-		exit(-1);
-	}
+	return hThread;
+}
+
+void DebugEventHandler::closeThread(HANDLE hThread, int line)
+{
 	if (!CloseHandle(hThread))
 	{
-		std::cout << "[ERROR] line " << __LINE__ << ": CloseHandle failed!\n";
-		system("pause");
-		exit(-1);
+		failLog(__LINE__, "CloseHandle failed!");
 	}
 }
 
@@ -83,22 +103,10 @@ void DebugEventHandler::start()
 {
 	if (!DebugActiveProcess(PVZ::Memory::processId))
 	{
-		std::cout << "[ERROR] line " << __LINE__ << ": DebugActiveProcess failed!\n";
-		system("pause");
-		exit(-1);
+		failLog(__LINE__, "DebugActiveProcess failed!");
 	}
-	if (!WaitForDebugEvent(&debugEvent, -1))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": WaitForDebugEvent failed!\n";
-		system("pause");
-		exit(-1);
-	}
-	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": ContinueDebugEvent failed!\n";
-		system("pause");
-		exit(-1);
-	}
+	waitDebugInfinity(__LINE__);
+	continueDebug(__LINE__);
 }
 
 bool DebugEventHandler::run(int ms)
@@ -109,12 +117,7 @@ bool DebugEventHandler::run(int ms)
 	}
 	if (debugEvent.dwDebugEventCode != EXCEPTION_DEBUG_EVENT)
 	{
-		if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
-		{
-			std::cout << "[ERROR] line " << __LINE__ << ": ContinueDebugEvent failed!\n";
-			system("pause");
-			exit(-1);
-		}
+		continueDebug(__LINE__);
 		return false;
 	}
 	getContext();
@@ -126,36 +129,19 @@ void DebugEventHandler::singleStep()
 {
 	context.EFlags |= 0x100;
 	setContext();
-	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": ContinueDebugEvent failed!\n";
-		system("pause");
-		exit(-1);
-	}
-	if (!WaitForDebugEvent(&debugEvent, -1))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": WaitForDebugEvent failed!\n";
-		system("pause");
-		exit(-1);
-	}
+	continueDebug(__LINE__);
+	waitDebugInfinity(__LINE__);
 }
 
 void DebugEventHandler::resume()
 {
-	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
-	{
-		std::cout << "[ERROR] line " << __LINE__ << ": ContinueDebugEvent failed!\n";
-		system("pause");
-		exit(-1);
-	}
+	continueDebug(__LINE__);
 }
 
 void DebugEventHandler::stop()
 {
 	if (!DebugActiveProcessStop(PVZ::Memory::processId))
 	{
-		std::cout << "[ERROR] line " << __LINE__ << ": DebugActiveProcessStop failed!\n";
-		system("pause");
-		exit(-1);
+		failLog(__LINE__, "DebugActiveProcessStop failed!");
 	}
 }

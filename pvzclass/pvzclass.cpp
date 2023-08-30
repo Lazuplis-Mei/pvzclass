@@ -46,8 +46,13 @@ int main()
 
 	while (true)
 	{
+		cout << "R";
 		if (handler.run(1))
 		{
+			cout << handler.debugEvent.u.Exception.dwFirstChance << " "
+				<< hex << handler.debugEvent.u.Exception.ExceptionRecord.ExceptionCode << dec << " "
+				<< handler.debugEvent.u.Exception.ExceptionRecord.ExceptionFlags << " "
+				<< handler.debugEvent.u.Exception.ExceptionRecord.ExceptionAddress << endl;
 			e1.handle(handler);
 			e2.handle(handler);
 			handler.resume();
