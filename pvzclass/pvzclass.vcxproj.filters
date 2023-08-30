@@ -228,6 +228,12 @@
     <ClCompile Include="HookEvents\ZombieHitEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HookEvents\PlantShootEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HookEvents\ZombieEatEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Enums\LawnmoverState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -386,6 +392,36 @@
     <ClInclude Include="HookEvents\ZombieHitEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HookEvents\PlantShootEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HookEvents\ZombieEatEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\BaseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\DebugEventHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\ZombieEatEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\ZombieHitEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\ProjectileCreateEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\PlantShootEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\PuzzlePhaseCompleteEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
     <ClInclude Include="Enums\LawnmoverState.h">
       <Filter>头文件</Filter>
     </ClInclude>
