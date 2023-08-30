@@ -227,6 +227,7 @@
   <ItemGroup>
     <ClInclude Include="DebugEvents\BaseEvent.h" />
     <ClInclude Include="DebugEvents\DebugEventHandler.h" />
+    <ClInclude Include="DebugEvents\ProjectileCreateEvent.h" />
     <ClInclude Include="DebugEvents\ZombieEatEvent.h" />
     <ClInclude Include="DebugEvents\ZombieHitEvent.h" />
     <ClInclude Include="HookEvents\BaseEvent.h" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="HookEvents\PlantShootEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
+    <ClInclude Include="DebugEvents\PlantShootEvent.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />

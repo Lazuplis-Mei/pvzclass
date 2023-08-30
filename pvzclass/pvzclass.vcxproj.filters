@@ -407,6 +407,12 @@
     <ClInclude Include="DebugEvents\ZombieHitEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DebugEvents\ProjectileCreateEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\PlantShootEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
