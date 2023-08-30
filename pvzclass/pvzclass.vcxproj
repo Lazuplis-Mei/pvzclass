@@ -186,6 +186,7 @@
     <ClCompile Include="Enums\GriditemType.cpp" />
     <ClCompile Include="Enums\INGAMEEffect.cpp" />
     <ClCompile Include="Enums\INGAMEState.cpp" />
+    <ClCompile Include="Enums\LawnmoverState.cpp" />
     <ClCompile Include="Enums\LawnmoverType.cpp" />
     <ClCompile Include="Enums\LawnTypeEnum.cpp" />
     <ClCompile Include="Enums\MotionType.cpp" />
@@ -223,6 +224,7 @@
     <ClCompile Include="HookEvents\ZombieHitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enums\LawnmoverState.h" />
     <ClInclude Include="HookEvents\BaseEvent.h" />
     <ClInclude Include="Creators.h" />
     <ClInclude Include="Enums.h" />
@@ -274,9 +276,6 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="HookEvents\ZombieHitEvent.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -575,7 +575,7 @@ public:
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
 		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x24);
-		INT_PROPERTY(State, __get_State, __set_State, 0x2C);
+		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
