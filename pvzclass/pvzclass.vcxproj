@@ -228,6 +228,7 @@
     <ClInclude Include="DebugEvents\BaseEvent.h" />
     <ClInclude Include="DebugEvents\DebugEventHandler.h" />
     <ClInclude Include="DebugEvents\ProjectileCreateEvent.h" />
+    <ClInclude Include="DebugEvents\PuzzlePhaseCompleteEvent.h" />
     <ClInclude Include="DebugEvents\ZombieEatEvent.h" />
     <ClInclude Include="DebugEvents\ZombieHitEvent.h" />
     <ClInclude Include="HookEvents\BaseEvent.h" />

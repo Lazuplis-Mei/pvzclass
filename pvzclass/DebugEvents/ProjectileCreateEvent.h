@@ -1,6 +1,9 @@
 #pragma once
 #include "BaseEvent.h"
 
+// 子弹创建事件
+// 参数：被创建的子弹
+// 无返回值
 class ProjectileCreateEvent : public BaseEvent<std::function<
 	void(std::shared_ptr<PVZ::Projectile>)>>
 {
