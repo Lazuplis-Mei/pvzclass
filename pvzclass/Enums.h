@@ -17,6 +17,7 @@
 #include "Enums/CoinType.h"
 #include "Enums/CoinMotionType.h"
 #include "Enums/CardType.h"
+#include "Enums/LawnmoverState.h"
 #include "Enums/LawnmoverType.h"
 #include "Enums/GardenPlantNeed.h"
 #include "Enums/GardenPlantState.h"

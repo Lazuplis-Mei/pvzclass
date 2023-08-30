@@ -228,6 +228,22 @@ void PVZ::Zombie::SetAnimation(LPCSTR animName, byte animPlayArg)
 	PVZ::Memory::FreeMemory(Address);
 }
 
+void PVZ::Zombie::EquipBucket(int shield)
+{
+	if (this->GetAccessoriesType1().Type)
+		return;
+	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_bucket");
+	this->SetAccessoriesType1({ ZombieAccessoriesType1::Bucket, shield, shield });
+}
+
+void PVZ::Zombie::EquipCone(int shield)
+{
+	if (this->GetAccessoriesType1().Type)
+		return;
+	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_cone");
+	this->SetAccessoriesType1({ ZombieAccessoriesType1::RoadCone, shield, shield });
+}
+
 bool PVZ::Zombie::canDecelerate()
 {
 	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑

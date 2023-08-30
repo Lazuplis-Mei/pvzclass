@@ -40,8 +40,10 @@
 #define INVOKE(address) CALL(2),JMP(6),PUSHDWORD(address),RET
 #define INVOKE_BYTE(address,b) PUSH(b),INVOKE(address)
 #define INVOKE_DWORD(address,d) PUSHDWORD(d),INVOKE(address)
+#define INVOKE_DWORD_BYTE(address,d,b) PUSH(b),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_DWORD(address,d1,b,d2) PUSHDWORD(d2),PUSH(b),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_DWORD_BYTE(address,d1,d2,b) PUSH(b),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD(address,d1,d2,d3) PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD_DWORD(address,d1,d2,d3,d4) PUSHDWORD(d4),PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
@@ -78,6 +80,22 @@
 #define JNL(b) 0x7D,b
 #define JNG(b) 0x7E,b
 #define JG(b) 0x7F,b
+#define JOFAR(d) 0xF,0x80,INUMBER(d)
+#define JNOFAR(d) 0xF,0x81,INUMBER(d)
+#define JBFAR(d) 0xF,0x82,INUMBER(d)
+#define JNBFAR(d) 0xF,0x83,INUMBER(d)
+#define JEFAR(d) 0xF,0x84,INUMBER(d)
+#define JNEFAR(d) 0xF,0x85,INUMBER(d)
+#define JNAFAR(d) 0xF,0x86,INUMBER(d)
+#define JAFAR(d) 0xF,0x87,INUMBER(d)
+#define JSFAR(d) 0xF,0x88,INUMBER(d)
+#define JNSFAR(d) 0xF,0x89,INUMBER(d)
+#define JPFAR(d) 0xF,0x8A,INUMBER(d)
+#define JNPFAR(d) 0xF,0x8B,INUMBER(d)
+#define JLFAR(d) 0xF,0x8C,INUMBER(d)
+#define JNLFAR(d) 0xF,0x8D,INUMBER(d)
+#define JNGFAR(d) 0xF,0x8E,INUMBER(d)
+#define JGFAR(d) 0xF,0x8F,INUMBER(d)
 #define TEST_AL_AL 0x84,0xC0
 
 #define PUSH_EUX(ux) 0x50+(ux)
@@ -106,18 +124,29 @@
 #define SHR_EUX(ux,b) 0xC1,0xE8+(ux),b
 #define SAL_EUX(ux,b) 0xC1,0xF0+(ux),b
 #define SAR_EUX(ux,b) 0xC1,0xF8+(ux),b
+#define TEST_EUX_EVX(ux,vx) 0x85,0xC0+(ux)+(vx)*8
 
 //Not for esp
-#define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b//vx,NFesp
-#define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)//vx,NFesp
+#define PUSH_PTR_EUX_ADD_V 0xFF,0x70+(ux),v
+
+#define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b
+#define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)
 #define MOV_PTR_EUX_ADD_V(ux,v1,v2) 0xC7,0x40+(ux),v1,INUMBER(v2)
 #define MOV_PTR_EUX_ADD(ux,v1,v2) 0xC7,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define CMP_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x78+(ux),v1,v2
+#define CMP_PTR_EUX_ADD__V(ux,v1,v2) 0x83,0xB8+(ux),INUMBER(v1),v2
 #define CMP_PTR_EUX_ADD(ux,v1,v2) 0x81,0xB8+(ux),INUMBER(v1),INUMBER(v2)
+#define ADD_EUX_PTR_EVX_ADD_V(ux,vx,b) 3,0x40+(ux)*8+(vx),b
+#define ADD_PTR_EUX_ADD_V_EVX(ux,b,vx) 1,0x40+(ux)+(vx)*8,b
 #define ADD_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x40+(ux),v1,v2
 #define ADD_PTR_EUX_ADD(ux,v1,v2) 0x81,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define SUB_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x68+(ux),v1,v2
 #define SUB_PTR_EUX_ADD(ux,v1,v2) 0x81,0xA8+(ux),INUMBER(v1),INUMBER(v2)
+
+#define MOV_BYTE_PTR_EUX_ADD_V_V(ux,v1,v2) 0xC6,0x40+(ux),v1,v2
+#define CMP_BYTE_PTR_EUX_ADD__V(ux,v1,v2) 0x80,0xB8+(ux),INUMBER(v1),v2
+
+#define INC_PTR_EUX_ADD(ux,v) 0xFF,0x80+(ux),INUMBER(v)
 //End not
 
 #pragma endregion
@@ -128,11 +157,154 @@
 
 #pragma endregion
 
+#pragma region asm esp
+
+#define PUSH_PTR_EUX_ADD_V 0xFF,0x74,0x24,v
+
+#define MOV_PTR_ESP_ADD_V(v1,v2) 0xC7,0x44,0x24,v1,INUMBER(v2)
+
+#define CMP_PTR_ESP_ADD_V_V(ux,v1,v2) 0x83,0x7C,0x24,v1,v2
+#define CMP_PTR_ESP_ADD__V(ux,v1,v2) 0x83,0xBC,0x24,INUMBER(v1),v2
+
+#define MOV_BYTE_PTR_ESP_ADD_V_V(v1,v2) 0xC6,0x44,0x24,v1,v2
+#define CMP_BYTE_PTR_ESP_ADD__V(v1,v2) 0x80,0xBC,0x24,INUMBER(v1),v2
+
+#define ADD_EUX_PTR_ESP_ADD_V(ux,b) 3,0x44+(ux)*8+,0x24,b
+
+#define INC_PTR_ESP_ADD(v) 0xFF,0x84,0x24,INUMBER(v)
+
+#define FILD_PTR_ESP_ADD_V(ux,v) 0xDB,0x44,0x24,v
+#define FISTP_PTR_ESP_ADD_V(ux,v) 0xDB,0x5C,0x24,v
+
+#pragma endregion
+
+#pragma region asm float
+
+#define F_ST0 0
+#define F_ST1 1
+#define F_ST2 2
+#define F_ST3 3
+#define F_ST4 4
+#define F_ST5 5
+#define F_ST6 6
+#define F_ST7 7
+
+#define FLD1 0xD9,0XE8
+#define FLDL2T 0xD9,0XE9
+#define FLDL2E 0xD9,0XEA
+#define FLDPI 0xD9,0xEB
+#define FLDLG2 0xD9,0XEC
+#define FLDLN2 0xD9,0XED
+#define FLDZ 0xD9,0XEE
+#define FNOP 0xD9,0xD0
+#define FCHS 0xD9,0xE0
+#define FABSc 0xD9,0xE1
+#define F2XM1 0xD9,0XF0
+#define FRNDINT 0xD9,0xFC
+#define FSQRT 0xD9,0xFA
+#define FSIN 0xD9,0xFA
+#define FCOS 0xD9,0xFA
+
+#define FLD_ST(st) 0xD9,0xC0+(st)
+#define FST_ST(st) 0xDD,0xD0+(st)
+#define FSTP_ST(st) 0xDD,0xDC+(st)
+#define FXCH_ST(st) 0xD9,0xC8+(st)
+#define FADD_STZ_ST(st) 0xD8,0xC0+(st)
+#define FADD_ST_STZ(st) 0xDC,0xC0+(st)
+#define FMUL_STZ_ST(st) 0xD8,0xC8+(st)
+#define FMUL_ST_STZ(st) 0xDC,0xC8+(st)
+#define FSUB_STZ_ST(st) 0xD8,0xE0+(st)
+#define FSUB_ST_STZ(st) 0xDC,0xE8+(st)
+#define FSUBR_STZ_ST(st) 0xD8,0xE8+(st)
+#define FSUBR_ST_STZ(st) 0xDC,0xE0+(st)
+#define FDIV_STZ_ST(st) 0xD8,0xF0+(st)
+#define FDIV_ST_STZ(st) 0xDC,0xF8+(st)
+#define FDIVR_STZ_ST(st) 0xD8,0xF8+(st)
+#define FDIVR_ST_STZ(st) 0xDC,0xF0+(st)
+
+#define FLD_PTR_ADDR(address) 0xD9,5,INUMBER(address)
+#define FILD_PTR_ADDR(address) 0xDB,5,INUMBER(address)
+#define FST_PTR_ADDR(address) 0xD9,0x15,INUMBER(address)
+#define FSTP_PTR_ADDR(address) 0xD9,0x1D,INUMBER(address)
+#define FIST_PTR_ADDR(address) 0xDB,0x15,INUMBER(address)
+#define FISTP_PTR_ADDR(address) 0xDB,0x1D,INUMBER(address)
+#define FADD_PTR_ADDR(address) 0xD8,5,INUMBER(address)
+#define FMUL_PTR_ADDR(address) 0xD8,0x0D,INUMBER(address)
+#define FSUB_PTR_ADDR(address) 0xD8,0x25,INUMBER(address)
+#define FSUBR_PTR_ADDR(address) 0xD8,0x2D,INUMBER(address)
+#define FDIV_PTR_ADDR(address) 0xD8,0x35,INUMBER(address)
+#define FDIVR_PTR_ADDR(address) 0xD8,0x3D,INUMBER(address)
+#define FISUB_PTR_ADDR(address) 0xDA,0x25,INUMBER(address)
+#define FISUBR_PTR_ADDR(address) 0xDA,0x2D,INUMBER(address)
+
+//Not for esp
+#define FLD_PTR_EUX_ADD_V(ux,b) 0xD9,0x40+(ux),b
+#define FLD_PTR_EUX_ADD(ux,d) 0xD9,0x80+(ux),INUMBER(d)
+#define FST_PTR_EUX_ADD_V(ux,b) 0xD9,0x50+(ux),b
+#define FST_PTR_EUX_ADD(ux,d) 0xD9,0x90+(ux),INUMBER(d)
+#define FSTP_PTR_EUX_ADD_V(ux,b) 0xD9,0x58+(ux),b
+#define FSTP_PTR_EUX_ADD(ux,d) 0xD9,0x98+(ux),INUMBER(d)
+#define FILD_PTR_EUX_ADD_V(ux,b) 0xDB,0x40+(ux),b
+#define FILD_PTR_EUX_ADD(ux,d) 0xDB,0x80+(ux),INUMBER(d)
+#define FIST_PTR_EUX_ADD_V(ux,b) 0xDB,0x50+(ux),b
+#define FIST_PTR_EUX_ADD(ux,d) 0xDB,0x90+(ux),INUMBER(d)
+#define FISTP_PTR_EUX_ADD_V(ux,b) 0xDB,0x58+(ux),b
+#define FISTP_PTR_EUX_ADD(ux,d) 0xDB,0x98+(ux),INUMBER(d)
+#define FADD_PTR_EUX_ADD_V(ux,b) 0xD8,0x40+(ux),b
+#define FADD_PTR_EUX_ADD(ux,d) 0xD8,0x80+(ux),INUMBER(d)
+#define FMUL_PTR_EUX_ADD_V(ux,b) 0xD8,0x48+(ux),b
+#define FMUL_PTR_EUX_ADD(uz,d) 0xD8,0x88+(ux),INUMBER(d)
+#define FSUB_PTR_EUX_ADD_V(ux,b) 0xD8,0x60+(ux),b
+#define FSUB_PTR_EUX_ADD(ux,d) 0xD8,0xA0+(ux),INUMBER(d)
+#define FSUBR_PTR_EUX_ADD_V(ux,b) 0xD8,0x68+(ux),b
+#define FSUBR_PTR_EUX_ADD(ux,d) 0xD8,0xA8+(ux),INUMBER(d)
+#define FISUB_PTR_EUX_ADD_V(ux,b) 0xDA,0x60+(ux),b
+#define FISUB_PTR_EUX_ADD(ux,d) 0xDA,0xA0+(ux),INUMBER(d)
+#define FISUBR_PTR_EUX_ADD_V(ux,b) 0xDA,0x68+(ux),b
+#define FISUBR_PTR_EUX_ADD(ux,d) 0xDA,0xA8+(ux),INUMBER(d)
+#define FDIV_PTR_EUX_ADD_V(ux,b) 0xD8,0x70+(ux),b
+#define FDIV_PTR_EUX_ADD(ux,d) 0xD8,0xB0+(ux),INUMBER(d)
+#define FDIVR_PTR_EUX_ADD_V(ux,b) 0xD8,0x78+(ux),b
+#define FDIVR_PTR_EUX_ADD(ux,d) 0xD8,0xB8+(ux),INUMBER(d)
+//End not
+
+#define FLD_PTR_ESP_ADD_V(b) 0xD9,0x44,0x24,b
+#define FLD_PTR_ESP_ADD(d) 0xD9,0x84,0x24,INUMBER(d)
+#define FST_PTR_ESP_ADD_V(b) 0xD9,0x54,0x24,b
+#define FST_PTR_ESP_ADD(d) 0xD9,0x94,0x24,INUMBER(d)
+#define FSTP_PTR_ESP_ADD_V(b) 0xD9,0x5C,0x24,b
+#define FSTP_PTR_ESP_ADD(d) 0xD9,0x9C,0x24,INUMBER(d)
+#define FILD_PTR_ESP_ADD_V(b) 0xDB,0x44,0x24,b
+#define FILD_PTR_ESP_ADD(d) 0xDB,0x84,0x24,INUMBER(d)
+#define FIST_PTR_ESP_ADD_V(b) 0xDB,0x54,0x24,b
+#define FIST_PTR_ESP_ADD(d) 0xDB,0x94,0x24,INUMBER(d)
+#define FISTP_PTR_ESP_ADD_V(b) 0xDB,0x5C,0x24,b
+#define FISTP_PTR_ESP_ADD(d) 0xDB,0x9C,0x24,INUMBER(d)
+#define FADD_PTR_ESP_ADD_V(b) 0xD8,0x44,0x24,b
+#define FADD_PTR_ESP_ADD(d) 0xD8,0x84,0x24,INUMBER(d)
+#define FMUL_PTR_ESP_ADD_V(b) 0xD8,0x4C,0x24,b
+#define FMUL_PTR_ESP_ADD(d) 0xD8,0x8C,0x24,INUMBER(d)
+#define FSUB_PTR_ESP_ADD_V(b) 0xD8,0x64,0x24,b
+#define FSUB_PTR_ESP_ADD(d) 0xD8,0xA4,0x24,INUMBER(d)
+#define FSUBR_PTR_ESP_ADD_V(b) 0xD8,0x6C,0x24,b
+#define FSUBR_PTR_ESP_ADD(d) 0xD8,0xAC,0x24,INUMBER(d)
+#define FISUB_PTR_ESP_ADD_V(b) 0xDA,0x64,0x24,b
+#define FISUB_PTR_ESP_ADD(d) 0xDA,0xA4,0x24,INUMBER(d)
+#define FISUBR_PTR_ESP_ADD_V(b) 0xDA,0x6C,0x24,b
+#define FISUBR_PTR_ESP_ADD(d) 0xDA,0xAC,0x24,INUMBER(d)
+#define FDIV_PTR_ESP_ADD_V(b) 0xD8,0x74,0x24,b
+#define FDIV_PTR_ESP_ADD(d) 0xD8,0xB4,0x24,INUMBER(d)
+#define FDIVR_PTR_ESP_ADD_V(b) 0xD8,0x7C,0x24,b
+#define FDIVR_PTR_ESP_ADD(d) 0xD8,0xBC,0x24,INUMBER(d)
+
+#pragma endregion
+
 #pragma region functions
 
 #define SET_MUSICVOLUME INVOKE_BYTE(0x554D00,0)
 #define LOADLIBRARYA INVOKE_DWORD((int)LoadLibraryA,0)
 #define REANIMATION_DIE INVOKE(0x4733F0)
+#define REANIMATION_ASSIGnGROUPPREFIX INVOKE_DWORD_DWORD_BYTE(0x473A40,0,0,0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
 #define WIN INVOKE(0x40C3E0)
 #define LOSE INVOKE(0x413400)
@@ -168,6 +340,8 @@ extern byte __asm__set_MusicVolume[21];
 extern byte __asm__InjectDll[200];
 
 extern byte __asm__Reanimation__Die[19];
+
+extern byte __asm__Reanimation__AssignGroupToPrefix[26];
 
 extern byte __asm__set__LevelScene[19];
 

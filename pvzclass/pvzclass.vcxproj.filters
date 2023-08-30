@@ -234,6 +234,9 @@
     <ClCompile Include="HookEvents\ZombieEatEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Enums\LawnmoverState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -419,5 +422,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <ClInclude Include="Enums\LawnmoverState.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
