@@ -413,6 +413,12 @@
     <ClInclude Include="Events\ZombieFrozeEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ZombieHypnotizeEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieRemoveEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">
