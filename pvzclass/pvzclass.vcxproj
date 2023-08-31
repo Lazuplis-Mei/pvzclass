@@ -218,6 +218,8 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\CoinRemoveEvent.h" />
+    <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
@@ -267,8 +269,11 @@
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
+    <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
+    <ClInclude Include="Events\PeaOnFireEvent.h" />
+    <ClInclude Include="Events\ProjectileRemoveEvent.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />

@@ -386,6 +386,21 @@
     <ClInclude Include="Events\CoinCreateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\PlantRemoveEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PeaOnFireEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileRemoveEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CoinCollectEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CoinRemoveEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

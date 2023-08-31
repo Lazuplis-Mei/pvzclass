@@ -4,7 +4,12 @@
 #include "Events/ProjectileCreateEvent.h"
 #include "Events/PlantShootEvent.h"
 #include "Events/PlantCreateEvent.h"
+#include "Events/PlantRemoveEvent.h"
 #include "Events/CoinCreateEvent.h"
+#include "Events/PeaOnFireEvent.h"
+#include "Events/ProjectileRemoveEvent.h"
+#include "Events/CoinCollectEvent.h"
+#include "Events/CoinRemoveEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -51,6 +56,31 @@ void listener7(shared_ptr<PVZ::Coin> coin)
 	cout << CoinType::ToString(coin->Type) << " 出现了\n";
 }
 
+void listener8(shared_ptr<PVZ::Plant> plant)
+{
+	cout << PlantType::ToString(plant->Type) << " 移除了\n";
+}
+
+void listener9(shared_ptr<PVZ::Projectile> projectile)
+{
+	cout <<  ProjectileType::ToString(projectile->Type) << " 转换为了火焰豌豆\n";
+}
+
+void listener10(shared_ptr<PVZ::Projectile> projectile)
+{
+	cout << ProjectileType::ToString(projectile->Type) << " 被移除了\n";
+}
+
+void listener11(shared_ptr<PVZ::Coin> coin)
+{
+	cout << CoinType::ToString(coin->Type) << " 被收集了\n";
+}
+
+void listener12(shared_ptr<PVZ::Coin> coin)
+{
+	cout << CoinType::ToString(coin->Type) << " 消失了\n";
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -79,6 +109,21 @@ int main()
 	CoinCreateEvent e6;
 	e6.start();
 	e6.addListener(listener7);
+	PlantRemoveEvent e7;
+	e7.start();
+	e7.addListener(listener8);
+	PeaOnFireEvent e8;
+	e8.start();
+	e8.addListener(listener9);
+	ProjectileRemoveEvent e9;
+	e9.start();
+	e9.addListener(listener10);
+	CoinCollectEvent e10;
+	e10.start();
+	e10.addListener(listener11);
+	CoinRemoveEvent e11;
+	e11.start();
+	e11.addListener(listener12);
 
 	while (true)
 	{
@@ -95,6 +140,11 @@ int main()
 			e4.handle(handler);
 			e5.handle(handler);
 			e6.handle(handler);
+			e7.handle(handler);
+			e8.handle(handler);
+			e9.handle(handler);
+			e10.handle(handler);
+			e11.handle(handler);
 			handler.resume();
 		}
 	}
@@ -105,6 +155,11 @@ int main()
 	e4.end();
 	e5.end();
 	e6.end();
+	e7.end();
+	e8.end();
+	e9.end();
+	e10.end();
+	e11.end();
 	handler.stop();
 	delete pvz;
 	return 0;
