@@ -3,6 +3,8 @@
 #include "DebugEvents/ZombieHitEvent.h"
 #include "DebugEvents/ProjectileCreateEvent.h"
 #include "DebugEvents/PlantShootEvent.h"
+#include "DebugEvents/PlantCreateEvent.h"
+#include "DebugEvents/CoinCreateEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -39,6 +41,16 @@ void listener5(shared_ptr<PVZ::Plant> plant)
 	cout << PlantType::ToString(plant->Type) << " 开火了\n";
 }
 
+void listener6(shared_ptr<PVZ::Plant> plant)
+{
+	cout << PlantType::ToString(plant->Type) << " 被种植了\n";
+}
+
+void listener7(shared_ptr<PVZ::Coin> coin)
+{
+	cout << CoinType::ToString(coin->Type) << " 出现了\n";
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -61,6 +73,12 @@ int main()
 	PlantShootEvent e4;
 	e4.start();
 	e4.addListener(listener5);
+	PlantCreateEvent e5;
+	e5.start();
+	e5.addListener(listener6);
+	CoinCreateEvent e6;
+	e6.start();
+	e6.addListener(listener7);
 
   while (true)
 	{
@@ -75,6 +93,8 @@ int main()
 			e2.handle(handler);
 			e3.handle(handler);
 			e4.handle(handler);
+			e5.handle(handler);
+			e6.handle(handler);
 			handler.resume();
 		}
 	}
@@ -83,6 +103,8 @@ int main()
 	e2.end();
 	e3.end();
 	e4.end();
+	e5.end();
+	e6.end();
 	handler.stop();
 	delete pvz;
 	return 0;

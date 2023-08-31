@@ -276,6 +276,8 @@
     <ClInclude Include="events.h" />
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="HookEvents\PlantShootEvent.h" />
+    <ClInclude Include="DebugEvents\PlantCreateEvent.h" />
+    <ClInclude Include="DebugEvents\CoinCreateEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="DebugEvents\PlantShootEvent.h" />
     <ClInclude Include="PVZ.h" />

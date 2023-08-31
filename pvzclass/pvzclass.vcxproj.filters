@@ -419,9 +419,14 @@
     <ClInclude Include="DebugEvents\PuzzlePhaseCompleteEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DebugEvents\PlantCreateEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugEvents\CoinCreateEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md" />
     <ClInclude Include="Enums\LawnmoverState.h">
       <Filter>头文件</Filter>
     </ClInclude>
