@@ -9,7 +9,7 @@ class CoinCreateEvent : public BaseEvent<std::function<
 {
 public:
 	CoinCreateEvent();
-	bool handle(DebugEventHandler handler);
+	bool handle(EventHandler handler);
 };
 
 CoinCreateEvent::CoinCreateEvent()
@@ -17,7 +17,7 @@ CoinCreateEvent::CoinCreateEvent()
 	address = 0x40CCCE;
 }
 
-bool CoinCreateEvent::handle(DebugEventHandler handler)
+bool CoinCreateEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto coin = std::make_shared<PVZ::Coin>(handler.context.Eax);

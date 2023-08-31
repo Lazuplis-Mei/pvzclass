@@ -359,31 +359,31 @@
     <ClInclude Include="Enums\ChallengeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\BaseEvent.h">
+    <ClInclude Include="Events\BaseEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\DebugEventHandler.h">
+    <ClInclude Include="Events\EventHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\ZombieEatEvent.h">
+    <ClInclude Include="Events\ZombieEatEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\ZombieHitEvent.h">
+    <ClInclude Include="Events\ZombieHitEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\ProjectileCreateEvent.h">
+    <ClInclude Include="Events\ProjectileCreateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\PlantShootEvent.h">
+    <ClInclude Include="Events\PlantShootEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\PuzzlePhaseCompleteEvent.h">
+    <ClInclude Include="Events\PuzzlePhaseCompleteEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\PlantCreateEvent.h">
+    <ClInclude Include="Events\PlantCreateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DebugEvents\CoinCreateEvent.h">
+    <ClInclude Include="Events\CoinCreateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

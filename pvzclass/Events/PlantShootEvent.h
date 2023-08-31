@@ -9,7 +9,7 @@ class PlantShootEvent : public BaseEvent<std::function<
 {
 public:
 	PlantShootEvent();
-	bool handle(DebugEventHandler handler);
+	bool handle(EventHandler handler);
 };
 
 PlantShootEvent::PlantShootEvent()
@@ -17,7 +17,7 @@ PlantShootEvent::PlantShootEvent()
 	address = 0x466E0D;
 }
 
-bool PlantShootEvent::handle(DebugEventHandler handler)
+bool PlantShootEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto plant = std::make_shared<PVZ::Plant>(handler.context.Ebp);

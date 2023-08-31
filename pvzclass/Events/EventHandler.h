@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-class DebugEventHandler
+class EventHandler
 {
 private:
 	void failLog(int line, const char* message);
@@ -37,14 +37,14 @@ public:
 	void stop();
 };
 
-void DebugEventHandler::failLog(int line, const char* message)
+void EventHandler::failLog(int line, const char* message)
 {
 	std::cout << "[ERROR] line " << line << ": " << message << "\n";
 	system("pause");
 	exit(-1);
 }
 
-void DebugEventHandler::getContext()
+void EventHandler::getContext()
 {
 	context.ContextFlags = CONTEXT_ALL;
 	HANDLE hThread = getThread(__LINE__);
@@ -55,7 +55,7 @@ void DebugEventHandler::getContext()
 	closeThread(hThread, __LINE__);
 }
 
-void DebugEventHandler::setContext()
+void EventHandler::setContext()
 {
 	HANDLE hThread = getThread(__LINE__);
 	if (!SetThreadContext(hThread, &context))
@@ -65,7 +65,7 @@ void DebugEventHandler::setContext()
 	closeThread(hThread, __LINE__);
 }
 
-void DebugEventHandler::continueDebug(int line)
+void EventHandler::continueDebug(int line)
 {
 	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
 	{
@@ -73,7 +73,7 @@ void DebugEventHandler::continueDebug(int line)
 	}
 }
 
-void DebugEventHandler::waitDebugInfinity(int line)
+void EventHandler::waitDebugInfinity(int line)
 {
 	if (!WaitForDebugEvent(&debugEvent, -1))
 	{
@@ -81,7 +81,7 @@ void DebugEventHandler::waitDebugInfinity(int line)
 	}
 }
 
-HANDLE DebugEventHandler::getThread(int line)
+HANDLE EventHandler::getThread(int line)
 {
 	HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 	if (hThread == 0)
@@ -91,7 +91,7 @@ HANDLE DebugEventHandler::getThread(int line)
 	return hThread;
 }
 
-void DebugEventHandler::closeThread(HANDLE hThread, int line)
+void EventHandler::closeThread(HANDLE hThread, int line)
 {
 	if (!CloseHandle(hThread))
 	{
@@ -99,7 +99,7 @@ void DebugEventHandler::closeThread(HANDLE hThread, int line)
 	}
 }
 
-void DebugEventHandler::start()
+void EventHandler::start()
 {
 	if (!DebugActiveProcess(PVZ::Memory::processId))
 	{
@@ -109,7 +109,7 @@ void DebugEventHandler::start()
 	continueDebug(__LINE__);
 }
 
-bool DebugEventHandler::run(int ms)
+bool EventHandler::run(int ms)
 {
 	if (!WaitForDebugEvent(&debugEvent, ms))
 	{
@@ -125,7 +125,7 @@ bool DebugEventHandler::run(int ms)
 	return true;
 }
 
-void DebugEventHandler::singleStep()
+void EventHandler::singleStep()
 {
 	context.EFlags |= 0x100;
 	setContext();
@@ -133,12 +133,12 @@ void DebugEventHandler::singleStep()
 	waitDebugInfinity(__LINE__);
 }
 
-void DebugEventHandler::resume()
+void EventHandler::resume()
 {
 	continueDebug(__LINE__);
 }
 
-void DebugEventHandler::stop()
+void EventHandler::stop()
 {
 	if (!DebugActiveProcessStop(PVZ::Memory::processId))
 	{

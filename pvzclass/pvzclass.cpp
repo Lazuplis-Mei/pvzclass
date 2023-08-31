@@ -1,10 +1,10 @@
 ﻿#include "pvzclass.h"
-#include "DebugEvents/ZombieEatEvent.h"
-#include "DebugEvents/ZombieHitEvent.h"
-#include "DebugEvents/ProjectileCreateEvent.h"
-#include "DebugEvents/PlantShootEvent.h"
-#include "DebugEvents/PlantCreateEvent.h"
-#include "DebugEvents/CoinCreateEvent.h"
+#include "Events/ZombieEatEvent.h"
+#include "Events/ZombieHitEvent.h"
+#include "Events/ProjectileCreateEvent.h"
+#include "Events/PlantShootEvent.h"
+#include "Events/PlantCreateEvent.h"
+#include "Events/CoinCreateEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -57,7 +57,7 @@ int main()
 	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
-	DebugEventHandler handler;
+	EventHandler handler;
 	handler.start();
 	ZombieEatEvent e1;
 	e1.start();

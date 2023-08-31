@@ -9,7 +9,7 @@ class ProjectileCreateEvent : public BaseEvent<std::function<
 {
 public:
 	ProjectileCreateEvent();
-	bool handle(DebugEventHandler handler);
+	bool handle(EventHandler handler);
 };
 
 ProjectileCreateEvent::ProjectileCreateEvent()
@@ -17,7 +17,7 @@ ProjectileCreateEvent::ProjectileCreateEvent()
 	address = 0x40D652;
 }
 
-bool ProjectileCreateEvent::handle(DebugEventHandler handler)
+bool ProjectileCreateEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto projectile = std::make_shared<PVZ::Projectile>(handler.context.Eax);
