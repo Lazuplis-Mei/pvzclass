@@ -281,6 +281,8 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Events\ZombieBlastEvent.h" />
+    <ClInclude Include="Events\ZombieButterEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
