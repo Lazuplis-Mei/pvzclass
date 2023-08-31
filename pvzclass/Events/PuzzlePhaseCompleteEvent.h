@@ -10,7 +10,7 @@ class PuzzlePhaseCompleteEvent : public BaseEvent<std::function<
 {
 public:
 	PuzzlePhaseCompleteEvent();
-	bool handle(DebugEventHandler handler);
+	bool handle(EventHandler handler);
 };
 
 PuzzlePhaseCompleteEvent::PuzzlePhaseCompleteEvent()
@@ -18,7 +18,7 @@ PuzzlePhaseCompleteEvent::PuzzlePhaseCompleteEvent()
 	address = 0x429980;
 }
 
-bool PuzzlePhaseCompleteEvent::handle(DebugEventHandler handler)
+bool PuzzlePhaseCompleteEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto challenge = MKS<PVZ::Miscellaneous>(PVZ::Memory::ReadMemory<DWORD>(handler.context.Ecx + 4));

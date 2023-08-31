@@ -1,23 +1,24 @@
 #pragma once
 #include "BaseEvent.h"
 
-// 子弹创建事件
-// 参数：被创建的子弹
+// 子弹消失事件
+// 参数：消失的子弹
 // 无返回值
-class ProjectileCreateEvent : public BaseEvent<std::function<
+// 子弹消失的原因多种多样：命中僵尸、射出屏幕等都会触发
+class ProjectileRemoveEvent : public BaseEvent<std::function<
 	void(std::shared_ptr<PVZ::Projectile>)>>
 {
 public:
-	ProjectileCreateEvent();
-	bool handle(DebugEventHandler handler);
+	ProjectileRemoveEvent();
+	bool handle(EventHandler handler);
 };
 
-ProjectileCreateEvent::ProjectileCreateEvent()
+ProjectileRemoveEvent::ProjectileRemoveEvent()
 {
-	address = 0x40D652;
+	address = 0x46EB20;
 }
 
-bool ProjectileCreateEvent::handle(DebugEventHandler handler)
+bool ProjectileRemoveEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto projectile = std::make_shared<PVZ::Projectile>(handler.context.Eax);

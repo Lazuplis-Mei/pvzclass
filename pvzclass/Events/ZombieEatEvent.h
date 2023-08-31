@@ -9,7 +9,7 @@ class ZombieEatEvent : public BaseEvent<std::function<
 {
 public:
 	ZombieEatEvent();
-	bool handle(DebugEventHandler handler);
+	bool handle(EventHandler handler);
 };
 
 ZombieEatEvent::ZombieEatEvent()
@@ -17,7 +17,7 @@ ZombieEatEvent::ZombieEatEvent()
 	address = 0x52F689;
 }
 
-bool ZombieEatEvent::handle(DebugEventHandler handler)
+bool ZombieEatEvent::handle(EventHandler handler)
 {
 	if (handler.context.Eip != address) return false;
 	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Edi);

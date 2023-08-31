@@ -209,31 +209,24 @@
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
-    <ClCompile Include="events.cpp" />
-    <ClCompile Include="LevelEvent.cpp" />
-    <ClCompile Include="PlantEvent.cpp" />
-    <ClCompile Include="HookEvents\PlantShootEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
-    <ClCompile Include="ProjectileEvent.cpp" />
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="pvzclass.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
-    <ClCompile Include="HookEvents\ZombieEatEvent.cpp" />
-    <ClCompile Include="ZombieEvent.cpp" />
-    <ClCompile Include="HookEvents\ZombieHitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DebugEvents\BaseEvent.h" />
-    <ClInclude Include="DebugEvents\DebugEventHandler.h" />
-    <ClInclude Include="DebugEvents\ProjectileCreateEvent.h" />
-    <ClInclude Include="DebugEvents\PuzzlePhaseCompleteEvent.h" />
-    <ClInclude Include="DebugEvents\ZombieEatEvent.h" />
-    <ClInclude Include="DebugEvents\ZombieHitEvent.h" />
+    <ClInclude Include="Events\CoinRemoveEvent.h" />
+    <ClInclude Include="Events\CoinCollectEvent.h" />
+    <ClInclude Include="Events\BaseEvent.h" />
+    <ClInclude Include="Events\EventHandler.h" />
+    <ClInclude Include="Events\ProjectileCreateEvent.h" />
+    <ClInclude Include="Events\PuzzlePhaseCompleteEvent.h" />
+    <ClInclude Include="Events\ZombieEatEvent.h" />
+    <ClInclude Include="Events\ZombieHitEvent.h" />
     <ClInclude Include="Enums\LawnmoverState.h" />
-    <ClInclude Include="HookEvents\BaseEvent.h" />
     <ClInclude Include="Creators.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFunctions.h" />
@@ -273,11 +266,14 @@
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="Enums\UpperSoundType.h" />
     <ClInclude Include="Enums\AnimationType.h" />
-    <ClInclude Include="events.h" />
     <ClInclude Include="Injectors.h" />
-    <ClInclude Include="HookEvents\PlantShootEvent.h" />
+    <ClInclude Include="Events\PlantCreateEvent.h" />
+    <ClInclude Include="Events\CoinCreateEvent.h" />
+    <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
-    <ClInclude Include="DebugEvents\PlantShootEvent.h" />
+    <ClInclude Include="Events\PlantShootEvent.h" />
+    <ClInclude Include="Events\PeaOnFireEvent.h" />
+    <ClInclude Include="Events\ProjectileRemoveEvent.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
@@ -285,8 +281,6 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
-    <ClInclude Include="HookEvents\ZombieHitEvent.h" />
-    <ClInclude Include="HookEvents\ZombieEatEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
