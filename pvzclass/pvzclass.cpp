@@ -12,6 +12,8 @@
 #include "Events/CoinRemoveEvent.h"
 #include "Events/ZombieBlastEvent.h"
 #include "Events/ZombieButterEvent.h"
+#include "Events/ZombieDecelerateEvent.h"
+#include "Events/ZombieFrozeEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -93,6 +95,16 @@ void listener14(shared_ptr<PVZ::Zombie> zombie)
 	cout << ZombieType::ToString(zombie->Type) << " 被黄油命中了\n";
 }
 
+void listener15(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被减速了\n";
+}
+
+void listener16(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被冻结了\n";
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -142,6 +154,12 @@ int main()
 	ZombieButterEvent e13;
 	e13.start();
 	e13.addListener(listener14);
+	ZombieDecelerateEvent e14;
+	e14.start();
+	e14.addListener(listener15);
+	ZombieFrozeEvent e15;
+	e15.start();
+	e15.addListener(listener16);
 
 	while (true)
 	{
@@ -165,6 +183,8 @@ int main()
 			e11.handle(handler);
 			e12.handle(handler);
 			e13.handle(handler);
+			e14.handle(handler);
+			e15.handle(handler);
 			handler.resume();
 		}
 	}
@@ -182,6 +202,8 @@ int main()
 	e11.end();
 	e12.end();
 	e13.end();
+	e14.end();
+	e15.end();
 	handler.stop();
 	delete pvz;
 	return 0;
