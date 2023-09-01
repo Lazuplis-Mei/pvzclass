@@ -281,6 +281,12 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Events\ZombieBlastEvent.h" />
+    <ClInclude Include="Events\ZombieButterEvent.h" />
+    <ClInclude Include="Events\ZombieDecelerateEvent.h" />
+    <ClInclude Include="Events\ZombieFrozeEvent.h" />
+    <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
+    <ClInclude Include="Events\ZombieRemoveEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

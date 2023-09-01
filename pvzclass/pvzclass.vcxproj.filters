@@ -401,6 +401,24 @@
     <ClInclude Include="Events\CoinRemoveEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ZombieBlastEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieButterEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieDecelerateEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieFrozeEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieHypnotizeEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieRemoveEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

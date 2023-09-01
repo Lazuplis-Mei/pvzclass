@@ -10,6 +10,12 @@
 #include "Events/ProjectileRemoveEvent.h"
 #include "Events/CoinCollectEvent.h"
 #include "Events/CoinRemoveEvent.h"
+#include "Events/ZombieBlastEvent.h"
+#include "Events/ZombieButterEvent.h"
+#include "Events/ZombieDecelerateEvent.h"
+#include "Events/ZombieFrozeEvent.h"
+#include "Events/ZombieHypnotizeEvent.h"
+#include "Events/ZombieRemoveEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -81,6 +87,36 @@ void listener12(shared_ptr<PVZ::Coin> coin)
 	cout << CoinType::ToString(coin->Type) << " 消失了\n";
 }
 
+void listener13(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 受到了灰烬伤害\n";
+}
+
+void listener14(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被黄油命中了\n";
+}
+
+void listener15(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被减速了\n";
+}
+
+void listener16(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被冻结了\n";
+}
+
+void listener17(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被魅惑了\n";
+}
+
+void listener18(shared_ptr<PVZ::Zombie> zombie)
+{
+	cout << ZombieType::ToString(zombie->Type) << " 被消灭了\n";
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -124,6 +160,24 @@ int main()
 	CoinRemoveEvent e11;
 	e11.start();
 	e11.addListener(listener12);
+	ZombieBlastEvent e12;
+	e12.start();
+	e12.addListener(listener13);
+	ZombieButterEvent e13;
+	e13.start();
+	e13.addListener(listener14);
+	ZombieDecelerateEvent e14;
+	e14.start();
+	e14.addListener(listener15);
+	ZombieFrozeEvent e15;
+	e15.start();
+	e15.addListener(listener16);
+	ZombieHypnotizeEvent e16;
+	e16.start();
+	e16.addListener(listener17);
+	ZombieRemoveEvent e17;
+	e17.start();
+	e17.addListener(listener18);
 
 	while (true)
 	{
@@ -145,6 +199,12 @@ int main()
 			e9.handle(handler);
 			e10.handle(handler);
 			e11.handle(handler);
+			e12.handle(handler);
+			e13.handle(handler);
+			e14.handle(handler);
+			e15.handle(handler);
+			e16.handle(handler);
+			e17.handle(handler);
 			handler.resume();
 		}
 	}
@@ -160,6 +220,12 @@ int main()
 	e9.end();
 	e10.end();
 	e11.end();
+	e12.end();
+	e13.end();
+	e14.end();
+	e15.end();
+	e16.end();
+	e17.end();
 	handler.stop();
 	delete pvz;
 	return 0;
