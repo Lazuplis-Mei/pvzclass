@@ -43,6 +43,7 @@
 #define INVOKE_DWORD_BYTE(address,d,b) PUSH(b),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_DWORD(address,d1,b,d2) PUSHDWORD(d2),PUSH(b),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_DWORD(address,d1,d2) PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE(address,d1,d2,b) PUSH(b),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD(address,d1,d2,d3) PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
@@ -159,7 +160,7 @@
 
 #pragma region asm esp
 
-#define PUSH_PTR_EUX_ADD_V 0xFF,0x74,0x24,v
+#define PUSH_PTR_ESP_ADD_V 0xFF,0x74,0x24,v
 
 #define MOV_PTR_ESP_ADD_V(v1,v2) 0xC7,0x44,0x24,v1,INUMBER(v2)
 
@@ -172,9 +173,6 @@
 #define ADD_EUX_PTR_ESP_ADD_V(ux,b) 3,0x44+(ux)*8+,0x24,b
 
 #define INC_PTR_ESP_ADD(v) 0xFF,0x84,0x24,INUMBER(v)
-
-#define FILD_PTR_ESP_ADD_V(ux,v) 0xDB,0x44,0x24,v
-#define FISTP_PTR_ESP_ADD_V(ux,v) 0xDB,0x5C,0x24,v
 
 #pragma endregion
 
@@ -330,8 +328,10 @@
 #define ZOMBIE_SETANIMATION INVOKE_DWORD_BYTE_BYTE_BYTE(0x528B00,0,0,14,0)
 #define PLANT_SETANIMATION INVOKE_DWORD_BYTE_BYTE(0x45FD90,0,0,0)
 #define GRIDITEM_REMOVE INVOKE(0x44D000)
+#define VASE_OPEN INVOKE_DWORD_DWORD(0x429AC0,0,0)
 #define CARDSLOT_SET_CARDSCOUNT INVOKE(0x489CD0)
 #define ZENGARDEN_ISFULL INVOKE_BYTE(0x51D740,0)
+#define ZENGARDER_GETSNAIL INVOKE(0x520CF0)
 
 #pragma endregion
 
@@ -396,3 +396,7 @@ extern byte __asm__Griditem__Remove[19];
 extern byte __asm__CardSlot__set_CardsCount[24];
 
 extern byte __asm__ZenGarder_IsFull[26];
+
+extern byte __asm__ZenGarder_GetSnail[24];
+
+extern byte __asm__Vase_Open[24];

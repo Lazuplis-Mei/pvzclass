@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\Animation.cpp" />
     <ClCompile Include="Classes\Attachment.cpp" />
+    <ClCompile Include="Classes\Board.cpp" />
     <ClCompile Include="Classes\Caption.cpp" />
     <ClCompile Include="Classes\CardSlot.cpp" />
     <ClCompile Include="Classes\Coin.cpp" />

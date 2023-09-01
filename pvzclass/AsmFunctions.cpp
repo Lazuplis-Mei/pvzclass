@@ -207,6 +207,12 @@ byte __asm__Griditem__Remove[]
 	RET
 };
 
+byte __asm__Vase_Open[]
+{
+	VASE_OPEN,
+	RET
+};
+
 byte __asm__CardSlot__set_CardsCount[]
 {
 	MOV_EUX(REG_EAX, 0),
@@ -221,4 +227,12 @@ byte __asm__ZenGarder_IsFull[]
 	ZENGARDEN_ISFULL,
 	MOV_PTR_ADDR_EAX(0),
 	RET
+};
+
+byte __asm__ZenGarder_GetSnail[]
+{
+	MOV_EUX(REG_EBX, 0),
+	ZENGARDER_GETSNAIL,
+	MOV_PTR_ADDR_EAX(0),
+	RET,
 };

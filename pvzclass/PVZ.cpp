@@ -277,6 +277,11 @@ SPT<PVZ::MousePointer> PVZ::GetMousePointer()
 	return MKS<MousePointer>(BaseAddress);
 }
 
+SPT<PVZ::Board> PVZ::GetBoard()
+{
+	return MKS<Board>(BaseAddress);
+}
+
 SPT<PVZ::Caption> PVZ::GetCaption()
 {
 	return MKS<Caption>(BaseAddress);
@@ -318,5 +323,3 @@ SPT<PVZ::Music> PVZ::GetMusic()
 }
 
 #pragma endregion
-
-

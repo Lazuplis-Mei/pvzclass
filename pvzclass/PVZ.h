@@ -238,6 +238,12 @@ public:
 #pragma endregion
 
 #pragma region classes
+	class Board
+	{
+		int BaseAddress;
+	public:
+		Board(int idoraddress);
+	};
 	//Do NOT construct this class!
 	class GameObject
 	{
@@ -247,6 +253,10 @@ public:
 		GameObject()
 		{
 			this->BaseAddress = 0;
+		}
+		SPT<PVZ::Board> GetBoard()
+		{
+			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -349,7 +359,7 @@ public:
 		ZombieType::ZombieType DebugType;
 #endif
 		Zombie(int indexoraddress);
-		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。 
+		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。 
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
@@ -466,7 +476,7 @@ public:
 	//public:
 		//EventHandler End
 		Plant(int indexoraddress);
-		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
+		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
@@ -590,6 +600,7 @@ public:
 		GriditemType::GriditemType DebugType;
 #endif
 		Griditem(int indexoraddress);
+		SPT<PVZ::Board> GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
@@ -638,6 +649,7 @@ public:
 		T_READONLY_PROPERTY(BOOLEAN, MouseEnter, __get_MouseEnter, 0x48);
 		INT_PROPERTY(TransparentCountDown, __get_TransparentCountDown, __set_TransparentCountDown, 0x4C);
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x50);
+		void Open();
 	};
 	class IZBrain :public PVZ::Griditem
 	{
@@ -795,6 +807,7 @@ public:
 	public:
 		ZenGarden(int address);
 		bool IsFull(bool consider_items);
+		SPT<Snail> GetSnail();
 	};
 
 	class PlantDefinition
@@ -855,6 +868,7 @@ public:
 	int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
 	int GetAllGriditems(SPT<Griditem> griditems[]);
 	SPT<MousePointer> GetMousePointer();
+	SPT<Board> GetBoard();
 	SPT<Caption> GetCaption();
 	SPT<CardSlot> GetCardSlot();
 	SPT<Miscellaneous> GetMiscellaneous();
