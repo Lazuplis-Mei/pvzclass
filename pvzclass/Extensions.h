@@ -12,16 +12,19 @@
 #define JUMP 235
 #define JLE 126
 
+//是否启用后台运行
 inline void EnableBackgroundRunning(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x54EBA8, JO, JZ);
 }
 
+//是否显示隐藏关卡
 inline void ShowHiddenLevel(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(b ? 0x42DF5D : 0x54EBA8, 56, 136);
 }
 
+//是否启动传送门。若为“是”，则该方法会自动创建默认的传送门
 inline void EnablePortal(PVZ* pvz, BOOLEAN b = true)
 {
 	if (b && pvz->BaseAddress != 0)Creator::__CreatePortal(pvz);
@@ -30,6 +33,7 @@ inline void EnablePortal(PVZ* pvz, BOOLEAN b = true)
 	MEMMOD_BYTE(0x4248CE, JO, JNE);
 }
 
+//是否固定传送门
 inline void FixPortal(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x4276DD, 0, 255);

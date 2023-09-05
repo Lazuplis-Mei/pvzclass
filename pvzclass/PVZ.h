@@ -107,6 +107,12 @@ public:
 	class Memory
 	{
 	public:
+		/* 0-100存放高效创建子弹的函数
+			100-200存放字符串或者PlantEffect的伪造植物对象
+			200-300存放子弹的事件循环代码
+			300-400存放僵尸的事件循环代码
+			400-500存放植物的事件循环代码
+			500-600存放各种需要初始化的功能*/
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
@@ -336,7 +342,8 @@ public:
 		void Del(int index);
 		void Add(ZombieType::ZombieType ztype);
 	};
-	class Mouse//+320
+	// 鼠标对象(控制层面的鼠标)
+	class Mouse
 	{
 		int BaseAddress;
 	public:
@@ -584,10 +591,10 @@ public:
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x24);
 		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
+		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x34);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;

@@ -5,7 +5,8 @@ namespace LawnType
 	enum LawnType
 	{
 		None = -1,
-		Grass = 1,
+		Nothing,
+		Grass,
 		Unsodded,
 		Water,
 	};

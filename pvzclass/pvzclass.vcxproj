@@ -219,6 +219,7 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Const.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\BaseEvent.h" />
