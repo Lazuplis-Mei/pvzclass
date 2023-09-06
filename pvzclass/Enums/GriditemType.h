@@ -9,11 +9,13 @@ namespace GriditemType
 		GriditemLadder,
 		PortalBlue,
 		PortalYellow,
-		AquariumBrain = 6,
+		AquariumBrain,
 		Vase,
-		Snail = 10,
-		Rake = 11,
-		IZBrain = 12,
+		Squirrel,
+		ZenTool,
+		Snail,
+		Rake,
+		IZBrain,
 	};
 
 	extern const char* ToString(GriditemType griditemt);

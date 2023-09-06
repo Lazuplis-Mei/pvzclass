@@ -186,9 +186,6 @@
     <ClCompile Include="Enums\EffectType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\GriditemType.cpp">
-      <Filter>源文件\Enums</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\PaintState.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
@@ -214,6 +211,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Board.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GriditemType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GriditemState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -423,6 +426,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Const.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GriditemState.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

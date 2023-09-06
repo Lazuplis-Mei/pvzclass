@@ -184,6 +184,7 @@
     <ClCompile Include="Enums\GardenPlantNeed.cpp" />
     <ClCompile Include="Enums\GardenPlantState.cpp" />
     <ClCompile Include="Enums\GardenScene.cpp" />
+    <ClCompile Include="Enums\GriditemState.cpp" />
     <ClCompile Include="Enums\GriditemType.cpp" />
     <ClCompile Include="Enums\INGAMEEffect.cpp" />
     <ClCompile Include="Enums\INGAMEState.cpp" />
@@ -220,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Const.h" />
+    <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\BaseEvent.h" />

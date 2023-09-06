@@ -248,7 +248,53 @@ public:
 	{
 		int BaseAddress;
 	public:
-		Board(int idoraddress);
+		Board(int address);
+		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
+
+		T_PROPERTY(FLOAT, FogOffset, __get_FogOffset, __set_FogOffset, 0x5D0);
+		INT_PROPERTY(FogBlownCountDown, __get_FogBlownCountDown, __set_FogBlownCountDown, 0x5D4);
+
+		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
+		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
+		T_PROPERTY(SceneType::SceneType, LevelScene, __get_LevelScene, __set_LevelScene, 0x554C);
+		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
+		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
+		/*exclude preparing time*/
+		INT_READONLY_PROPERTY(PlayingTime, __get_PlayingTime, 0x5568);
+		/*include preparing time*/
+		INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
+		/*lose focus and recount*/
+		INT_READONLY_PROPERTY(PlayingTime3, __get_PlayingTime3, 0x5570);
+		INT_READONLY_PROPERTY(CurrentWave, __get_CurrentWave, 0x557C);
+		INT_READONLY_PROPERTY(RefreshedWave, __get_RefreshedWave, 0x5580);
+		INT_PROPERTY(FlashTip, __get_FlashTip, __set_FlashTip, 0x5584);
+		/*Flash tips for novice tutorials*/
+		INT_PROPERTY(RefreshHp, __get_RefreshHp, __set_RefreshHp, 0x5594);
+		INT_READONLY_PROPERTY(CurrentWaveHp, __get_CurrentWaveHp, 0x5598);
+		INT_PROPERTY(NextWaveCountdown, __get_NextWaveCountdown, __set_NextWaveCountdown, 0x559C);
+		INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
+		INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
+		T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
+		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
+		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
+
+		T_PROPERTY(BOOLEAN, Mustache, __get_Mustache, __set_Mustache, 0x5761);
+		T_PROPERTY(BOOLEAN, Trickedout, __get_Trickedout, __set_Trickedout, 0x5762);
+		T_PROPERTY(BOOLEAN, Future, __get_Future, __set_Future, 0x5763);
+		T_PROPERTY(BOOLEAN, Pinata, __get_Pinata, __set_Pinata, 0x5764);
+		T_PROPERTY(BOOLEAN, Dance, __get_Dance, __set_Dance, 0x5765);
+		T_PROPERTY(BOOLEAN, Daisies, __get_Daisies, __set_Daisies, 0x5766);
+		T_PROPERTY(BOOLEAN, Sukhbir, __get_Sukhbir, __set_Sukhbir, 0x5767);
+
+		INT_READONLY_PROPERTY(EatenPlants, __get_EatenPlants, 0x5798);
+		INT_READONLY_PROPERTY(ShoveledPlants, __get_ShoveledPlants, 0x579C);
+
+		void GetZombieAllowed(ZombieType::ZombieType* ztypes);
+
+		READONLY_PROPERTY_BINDING(
+			BOOLEAN,
+			__get_SixRoute,
+			(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
 	};
 	//Do NOT construct this class!
 	class GameObject
@@ -356,7 +402,7 @@ public:
 		void GameClick(int x, int y);
 		void MoveTo(int x, int y);
 	};
-	class Zombie
+	class Zombie : public GameObject
 	{
 		//eventhandler start
 	public:
@@ -370,11 +416,6 @@ public:
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
-		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
-		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
 		T_PROPERTY(ZombieState::ZombieState, State, __get_State, __set_State, 0x28);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
@@ -433,7 +474,7 @@ public:
 		bool canDecelerate();
 		bool canFroze();
 	};
-	class Projectile
+	class Projectile : public GameObject
 	{
 		//EventHandler Start
 	public:
@@ -443,11 +484,6 @@ public:
 		ProjectileType::ProjectileType DebugType;
 #endif
 		Projectile(int indexoraddress);
-		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
-		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x38);
@@ -469,7 +505,7 @@ public:
 		void OnFire();
 		void Remove();
 	};
-	class Plant
+	class Plant : public GameObject
 	{
 		//EventHandler Start
 	public:
@@ -487,11 +523,6 @@ public:
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
-		INT_PROPERTY(X, __get_X, __set_X, 8);
-		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 0x24);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
 		T_PROPERTY(PlantState::PlantState, State, __get_State, __set_State, 0x3C);
@@ -591,6 +622,7 @@ public:
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
@@ -609,6 +641,7 @@ public:
 		Griditem(int indexoraddress);
 		SPT<PVZ::Board> GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
+		T_PROPERTY(GriditemState::GriditemState, State, __get_State, __set_State, 0xC);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x1C);
@@ -875,6 +908,7 @@ public:
 	int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
 	int GetAllGriditems(SPT<Griditem> griditems[]);
 	SPT<MousePointer> GetMousePointer();
+	//若 BaseAddress 为 0，返回空指针
 	SPT<Board> GetBoard();
 	SPT<Caption> GetCaption();
 	SPT<CardSlot> GetCardSlot();

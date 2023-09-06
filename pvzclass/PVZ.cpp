@@ -128,15 +128,9 @@ SPT<PVZ::Wave> PVZ::GetWave(int index)
 
 void PVZ::GetZombieSeed(ZombieType::ZombieType* ztypes)
 {
-	int p = 0;
-	for (int i = 0; i < 33; i++)
-	{
-		if (Memory::ReadMemory<byte>(BaseAddress + 0x54D4 + i))
-		{
-			ztypes[p] = ZombieType::ZombieType(i);
-			p++;
-		}
-	}
+	SPT<PVZ::Board> board = this->GetBoard();
+	if (board != nullptr)
+		board->GetZombieAllowed(ztypes);
 }
 
 void PVZ::Earthquake(int horizontalAmplitude, int verticalAmplitude, int duration)
@@ -279,7 +273,8 @@ SPT<PVZ::MousePointer> PVZ::GetMousePointer()
 
 SPT<PVZ::Board> PVZ::GetBoard()
 {
-	return MKS<Board>(BaseAddress);
+	int address = BaseAddress;
+	return(address == 0 ? nullptr : MKS<Board>(BaseAddress));
 }
 
 SPT<PVZ::Caption> PVZ::GetCaption()
