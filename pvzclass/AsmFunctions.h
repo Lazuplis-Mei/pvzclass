@@ -140,6 +140,7 @@
 
 #define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b
 #define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)
+#define MOV_PTR_EUX_ADD_V_EVX(ux,vx,v) 0x89,0x40+(ux)+(vx)*8,v
 #define MOV_PTR_EUX_ADD_V(ux,v1,v2) 0xC7,0x40+(ux),v1,INUMBER(v2)
 #define MOV_PTR_EUX_ADD(ux,v1,v2) 0xC7,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define CMP_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x78+(ux),v1,v2
@@ -174,6 +175,7 @@
 #define POP_PTR_ESP_ADD_V(v) 0x8F,0x44,0x24,v
 #define POP_PTR_ESP_ADD(v) 0x8F,0x84,0x24,INUMBER(v)
 
+#define MOV_PTR_ESP_ADD_V_EUX(ux,v) 0x89,0x44+(ux)*8,0x24,v
 #define MOV_PTR_ESP_ADD_V(v1,v2) 0xC7,0x44,0x24,v1,INUMBER(v2)
 #define MOV_PTR_ESP_ADD(v1,v2) 0xC7,0x84,0x24,INUMBER(v1),INUMBER(v2)
 
@@ -335,6 +337,7 @@
 #define ONFIRE INVOKE(0x46ECB0)
 #define PROJECTILE_REMOVE INVOKE(0x46EB20)
 #define COLLECT INVOKE(0x432060)
+#define LAWNMOVER_DIE INVOKE(0x458D10)
 #define PLANTABLE INVOKE_DWORD_BYTE_DWORD(0x40E020,0,0,0)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
@@ -403,6 +406,8 @@ extern byte __asm__Music__set_Type[24];
 extern byte __asm__Zombie__setAnimation[100];
 
 extern byte __asm__Plant__setAnimation[100];
+
+extern byte __asm__Lawnmover_Die[19];
 
 extern byte __asm__Griditem__Remove[19];
 

@@ -25,6 +25,7 @@
 #include "Enums/GriditemType.h"
 #include "Enums/VaseSkin.h"
 #include "Enums/VaseContent.h"
+#include "Enums/MagnetItemType.h"
 #include "Enums/MouseType.h"
 #include "Enums/CaptionStyle.h"
 #include "Enums/PaintState.h"

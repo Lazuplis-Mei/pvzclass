@@ -136,6 +136,17 @@ void Creator::AsmInit()
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
 }
 
+byte __asm__Asm__Reset[10]
+{
+	MOV_PTR_EUX_ADD_V_EVX(REG_EAX, REG_EBX, 0x14),
+	MOV_PTR_EUX_ADD_V(REG_EAX, 0x1C, 0x54B78)
+};
+
+void Creator::AsmReset()
+{
+	PVZ::Memory::WriteArray<byte>(0x42706C, __asm__Asm__Reset, 10);
+}
+
 SPT<PVZ::Projectile> Creator::CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed)
 {
 	angle = angle / 180 * PI;
@@ -191,7 +202,7 @@ void Creator::ResetLawnmover(PVZ* pvz)
 	SPT<PVZ::Lawnmover> lawnmovers[18];
 	int len = pvz->GetAllLawnmovers(lawnmovers);
 	for (int i = 0; i < len; i++)
-		lawnmovers[i]->NotExist = true;
+		lawnmovers[i]->Die();
 	PVZ::Memory::Execute(STRING(__asm__ResetLawnmover));
 	PVZ::Memory::WriteMemory<float>(0x679BF8, -160.0f);
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JNZ(9)));

@@ -5,6 +5,13 @@ PVZ::Board::Board(int address)
 	this->BaseAddress = address;
 }
 
+int PVZ::Board::GetGridFog(int row, int column)
+{
+	if (row < 0 || row > 6 || column < 0 || column > 8)
+		return(0);
+	return(Memory::ReadMemory<int>(BaseAddress + 4 * row + 0x1C * column));
+}
+
 void PVZ::Board::GetZombieAllowed(ZombieType::ZombieType* ztypes)
 {
 	int p = 0;

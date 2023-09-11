@@ -56,6 +56,9 @@ inline void xytorc(int* x, int* y)
 
 	void AsmInit();
 
+	//如果调用过 AsmInit()，程序结束之前一定要调用此函数
+	void AsmReset();
+
 	//你需要先调用一次AsmInit后才能使用这个函数
 	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 

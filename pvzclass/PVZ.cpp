@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.6.0.190725";
+	return "1.14.0.230911";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()

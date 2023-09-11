@@ -69,3 +69,17 @@ void PVZ::Wave::Add(ZombieType::ZombieType ztype)
 		if (count < 49)Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + (count + 1) * 4, ZombieType::None);
 	}
 }
+
+void PVZ::Wave::AddAll(ZombieType::ZombieType* ztypes, int length)
+{
+	int Index = Count;
+	int Inall = Index + length;
+	if (Inall > 50)
+		Inall = 50;
+	for (int i = Index; i < Inall; i++)
+	{
+		Memory::WriteMemory<int>(BaseAddress + i * 4, ztypes[i - Index]);
+	}
+	if (Inall != 50)
+		Memory::WriteMemory<int>(BaseAddress + Inall * 4, ZombieType::None);
+}

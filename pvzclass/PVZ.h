@@ -107,12 +107,8 @@ public:
 	class Memory
 	{
 	public:
-		/* 0-100存放高效创建子弹的函数
-			100-200存放字符串或者PlantEffect的伪造植物对象
-			200-300存放子弹的事件循环代码
-			300-400存放僵尸的事件循环代码
-			400-500存放植物的事件循环代码
-			500-600存放各种需要初始化的功能*/
+		/*	0-100存放创建子弹的函数
+			100-200存放字符串或者PlantEffect的伪造植物对象 */
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
@@ -251,8 +247,13 @@ public:
 		Board(int address);
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
+#pragma region fog
+
+		int GetGridFog(int row, int column);
 		T_PROPERTY(FLOAT, FogOffset, __get_FogOffset, __set_FogOffset, 0x5D0);
 		INT_PROPERTY(FogBlownCountDown, __get_FogBlownCountDown, __set_FogBlownCountDown, 0x5D4);
+
+#pragma endregion
 
 		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
 		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
@@ -387,6 +388,7 @@ public:
 		void Set(int index, ZombieType::ZombieType ztype);
 		void Del(int index);
 		void Add(ZombieType::ZombieType ztype);
+		void AddAll(ZombieType::ZombieType* ztypes, int length);
 	};
 	// 鼠标对象(控制层面的鼠标)
 	class Mouse
@@ -507,17 +509,9 @@ public:
 	};
 	class Plant : public GameObject
 	{
-		//EventHandler Start
 	public:
-		//EventHandler End
 		int BaseAddress;
 		static const int MemSize = 0x14C;
-#if _DEBUG
-		PlantType::PlantType DebugType;
-#endif
-		//EventHandler Start
-	//public:
-		//EventHandler End
 		Plant(int indexoraddress);
 		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
@@ -552,6 +546,7 @@ public:
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
+		// 将植物定身为纸板（同 IZ），会让土豆地雷直接出土。
 		void SetStatic();
 		void Smash();
 		void Remove();
@@ -559,6 +554,18 @@ public:
 		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
+		class MagnetItem
+		{
+			int BaseAddress;
+		public:
+			MagnetItem(int address);
+			T_PROPERTY(FLOAT, X, __get_X, __set_X, 0);
+			T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 4);
+			T_PROPERTY(FLOAT, DestOffsetX, __get_DestOffsetX, __set_DestOffsetX, 8);
+			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
+			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
+		};
+		SPT<MagnetItem> GetMagnetItem(int num);
 	};
 	class GardenPlant
 	{
@@ -630,6 +637,7 @@ public:
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void Die();
 	};
 	class Griditem
 	{

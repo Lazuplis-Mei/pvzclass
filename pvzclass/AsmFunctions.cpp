@@ -200,6 +200,13 @@ byte __asm__Plant__setAnimation[100]
 	RET,
 };
 
+byte __asm__Lawnmover_Die[]
+{
+	MOV_EUX(REG_EAX, 0),
+	LAWNMOVER_DIE,
+	RET,
+};
+
 byte __asm__Griditem__Remove[]
 {
 	MOV_EUX(REG_ESI, 0),

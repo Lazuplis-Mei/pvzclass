@@ -211,6 +211,7 @@
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
+    <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantRemoveEvent.h" />
+    <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
