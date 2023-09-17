@@ -5,7 +5,7 @@
 #include <vector>
 #include <functional>
 
-template <class FunctionType> class BaseEvent
+template <class FunctionType> class TemplateEvent
 {
 public:
 	void start();
@@ -21,20 +21,20 @@ protected:
 };
 
 template<class FunctionType>
-void BaseEvent<FunctionType>::addListener(FunctionType listener)
+void TemplateEvent<FunctionType>::addListener(FunctionType listener)
 {
 	listeners.push_back(listener);
 }
 
 template<class FunctionType>
-void BaseEvent<FunctionType>::start()
+void TemplateEvent<FunctionType>::start()
 {
 	raw = PVZ::Memory::ReadMemory<BYTE>(address);
 	PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
 }
 
 template<class FunctionType>
-void BaseEvent<FunctionType>::afterHandle(EventHandler handler)
+void TemplateEvent<FunctionType>::afterHandle(EventHandler handler)
 {
 	PVZ::Memory::WriteMemory<BYTE>(address, raw);
 	handler.singleStep();
@@ -42,7 +42,7 @@ void BaseEvent<FunctionType>::afterHandle(EventHandler handler)
 }
 
 template<class FunctionType>
-void BaseEvent<FunctionType>::end()
+void TemplateEvent<FunctionType>::end()
 {
 	PVZ::Memory::WriteMemory<BYTE>(address, raw);
 }

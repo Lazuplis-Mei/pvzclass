@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // 植物射击事件
 // 参数：触发事件的植物
 // 无返回值
-class PlantShootEvent : public BaseEvent<std::function<
+class PlantShootEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Plant>)>>
 {
 public:

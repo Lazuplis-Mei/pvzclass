@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // 僵尸被冻结事件
 // 参数：触发事件的僵尸
 // 无返回值
-class ZombieFrozeEvent : public BaseEvent<std::function<
+class ZombieFrozeEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Zombie>)>>
 {
 public:

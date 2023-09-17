@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // Coin收集事件
 // 参数：触发事件的Coin
 // 无返回值
-class CoinCollectEvent : public BaseEvent<std::function<
+class CoinCollectEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Coin>)>>
 {
 public:

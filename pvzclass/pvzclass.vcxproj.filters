@@ -359,7 +359,7 @@
     <ClInclude Include="Enums\ChallengeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BaseEvent.h">
+    <ClInclude Include="Events\TemplateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\EventHandler.h">
