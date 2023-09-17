@@ -6,9 +6,6 @@ PVZ::Plant::Plant(int indexoraddress)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
-#if _DEBUG
-	DebugType = Type;
-#endif
 }
 
 byte __asm__Plant_memset[]
@@ -187,4 +184,14 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed)
 	PVZ::Memory::CreateThread(Address);
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
 	PVZ::Memory::FreeMemory(Address);
+}
+
+PVZ::Plant::MagnetItem::MagnetItem(int address)
+{
+	BaseAddress = address;
+};
+
+SPT<PVZ::Plant::MagnetItem> PVZ::Plant::GetMagnetItem(int num)
+{
+	return(MKS<PVZ::Plant::MagnetItem>(BaseAddress + 0xC8 + num * 0x14));
 }

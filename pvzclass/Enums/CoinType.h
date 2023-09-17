@@ -4,7 +4,8 @@ namespace CoinType
 
 	enum CoinType
 	{
-		SilverDollar = 1,
+		None,
+		SilverDollar,
 		GoldDollar,
 		Diamond,
 		NormalSun,

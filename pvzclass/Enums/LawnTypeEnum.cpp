@@ -7,6 +7,8 @@ const char* LawnType::ToString(LawnType lawnt)
 	{
 	case LawnType::None:
 		return "LawnTypeNone";
+	case LawnType::Nothing:
+		return "Nothing";
 	case LawnType::Grass:
 		return "Grass";
 	case LawnType::Unsodded:

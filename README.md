@@ -215,10 +215,14 @@ int num = pPVZ->GetAllZombies(zombies);//返回实际获取到的对象数量
 3. CreatePortal
 
 * FrozeAll函数需要在关卡出现过植物的情况下才有效果
+
 =======
+
 ## pvzclass-with-events 附加
 
-**注意：该类正在重做为全新的 Event 组件，未来将被移除。**
+**注意：该类已被移除。**
+
+**如果你想了解新的 Events 组件，建议查阅[这篇文档](./pvzclass/Events/Events说明.md)。**
 
 ### with events?
 
@@ -232,66 +236,6 @@ int num = pPVZ->GetAllZombies(zombies);//返回实际获取到的对象数量
 本人受到Bukkit Events API启发。
 
 将会不断完善其它的事件。
-
-### EventHandler是一个类。这个类可以被构造：
-
-```cpp
-EventHandler(PVZ* pvz);
-```
-
-这个类可以注册所有的监听器：
-
-+ `PlantPlantEvent`-PVZ::Plant*
-+ `PlantRemoveEvent`-PVZ::Plant*
-+ `PlantUpgradeEvent`-PVZ::Plant*
-+ `LevelOpenEvent`-void
-+ `LevelCloseEvent`-void
-+ `LevelWaveEvent`-int
-
-格式：
-`注册名`——`函数传递参数`
-
-注册监听器需要将register放到前面。
-
-+ `RegisterPlantPlantEvent(...)`
-
-`Run` 代表运行一次监听器。
-
-**注意：Run只能进行一次监听，不能持久，不会多开线程**
-
-监听的函数必须有一个相对应的参数。
-
-`void onPlant( PVZ::Plant *e )`
-
-代码：
-
-```cpp
-#include "events.h"
-///...
-void plant(PVZ::Plant e)//e与参数对应
-{
-	cout << "found Plant on " << e.Row << " " << e.Column << " " << ToString(e.Type) << endl;
-}
-void open(void)//其实这里void可以拿走
-{
-        cout << "open" << endl;
-}
-void wave(int w)
-{
-        cout << "wave is: " << wave << endl;
-}
-//...
-int main()
-{
-//...
-	EventHandler e(pvz);
-	e.RegisterPlantPlantEvent(plant);
-	e.RegisterLevelOpenEvent(open);
-	while (1)
-		e.Run();      //进行一次监听
-//...
-}
-```
 
 ## 怎么用？
 

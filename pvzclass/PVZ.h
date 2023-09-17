@@ -107,6 +107,8 @@ public:
 	class Memory
 	{
 	public:
+		/*	0-100存放创建子弹的函数
+			100-200存放字符串或者PlantEffect的伪造植物对象 */
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
@@ -238,6 +240,63 @@ public:
 #pragma endregion
 
 #pragma region classes
+	class Board
+	{
+		int BaseAddress;
+	public:
+		Board(int address);
+		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
+
+#pragma region fog
+
+		int GetGridFog(int row, int column);
+		T_PROPERTY(FLOAT, FogOffset, __get_FogOffset, __set_FogOffset, 0x5D0);
+		INT_PROPERTY(FogBlownCountDown, __get_FogBlownCountDown, __set_FogBlownCountDown, 0x5D4);
+
+#pragma endregion
+
+		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
+		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
+		T_PROPERTY(SceneType::SceneType, LevelScene, __get_LevelScene, __set_LevelScene, 0x554C);
+		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
+		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
+		/*exclude preparing time*/
+		INT_READONLY_PROPERTY(PlayingTime, __get_PlayingTime, 0x5568);
+		/*include preparing time*/
+		INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
+		/*lose focus and recount*/
+		INT_READONLY_PROPERTY(PlayingTime3, __get_PlayingTime3, 0x5570);
+		INT_READONLY_PROPERTY(CurrentWave, __get_CurrentWave, 0x557C);
+		INT_READONLY_PROPERTY(RefreshedWave, __get_RefreshedWave, 0x5580);
+		INT_PROPERTY(FlashTip, __get_FlashTip, __set_FlashTip, 0x5584);
+		/*Flash tips for novice tutorials*/
+		INT_PROPERTY(RefreshHp, __get_RefreshHp, __set_RefreshHp, 0x5594);
+		INT_READONLY_PROPERTY(CurrentWaveHp, __get_CurrentWaveHp, 0x5598);
+		INT_PROPERTY(NextWaveCountdown, __get_NextWaveCountdown, __set_NextWaveCountdown, 0x559C);
+		INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
+		INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
+		T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
+		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
+		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
+
+		T_PROPERTY(BOOLEAN, Mustache, __get_Mustache, __set_Mustache, 0x5761);
+		T_PROPERTY(BOOLEAN, Trickedout, __get_Trickedout, __set_Trickedout, 0x5762);
+		T_PROPERTY(BOOLEAN, Future, __get_Future, __set_Future, 0x5763);
+		T_PROPERTY(BOOLEAN, Pinata, __get_Pinata, __set_Pinata, 0x5764);
+		T_PROPERTY(BOOLEAN, Dance, __get_Dance, __set_Dance, 0x5765);
+		T_PROPERTY(BOOLEAN, Daisies, __get_Daisies, __set_Daisies, 0x5766);
+		T_PROPERTY(BOOLEAN, Sukhbir, __get_Sukhbir, __set_Sukhbir, 0x5767);
+
+		INT_READONLY_PROPERTY(EatenPlants, __get_EatenPlants, 0x5798);
+		INT_READONLY_PROPERTY(ShoveledPlants, __get_ShoveledPlants, 0x579C);
+
+		void GetZombieAllowed(ZombieType::ZombieType* ztypes);
+
+		READONLY_PROPERTY_BINDING(
+			BOOLEAN,
+			__get_SixRoute,
+			(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
+	};
 	//Do NOT construct this class!
 	class GameObject
 	{
@@ -247,6 +306,10 @@ public:
 		GameObject()
 		{
 			this->BaseAddress = 0;
+		}
+		SPT<PVZ::Board> GetBoard()
+		{
+			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -325,8 +388,10 @@ public:
 		void Set(int index, ZombieType::ZombieType ztype);
 		void Del(int index);
 		void Add(ZombieType::ZombieType ztype);
+		void AddAll(ZombieType::ZombieType* ztypes, int length);
 	};
-	class Mouse//+320
+	// 鼠标对象(控制层面的鼠标)
+	class Mouse
 	{
 		int BaseAddress;
 	public:
@@ -339,7 +404,7 @@ public:
 		void GameClick(int x, int y);
 		void MoveTo(int x, int y);
 	};
-	class Zombie
+	class Zombie : public GameObject
 	{
 		//eventhandler start
 	public:
@@ -349,15 +414,10 @@ public:
 		ZombieType::ZombieType DebugType;
 #endif
 		Zombie(int indexoraddress);
-		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。 
+		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。 
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
-		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
-		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
 		T_PROPERTY(ZombieState::ZombieState, State, __get_State, __set_State, 0x28);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
@@ -416,7 +476,7 @@ public:
 		bool canDecelerate();
 		bool canFroze();
 	};
-	class Projectile
+	class Projectile : public GameObject
 	{
 		//EventHandler Start
 	public:
@@ -426,11 +486,6 @@ public:
 		ProjectileType::ProjectileType DebugType;
 #endif
 		Projectile(int indexoraddress);
-		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
-		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x38);
@@ -452,29 +507,16 @@ public:
 		void OnFire();
 		void Remove();
 	};
-	class Plant
+	class Plant : public GameObject
 	{
-		//EventHandler Start
 	public:
-		//EventHandler End
 		int BaseAddress;
 		static const int MemSize = 0x14C;
-#if _DEBUG
-		PlantType::PlantType DebugType;
-#endif
-		//EventHandler Start
-	//public:
-		//EventHandler End
 		Plant(int indexoraddress);
-		/*调用该函数后，对应的 Events 组件功能、GetAll()、基类的构造函数都会失效。
+		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
-		INT_PROPERTY(X, __get_X, __set_X, 8);
-		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(PlantType::PlantType, Type, __get_Type, __set_Type, 0x24);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
 		T_PROPERTY(PlantState::PlantState, State, __get_State, __set_State, 0x3C);
@@ -504,6 +546,7 @@ public:
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();
+		// 将植物定身为纸板（同 IZ），会让土豆地雷直接出土。
 		void SetStatic();
 		void Smash();
 		void Remove();
@@ -511,6 +554,18 @@ public:
 		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
+		class MagnetItem
+		{
+			int BaseAddress;
+		public:
+			MagnetItem(int address);
+			T_PROPERTY(FLOAT, X, __get_X, __set_X, 0);
+			T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 4);
+			T_PROPERTY(FLOAT, DestOffsetX, __get_DestOffsetX, __set_DestOffsetX, 8);
+			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
+			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
+		};
+		SPT<MagnetItem> GetMagnetItem(int num);
 	};
 	class GardenPlant
 	{
@@ -574,13 +629,15 @@ public:
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x24);
+		SPT<PVZ::Animation> GetAnimation();
 		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
+		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x34);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void Die();
 	};
 	class Griditem
 	{
@@ -590,7 +647,9 @@ public:
 		GriditemType::GriditemType DebugType;
 #endif
 		Griditem(int indexoraddress);
+		SPT<PVZ::Board> GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
+		T_PROPERTY(GriditemState::GriditemState, State, __get_State, __set_State, 0xC);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x1C);
@@ -638,6 +697,7 @@ public:
 		T_READONLY_PROPERTY(BOOLEAN, MouseEnter, __get_MouseEnter, 0x48);
 		INT_PROPERTY(TransparentCountDown, __get_TransparentCountDown, __set_TransparentCountDown, 0x4C);
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x50);
+		void Open();
 	};
 	class IZBrain :public PVZ::Griditem
 	{
@@ -795,6 +855,7 @@ public:
 	public:
 		ZenGarden(int address);
 		bool IsFull(bool consider_items);
+		SPT<Snail> GetSnail();
 	};
 
 	class PlantDefinition
@@ -855,6 +916,8 @@ public:
 	int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
 	int GetAllGriditems(SPT<Griditem> griditems[]);
 	SPT<MousePointer> GetMousePointer();
+	//若 BaseAddress 为 0，返回空指针
+	SPT<Board> GetBoard();
 	SPT<Caption> GetCaption();
 	SPT<CardSlot> GetCardSlot();
 	SPT<Miscellaneous> GetMiscellaneous();

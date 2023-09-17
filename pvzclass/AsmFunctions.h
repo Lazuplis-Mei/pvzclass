@@ -43,6 +43,7 @@
 #define INVOKE_DWORD_BYTE(address,d,b) PUSH(b),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_BYTE(address,d,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d),INVOKE(address)
 #define INVOKE_DWORD_BYTE_DWORD(address,d1,b,d2) PUSHDWORD(d2),PUSH(b),PUSHDWORD(d1),INVOKE(address)
+#define INVOKE_DWORD_DWORD(address,d1,d2) PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE(address,d1,d2,b) PUSH(b),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_DWORD(address,d1,d2,d3) PUSHDWORD(d3),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
 #define INVOKE_DWORD_DWORD_BYTE_BYTE(address,d1,d2,b1,b2) PUSH(b2),PUSH(b1),PUSHDWORD(d2),PUSHDWORD(d1),INVOKE(address)
@@ -101,8 +102,11 @@
 #define PUSH_EUX(ux) 0x50+(ux)
 #define POP_EUX(ux) 0x58+(ux)
 
+#define POP_PTR(address) 0x8F,5,INUMBER(address)
+
 #define MOV_EUX(ux,d) 0xB8+(ux),INUMBER(d)
 #define MOV_EUX_EVX(ux,vx) 0x8B,0xC0+(ux)*8+(vx)
+#define MOV_EUX_PTR_ADDR(ux,d) 0x8B,5+(ux)*8,INUMBER(d)
 #define MOV_PTR_ADDR_EUX(ux,address) 0x89,5+(ux)*8,INUMBER(address)
 #define MOV_PTR_ADDR(address,d) 0xC7,5,INUMBER(address),INUMBER(d)
 #define CMP_EUX(ux,b) 0x83,0xF8+(ux),b
@@ -126,11 +130,17 @@
 #define SAR_EUX(ux,b) 0xC1,0xF8+(ux),b
 #define TEST_EUX_EVX(ux,vx) 0x85,0xC0+(ux)+(vx)*8
 
+#define CALL_EUX(ux) 0xFF,0xD0+(ux)
+
 //Not for esp
-#define PUSH_PTR_EUX_ADD_V 0xFF,0x70+(ux),v
+#define PUSH_PTR_EUX_ADD_V(ux,v) 0xFF,0x70+(ux),v
+#define PUSH_PTR_EUX_ADD(ux,v) 0xFF,0xB0+(ux),INUMBER(v)
+#define POP_PTR_EUX_ADD_V(ux,v) 0x8F,0x40+(ux),v
+#define POP_PTR_EUX_ADD(ux,v) 0x8F,0x80+(ux),INUMBER(v)
 
 #define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b) 0x8B,0x40+(ux)*8+(vx),b
 #define MOV_EUX_PTR_EVX_ADD(ux,vx,d) 0x8B,0x80+(ux)*8+(vx),INUMBER(d)
+#define MOV_PTR_EUX_ADD_V_EVX(ux,vx,v) 0x89,0x40+(ux)+(vx)*8,v
 #define MOV_PTR_EUX_ADD_V(ux,v1,v2) 0xC7,0x40+(ux),v1,INUMBER(v2)
 #define MOV_PTR_EUX_ADD(ux,v1,v2) 0xC7,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define CMP_PTR_EUX_ADD_V_V(ux,v1,v2) 0x83,0x78+(ux),v1,v2
@@ -154,17 +164,23 @@
 #pragma region asm eax
 
 #define ADD_EAX_DWORD(d) 5,INUMBER(d)
+#define CMP_EAX_DWORD(d) 0x3D,INUMBER(d)
 
 #pragma endregion
 
 #pragma region asm esp
 
-#define PUSH_PTR_EUX_ADD_V 0xFF,0x74,0x24,v
+#define PUSH_PTR_ESP_ADD_V(v) 0xFF,0x74,0x24,v
+#define PUSH_PTR_ESP_ADD(v) 0xFF,0xB4,0x24,INUMBER(v)
+#define POP_PTR_ESP_ADD_V(v) 0x8F,0x44,0x24,v
+#define POP_PTR_ESP_ADD(v) 0x8F,0x84,0x24,INUMBER(v)
 
+#define MOV_PTR_ESP_ADD_V_EUX(ux,v) 0x89,0x44+(ux)*8,0x24,v
 #define MOV_PTR_ESP_ADD_V(v1,v2) 0xC7,0x44,0x24,v1,INUMBER(v2)
+#define MOV_PTR_ESP_ADD(v1,v2) 0xC7,0x84,0x24,INUMBER(v1),INUMBER(v2)
 
-#define CMP_PTR_ESP_ADD_V_V(ux,v1,v2) 0x83,0x7C,0x24,v1,v2
-#define CMP_PTR_ESP_ADD__V(ux,v1,v2) 0x83,0xBC,0x24,INUMBER(v1),v2
+#define CMP_PTR_ESP_ADD_V_V(v1,v2) 0x83,0x7C,0x24,v1,v2
+#define CMP_PTR_ESP_ADD__V(v1,v2) 0x83,0xBC,0x24,INUMBER(v1),v2
 
 #define MOV_BYTE_PTR_ESP_ADD_V_V(v1,v2) 0xC6,0x44,0x24,v1,v2
 #define CMP_BYTE_PTR_ESP_ADD__V(v1,v2) 0x80,0xBC,0x24,INUMBER(v1),v2
@@ -172,9 +188,6 @@
 #define ADD_EUX_PTR_ESP_ADD_V(ux,b) 3,0x44+(ux)*8+,0x24,b
 
 #define INC_PTR_ESP_ADD(v) 0xFF,0x84,0x24,INUMBER(v)
-
-#define FILD_PTR_ESP_ADD_V(ux,v) 0xDB,0x44,0x24,v
-#define FISTP_PTR_ESP_ADD_V(ux,v) 0xDB,0x5C,0x24,v
 
 #pragma endregion
 
@@ -324,14 +337,17 @@
 #define ONFIRE INVOKE(0x46ECB0)
 #define PROJECTILE_REMOVE INVOKE(0x46EB20)
 #define COLLECT INVOKE(0x432060)
+#define LAWNMOVER_DIE INVOKE(0x458D10)
 #define PLANTABLE INVOKE_DWORD_BYTE_DWORD(0x40E020,0,0,0)
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
 #define ZOMBIE_SETANIMATION INVOKE_DWORD_BYTE_BYTE_BYTE(0x528B00,0,0,14,0)
 #define PLANT_SETANIMATION INVOKE_DWORD_BYTE_BYTE(0x45FD90,0,0,0)
 #define GRIDITEM_REMOVE INVOKE(0x44D000)
+#define VASE_OPEN INVOKE_DWORD_DWORD(0x429AC0,0,0)
 #define CARDSLOT_SET_CARDSCOUNT INVOKE(0x489CD0)
 #define ZENGARDEN_ISFULL INVOKE_BYTE(0x51D740,0)
+#define ZENGARDER_GETSNAIL INVOKE(0x520CF0)
 
 #pragma endregion
 
@@ -391,8 +407,14 @@ extern byte __asm__Zombie__setAnimation[100];
 
 extern byte __asm__Plant__setAnimation[100];
 
+extern byte __asm__Lawnmover_Die[19];
+
 extern byte __asm__Griditem__Remove[19];
 
 extern byte __asm__CardSlot__set_CardsCount[24];
 
 extern byte __asm__ZenGarder_IsFull[26];
+
+extern byte __asm__ZenGarder_GetSnail[24];
+
+extern byte __asm__Vase_Open[24];

@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Classes\Animation.cpp" />
     <ClCompile Include="Classes\Attachment.cpp" />
+    <ClCompile Include="Classes\Board.cpp" />
     <ClCompile Include="Classes\Caption.cpp" />
     <ClCompile Include="Classes\CardSlot.cpp" />
     <ClCompile Include="Classes\Coin.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Enums\GardenPlantNeed.cpp" />
     <ClCompile Include="Enums\GardenPlantState.cpp" />
     <ClCompile Include="Enums\GardenScene.cpp" />
+    <ClCompile Include="Enums\GriditemState.cpp" />
     <ClCompile Include="Enums\GriditemType.cpp" />
     <ClCompile Include="Enums\INGAMEEffect.cpp" />
     <ClCompile Include="Enums\INGAMEState.cpp" />
@@ -209,6 +211,7 @@
     <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
+    <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -219,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\BaseEvent.h" />
+    <ClInclude Include="Const.h" />
+    <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
@@ -271,6 +276,7 @@
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantRemoveEvent.h" />
+    <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />

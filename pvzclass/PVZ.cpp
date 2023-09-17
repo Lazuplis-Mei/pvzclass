@@ -19,7 +19,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.6.0.190725";
+	return "1.14.0.230911";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -128,15 +128,9 @@ SPT<PVZ::Wave> PVZ::GetWave(int index)
 
 void PVZ::GetZombieSeed(ZombieType::ZombieType* ztypes)
 {
-	int p = 0;
-	for (int i = 0; i < 33; i++)
-	{
-		if (Memory::ReadMemory<byte>(BaseAddress + 0x54D4 + i))
-		{
-			ztypes[p] = ZombieType::ZombieType(i);
-			p++;
-		}
-	}
+	SPT<PVZ::Board> board = this->GetBoard();
+	if (board != nullptr)
+		board->GetZombieAllowed(ztypes);
 }
 
 void PVZ::Earthquake(int horizontalAmplitude, int verticalAmplitude, int duration)
@@ -277,6 +271,12 @@ SPT<PVZ::MousePointer> PVZ::GetMousePointer()
 	return MKS<MousePointer>(BaseAddress);
 }
 
+SPT<PVZ::Board> PVZ::GetBoard()
+{
+	int address = BaseAddress;
+	return(address == 0 ? nullptr : MKS<Board>(BaseAddress));
+}
+
 SPT<PVZ::Caption> PVZ::GetCaption()
 {
 	return MKS<Caption>(BaseAddress);
@@ -318,5 +318,3 @@ SPT<PVZ::Music> PVZ::GetMusic()
 }
 
 #pragma endregion
-
-

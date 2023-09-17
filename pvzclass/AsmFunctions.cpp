@@ -200,10 +200,23 @@ byte __asm__Plant__setAnimation[100]
 	RET,
 };
 
+byte __asm__Lawnmover_Die[]
+{
+	MOV_EUX(REG_EAX, 0),
+	LAWNMOVER_DIE,
+	RET,
+};
+
 byte __asm__Griditem__Remove[]
 {
 	MOV_EUX(REG_ESI, 0),
 	GRIDITEM_REMOVE,
+	RET
+};
+
+byte __asm__Vase_Open[]
+{
+	VASE_OPEN,
 	RET
 };
 
@@ -221,4 +234,12 @@ byte __asm__ZenGarder_IsFull[]
 	ZENGARDEN_ISFULL,
 	MOV_PTR_ADDR_EAX(0),
 	RET
+};
+
+byte __asm__ZenGarder_GetSnail[]
+{
+	MOV_EUX(REG_EBX, 0),
+	ZENGARDER_GETSNAIL,
+	MOV_PTR_ADDR_EAX(0),
+	RET,
 };

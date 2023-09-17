@@ -4,6 +4,8 @@ const char* CoinType::ToString(CoinType coint)
 {
 	switch (coint)
 	{
+	case CoinType::None:
+		return "None";
 	case CoinType::SilverDollar:
 		return "SilverDollar";
 	case CoinType::GoldDollar:
