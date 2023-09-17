@@ -1,15 +1,15 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // Coin收集事件
 // 参数：触发事件的Coin
 // 无返回值
-class CoinCollectEvent : public BaseEvent<std::function<
+class CoinCollectEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Coin>)>>
 {
 public:
 	CoinCollectEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 CoinCollectEvent::CoinCollectEvent()
@@ -17,14 +17,11 @@ CoinCollectEvent::CoinCollectEvent()
 	address = 0x432060;
 }
 
-bool CoinCollectEvent::handle(EventHandler handler)
+void CoinCollectEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto coin = std::make_shared<PVZ::Coin>(handler.context.Ecx);
+	auto coin = std::make_shared<PVZ::Coin>(context.Ecx);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](coin);
 	}
-	afterHandle(handler);
-	return true;
 }

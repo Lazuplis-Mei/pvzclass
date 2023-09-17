@@ -221,11 +221,12 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
-    <ClInclude Include="Events\BaseEvent.h" />
+    <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.h" />

@@ -1,16 +1,16 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // 僵尸灰烬事件
 // 参数：触发事件的僵尸
 // 无返回值
 // 僵尸受到灰烬伤害就会触发
-class ZombieBlastEvent : public BaseEvent<std::function<
+class ZombieBlastEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Zombie>)>>
 {
 public:
 	ZombieBlastEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieBlastEvent::ZombieBlastEvent()
@@ -18,14 +18,11 @@ ZombieBlastEvent::ZombieBlastEvent()
 	address = 0x532B70;
 }
 
-bool ZombieBlastEvent::handle(EventHandler handler)
+void ZombieBlastEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Ecx);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Ecx);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](zombie);
 	}
-	afterHandle(handler);
-	return true;
 }

@@ -1,48 +1,40 @@
 #pragma once
 #include "../PVZ.h"
-#include "EventHandler.h"
 #include <iostream>
 #include <vector>
-#include <functional>
 
-template <class FunctionType> class BaseEvent
+class BaseEvent
 {
 public:
-	void start();
-	void addListener(FunctionType listener);
-	// 处理这个事件，返回是否是该事件引发的中断
-	virtual bool handle(EventHandler handler) = 0;
-	void end();
-protected:
 	DWORD address;
 	BYTE raw;
-	std::vector<FunctionType> listeners;
-	void afterHandle(EventHandler handler);
+	// 开始监听这个事件，不需要用户调用
+	void start();
+	// 处理事件，不需要用户调用
+	virtual void handle(CONTEXT& context);
+	// 结束事件，不需要用户调用
+	void end();
+	BaseEvent();
 };
 
-template<class FunctionType>
-void BaseEvent<FunctionType>::addListener(FunctionType listener)
+BaseEvent::BaseEvent()
 {
-	listeners.push_back(listener);
+	address = 0;
+	raw = 0;
 }
 
-template<class FunctionType>
-void BaseEvent<FunctionType>::start()
+void BaseEvent::start()
 {
 	raw = PVZ::Memory::ReadMemory<BYTE>(address);
 	PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
 }
 
-template<class FunctionType>
-void BaseEvent<FunctionType>::afterHandle(EventHandler handler)
+void BaseEvent::end()
 {
 	PVZ::Memory::WriteMemory<BYTE>(address, raw);
-	handler.singleStep();
-	PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
 }
 
-template<class FunctionType>
-void BaseEvent<FunctionType>::end()
+void BaseEvent::handle(CONTEXT& context)
 {
-	PVZ::Memory::WriteMemory<BYTE>(address, raw);
+	std::cout << "调用了BaseEvent的handle()，这不应该发生！\n";
 }

@@ -1,16 +1,16 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // Coin消失事件
 // 参数：消失的Coin
 // 无返回值
 // Coin消失原因很多：被收集后、时间到了等都会使其消失
-class CoinRemoveEvent : public BaseEvent<std::function<
+class CoinRemoveEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Coin>)>>
 {
 public:
 	CoinRemoveEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 CoinRemoveEvent::CoinRemoveEvent()
@@ -18,14 +18,11 @@ CoinRemoveEvent::CoinRemoveEvent()
 	address = 0x432DD0;
 }
 
-bool CoinRemoveEvent::handle(EventHandler handler)
+void CoinRemoveEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto coin = std::make_shared<PVZ::Coin>(handler.context.Esi);
+	auto coin = std::make_shared<PVZ::Coin>(context.Esi);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](coin);
 	}
-	afterHandle(handler);
-	return true;
 }

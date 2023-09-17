@@ -1,15 +1,15 @@
 #pragma once
-#include "BaseEvent.h"
+#include "TemplateEvent.h"
 
 // 植物创建事件
 // 参数：触发事件的植物
 // 无返回值
-class PlantCreateEvent : public BaseEvent<std::function<
+class PlantCreateEvent : public TemplateEvent<std::function<
 	void(std::shared_ptr<PVZ::Plant>)>>
 {
 public:
 	PlantCreateEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 PlantCreateEvent::PlantCreateEvent()
@@ -17,14 +17,11 @@ PlantCreateEvent::PlantCreateEvent()
 	address = 0x40D190;
 }
 
-bool PlantCreateEvent::handle(EventHandler handler)
+void PlantCreateEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto plant = std::make_shared<PVZ::Plant>(handler.context.Eax);
+	auto plant = std::make_shared<PVZ::Plant>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](plant);
 	}
-	afterHandle(handler);
-	return true;
 }

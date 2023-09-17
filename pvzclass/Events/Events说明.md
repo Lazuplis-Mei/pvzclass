@@ -13,7 +13,7 @@
 首先，编写一个 listener 函数，返回类型与参数类型需要与事件类中的模板类型对应。例如：
 
 ```cpp
-class ZombieHitEvent : public BaseEvent<std::function<
+class ZombieHitEvent : public TemplateEvent<std::function<
     int(std::shared_ptr<PVZ::Zombie>, DamageType::DamageType, int)>>
 ```
 
@@ -33,27 +33,22 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 
 ```cpp
     DebugEventHandler handler;
-    handler.start();
     ZombieHitEvent e;
-    e.start();
     e.addListener(listener);
+    handler.addEvent(make_shared<ZombieHitEvent>(e));
+    handler.start();
     while (true)
     {
-        if (handler.run(1))
-        {
-            e.handle(handler);
-            handler.resume();
-        }
+        handler.run(1)
     }
-    e.end();
     handler.stop();
 ```
 
 说明几个注意点：
 
-1. 调用 start 之后，PVZ 便会在触发事件时被阻塞，直到事件被 handle 处理，请确保 run 的调用足够频繁，且 start 与 run 之间不会有相关事件被触发。
+1. 调用 start 之后，PVZ 便会在触发事件时被阻塞，直到事件被 handle.run 处理，请确保 run 的调用足够频繁，且 start 与 run 之间不会有相关事件被触发。
 
-2. run 的参数是等待时间（毫秒），如果在这期间触发了事件，则返回 true，此时 PVZ 被中断，需要 handle 相关事件并 resume 运行。
+2. run 的参数是等待时间（毫秒），如果在这期间触发了事件，则返回 true。
 
 3. 等待时间如果是 -1（INFINITY）则会阻塞住 pvzclass 直到事件触发，等待时间至少为 1ms，请根据自己的需要选择合适的等待时长。
 
@@ -61,25 +56,12 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 
 ## 开发说明
 
-请参照 DebugEvents 文件夹中相关文件。
+请参照 Events 文件夹中相关文件。
 
-首先，确认 listener 的返回类型与参数类型，然后继承 BaseEvent 基类。
+首先，确认 listener 的返回类型与参数类型，然后继承 TemplateEvent 基类。
 
 之后，实现以下两个方法：
 
 1. 构造函数中，将 address 设定为需要中断的地址。
 
 2. handle 中，实现事件的具体处理逻辑。
-
-在处理前，请使用以下代码确保是该事件引发的中断：
-
-```cpp
-    if (handler.context.Eip != address) return false;
-```
-
-在处理后，请使用以下代码确保后续处理正常进行：
-
-```cpp
-    afterHandle(handler);
-    return true;
-```

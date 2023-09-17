@@ -368,7 +368,7 @@
     <ClInclude Include="Enums\ChallengeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BaseEvent.h">
+    <ClInclude Include="Events\TemplateEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\EventHandler.h">
@@ -428,10 +428,13 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Const.h">
+    <ClInclude Include="Enums\GriditemState.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\GriditemState.h">
+    <ClInclude Include="Events\BaseEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\MagnetItemType.h">
