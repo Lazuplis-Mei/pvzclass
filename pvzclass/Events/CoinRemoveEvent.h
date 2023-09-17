@@ -10,7 +10,7 @@ class CoinRemoveEvent : public TemplateEvent<std::function<
 {
 public:
 	CoinRemoveEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 CoinRemoveEvent::CoinRemoveEvent()
@@ -18,14 +18,11 @@ CoinRemoveEvent::CoinRemoveEvent()
 	address = 0x432DD0;
 }
 
-bool CoinRemoveEvent::handle(EventHandler handler)
+void CoinRemoveEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto coin = std::make_shared<PVZ::Coin>(handler.context.Esi);
+	auto coin = std::make_shared<PVZ::Coin>(context.Esi);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](coin);
 	}
-	afterHandle(handler);
-	return true;
 }

@@ -9,7 +9,7 @@ class ProjectileCreateEvent : public TemplateEvent<std::function<
 {
 public:
 	ProjectileCreateEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ProjectileCreateEvent::ProjectileCreateEvent()
@@ -17,14 +17,11 @@ ProjectileCreateEvent::ProjectileCreateEvent()
 	address = 0x40D652;
 }
 
-bool ProjectileCreateEvent::handle(EventHandler handler)
+void ProjectileCreateEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto projectile = std::make_shared<PVZ::Projectile>(handler.context.Eax);
+	auto projectile = std::make_shared<PVZ::Projectile>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](projectile);
 	}
-	afterHandle(handler);
-	return true;
 }

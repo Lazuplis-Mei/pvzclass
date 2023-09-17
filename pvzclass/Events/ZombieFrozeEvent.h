@@ -9,7 +9,7 @@ class ZombieFrozeEvent : public TemplateEvent<std::function<
 {
 public:
 	ZombieFrozeEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieFrozeEvent::ZombieFrozeEvent()
@@ -17,14 +17,11 @@ ZombieFrozeEvent::ZombieFrozeEvent()
 	address = 0x5323C0;
 }
 
-bool ZombieFrozeEvent::handle(EventHandler handler)
+void ZombieFrozeEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Eax);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](zombie);
 	}
-	afterHandle(handler);
-	return true;
 }

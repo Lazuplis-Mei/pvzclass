@@ -9,7 +9,7 @@ class ZombieEatEvent : public TemplateEvent<std::function<
 {
 public:
 	ZombieEatEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieEatEvent::ZombieEatEvent()
@@ -17,15 +17,12 @@ ZombieEatEvent::ZombieEatEvent()
 	address = 0x52F689;
 }
 
-bool ZombieEatEvent::handle(EventHandler handler)
+void ZombieEatEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Edi);
-	auto plant = std::make_shared<PVZ::Plant>(handler.context.Ecx);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Edi);
+	auto plant = std::make_shared<PVZ::Plant>(context.Ecx);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](zombie, plant);
 	}
-	afterHandle(handler);
-	return true;
 }

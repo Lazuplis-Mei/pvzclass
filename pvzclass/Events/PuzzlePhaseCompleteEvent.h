@@ -10,7 +10,7 @@ class PuzzlePhaseCompleteEvent : public TemplateEvent<std::function<
 {
 public:
 	PuzzlePhaseCompleteEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 PuzzlePhaseCompleteEvent::PuzzlePhaseCompleteEvent()
@@ -18,17 +18,14 @@ PuzzlePhaseCompleteEvent::PuzzlePhaseCompleteEvent()
 	address = 0x429980;
 }
 
-bool PuzzlePhaseCompleteEvent::handle(EventHandler handler)
+void PuzzlePhaseCompleteEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto challenge = MKS<PVZ::Miscellaneous>(PVZ::Memory::ReadMemory<DWORD>(handler.context.Ecx + 4));
-	int gridX = handler.context.Eax;
-	int gridY = PVZ::Memory::ReadMemory<DWORD>(handler.context.Esp + 4);
+	auto challenge = MKS<PVZ::Miscellaneous>(PVZ::Memory::ReadMemory<DWORD>(context.Ecx + 4));
+	int gridX = context.Eax;
+	int gridY = PVZ::Memory::ReadMemory<DWORD>(context.Esp + 4);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		gridY = listeners[i](challenge, gridX, gridY);
 	}
-	PVZ::Memory::WriteMemory<DWORD>(handler.context.Esp + 4, gridY);
-	afterHandle(handler);
-	return true;
+	PVZ::Memory::WriteMemory<DWORD>(context.Esp + 4, gridY);
 }

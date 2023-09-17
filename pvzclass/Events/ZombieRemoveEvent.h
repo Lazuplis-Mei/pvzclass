@@ -10,7 +10,7 @@ class ZombieRemoveEvent : public TemplateEvent<std::function<
 {
 public:
 	ZombieRemoveEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieRemoveEvent::ZombieRemoveEvent()
@@ -18,14 +18,11 @@ ZombieRemoveEvent::ZombieRemoveEvent()
 	address = 0x530510;
 }
 
-bool ZombieRemoveEvent::handle(EventHandler handler)
+void ZombieRemoveEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Ecx);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Ecx);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](zombie);
 	}
-	afterHandle(handler);
-	return true;
 }

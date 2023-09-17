@@ -10,7 +10,7 @@ class ProjectileRemoveEvent : public TemplateEvent<std::function<
 {
 public:
 	ProjectileRemoveEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ProjectileRemoveEvent::ProjectileRemoveEvent()
@@ -18,14 +18,11 @@ ProjectileRemoveEvent::ProjectileRemoveEvent()
 	address = 0x46EB20;
 }
 
-bool ProjectileRemoveEvent::handle(EventHandler handler)
+void ProjectileRemoveEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto projectile = std::make_shared<PVZ::Projectile>(handler.context.Eax);
+	auto projectile = std::make_shared<PVZ::Projectile>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](projectile);
 	}
-	afterHandle(handler);
-	return true;
 }

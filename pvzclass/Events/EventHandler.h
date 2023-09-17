@@ -7,18 +7,22 @@
 class EventHandler
 {
 private:
+	DEBUG_EVENT debugEvent;
+	CONTEXT context;
 	void failLog(int line, const char* message);
 	void getContext();
 	void setContext();
+	void singleStep();
 	void continueDebug(int line);
 	void waitDebugInfinity(int line);
 	HANDLE getThread(int line);
 	void closeThread(HANDLE hThread, int line);
+	void resume();
+
+protected:
+	std::vector<std::shared_ptr<BaseEvent>> events;
 
 public:
-	DEBUG_EVENT debugEvent;
-	CONTEXT context;
-
 	// 开始调试PVZ进程，会有一小段卡顿
 	void start();
 
@@ -26,15 +30,12 @@ public:
 	// ms至少为1，可以用-1代表无限等待
 	// 如果返回值为true，需要调用handle()和resume()
 	bool run(int ms);
-
-	// 令PVZ单步执行一个命令，不需要调用这个函数
-	void singleStep();
-
-	// 恢复PVZ的运行，需要在handle()后调用
-	void resume();
 	
 	// 停止调试PVZ进程
 	void stop();
+
+	// 增加一个事件，指针的类型应该是事件的实际类型而非BaseEvent
+	void addEvent(std::shared_ptr<BaseEvent> ptr);
 };
 
 void EventHandler::failLog(int line, const char* message)
@@ -107,6 +108,10 @@ void EventHandler::start()
 	}
 	waitDebugInfinity(__LINE__);
 	continueDebug(__LINE__);
+	for (int i = 0; i < events.size(); i++)
+	{
+		events[i]->start();
+	}
 }
 
 bool EventHandler::run(int ms)
@@ -122,6 +127,17 @@ bool EventHandler::run(int ms)
 	}
 	getContext();
 	context.Eip--;
+	for (int i = 0; i < events.size(); i++)
+	{
+		if (context.Eip == events[i]->address)
+		{
+			events[i]->handle(context);
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, events[i]->raw);
+			singleStep();
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, 0xCC);
+		}
+	}
+	resume();
 	return true;
 }
 
@@ -140,8 +156,17 @@ void EventHandler::resume()
 
 void EventHandler::stop()
 {
+	for (int i = 0; i < events.size(); i++)
+	{
+		events[i]->end();
+	}
 	if (!DebugActiveProcessStop(PVZ::Memory::processId))
 	{
 		failLog(__LINE__, "DebugActiveProcessStop failed!");
 	}
+}
+
+void EventHandler::addEvent(std::shared_ptr<BaseEvent> ptr)
+{
+	events.push_back(ptr);
 }

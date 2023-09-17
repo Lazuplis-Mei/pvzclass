@@ -1,4 +1,5 @@
 ﻿#include "pvzclass.h"
+#include "Events/EventHandler.h"
 #include "Events/ZombieEatEvent.h"
 #include "Events/ZombieHitEvent.h"
 #include "Events/ProjectileCreateEvent.h"
@@ -124,108 +125,83 @@ int main()
 	PVZ* pvz = new PVZ(pid);
 
 	EventHandler handler;
-	handler.start();
 	ZombieEatEvent e1;
-	e1.start();
 	e1.addListener(listener0);
 	e1.addListener(listener1);
+	handler.addEvent(make_shared<ZombieEatEvent>(e1));
+
 	ZombieHitEvent e2;
-	e2.start();
 	e2.addListener(listener2);
 	e2.addListener(listener3);
+	handler.addEvent(make_shared<ZombieHitEvent>(e2));
+
 	ProjectileCreateEvent e3;
-	e3.start();
 	e3.addListener(listener4);
+	handler.addEvent(make_shared<ProjectileCreateEvent>(e3));
+
 	PlantShootEvent e4;
-	e4.start();
 	e4.addListener(listener5);
+	handler.addEvent(make_shared<PlantShootEvent>(e4));
+
 	PlantCreateEvent e5;
-	e5.start();
 	e5.addListener(listener6);
+	handler.addEvent(make_shared<PlantCreateEvent>(e5));
+
 	CoinCreateEvent e6;
-	e6.start();
 	e6.addListener(listener7);
+	handler.addEvent(make_shared<CoinCreateEvent>(e6));
+
 	PlantRemoveEvent e7;
-	e7.start();
 	e7.addListener(listener8);
+	handler.addEvent(make_shared<PlantRemoveEvent>(e7));
+
 	PeaOnFireEvent e8;
-	e8.start();
 	e8.addListener(listener9);
+	handler.addEvent(make_shared<PeaOnFireEvent>(e8));
+
 	ProjectileRemoveEvent e9;
-	e9.start();
 	e9.addListener(listener10);
+	handler.addEvent(make_shared<ProjectileRemoveEvent>(e9));
+
 	CoinCollectEvent e10;
-	e10.start();
 	e10.addListener(listener11);
+	handler.addEvent(make_shared<CoinCollectEvent>(e10));
+
 	CoinRemoveEvent e11;
-	e11.start();
 	e11.addListener(listener12);
+	handler.addEvent(make_shared<CoinRemoveEvent>(e11));
+
 	ZombieBlastEvent e12;
-	e12.start();
 	e12.addListener(listener13);
+	handler.addEvent(make_shared<ZombieBlastEvent>(e12));
+
 	ZombieButterEvent e13;
-	e13.start();
 	e13.addListener(listener14);
+	handler.addEvent(make_shared<ZombieButterEvent>(e13));
+
 	ZombieDecelerateEvent e14;
-	e14.start();
 	e14.addListener(listener15);
+	handler.addEvent(make_shared<ZombieDecelerateEvent>(e14));
+
 	ZombieFrozeEvent e15;
-	e15.start();
 	e15.addListener(listener16);
+	handler.addEvent(make_shared<ZombieFrozeEvent>(e15));
+
 	ZombieHypnotizeEvent e16;
-	e16.start();
 	e16.addListener(listener17);
+	handler.addEvent(make_shared<ZombieHypnotizeEvent>(e16));
+
 	ZombieRemoveEvent e17;
-	e17.start();
 	e17.addListener(listener18);
+	handler.addEvent(make_shared<ZombieRemoveEvent>(e17));
+
+	handler.start();
 
 	while (true)
 	{
-		// cout << "R";
-		if (handler.run(1))
-		{
-			/*cout << handler.debugEvent.u.Exception.dwFirstChance << " "
-				<< hex << handler.debugEvent.u.Exception.ExceptionRecord.ExceptionCode << dec << " "
-				<< handler.debugEvent.u.Exception.ExceptionRecord.ExceptionFlags << " "
-				<< handler.debugEvent.u.Exception.ExceptionRecord.ExceptionAddress << endl;*/
-			e1.handle(handler);
-			e2.handle(handler);
-			e3.handle(handler);
-			e4.handle(handler);
-			e5.handle(handler);
-			e6.handle(handler);
-			e7.handle(handler);
-			e8.handle(handler);
-			e9.handle(handler);
-			e10.handle(handler);
-			e11.handle(handler);
-			e12.handle(handler);
-			e13.handle(handler);
-			e14.handle(handler);
-			e15.handle(handler);
-			e16.handle(handler);
-			e17.handle(handler);
-			handler.resume();
-		}
+		handler.run(1);
 	}
 
-	e1.end();
-	e2.end();
-	e3.end();
-	e4.end();
-	e5.end();
-	e6.end();
-	e7.end();
-	e8.end();
-	e9.end();
-	e10.end();
-	e11.end();
-	e12.end();
-	e13.end();
-	e14.end();
-	e15.end();
-	e16.end();
-	e17.end();
 	handler.stop();
 	delete pvz;
 	return 0;

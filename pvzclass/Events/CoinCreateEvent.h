@@ -9,7 +9,7 @@ class CoinCreateEvent : public TemplateEvent<std::function<
 {
 public:
 	CoinCreateEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 CoinCreateEvent::CoinCreateEvent()
@@ -17,14 +17,11 @@ CoinCreateEvent::CoinCreateEvent()
 	address = 0x40CCCE;
 }
 
-bool CoinCreateEvent::handle(EventHandler handler)
+void CoinCreateEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto coin = std::make_shared<PVZ::Coin>(handler.context.Eax);
+	auto coin = std::make_shared<PVZ::Coin>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](coin);
 	}
-	afterHandle(handler);
-	return true;
 }

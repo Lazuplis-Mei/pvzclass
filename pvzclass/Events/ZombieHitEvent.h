@@ -12,7 +12,7 @@ class ZombieHitEvent : public TemplateEvent<std::function<
 {
 public:
 	ZombieHitEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieHitEvent::ZombieHitEvent()
@@ -20,17 +20,14 @@ ZombieHitEvent::ZombieHitEvent()
 	address = 0x5317C0;
 }
 
-bool ZombieHitEvent::handle(EventHandler handler)
+void ZombieHitEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Esi);
-	DamageType::DamageType type = (DamageType::DamageType)(handler.context.Eax);
-	int amount = PVZ::Memory::ReadMemory<DWORD>(handler.context.Esp + 4);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Esi);
+	DamageType::DamageType type = (DamageType::DamageType)(context.Eax);
+	int amount = PVZ::Memory::ReadMemory<DWORD>(context.Esp + 4);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		amount = listeners[i](zombie, type, amount);
 	}
-	PVZ::Memory::WriteMemory<DWORD>(handler.context.Esp + 4, amount);
-	afterHandle(handler);
-	return true;
+	PVZ::Memory::WriteMemory<DWORD>(context.Esp + 4, amount);
 }

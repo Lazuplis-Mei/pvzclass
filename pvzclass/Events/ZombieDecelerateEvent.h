@@ -9,7 +9,7 @@ class ZombieDecelerateEvent : public TemplateEvent<std::function<
 {
 public:
 	ZombieDecelerateEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 ZombieDecelerateEvent::ZombieDecelerateEvent()
@@ -17,14 +17,11 @@ ZombieDecelerateEvent::ZombieDecelerateEvent()
 	address = 0x530950;
 }
 
-bool ZombieDecelerateEvent::handle(EventHandler handler)
+void ZombieDecelerateEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto zombie = std::make_shared<PVZ::Zombie>(handler.context.Eax);
+	auto zombie = std::make_shared<PVZ::Zombie>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](zombie);
 	}
-	afterHandle(handler);
-	return true;
 }

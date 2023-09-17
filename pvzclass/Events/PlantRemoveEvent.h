@@ -10,7 +10,7 @@ class PlantRemoveEvent : public TemplateEvent<std::function<
 {
 public:
 	PlantRemoveEvent();
-	bool handle(EventHandler handler);
+	void handle(CONTEXT& context) override;
 };
 
 PlantRemoveEvent::PlantRemoveEvent()
@@ -18,14 +18,11 @@ PlantRemoveEvent::PlantRemoveEvent()
 	address = 0x4679B9;
 }
 
-bool PlantRemoveEvent::handle(EventHandler handler)
+void PlantRemoveEvent::handle(CONTEXT& context)
 {
-	if (handler.context.Eip != address) return false;
-	auto plant = std::make_shared<PVZ::Plant>(handler.context.Ebp);
+	auto plant = std::make_shared<PVZ::Plant>(context.Ebp);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](plant);
 	}
-	afterHandle(handler);
-	return true;
 }
