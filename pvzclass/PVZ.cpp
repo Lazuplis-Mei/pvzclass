@@ -318,3 +318,8 @@ SPT<PVZ::Music> PVZ::GetMusic()
 }
 
 #pragma endregion
+
+int PVZ::GameObject::GetBaseAddress()
+{
+	return this->BaseAddress;
+}

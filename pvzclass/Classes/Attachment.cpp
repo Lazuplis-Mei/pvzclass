@@ -1,5 +1,10 @@
 ﻿#include "../PVZ.h"
 
+int PVZ::Attachment::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 PVZ::Attachment::Attachment(int idoraddress)
 {
 	if (idoraddress > 1024)

@@ -297,7 +297,7 @@ public:
 			__get_SixRoute,
 			(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
 	};
-	//Do NOT construct this class!
+	//Do NOT construct this class directly!
 	class GameObject
 	{
 	protected:
@@ -307,6 +307,7 @@ public:
 		{
 			this->BaseAddress = 0;
 		}
+		int GetBaseAddress();
 		SPT<PVZ::Board> GetBoard()
 		{
 			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
@@ -327,6 +328,7 @@ public:
 		//support muiti-animprop(AP_XXXXXX)
 		static void UnLock(int animprop);
 		static void Lock();
+		int GetBaseAddress();
 		T_PROPERTY(FLOAT, CycleRate, __get_CycleRate, __set_CycleRate, 4);
 		T_PROPERTY(FLOAT, Speed, __get_Speed, __set_Speed, 8);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x14);
@@ -351,6 +353,7 @@ public:
 	{
 		int BaseAddress;
 	public:
+		int GetBaseAddress();
 		Attachment(int idoraddress);
 		SPT<PVZ::Animation> GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
@@ -406,13 +409,7 @@ public:
 	};
 	class Zombie : public GameObject
 	{
-		//eventhandler start
 	public:
-		//eventhandler end
-		int BaseAddress;
-#if _DEBUG
-		ZombieType::ZombieType DebugType;
-#endif
 		Zombie(int indexoraddress);
 		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。 
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
@@ -478,13 +475,7 @@ public:
 	};
 	class Projectile : public GameObject
 	{
-		//EventHandler Start
 	public:
-		//EventHandler End
-		int BaseAddress;
-#if _DEBUG
-		ProjectileType::ProjectileType DebugType;
-#endif
 		Projectile(int indexoraddress);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
@@ -510,7 +501,6 @@ public:
 	class Plant : public GameObject
 	{
 	public:
-		int BaseAddress;
 		static const int MemSize = 0x14C;
 		Plant(int indexoraddress);
 		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
@@ -587,20 +577,14 @@ public:
 		T_PROPERTY(std::time_t, LastGoldTime, __get_LastGoldTime, __set_LastGoldTime, 0x40);
 		T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
 	};
-	class Coin //Item
+	class Coin : public GameObject //Item
 	{
-		int BaseAddress;
-#if _DEBUG
-		CoinType::CoinType DebugType;
-#endif
 	public:
 		Coin(int indexoraddress);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
-		T_PROPERTY(BOOLEAN, InVisible, __get_InVisible, __set_InVisible, 0x18);
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x34);
@@ -620,11 +604,9 @@ public:
 	class Lawnmover
 	{
 		int BaseAddress;
-#if _DEBUG
-		LawnmoverType::LawnmoverType DebugType;
-#endif
 	public:
 		Lawnmover(int indexoraddress);
+		int GetBaseAddress();
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
@@ -641,11 +623,10 @@ public:
 	};
 	class Griditem
 	{
-	public:
+	protected:
 		int BaseAddress;
-#if _DEBUG
-		GriditemType::GriditemType DebugType;
-#endif
+	public:
+		int GetBaseAddress();
 		Griditem(int indexoraddress);
 		SPT<PVZ::Board> GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
@@ -728,6 +709,7 @@ public:
 		int BaseAddress;
 	public:
 		Caption(int address);
+		int GetBaseAddress();
 		void GetText(char str[]);//str[0x80]
 		void SetText(const char str[]);//str[0x80]
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x88);
@@ -738,6 +720,7 @@ public:
 		int BaseAddress;
 	public:
 		CardSlot(int address);
+		int GetBaseAddress();
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
@@ -748,6 +731,7 @@ public:
 			int BaseAddress;
 		public:
 			SeedCard(int address);
+			int GetBaseAddress();
 			INT_PROPERTY(X, __get_X, __set_X, 0xC);
 			INT_PROPERTY(Y, __get_Y, __set_Y, 0x10);
 			void GetCollision(CollisionBox* collbox);
@@ -774,6 +758,7 @@ public:
 		int BaseAddress;
 	public:
 		Miscellaneous(int address);
+		int GetBaseAddress();
 		T_READONLY_PROPERTY(BOOLEAN, DragingPlant, __get_DragingPlant, 8);
 		INT_READONLY_PROPERTY(DragingX, __get_DragingX, 0xC);	
 		INT_READONLY_PROPERTY(DragingY, __get_DragingY, 0x10);
@@ -797,6 +782,7 @@ public:
 		int BaseAddress;
 	public:
 		SaveData(int baseaddress);
+		int GetBaseAddress();
 		void GetPVZUserName(char str[]);//str[12]
 		INT_READONLY_PROPERTY(UserSwitchCount, __get_UserSwitchCount, 0x1C);
 		INT_READONLY_PROPERTY(UserIndex, __get_UserIndex, 0x20);
@@ -836,6 +822,7 @@ public:
 		int BaseAddress;
 	public:
 		Music(int address);
+		int GetBaseAddress();
 		PROPERTY(MusicType::MusicType, __get_Type, __set_Type) Type;
 		//MINGAM_ENABLE or MINGAM_DISABLE
 		INT_PROPERTY(INGAMEable, __get_INGAMEable, __set_INGAMEable, 0x10);
@@ -854,6 +841,9 @@ public:
 		int BaseAddress;
 	public:
 		ZenGarden(int address);
+		int GetBaseAddress();
+		SPT<PVZ::Board> GetBoard();
+		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
 		SPT<Snail> GetSnail();
 	};

@@ -5,6 +5,11 @@ PVZ::Caption::Caption(int address)
 	BaseAddress = Memory::ReadMemory<int>(address + 0x140);
 }
 
+int PVZ::Caption::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 
 void PVZ::Caption::GetText(char str[])
 {

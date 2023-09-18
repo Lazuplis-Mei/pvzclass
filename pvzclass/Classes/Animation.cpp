@@ -32,6 +32,11 @@ void PVZ::Animation::Lock()
 	Memory::WriteMemory<int>(0x463E1E, 405030105);
 }
 
+int PVZ::Animation::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 Color PVZ::Animation::GetColor()
 {
 	Color color;

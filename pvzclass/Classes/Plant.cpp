@@ -152,7 +152,7 @@ SPT<PVZ::Projectile> PVZ::Plant::Shoot(MotionType::MotionType motiontype, int ta
 	if (targetid != -1)
 	{
 		SPT<Zombie> tmp = MKS<Zombie>(ID_INDEX(targetid));
-		SETARG(__asm__Shoot, 5) = tmp->BaseAddress;
+		SETARG(__asm__Shoot, 5) = tmp->GetBaseAddress();
 	}
 	SETARG(__asm__Shoot, 10) = BaseAddress;
 	SETARG(__asm__Shoot, 29) = Memory::Variable;

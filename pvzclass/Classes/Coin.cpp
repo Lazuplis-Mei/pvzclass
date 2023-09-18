@@ -6,9 +6,6 @@ PVZ::Coin::Coin(int indexoraddress)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xE4) + indexoraddress * 0xD8;
-#if _DEBUG
-	DebugType = Type;
-#endif
 }
 
 void PVZ::Coin::GetCollision(CollisionBox* collbox)

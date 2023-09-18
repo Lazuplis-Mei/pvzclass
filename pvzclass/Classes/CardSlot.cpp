@@ -5,6 +5,11 @@ PVZ::CardSlot::CardSlot(int address)
 	BaseAddress = Memory::ReadMemory<int>(address + 0x144);
 }
 
+int PVZ::CardSlot::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 void PVZ::CardSlot::SetCardsCount(int num)
 {
 	Memory::WriteMemory<byte>(0x0041BEE0, 0xC3);

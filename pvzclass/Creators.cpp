@@ -279,7 +279,7 @@ SPT<PVZ::Griditem> Creator::CreateLadder(int row, byte column)
 
 SPT<PVZ::Vase> Creator::CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin, ZombieType::ZombieType zombie, PlantType::PlantType plant, int sun)
 {
-	SPT<PVZ::Vase> vase = MKS<PVZ::Vase>(CreateGriditem()->BaseAddress);
+	SPT<PVZ::Vase> vase = MKS<PVZ::Vase>(CreateGriditem()->GetBaseAddress());
 	vase->Row = row;
 	vase->Column = column;
 	vase->Layer = vase->Row * 0x2710 + 0x49BB0;

@@ -6,9 +6,6 @@ PVZ::Zombie::Zombie(int indexoraddress)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x90) + indexoraddress * 0x15C;
-#if _DEBUG
-	DebugType = Type;
-#endif
 }
 
 void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)

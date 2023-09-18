@@ -6,9 +6,6 @@ PVZ::Projectile::Projectile(int indexoraddress)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * 0x94;
-#if _DEBUG
-	DebugType = Type;
-#endif
 }
 
 void PVZ::Projectile::OnFire()

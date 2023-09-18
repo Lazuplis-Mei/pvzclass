@@ -5,6 +5,11 @@ PVZ::Music::Music(int address)
 	BaseAddress = address;
 }
 
+int PVZ::Music::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 MusicType::MusicType PVZ::Music::__get_Type()
 {
 	return Memory::ReadMemory<MusicType::MusicType>(BaseAddress + 8);

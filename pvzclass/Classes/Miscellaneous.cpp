@@ -5,6 +5,11 @@ PVZ::Miscellaneous::Miscellaneous(int address)
 	BaseAddress = Memory::ReadMemory<int>(address + 0x160);
 }
 
+int PVZ::Miscellaneous::GetBaseAddress()
+{
+	return BaseAddress;
+}
+
 BOOLEAN PVZ::Miscellaneous::HaveCrater(int row, int column)
 {
 	if (row >= 0 && row < 6 && column >= 0 && column < 9)

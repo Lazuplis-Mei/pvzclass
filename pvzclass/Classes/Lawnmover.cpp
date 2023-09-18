@@ -6,9 +6,11 @@ PVZ::Lawnmover::Lawnmover(int indexoraddress)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x100) + indexoraddress * 0x48;
-#if _DEBUG
-	DebugType = Type;
-#endif
+}
+
+int PVZ::Lawnmover::GetBaseAddress()
+{
+	return BaseAddress;
 }
 
 SPT<PVZ::Animation> PVZ::Lawnmover::GetAnimation()
