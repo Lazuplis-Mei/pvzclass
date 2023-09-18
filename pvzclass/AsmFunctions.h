@@ -5,9 +5,11 @@
 #define INUMBER(num) (byte)(num&0xFF),(byte)((num&0xFF00)>>8),(byte)((num&0xFF0000)>>16),(byte)((num&0xFF000000)>>24)
 #define MOV_EAX(d) 0xB8,INUMBER(d)
 #define MOV_ECX(d) 0xB9,INUMBER(d)
+#define MOV_EDX(d) 0xBA,INUMBER(d)
 #define MOV_EBX(d) 0xBB,INUMBER(d)
 #define MOV_ESI(d) 0xBE,INUMBER(d)
 #define MOV_EDI(d) 0xBF,INUMBER(d)
+#define PUSH_EAX 0x50
 #define POP_EBX 0x5B
 #define PUSHAD 0x60
 #define POPAD 0x61

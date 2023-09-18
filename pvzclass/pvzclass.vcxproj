@@ -212,6 +212,7 @@
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
+    <ClCompile Include="Classes\Graphics.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="Events\ZombieFrozeEvent.h" />
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
+    <ClInclude Include="Events\DrawUITopEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

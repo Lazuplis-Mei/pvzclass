@@ -885,6 +885,16 @@ public:
 		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
 	};
 
+	class Graphics
+	{
+	private:
+		DWORD BaseAddress;
+	public:
+		Graphics(DWORD address);
+		void SetColor(int red, int green, int blue);
+		void DrawString(int x, int y, const char* str, int length);
+	};
+
 #pragma endregion
 
 #pragma region methods
