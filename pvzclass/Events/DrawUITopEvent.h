@@ -19,11 +19,7 @@ DrawUITopEvent::DrawUITopEvent()
 
 void DrawUITopEvent::handle(CONTEXT& context)
 {
-	int eax = context.Eax;
-	std::cout << eax << std::endl;
-	int address = PVZ::Memory::ReadPointer(eax, 0);
-	std::cout << address << std::endl;
-	auto graphics = std::make_shared<PVZ::Graphics>(address);
+	auto graphics = std::make_shared<PVZ::Graphics>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](graphics);

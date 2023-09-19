@@ -2,14 +2,21 @@
 #include "Events/EventHandler.h"
 #include "Events/DrawUITopEvent.h"
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
-void listener(shared_ptr<PVZ::Graphics> graphic)
+void hello(shared_ptr<PVZ::Graphics> graphic)
 {
-	graphic->DrawString(256, 256, "hello, world!", 13);
+	graphic->SetColor(255, 255, 255);
+	graphic->DrawString(256, 256, "hello,world!", 13);
 }
 
+void listener(shared_ptr<PVZ::Graphics> graphic)
+{
+	thread t(hello, graphic);
+	t.detach();
+}
 
 int main()
 {
