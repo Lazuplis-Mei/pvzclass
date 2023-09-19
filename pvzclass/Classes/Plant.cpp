@@ -132,6 +132,24 @@ void PVZ::Plant::Smash()
 	Memory::Execute(STRING(__asm__Smash));
 }
 
+int PVZ::Plant::CalcLayer()
+{
+	SETARG(__asm__Plant_CalcLayer, 1) = BaseAddress;
+	SETARG(__asm__Plant_CalcLayer, 19) = Memory::Variable;
+	return(Memory::Execute(STRING(__asm__Plant_CalcLayer)));
+}
+
+
+void PVZ::Plant::MoveTo(int row, int column)
+{
+	SPT<Board> tmp_board = this->GetBoard();
+	this->Row = row;
+	this->Column = column;
+	this->ImageX = tmp_board->GridToXPixel(row, column);
+	this->ImageY = tmp_board->GridToYPixel(row, column);
+	this->Layer = this->CalcLayer();
+}
+
 void PVZ::Plant::Remove()
 {
 	SETARG(__asm__Plant__Remove, 1) = BaseAddress;

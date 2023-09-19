@@ -332,6 +332,7 @@
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
 #define SMASH INVOKE_DWORD(0x462B80,0)
+#define PLANT_CALCLAYER INVOKE(0x45E7C0)
 #define PLANT_REMOVE INVOKE_DWORD(0x4679B0,0)
 #define SHOOT INVOKE_DWORD_DWORD_BYTE_BYTE(0x466E00,0,0,0,0)
 #define ONFIRE INVOKE(0x46ECB0)
@@ -386,6 +387,8 @@ extern byte __asm__CreateEffect[19];
 extern byte __asm__SetStatic[24];
 
 extern byte __asm__Smash[19];
+
+extern byte __asm__Plant_CalcLayer[24];
 
 extern byte __asm__Plant__Remove[19];
 

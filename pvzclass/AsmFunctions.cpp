@@ -126,6 +126,14 @@ byte __asm__Smash[]
 	RET
 };
 
+byte __asm__Plant_CalcLayer[]
+{
+	MOV_ESI(0),
+	PLANT_CALCLAYER,
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
 byte __asm__Plant__Remove[]
 {
 	PLANT_REMOVE,

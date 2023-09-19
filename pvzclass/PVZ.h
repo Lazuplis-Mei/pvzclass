@@ -245,6 +245,7 @@ public:
 		int BaseAddress;
 	public:
 		Board(int address);
+		int GetBaseAddress();
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
 #pragma region fog
@@ -296,6 +297,13 @@ public:
 			BOOLEAN,
 			__get_SixRoute,
 			(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
+
+#pragma region methods
+
+		int GridToXPixel(int row, int column);
+		int GridToYPixel(int row, int column);
+
+#pragma endregion
 	};
 	//Do NOT construct this class directly!
 	class GameObject
@@ -539,6 +547,8 @@ public:
 		// 将植物定身为纸板（同 IZ），会让土豆地雷直接出土。
 		void SetStatic();
 		void Smash();
+		int CalcLayer();
+		void MoveTo(int row, int column);
 		void Remove();
 		SPT<PVZ::Projectile> Shoot(int targetid = -1);
 		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);

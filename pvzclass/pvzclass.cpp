@@ -124,6 +124,9 @@ int main()
 	if (!pid) return 1;
 	PVZ* pvz = new PVZ(pid);
 
+	SPT<PVZ::Plant> plant = MKS<PVZ::Plant>(0);
+	plant->MoveTo(0, 0);
+
 	EventHandler handler;
 	ZombieEatEvent e1;
 	e1.addListener(listener0);
