@@ -189,7 +189,7 @@ call 41AA40
     <CheatEntry>
       <ID>338</ID>
       <Description>"贴字(pvzclass)"</Description>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 
@@ -201,7 +201,7 @@ returnhere:
 pushad
 mov [ADDRESS],700200
 mov [GRAPHIC],19FA98
-mov eax,[6A72D8]
+mov eax,[6A72EC]
 mov [IMAGEFONT],eax
 mov [LASTSIZE],0
 
@@ -283,6 +283,110 @@ IMAGEFONT:
 db 00 00 00 00
 
 LASTSIZE:
+db 00 00 00 00
+
+COLOR:
+db 00 00 00 00
+db 00 00 00 00
+db 00 00 00 00
+db 00 00 00 00
+
+TMPSTR:
+db 00 00 00 00
+ 
+[DISABLE]
+4172FB:
+call 41AA40
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>339</ID>
+      <Description>"贴字(不改变大小)"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+4172F6:
+jmp 700000
+returnhere:
+
+700000:
+pushad
+mov [ADDRESS],700200
+mov [GRAPHIC],19FA98
+mov eax,[6A72EC]
+mov [IMAGEFONT],eax
+
+// 设置Graphic字体
+mov ecx,[IMAGEFONT]
+mov eax,[GRAPHIC]
+call 586CB0
+
+// 创建临时string对象
+push [ADDRESS]
+mov ecx,TMPSTR
+call 404450
+
+// StringWidth，调用以防bug
+push TMPSTR
+mov ecx,[IMAGEFONT]
+call 58DF70
+
+// 创建临时COLOR对象
+push FF
+mov edx,FF
+mov ecx,FF
+mov eax,COLOR
+call 5643D0
+
+// 设置Graphic颜色
+mov eax,COLOR
+mov ecx,[GRAPHIC]
+call 586CC0
+
+while:
+// 判定是否结束
+mov ebx,[ADDRESS]
+add ebx,18
+cmp [ebx],0
+je finish
+
+// 将字符数组创建为string
+push ebx
+mov ecx,TMPSTR
+call 404450
+
+// 设置COLOR
+mov ebx,[ADDRESS]
+push [ebx+14] // Blue
+mov edx,[ebx+10] // Green
+mov ecx,[ebx+C] // Red
+mov eax,COLOR
+call 5643D0
+
+// 贴字
+mov ebx,[ADDRESS]
+push [ebx+4]
+push [ebx]
+push TMPSTR
+mov eax,[GRAPHIC]
+call 587120
+
+add [ADDRESS],80
+jmp while
+
+finish:
+popad
+call 41AA40
+jmp returnhere
+
+ADDRESS:
+db 00 00 00 00
+
+GRAPHIC:
+db 00 00 00 00
+
+IMAGEFONT:
 db 00 00 00 00
 
 COLOR:
