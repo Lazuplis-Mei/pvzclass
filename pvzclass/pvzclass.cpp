@@ -6,23 +6,33 @@
 
 using namespace std;
 
-void hello(shared_ptr<PVZ::Graphics> graphic)
-{
-	graphic->SetColor(255, 255, 255);
-	graphic->DrawString(256, 256, "hello,world!", 13);
-}
+PVZ* pvz;
 
 void listener(shared_ptr<PVZ::Graphics> graphic)
 {
-	thread t(hello, graphic);
-	t.detach();
+	shared_ptr<PVZ::Plant> plants[256];
+	int num = pvz->GetAllPlants(plants);
+	vector<Draw::String> vs;
+	for (int i = 0; i < num; i++)
+	{
+		Draw::String s;
+		s.x = plants[i]->ImageX;
+		s.y = plants[i]->ImageY;
+		s.size = 8;
+		s.red = 0xFF;
+		s.green = 0xFF;
+		s.blue = 0xFF;
+		sprintf_s(s.s, "%d/%d\0", plants[i]->Hp, plants[i]->MaxHp);
+		vs.push_back(s);
+	}
+	Draw::writeString(0x700200, vs);
 }
 
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
-	PVZ* pvz = new PVZ(pid);
+	pvz = new PVZ(pid);
 
 	DrawUITopEvent e;
 	e.addListener(listener);
