@@ -2,6 +2,7 @@
 #include "Events/EventHandler.h"
 #include "Events/DrawUITopEvent.h"
 #include "Events/PlantReloadEvent.h"
+#include "Events/ProjectileHitZombieEvent.h"
 #include <iostream>
 #include <thread>
 
@@ -31,6 +32,11 @@ int listener2(std::shared_ptr<PVZ::Plant> plant, int cd)
 	return 40;
 }
 
+void listener3(std::shared_ptr<PVZ::Projectile> p, std::shared_ptr<PVZ::Zombie> z)
+{
+	cout << ProjectileType::ToString(p->Type) << " 命中了 " << ZombieType::ToString(z->Type) << endl;
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
@@ -45,9 +51,13 @@ int main()
 	PlantReloadEvent e2;
 	e2.addListener(listener2);
 
+	ProjectileHitZombieEvent e3;
+	e3.addListener(listener3);
+
 	EventHandler handler;
 	handler.addEvent(make_shared<DrawUITopEvent>(e1));
 	handler.addEvent(make_shared<PlantReloadEvent>(e2));
+	handler.addEvent(make_shared<ProjectileHitZombieEvent>(e3));
 	handler.start();
 
 	while (true)

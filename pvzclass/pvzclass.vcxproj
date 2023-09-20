@@ -284,6 +284,7 @@
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
     <ClInclude Include="Events\ProjectileRemoveEvent.h" />
+    <ClInclude Include="Events\ProjectileHitZombieEvent.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
