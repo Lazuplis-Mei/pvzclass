@@ -65,7 +65,7 @@ BYTE __asm__drawString[]
 
 	MOV_EBX_PTR_ADDR(0),
 	0x83, 0xC3, 0x18, // ADD ebx,18
-	0x83, 0x3B, 0x00, // CMP [ebx],0
+	0x80, 0x3B, 0x00, // CMP [ebx],0
 	0x74, 194-96, // JE 96
 
 	PUSH_EBX,
