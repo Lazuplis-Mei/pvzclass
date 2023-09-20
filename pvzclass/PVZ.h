@@ -328,6 +328,13 @@ public:
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 	};
+	class AttachEffect
+	{
+		int BaseAddress;
+	public:
+		AttachEffect(int address);
+		int GetBaseAddress();
+	};
 	class Animation
 	{
 		int BaseAddress;
@@ -342,6 +349,7 @@ public:
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x14);
 		INT_PROPERTY(StartFrame, __get_StartFrame, __set_StartFrame, 0x18);
 		INT_PROPERTY(FrameCount, __get_FrameCount, __set_FrameCount, 0x1C);
+		INT_PROPERTY(FrameBasePose, __get_FrameBasePose, __set_FrameBasePose, 0x20);
 		T_PROPERTY(FLOAT, XScale, __get_XScale, __set_XScale, 0x24);
 		T_PROPERTY(FLOAT, XSlant, __get_XSlant, __set_XSlant, 0x28);
 		T_PROPERTY(FLOAT, XOffset, __get_XOffset, __set_XOffset, 0x2C);
@@ -354,8 +362,11 @@ public:
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		SPT<AttachEffect> AttachTo(int AttachmentID, float OffsetX, float OffsetY);
 		void Die();
+		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
+		int FindTrackIndex(const char* trackName);
 	};
 	class Attachment
 	{
@@ -419,8 +430,8 @@ public:
 	{
 	public:
 		Zombie(int indexoraddress);
-		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。 
-		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。 
+		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
+		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
@@ -461,6 +472,8 @@ public:
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		//临时变量 
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
+		SPT<PVZ::Animation> GetSpecialHeadAnimation();
+		void SetSpecialHeadAnimation(SPT<PVZ::Animation> anim);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
@@ -474,9 +487,10 @@ public:
 		void Hypnotize();
 		void Remove();
 		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName,byte animPlayArg);
+		void SetAnimation(LPCSTR animName, byte animPlayArg);
 		void EquipBucket(int shield = 1100);
 		void EquipCone(int shield = 370);
+		void ReanimShowPrefix(const char* trackPrefix, int renderGroup);
 
 		bool canDecelerate();
 		bool canFroze();
@@ -553,7 +567,7 @@ public:
 		SPT<PVZ::Projectile> Shoot(int targetid = -1);
 		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, byte animPlayArg,int imagespeed);
+		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
 		class MagnetItem
 		{
 			int BaseAddress;
@@ -770,7 +784,7 @@ public:
 		Miscellaneous(int address);
 		int GetBaseAddress();
 		T_READONLY_PROPERTY(BOOLEAN, DragingPlant, __get_DragingPlant, 8);
-		INT_READONLY_PROPERTY(DragingX, __get_DragingX, 0xC);	
+		INT_READONLY_PROPERTY(DragingX, __get_DragingX, 0xC);
 		INT_READONLY_PROPERTY(DragingY, __get_DragingY, 0x10);
 		BOOLEAN HaveCrater(int row, int column);
 		void SetCrater(int row, int column, BOOLEAN b);

@@ -20,9 +20,41 @@ byte __asm__Reanimation__Die[]
 	RET
 };
 
+byte __asm__Reanimation__AttachTo[]
+{
+	MOV_EUX(REG_ESI, 0),
+	MOV_EUX(REG_EDI, 0),
+	MOV_EUX(REG_EAX, 0),
+	PUSH_EUX(REG_EAX),
+	MOV_EUX(REG_EAX, 0),
+	PUSH_EUX(REG_EAX),
+	REANIM_ATTACHTO,
+	ADD_ESP(8),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+byte __asm__Reanimation__Play[]
+{
+	MOV_EUX(REG_EAX, 0),
+	PUSH_EUX(REG_EAX),
+	MOV_EAX(0),
+	MOV_ESI(0),	
+	REANIM_PLAY,
+	RET
+};
+
 byte __asm__Reanimation__AssignGroupToPrefix[]
 {
 	REANIMATION_ASSIGnGROUPPREFIX,
+	RET
+};
+
+byte __asm__Reanimation__FindTrackIndex[]
+{
+	MOV_EUX(REG_EBX, 0),
+	REANIM_FINDTRACKINDEX,
+	MOV_PTR_ADDR_EAX(0),
 	RET
 };
 
@@ -89,6 +121,13 @@ byte __asm__Hypnotize[]
 {
 	MOV_ESI(0),
 	HYPNOTIZE,
+	RET
+};
+
+byte __asm__Zombie_ReanimShowPrefix[]
+{
+	MOV_EUX(REG_EAX,0),
+	ZOMBIE_REANIMSHOWPREFIX,
 	RET
 };
 
