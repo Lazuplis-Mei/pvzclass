@@ -1,31 +1,34 @@
 ﻿#include "pvzclass.h"
 #include "Events/EventHandler.h"
 #include "Events/DrawUITopEvent.h"
+#include "Events/PlantReloadEvent.h"
 #include <iostream>
 #include <thread>
 
 using namespace std;
 
 PVZ* pvz;
+int cooldown;
 
-void listener()
+void listener1()
 {
-	shared_ptr<PVZ::Plant> plants[256];
-	int num = pvz->GetAllPlants(plants);
 	vector<Draw::String> vs;
-	for (int i = 0; i < num; i++)
-	{
-		Draw::String s;
-		s.x = plants[i]->ImageX;
-		s.y = plants[i]->ImageY;
-		s.size = 8;
-		s.red = 0xFF;
-		s.green = 0xFF;
-		s.blue = 0xFF;
-		sprintf_s(s.s, "生命:%d\0", plants[i]->Hp);
-		vs.push_back(s);
-	}
+	Draw::String s;
+	s.x = 40;
+	s.y = 100;
+	s.size = 8;
+	s.red = 0xFF;
+	s.green = 0;
+	s.blue = 0;
+	sprintf_s(s.s, "攻击间隔:%d\0", cooldown);
+	vs.push_back(s);
 	Draw::writeString(vs);
+}
+
+int listener2(std::shared_ptr<PVZ::Plant> plant, int cd)
+{
+	cooldown = cd;
+	return 40;
 }
 
 int main()
@@ -36,11 +39,15 @@ int main()
 
 	Draw::init(10);
 
-	DrawUITopEvent e;
-	e.addListener(listener);
+	DrawUITopEvent e1;
+	e1.addListener(listener1);
+
+	PlantReloadEvent e2;
+	e2.addListener(listener2);
 
 	EventHandler handler;
-	handler.addEvent(make_shared<DrawUITopEvent>(e));
+	handler.addEvent(make_shared<DrawUITopEvent>(e1));
+	handler.addEvent(make_shared<PlantReloadEvent>(e2));
 	handler.start();
 
 	while (true)

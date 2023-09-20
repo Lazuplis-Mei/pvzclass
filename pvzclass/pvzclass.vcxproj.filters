@@ -449,6 +449,9 @@
     <ClInclude Include="Draw.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\PlantReloadEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

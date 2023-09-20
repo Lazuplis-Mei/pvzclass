@@ -279,6 +279,7 @@
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
+    <ClInclude Include="Events\PlantReloadEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
