@@ -8,7 +8,7 @@ using namespace std;
 
 PVZ* pvz;
 
-void listener(shared_ptr<PVZ::Graphics> graphic)
+void listener()
 {
 	shared_ptr<PVZ::Plant> plants[256];
 	int num = pvz->GetAllPlants(plants);
@@ -22,10 +22,10 @@ void listener(shared_ptr<PVZ::Graphics> graphic)
 		s.red = 0xFF;
 		s.green = 0xFF;
 		s.blue = 0xFF;
-		sprintf_s(s.s, "%d/%d\0", plants[i]->Hp, plants[i]->MaxHp);
+		sprintf_s(s.s, "生命:%d\0", plants[i]->Hp);
 		vs.push_back(s);
 	}
-	Draw::writeString(0x700200, vs);
+	Draw::writeString(vs);
 }
 
 int main()
@@ -33,6 +33,8 @@ int main()
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	pvz = new PVZ(pid);
+
+	Draw::init(10);
 
 	DrawUITopEvent e;
 	e.addListener(listener);
@@ -44,6 +46,7 @@ int main()
 	while (true)
 	{
 		handler.run(1);
+		pvz->ShowMoneyCountdown = 100;
 	}
 
 	handler.stop();

@@ -213,7 +213,6 @@
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
-    <ClCompile Include="Classes\Graphics.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />

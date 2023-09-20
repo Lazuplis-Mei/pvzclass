@@ -2,10 +2,10 @@
 #include "TemplateEvent.h"
 
 // 绘制顶层UI事件
-// 参数：Graphic指针
-// 无返回值
+// 无参数与返回值
+// 请与Draw.h配合使用
 class DrawUITopEvent : public TemplateEvent<std::function<
-	void(std::shared_ptr<PVZ::Graphics>)>>
+	void(void)>>
 {
 public:
 	DrawUITopEvent();
@@ -19,9 +19,8 @@ DrawUITopEvent::DrawUITopEvent()
 
 void DrawUITopEvent::handle(CONTEXT& context)
 {
-	auto graphics = std::make_shared<PVZ::Graphics>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
-		listeners[i](graphics);
+		listeners[i]();
 	}
 }

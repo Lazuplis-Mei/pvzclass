@@ -222,9 +222,6 @@
     <ClCompile Include="Enums\MagnetItemType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Graphics.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
