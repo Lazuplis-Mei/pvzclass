@@ -54,6 +54,9 @@ int main()
 	ProjectileHitZombieEvent e3;
 	e3.addListener(listener3);
 
+	SPT<PVZ::Plant> plant = MKS<PVZ::Plant>(0);
+	plant->MoveTo(0, 0);
+
 	EventHandler handler;
 	handler.addEvent(make_shared<DrawUITopEvent>(e1));
 	handler.addEvent(make_shared<PlantReloadEvent>(e2));

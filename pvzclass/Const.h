@@ -59,4 +59,38 @@ namespace Const
 			return;
 		}
 	}
+
+	inline int GetZenGardenXPixel(int row, int column, SceneType::SceneType scene)
+	{
+		int baseaddress = 0;
+		switch (scene)
+		{
+		case SceneType::MushroomGarden:
+			baseaddress = 0x69E050;
+			break;
+		case SceneType::Aquarium:
+			baseaddress = 0x69E0D0;
+			break;
+		case SceneType::ZenGarden:
+			baseaddress = 0x69DE50;
+		}
+		return(MEMREAD_INT(baseaddress + row * 0x80 + column * 0x10));
+	}
+
+	inline int GetZenGardenYPixel(int row, int column, SceneType::SceneType scene)
+	{
+		int baseaddress = 0;
+		switch (scene)
+		{
+		case SceneType::MushroomGarden:
+			baseaddress = 0x69E050;
+			break;
+		case SceneType::Aquarium:
+			baseaddress = 0x69E0D0;
+			break;
+		case SceneType::ZenGarden:
+			baseaddress = 0x69DE50;
+		}
+		return(MEMREAD_INT(baseaddress + row * 0x80 + column * 0x10 + 4));
+	}
 }
