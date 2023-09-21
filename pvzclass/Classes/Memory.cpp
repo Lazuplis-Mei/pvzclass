@@ -26,16 +26,16 @@ BOOL PVZ::Memory::AllAccess(int address)
 	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
 }
 
-int PVZ::Memory::AllocMemory()
+int PVZ::Memory::AllocMemory(int pages)
 {
-	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 }
 
 void PVZ::Memory::CreateThread(int address)
 {
 	HANDLE hThread;
 	DWORD ret;
-	hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)address, NULL, 0, &processId);
+	hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)address, NULL, 0, NULL);
 	if (hThread)
 	{
 		do 

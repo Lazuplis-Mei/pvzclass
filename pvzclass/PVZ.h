@@ -139,7 +139,7 @@ public:
 		static int ReadPointer(int baseaddress, int offset, int offset1);
 		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
 		static BOOL AllAccess(int address);
-		static int AllocMemory();
+		static int AllocMemory(int pages = 1);
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
@@ -219,6 +219,7 @@ public:
 	INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
 	INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
 	T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
+	INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
 	T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
 	INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
 

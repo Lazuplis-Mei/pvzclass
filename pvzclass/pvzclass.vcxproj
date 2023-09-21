@@ -175,6 +175,7 @@
     <ClCompile Include="Classes\SeedCard.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
+    <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Draw.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
@@ -278,10 +280,12 @@
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
+    <ClInclude Include="Events\PlantReloadEvent.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
     <ClInclude Include="Events\ProjectileRemoveEvent.h" />
+    <ClInclude Include="Events\ProjectileHitZombieEvent.h" />
     <ClInclude Include="PVZ.h" />
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
@@ -295,6 +299,7 @@
     <ClInclude Include="Events\ZombieFrozeEvent.h" />
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
+    <ClInclude Include="Events\DrawUITopEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

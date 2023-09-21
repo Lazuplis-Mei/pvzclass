@@ -5,9 +5,12 @@
 #define INUMBER(num) (byte)(num&0xFF),(byte)((num&0xFF00)>>8),(byte)((num&0xFF0000)>>16),(byte)((num&0xFF000000)>>24)
 #define MOV_EAX(d) 0xB8,INUMBER(d)
 #define MOV_ECX(d) 0xB9,INUMBER(d)
+#define MOV_EDX(d) 0xBA,INUMBER(d)
 #define MOV_EBX(d) 0xBB,INUMBER(d)
 #define MOV_ESI(d) 0xBE,INUMBER(d)
 #define MOV_EDI(d) 0xBF,INUMBER(d)
+#define PUSH_EAX 0x50
+#define PUSH_EBX 0x53
 #define POP_EBX 0x5B
 #define PUSHAD 0x60
 #define POPAD 0x61
@@ -26,6 +29,7 @@
 #define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
 #define MOV_PTR_ADDR_ESI(address) 0x89,0x35,INUMBER(address)
 #define MOV_ECX_PTR_ADDR(address) 0x8B,0xD,INUMBER(address)
+#define MOV_EBX_PTR_ADDR(address) 0x8B,0x1D,INUMBER(address)
 #define MOV_PTR_EAX_ADD(v1,v2) 0xC7,0x40,v1,INUMBER(v2)
 #define FILD_PTR(address) 0xDB,5,INUMBER(address)
 #define FDIV_PTR(address) 0xD8,0x35,INUMBER(address)

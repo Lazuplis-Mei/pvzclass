@@ -222,6 +222,9 @@
     <ClCompile Include="Enums\MagnetItemType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Classes\AttachEffect.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -441,6 +444,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\MagnetItemType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DrawUITopEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantReloadEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileHitZombieEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
