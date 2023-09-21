@@ -195,6 +195,52 @@
 
 #pragma endregion
 
+#pragma region asm extra 2
+
+#define CALC_ADD 0
+#define CALC_OR 1
+#define CALC_AND 4
+#define CALC_SUB 5
+#define CALC_XOR 6
+#define CALC_CMP 7
+
+#define CALC_EAX(calc,d) 5+(calc)*8,INUMBER(d)
+
+// Not for esp & ebp
+#define CALC_PTR_EUX_EVX(calc,ux,vx) 1+(calc)*8,(ux)+(vx)*8
+#define CALC_PTR_EUX(calc,ux,d) 0x81,(calc)*8+(ux),INUMBER(d)
+#define CALC_PTR_EUX_V(calc,ux,b) 0x83,(calc)*8+(ux),b
+// End not
+
+// Not for esp
+#define CALC_PTR_EUX_ADD_V_EVX(calc,ux,v,vx) 1+(calc)*8,0x40+(ux)+(vx)*8,v
+#define CALC_PTR_EUX_ADD__EVX(calc,ux,v,vx) 1+(calc)*8,0x80+(ux)+(vx)*8,v
+#define CALC_PTR_EUX_ADD_V(calc,ux,v1,v2) 0x81,0x40+(calc)*8+(ux),v1,INUMBER(v2)
+#define CALC_PTR_EUX_ADD(calc,ux,v1,v2) 0x81,0x80+(calc)*8+(ux),INUMBER(v1),INUMBER(v2)
+#define CALC_PTR_EUX_ADD_V_V(calc,ux,v1,v2) 0x83,0x40+(calc)*8+(ux),v1,v2
+#define CALC_PTR_EUX_ADD__V(calc,ux,v1,v2) 0x83,0x80+(calc)*8+(ux),INUMBER(v1),v2
+// End not
+
+#define CALC_EUX_EVX(calc,ux,vx) 1+(calc)*8,0xC0+(ux)+(vx)*8
+#define CALC_EUX_DWORD(calc,ux,d) 0x81,0xC0+(calc)*8+(ux),INUMBER(d)
+#define CALC_EUX(calc,ux,b) 0x83,0xC0+(calc)*8+(ux),b
+
+#pragma endregion
+
+#pragma region asm extra esp 2
+
+#define CALC_PTR_ESP_EUX(calc,ux) 1+(calc)*8,4+(ux)*8,0x24
+#define CALC_PTR_ESP_ADD_V_EUX(calc,ux,v) 1+(calc)*8,0x44+(ux)*8,0x24,v
+#define CALC_PTR_EUX_ADD__EUX(calc,ux,v) 1+(calc)*8,0x84+(ux)*8,0x24,v
+#define CALC_PTR_ESP(calc,d) 0x81,(calc)*8+4,0x24,INUMBER(d)
+#define CALC_PTR_ESP_ADD_V(calc,v1,v2) 0x81,0x44+(calc)*8,0x24,v1,INUMBER(v2)
+#define CALC_PTR_ESP_ADD(calc,v1,v2) 0x81,0x84+(calc)*8,0x24,INUMBER(v1),INUMBER(v2)
+#define CALC_PTR_ESP_V(calc,b) 0x83,(calc)*8+4,0x24,b
+#define CALC_PTR_ESP_ADD_V_V(calc,v1,v2) 0x83,0x44+(calc)*8,0x24,v1,v2
+#define CALC_PTR_ESP_ADD__V(calc,v1,v2) 0x83,0x84+(calc)*8,0x24,INUMBER(v1),v2
+
+#pragma endregion
+
 #pragma region asm float
 
 #define F_ST0 0
