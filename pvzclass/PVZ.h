@@ -690,6 +690,13 @@ public:
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
+	// 在非传送门关卡中只有画面效果不会触发传送
+	class Portal :public PVZ::Griditem
+	{
+	public:
+		Portal(int indexoraddress) :Griditem(indexoraddress) {};
+		void Close();
+	};
 	class MousePointer : public GameObject//+138
 	{
 	public:
