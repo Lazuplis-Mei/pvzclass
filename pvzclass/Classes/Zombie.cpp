@@ -23,7 +23,7 @@ void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)
 	byte __asm__Mem7[] = { IMUL_EUX_EVX_DWORD(REG_ESI, REG_ESI, NewSize) };
 	byte __asm__Mem8[] = { IMUL_EUX_EVX_DWORD(REG_EDI, REG_EDI, NewSize) };
 	byte __asm__Mem9[] = { PUSHDWORD(NewSize - 4) };
-	byte __asm__MemA[] = { 0x8D, 0xB5, INUMBER(NewSize)};
+	byte __asm__MemA[] = { 0x8D, 0xB5, INUMBER(NewSize) };
 
 	Memory::WriteArray<byte>(0x41BB64, STRING(__asm__Mem3));
 	Memory::WriteArray<byte>(0x41BB76, STRING(__asm__Mem4));
@@ -156,6 +156,17 @@ SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
 	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
 }
 
+SPT<PVZ::Animation> PVZ::Zombie::GetSpecialHeadAnimation()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x144);
+	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
+}
+
+void PVZ::Zombie::SetSpecialHeadAnimation(SPT<PVZ::Animation> anim)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x144, anim->Id);
+}
+
 void PVZ::Zombie::Hit(int damge, DamageType::DamageType type)
 {
 	SETARG(__asm__Hit, 1) = BaseAddress;
@@ -247,6 +258,15 @@ void PVZ::Zombie::EquipCone(int shield)
 		return;
 	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_cone");
 	this->SetAccessoriesType1({ ZombieAccessoriesType1::RoadCone, shield, shield });
+}
+
+void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, TrackName, std::strlen(TrackName) + 1);
+	SETARG(__asm__Zombie_ReanimShowPrefix, 1) = BaseAddress;
+	SETARG(__asm__Zombie_ReanimShowPrefix, 6) = renderGroup;
+	SETARG(__asm__Zombie_ReanimShowPrefix, 11) = PVZ::Memory::Variable + 100;
+	Memory::Execute(STRING(__asm__Zombie_ReanimShowPrefix));
 }
 
 bool PVZ::Zombie::canDecelerate()

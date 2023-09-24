@@ -321,6 +321,9 @@
 #define SET_MUSICVOLUME INVOKE_BYTE(0x554D00,0)
 #define LOADLIBRARYA INVOKE_DWORD((int)LoadLibraryA,0)
 #define REANIMATION_DIE INVOKE(0x4733F0)
+#define REANIM_ATTACHTO INVOKE(0x4055D0)
+#define REANIM_PLAY INVOKE_DWORD_DWORD(0x473BF0,0,0)
+#define REANIM_FINDTRACKINDEX INVOKE_DWORD(0x472F30,0)
 #define REANIMATION_ASSIGnGROUPPREFIX INVOKE_DWORD_DWORD_BYTE(0x473A40,0,0,0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
 #define WIN INVOKE(0x40C3E0)
@@ -331,11 +334,13 @@
 #define DECELERATE INVOKE_BYTE(0x530950, 0)
 #define FROZE INVOKE(0x5323C0)
 #define HYPNOTIZE INVOKE(0x52FA60)
+#define ZOMBIE_REANIMSHOWPREFIX INVOKE_DWORD_DWORD(0x5331C0,0,0)
 #define ZOMBIE_REMOVE INVOKE(0x530510)
 #define CANDELECERATE INVOKE(0x531990)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
 #define SMASH INVOKE_DWORD(0x462B80,0)
+#define PLANT_CALCLAYER INVOKE(0x45E7C0)
 #define PLANT_REMOVE INVOKE_DWORD(0x4679B0,0)
 #define SHOOT INVOKE_DWORD_DWORD_BYTE_BYTE(0x466E00,0,0,0,0)
 #define ONFIRE INVOKE(0x46ECB0)
@@ -359,7 +364,13 @@ extern byte __asm__set_MusicVolume[21];
 
 extern byte __asm__InjectDll[200];
 
+extern byte __asm__Reanimation__AttachTo[44];
+
 extern byte __asm__Reanimation__Die[19];
+
+extern byte __asm__Reanimation__Play[40];
+
+extern byte __asm__Reanimation__FindTrackIndex[29];
 
 extern byte __asm__Reanimation__AssignGroupToPrefix[26];
 
@@ -385,6 +396,8 @@ extern byte __asm__Hypnotize[19];
 
 extern byte __asm__Zombie__Remove[19];
 
+extern byte __asm__Zombie_ReanimShowPrefix[29];
+
 extern byte __asm__CanDecelerate[24];
 
 extern byte __asm__CreateEffect[19];
@@ -392,6 +405,8 @@ extern byte __asm__CreateEffect[19];
 extern byte __asm__SetStatic[24];
 
 extern byte __asm__Smash[19];
+
+extern byte __asm__Plant_CalcLayer[24];
 
 extern byte __asm__Plant__Remove[19];
 

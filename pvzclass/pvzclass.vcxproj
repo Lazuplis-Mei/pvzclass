@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Classes\Animation.cpp" />
+    <ClCompile Include="Classes\AttachEffect.cpp" />
     <ClCompile Include="Classes\Attachment.cpp" />
     <ClCompile Include="Classes\Board.cpp" />
     <ClCompile Include="Classes\Caption.cpp" />
