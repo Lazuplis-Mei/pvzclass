@@ -297,10 +297,10 @@ byte __asm__CreatePortal2[]
 	MOV_ESI(0),
 	INVOKE(0x41E1C0), // 5+13=18
 	MOV_PTR_ADDR_EAX(0),
-	0xC7, 0x40, 0x08, INUMBER(0), // type
-	0xC7, 0x40, 0x10, INUMBER(0), // col
-	0xC7, 0x40, 0x14, INUMBER(0), // row
-	0xC7, 0x40, 0x1C, INUMBER(0), // layer
+	MOV_PTR_EAX_ADD(0x08, 0), // type
+	MOV_PTR_EAX_ADD(0x10, 0), // col
+	MOV_PTR_EAX_ADD(0x14, 0), // row
+	MOV_PTR_EAX_ADD(0x1C, 0), // layer
 	INVOKE(0x44E1B0),
 	RET
 };
