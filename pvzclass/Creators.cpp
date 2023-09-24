@@ -292,6 +292,30 @@ SPT<PVZ::Vase> Creator::CreateVase(int row, int column, VaseContent::VaseContent
 	return vase;
 }
 
+byte __asm__CreatePortal2[]
+{
+	MOV_ESI(0),
+	INVOKE(0x41E1C0), // 5+13=18
+	MOV_PTR_ADDR_EAX(0),
+	MOV_PTR_EAX_ADD(0x08, 0), // type
+	MOV_PTR_EAX_ADD(0x10, 0), // col
+	MOV_PTR_EAX_ADD(0x14, 0), // row
+	MOV_PTR_EAX_ADD(0x1C, 0), // layer
+	INVOKE(0x44E1B0),
+	RET
+};
+
+SPT<PVZ::Portal> Creator::CreatePortal(int row, int column, int isYellow)
+{
+	SETARG(__asm__CreatePortal2, 1) = PVZBASEADDRESS + 0x11C;
+	SETARG(__asm__CreatePortal2, 19) = PVZ::Memory::Variable;
+	SETARG(__asm__CreatePortal2, 26) = GriditemType::PortalBlue + isYellow;
+	SETARG(__asm__CreatePortal2, 33) = column;
+	SETARG(__asm__CreatePortal2, 40) = row;
+	SETARG(__asm__CreatePortal2, 47) = column * 10000 + 0x4AF38;
+	return MKS<PVZ::Portal>(PVZ::Memory::Execute(STRING(__asm__CreatePortal2)));
+}
+
 SPT<PVZ::Vase> Creator::CreateVase(VaseCreateInfo vaseinfo)
 {
 	return CreateVase(vaseinfo.row, vaseinfo.column, vaseinfo.content, vaseinfo.skin, vaseinfo.zombie, vaseinfo.plant, vaseinfo.sun);

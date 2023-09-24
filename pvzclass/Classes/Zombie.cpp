@@ -175,6 +175,14 @@ void PVZ::Zombie::Hit(int damge, DamageType::DamageType type)
 	Memory::Execute(STRING(__asm__Hit));
 }
 
+void PVZ::Zombie::HitBody(int damage, DamageType::DamageType type)
+{
+	SETARG(__asm__HitBody, 1) = type;
+	SETARG(__asm__HitBody, 6) = damage;
+	SETARG(__asm__HitBody, 11) = BaseAddress;
+	Memory::Execute(STRING(__asm__HitBody));
+}
+
 void PVZ::Zombie::Blast()
 {
 	SETARG(__asm__Blast, 1) = BaseAddress;

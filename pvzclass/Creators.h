@@ -77,6 +77,8 @@ inline void xytorc(int* x, int* y)
 
 	SPT<PVZ::Vase> CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, PlantType::PlantType plant = PlantType::Peashooter, int sun = 0);
 
+	SPT<PVZ::Portal> CreatePortal(int row, int column, int isYellow = 0);
+	
 	struct VaseCreateInfo
 	{
 		int row;

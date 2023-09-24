@@ -88,6 +88,15 @@ byte __asm__Hit[]
 	RET
 };
 
+byte __asm__HitBody[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x5312D0),
+	RET
+};
+
 byte __asm__Blast[]
 {
 	MOV_ECX(0),

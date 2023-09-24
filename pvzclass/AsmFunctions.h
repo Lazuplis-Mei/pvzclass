@@ -480,6 +480,8 @@ extern byte __asm__Lose[21];
 
 extern byte __asm__Hit[29];
 
+extern byte __asm__HitBody[29];
+
 extern byte __asm__Blast[19];
 
 extern byte __asm__Butter[19];
