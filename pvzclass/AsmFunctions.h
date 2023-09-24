@@ -398,16 +398,16 @@
 #define FC_PTR_EUX_ADD(fc,ux,d) 0xD8,0x80+(ux)+(fc)*8,b
 #define FIO_PTR_EUX_ADD_V(fio,ux,b) 0xD9,0x40+(ux)+(fio)*8,b
 #define FIO_PTR_EUX_ADD(fio,ux,d) 0xD9,0x80+(ux)+(fio)*8,INUMBER(d)
-#define FIIO_PTR_EUX_ADD_V(fiio,ux,b) 0xDB,0x40+(ux)+(fio)*8,b
-#define FIIO_PTR_EUX_ADD(fiio,ux,d) 0xDB,0x80+(ux)+(fio)*8,INUMBER(d)
+#define FIIO_PTR_EUX_ADD_V(fiio,ux,b) 0xDB,0x40+(ux)+(fiio)*8,b
+#define FIIO_PTR_EUX_ADD(fiio,ux,d) 0xDB,0x80+(ux)+(fiio)*8,INUMBER(d)
 // end not
 
 #define FC_PTR_ESP_ADD_V(fc,b) 0xD8,0x44+(fc)*8,0x24,b
 #define FC_PTR_ESP_ADD(fc,d) 0xD8,0x84+(fc)*8,0x24,INUMBER(d)
 #define FIO_PTR_ESP_ADD_V(fio,b) 0xD9,0x44+(fio)*8,0x24,b
 #define FIO_PTR_ESP_ADD(fio,d) 0xD9,0x84+(fio)*8,0x24,INUMBER(d)
-#define FIIO_PTR_ESP_ADD_V(fiio,b) 0xDB,0x44+(fio)*8,0x24,b
-#define FIIO_PTR_ESP_ADD(fiio,d) 0xDB,0x84+(fio)*8,0x24,INUMBER(d)
+#define FIIO_PTR_ESP_ADD_V(fiio,b) 0xDB,0x44+(fiio)*8,0x24,b
+#define FIIO_PTR_ESP_ADD(fiio,d) 0xDB,0x84+(fiio)*8,0x24,INUMBER(d)
 
 #define FC_STZ_ST(fc,st) 0xD8,0xC0+(st)+(fc)*8
 #define FC_ST_STZ(fc,st) 0xDC,0xC0+(st)+(fc)*8
