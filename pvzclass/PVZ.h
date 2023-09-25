@@ -715,11 +715,20 @@ public:
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	// 在非传送门关卡中只有画面效果不会触发传送
+	// 提供几个方法用于模拟传送门关卡中的传送效果
 	class Portal :public PVZ::Griditem
 	{
 	public:
 		Portal(int indexoraddress) :Griditem(indexoraddress) {};
 		void Close();
+		// 判定僵尸是否进入这个传送门
+		bool isZombieIn(std::shared_ptr<PVZ::Zombie> zombie);
+		// 获取僵尸从这个传送门出来时的X坐标
+		int getZombieOutX();
+		// 判定子弹是否进入这个传送门
+		bool isProjectileIn(std::shared_ptr<PVZ::Projectile> projectile);
+		// 获取子弹从这个传送门射出时的X坐标
+		int getProjectileOutX();
 	};
 	class MousePointer : public GameObject//+138
 	{
