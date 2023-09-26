@@ -145,7 +145,7 @@
 #define MOV_EUX_PTR_EVX_ADD_V(ux,vx,b)	0x8B,0x40+(ux)*8+(vx),b
 #define MOV_EUX_PTR_EVX_ADD(ux,vx,d)	0x8B,0x80+(ux)*8+(vx),INUMBER(d)
 #define MOV_PTR_EUX_ADD_V_EVX(ux,vx,v)	0x89,0x40+(ux)+(vx)*8,v
-#define MOV_PTR_EUX_ADD__EVX(ux,vx,v)	0x89,0x80+(ux)+(vx)*8,INUMBER(d)
+#define MOV_PTR_EUX_ADD__EVX(ux,vx,d)	0x89,0x80+(ux)+(vx)*8,INUMBER(d)
 #define MOV_PTR_EUX_ADD_V(ux,v1,v2)		0xC7,0x40+(ux),v1,INUMBER(v2)
 #define MOV_PTR_EUX_ADD(ux,v1,v2)		0xC7,0x80+(ux),INUMBER(v1),INUMBER(v2)
 #define CMP_PTR_EUX_ADD_V_V(ux,v1,v2)	0x83,0x78+(ux),v1,v2

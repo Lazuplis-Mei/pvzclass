@@ -22,7 +22,7 @@ void PVZ::CardSlot::SetCardsCount(int num)
 SPT<PVZ::CardSlot::SeedCard> PVZ::CardSlot::GetCard(int index)
 {
 	if (index >= 0 && index < 10)
-		return MKS<SeedCard>(BaseAddress + 0x24 + index * 0x50);
+		return MKS<SeedCard>(BaseAddress + 0x28 + index * 0x50);
 	else
 		return NULL;
 }
