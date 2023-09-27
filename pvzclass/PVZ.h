@@ -241,12 +241,18 @@ public:
 #pragma endregion
 
 #pragma region classes
-	class Board
+	class Widget
 	{
+	protected:
 		int BaseAddress;
 	public:
-		Board(int address);
+		Widget(int address) : BaseAddress(address) {};
 		int GetBaseAddress();
+	};
+	class Board : public Widget
+	{
+	public:
+		Board(int address) : Widget(address) {};
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
 #pragma region fog
