@@ -780,7 +780,7 @@ public:
 			void GetCollision(CollisionBox* collbox);
 			void SetCollision(CollisionBox* collbox);
 			T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x1C);
-			INT_PROPERTY(CoolDown, __get_CoolDown, __set_CoolDown, 0x28);
+			INT_PROPERTY(CoolDown, __get_CoolDown, __set_CoolDown, 0x28); // 已冷却时间，从0开始
 			INT_PROPERTY(CoolDownInterval, __get_CoolDownInterval, __set_CoolDownInterval, 0x2C);
 			INT_READONLY_PROPERTY(Index, __get_Index, 0x30);
 			INT_PROPERTY(XInConveyorBelt, __get_XInConveyorBelt, __set_XInConveyorBelt, 0x34);
@@ -789,9 +789,11 @@ public:
 			INT_PROPERTY(SlotCountdown, __get_SlotCountdown, __set_SlotCountdown, 0x40);
 			T_PROPERTY(CardType::CardType, SlotType, __get_SlotType, __set_SlotType, 0x44);
 			T_PROPERTY(FLOAT, SlotPosition, __get_SlotPosition, __set_SlotPosition, 0x48);
-			T_PROPERTY(BOOLEAN, Enable, __get_Enable, __set_Enable, 0x4C);
-			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x4D);
+			T_PROPERTY(BOOLEAN, Enable, __get_Enable, __set_Enable, 0x4C); // 该卡槽是否可点击
+			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x4D); // 该卡槽是否正在CD
 			INT_PROPERTY(UsageCount, __get_UsageCount, __set_UsageCount, 0x50);
+			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
+			void EnterCoolDown(int duration = -1);
 		};
 		void SetCardsCount(int num);
 		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
