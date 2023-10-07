@@ -1,4 +1,6 @@
 ﻿#include "pvzclass.h"
+#include "Events/EventHandler.h"
+#include "Events/SeedCardClickEvent.h"
 #include <iostream>
 #include <thread>
 
@@ -6,23 +8,31 @@ using namespace std;
 
 PVZ* pvz;
 
+void listener(shared_ptr<PVZ::CardSlot::SeedCard> seedcard)
+{
+	cout << pvz->GetMouse()->ClickState << " ";
+	cout << seedcard->Index << " ";
+	cout << CardType::ToString(seedcard->ContentCard) << "卡槽卡片被点击了" << endl;
+}
+
 int main()
 {
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	pvz = new PVZ(pid);
 
-	auto cardslot = pvz->GetCardSlot();
-	auto seedcard = cardslot->GetCard(0);
+	SeedCardClickEvent e;
+	e.addListener(listener);
+	EventHandler handler;
+	handler.addEvent(make_shared<SeedCardClickEvent>(e));
+	handler.start();
 
-	while (1)
+	for (int i = 0; i < 1000; i++)
 	{
-		int time = rand() % 1000;
-		cout << time << endl;
-		seedcard->EnterCoolDown(time);
-		Sleep(time * 11);
+		handler.run(1);
 	}
 
+	handler.stop();
 	delete pvz;
 	return 0;
 }
