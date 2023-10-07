@@ -19,7 +19,7 @@ SeedCardClickEvent::SeedCardClickEvent()
 
 void SeedCardClickEvent::handle(CONTEXT& context)
 {
-	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(context.Eax - 4);
+	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(context.Eax);
 	for (int i = 0; i < listeners.size(); i++)
 	{
 		listeners[i](seedcard);
