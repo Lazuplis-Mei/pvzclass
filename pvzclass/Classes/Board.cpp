@@ -1,16 +1,6 @@
 #include "../PVZ.h"
 #include "../Const.h"
 
-PVZ::Board::Board(int address)
-{
-	this->BaseAddress = address;
-}
-
-int PVZ::Board::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 int PVZ::Board::GetGridFog(int row, int column)
 {
 	if (row < 0 || row > 6 || column < 0 || column > 8)
@@ -57,7 +47,7 @@ int PVZ::Board::GridToYPixel(int row, int column)
 		int offset = 0;
 		if (column < 5)
 			offset = 20 * (5 - column);
-		return(85 * column + offset + 80 - 10);
+		return(85 * row + offset + 70);
 	}
 	if (scene == SceneType::Pool || scene == SceneType::Fog)
 		return(85 * row + 80);

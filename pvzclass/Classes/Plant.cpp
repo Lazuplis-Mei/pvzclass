@@ -10,7 +10,7 @@ PVZ::Plant::Plant(int indexoraddress)
 
 byte __asm__Plant_memset[]
 {
-	0x89, 0xBB, 0xBC, 0, 0, 0,
+	MOV_PTR_EUX_ADD__EVX(REG_EBX, REG_EDI, 0x00BC),
 	PUSH_EUX(REG_EAX),
 	MOV_EUX(REG_EAX, 0),
 	0x89, 0x3C, 0x18,
