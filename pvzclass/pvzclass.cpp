@@ -1,4 +1,6 @@
 ﻿#include "pvzclass.h"
+#include "Events/EventHandler.h"
+#include "Events/SeedCardClickEvent.h"
 #include <iostream>
 #include <thread>
 
@@ -6,12 +8,12 @@ using namespace std;
 
 PVZ* pvz;
 
-BYTE __asm__[]
+void listener(shared_ptr<PVZ::CardSlot::SeedCard> seedcard)
 {
-	MOV_EAX(0),
-	INVOKE(0x44E1B0),
-	RET
-};
+	cout << pvz->GetMouse()->ClickState << " ";
+	cout << seedcard->Index << " ";
+	cout << CardType::ToString(seedcard->ContentCard) << "卡槽卡片被点击了" << endl;
+}
 
 int main()
 {
@@ -19,17 +21,18 @@ int main()
 	if (!pid) return 1;
 	pvz = new PVZ(pid);
 
-	// 42712B 判定是否僵尸进入传送门
-	// 42713E 判定是否能找到另一个传送门
-	
-	auto portal1 = Creator::CreatePortal(2, 2);
-	auto portal2 = Creator::CreatePortal(4, 4, 1);
+	SeedCardClickEvent e;
+	e.addListener(listener);
+	EventHandler handler;
+	handler.addEvent(make_shared<SeedCardClickEvent>(e));
+	handler.start();
 
-	Sleep(5000);
+	for (int i = 0; i < 1000; i++)
+	{
+		handler.run(1);
+	}
 
-	portal1->Close();
-	portal2->Close();
-
+	handler.stop();
 	delete pvz;
 	return 0;
 }

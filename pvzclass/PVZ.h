@@ -721,11 +721,20 @@ public:
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	// 在非传送门关卡中只有画面效果不会触发传送
+	// 提供几个方法用于模拟传送门关卡中的传送效果
 	class Portal :public PVZ::Griditem
 	{
 	public:
 		Portal(int indexoraddress) :Griditem(indexoraddress) {};
 		void Close();
+		// 判定僵尸是否进入这个传送门
+		bool isZombieIn(std::shared_ptr<PVZ::Zombie> zombie);
+		// 获取僵尸从这个传送门出来时的X坐标
+		int getZombieOutX();
+		// 判定子弹是否进入这个传送门
+		bool isProjectileIn(std::shared_ptr<PVZ::Projectile> projectile);
+		// 获取子弹从这个传送门射出时的X坐标
+		int getProjectileOutX();
 	};
 	class MousePointer : public GameObject//+138
 	{
@@ -773,11 +782,11 @@ public:
 			SeedCard(int address);
 			int GetBaseAddress();
 			INT_PROPERTY(X, __get_X, __set_X, 0x8);
-			INT_PROPERTY(Y, __get_Y, __set_Y, 0x0C);
+			INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 			void GetCollision(CollisionBox* collbox);
 			void SetCollision(CollisionBox* collbox);
 			T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-			INT_PROPERTY(CoolDown, __get_CoolDown, __set_CoolDown, 0x24);
+			INT_PROPERTY(CoolDown, __get_CoolDown, __set_CoolDown, 0x24); // 已冷却时间，从0开始
 			INT_PROPERTY(CoolDownInterval, __get_CoolDownInterval, __set_CoolDownInterval, 0x28);
 			INT_READONLY_PROPERTY(Index, __get_Index, 0x2C);
 			INT_PROPERTY(XInConveyorBelt, __get_XInConveyorBelt, __set_XInConveyorBelt, 0x30);
@@ -786,9 +795,11 @@ public:
 			INT_PROPERTY(SlotCountdown, __get_SlotCountdown, __set_SlotCountdown, 0x3C);
 			T_PROPERTY(CardType::CardType, SlotType, __get_SlotType, __set_SlotType, 0x40);
 			T_PROPERTY(FLOAT, SlotPosition, __get_SlotPosition, __set_SlotPosition, 0x44);
-			T_PROPERTY(BOOLEAN, Enable, __get_Enable, __set_Enable, 0x48);
-			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x49);
+			T_PROPERTY(BOOLEAN, Enable, __get_Enable, __set_Enable, 0x48); // 该卡槽是否可点击
+			T_PROPERTY(BOOLEAN, Active, __get_Active, __set_Active, 0x49); // 该卡槽是否正在CD
 			INT_PROPERTY(UsageCount, __get_UsageCount, __set_UsageCount, 0x4C);
+			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
+			void EnterCoolDown(int duration = -1);
 		};
 		void SetCardsCount(int num);
 		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);

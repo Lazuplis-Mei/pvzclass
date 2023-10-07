@@ -300,6 +300,7 @@
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
+    <ClInclude Include="Events\SeedCardClickEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
