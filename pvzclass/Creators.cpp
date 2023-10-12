@@ -333,12 +333,14 @@ void Creator::CreateRake(byte row, byte column)
 	__asm__CreateRake[1] = row;
 	__asm__CreateRake[3] = column;
 	SETARG(__asm__CreateRake, 5) = PVZBASEADDRESS;
-	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E3, 0xA681);
+	PVZ::Memory::WriteMemory<byte>(0x40B9E3, 0x81);
+	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E4, 0xA6);
 	PVZ::Memory::WriteMemory<byte>(0x40BB2B, 0);
 	PVZ::Memory::WriteMemory<int>(0x40BB3B, 0x900C4D8B);
 	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x9010458B);
 	PVZ::Memory::Execute(STRING(__asm__CreateRake));
-	PVZ::Memory::WriteMemory<short>(0x40B9E3, 0x7984);
+	PVZ::Memory::WriteMemory<byte>(0x40B9E3, 0x84);
+	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E4, 0x279);
 	PVZ::Memory::WriteMemory<byte>(0x40BB2B, -1);
 	PVZ::Memory::WriteMemory<int>(0x40BB3B, 0x10244C8B);
 	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x1424448B);
