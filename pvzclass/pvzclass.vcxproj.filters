@@ -228,6 +228,12 @@
     <ClCompile Include="Classes\AttachEffect.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Widget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\TrackInstance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">

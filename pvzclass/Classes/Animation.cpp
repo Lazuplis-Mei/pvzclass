@@ -55,6 +55,12 @@ void PVZ::Animation::SetColor(Color color)
 	Memory::WriteMemory<int>(BaseAddress + 0x54, color.Alpha);
 }
 
+SPT<PVZ::TrackInstance> PVZ::Animation::GetTrackInstance(const char* trackName)
+{
+	int address = PVZ::Memory::ReadMemory<int>(BaseAddress + 0x58);
+	return MKS<TrackInstance>(this->FindTrackIndex(trackName) * 0x60 + address);
+}
+
 SPT<PVZ::AttachEffect> PVZ::Animation::AttachTo(int AttachmentIDptr, float OffsetX, float OffsetY)
 {
 	SETARG(__asm__Reanimation__AttachTo, 1) = BaseAddress;

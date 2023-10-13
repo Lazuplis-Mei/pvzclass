@@ -173,6 +173,8 @@
     <ClCompile Include="Classes\Plant.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
+    <ClCompile Include="Classes\TrackInstance.cpp" />
+    <ClCompile Include="Classes\Widget.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
     <ClCompile Include="Draw.cpp" />

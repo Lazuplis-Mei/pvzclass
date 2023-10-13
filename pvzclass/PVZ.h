@@ -335,6 +335,7 @@ public:
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 	};
+	class TrackInstance;
 	class AttachEffect
 	{
 		int BaseAddress;
@@ -365,6 +366,7 @@ public:
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		Color GetColor();
 		void SetColor(Color color);
+		SPT<TrackInstance> GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
@@ -381,6 +383,7 @@ public:
 	public:
 		int GetBaseAddress();
 		Attachment(int idoraddress);
+		// TODO: check whether this function works properly.
 		SPT<PVZ::Animation> GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
