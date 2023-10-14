@@ -387,6 +387,14 @@ public:
 		SPT<PVZ::Animation> GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
+	class TrackInstance
+	{
+		int BaseAddress;
+	public:
+		int GetBaseAddress();
+		TrackInstance(int idoraddress);
+		SPT<PVZ::Attachment> GetAttachment();
+	};
 	class Lawn
 	{
 		int BaseAddress;

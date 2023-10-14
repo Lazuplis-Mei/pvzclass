@@ -61,10 +61,10 @@ SPT<PVZ::TrackInstance> PVZ::Animation::GetTrackInstance(const char* trackName)
 	return MKS<TrackInstance>(this->FindTrackIndex(trackName) * 0x60 + address);
 }
 
-SPT<PVZ::AttachEffect> PVZ::Animation::AttachTo(int AttachmentIDptr, float OffsetX, float OffsetY)
+SPT<PVZ::AttachEffect> PVZ::Animation::AttachTo(int ptr_AttachmentID, float OffsetX, float OffsetY)
 {
 	SETARG(__asm__Reanimation__AttachTo, 1) = BaseAddress;
-	SETARG(__asm__Reanimation__AttachTo, 6) = AttachmentIDptr;
+	SETARG(__asm__Reanimation__AttachTo, 6) = ptr_AttachmentID;
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 11) = OffsetY;
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 17) = OffsetX;
 	SETARG(__asm__Reanimation__AttachTo, 39) = PVZ::Memory::Variable;

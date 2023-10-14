@@ -1,14 +1,5 @@
 #include "../PVZ.h"
 
-class PVZ::TrackInstance
-{
-	int BaseAddress;
-public:
-	int GetBaseAddress();
-	TrackInstance(int idoraddress);
-	SPT<PVZ::Attachment> GetAttachment();
-};
-
 int PVZ::TrackInstance::GetBaseAddress()
 {
 	return BaseAddress;
