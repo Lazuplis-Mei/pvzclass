@@ -442,6 +442,7 @@
 #define HYPNOTIZE INVOKE(0x52FA60)
 #define ZOMBIE_REANIMSHOWPREFIX INVOKE_DWORD_DWORD(0x5331C0,0,0)
 #define ZOMBIE_REMOVE INVOKE(0x530510)
+#define ZOMBIE_UPDATESPEED INVOKE(0x52F050)
 #define CANDELECERATE INVOKE(0x531990)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
@@ -501,6 +502,8 @@ extern byte __asm__Froze[19];
 extern byte __asm__Hypnotize[19];
 
 extern byte __asm__Zombie__Remove[19];
+
+extern byte __asm__Zombie__UpdateSpeed[19];
 
 extern byte __asm__Zombie_ReanimShowPrefix[29];
 

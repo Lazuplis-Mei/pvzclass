@@ -147,6 +147,13 @@ byte __asm__Zombie__Remove[]
 	RET
 };
 
+byte __asm__Zombie__UpdateSpeed[]
+{
+	MOV_ESI(0),
+	ZOMBIE_UPDATESPEED,
+	RET
+};
+
 byte __asm__CanDecelerate[]
 {
 	MOV_ESI(0),
