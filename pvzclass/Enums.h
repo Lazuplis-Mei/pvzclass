@@ -6,6 +6,7 @@
 #include "Enums/MouseClickState.h"
 #include "Enums/ZombieType.h"
 #include "Enums/SceneType.h"
+#include "Enums/SeedState.h"
 #include "Enums/DebugModeType.h"
 #include "Enums/ZombieAccessoriesType1.h"
 #include "Enums/ZombieAccessoriesType2.h"

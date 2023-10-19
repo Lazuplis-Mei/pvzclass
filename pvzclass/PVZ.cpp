@@ -277,6 +277,12 @@ SPT<PVZ::Board> PVZ::GetBoard()
 	return(address == 0 ? nullptr : MKS<Board>(BaseAddress));
 }
 
+SPT<PVZ::SeedChooserScreen> PVZ::GetSeedChooserScreen()
+{
+	int address = Memory::ReadPointer(0x6A9EC0, 0x774);
+	return(address == 0 ? nullptr : MKS<SeedChooserScreen>(BaseAddress));
+}
+
 SPT<PVZ::Caption> PVZ::GetCaption()
 {
 	return MKS<Caption>(BaseAddress);

@@ -173,6 +173,7 @@
     <ClCompile Include="Classes\Plant.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
+    <ClCompile Include="Classes\SeedChoserScreen.cpp" />
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\Widget.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
+    <ClCompile Include="Enums\SeedState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Draw.h" />
@@ -294,6 +296,7 @@
     <ClInclude Include="Enums\PVZVersionEnum.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
+    <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />
     <ClInclude Include="Events\ZombieButterEvent.h" />

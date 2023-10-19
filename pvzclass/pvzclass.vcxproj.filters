@@ -234,6 +234,12 @@
     <ClCompile Include="Classes\TrackInstance.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\SeedChoserScreen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\SeedState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -465,6 +471,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\SeedCardClickEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SeedState.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
