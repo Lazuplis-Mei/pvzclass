@@ -300,12 +300,22 @@ SPT<PVZ::ZenGarden> PVZ::GetZenGarden()
 
 SPT<PVZ::PlantDefinition> PVZ::GetPlantDefinition(PlantType::PlantType type)
 {
-	return MKS<PlantDefinition>((int)type);
+	return MKS<PlantDefinition>(type);
 }
 
 SPT<PVZ::ZombieDefinition> PVZ::GetZombieDefinition(ZombieType::ZombieType type)
 {
-	return MKS<ZombieDefinition>((int)type);
+	return MKS<ZombieDefinition>(type);
+}
+
+SPT<PVZ::ProjectileDefinition> PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
+{
+	return MKS<ProjectileDefinition>(type);
+}
+
+SPT<PVZ::ChallengeDefinition> PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
+{
+	return MKS<ChallengeDefinition>(mode);
 }
 
 SPT<PVZ::Miscellaneous> PVZ::GetMiscellaneous()

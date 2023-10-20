@@ -950,7 +950,7 @@ public:
 	{
 		int BaseAddress;
 	public:
-		PlantDefinition(int id);
+		PlantDefinition(PlantType::PlantType type);
 		T_READONLY_PROPERTY(CardType::CardType, Type, __get_Type, 0);
 		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 8);
 		INT_READONLY_PROPERTY(PacketID, __get_PacketID, 0xC);
@@ -964,7 +964,7 @@ public:
 	{
 		int BaseAddress;
 	public:
-		ZombieDefinition(int id);
+		ZombieDefinition(ZombieType::ZombieType type);
 		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
 		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 4);
 		INT_PROPERTY(Value, __get_Value, __set_Value, 8);
@@ -977,10 +977,23 @@ public:
 	{
 		int BaseAddress;
 	public:
-		ProjectileDefinition(ProjectileType::ProjectileType id);
+		ProjectileDefinition(ProjectileType::ProjectileType type);
 		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
 		INT_READONLY_PROPERTY(ImageRow, __get_ImageRow, 4);
 		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
+	};
+
+	class ChallengeDefinition
+	{
+		int BaseAddress;
+	public:
+		ChallengeDefinition(PVZLevel::PVZLevel mode);
+		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
+		INT_PROPERTY(IconIndex, __get_IconIndex, __set_IconIndex, 4);
+		INT_PROPERTY(Page, __get_Page, __set_Page, 8);
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x0C);
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+		INT_PROPERTY(NamePTR, __get_NamePTR, __set_NamePTR, 0x14);
 	};
 
 #pragma endregion
@@ -1016,6 +1029,8 @@ public:
 	SPT<ZenGarden> GetZenGarden();
 	SPT<PlantDefinition> GetPlantDefinition(PlantType::PlantType type);
 	SPT<ZombieDefinition> GetZombieDefinition(ZombieType::ZombieType type);
+	SPT<ProjectileDefinition> GetProjectileDefinition(ProjectileType::ProjectileType type);
+	SPT<ChallengeDefinition> GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
 
