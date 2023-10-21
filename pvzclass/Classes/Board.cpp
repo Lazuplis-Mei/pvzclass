@@ -53,3 +53,23 @@ int PVZ::Board::GridToYPixel(int row, int column)
 		return(85 * row + 80);
 	return(100 * row + 80);
 }
+
+SPT<PVZ::MousePointer> PVZ::Board::GetMousePointer()
+{
+	return MKS<MousePointer>(BaseAddress);
+}
+
+SPT<PVZ::Caption> PVZ::Board::GetCaption()
+{
+	return MKS<Caption>(BaseAddress);
+}
+
+SPT<PVZ::CardSlot> PVZ::Board::GetCardSlot()
+{
+	return MKS<CardSlot>(BaseAddress);
+}
+
+SPT<PVZ::Miscellaneous> PVZ::Board::GetMiscellaneous()
+{
+	return MKS<Miscellaneous>(BaseAddress);
+}

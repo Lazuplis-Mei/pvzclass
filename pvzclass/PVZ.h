@@ -252,6 +252,10 @@ public:
 			return(this->BaseAddress);
 		}
 	};
+	class MousePointer;
+	class Caption;
+	class CardSlot;
+	class Miscellaneous;
 	class Widget
 	{
 	protected:
@@ -321,6 +325,13 @@ public:
 		int GridToXPixel(int row, int column);
 		int GridToYPixel(int row, int column);
 
+#pragma endregion
+
+#pragma region getmethod
+		SPT<MousePointer> GetMousePointer();
+		SPT<Caption> GetCaption();
+		SPT<CardSlot> GetCardSlot();
+		SPT<Miscellaneous> GetMiscellaneous();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget
