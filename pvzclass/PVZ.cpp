@@ -176,94 +176,76 @@ SPT<PVZ::Mouse> PVZ::GetMouse()
 	return MKS<Mouse>(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
-int PVZ::GetAllZombies(SPT<Zombie> zombies[])
+std::vector<SPT<PVZ::Zombie>> PVZ::GetAllZombies()
 {
+	std::vector<SPT<Zombie>> zombies;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
-	int j = 0;
-	for (int i = 0; i < maxnum; i++)
+	for (int i = 0; i < maxnum; i++) 
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + 0x15C * i))
-		{
-			zombies[j] = MKS<PVZ::Zombie>(i);
-			j++;
-		}
+			zombies.push_back(MKS<PVZ::Zombie>(i));
 	}
-	return j;
+	return zombies;
 }
 
-int PVZ::GetAllPlants(SPT<Plant> plants[])
+std::vector<SPT<PVZ::Plant>> PVZ::GetAllPlants()
 {
+	std::vector<SPT<Plant>> plants;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
-	int j = 0;
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadMemory<byte>(Memory::ReadMemory<int>(BaseAddress + 0xAC) + 0x141 + 0x14C * i))
-		{
-			plants[j] = MKS<PVZ::Plant>(i);
-			j++;
-		}
+			plants.push_back(MKS<PVZ::Plant>(i));
 	}
-	return j;
+	return plants;
 }
 
-int PVZ::GetAllProjectile(SPT<Projectile> projectiles[])
+std::vector<SPT<PVZ::Projectile>> PVZ::GetAllProjectile()
 {
+	std::vector<SPT<Projectile>> projectiles;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
-	int j = 0;
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
-		{
-			projectiles[j] = MKS<PVZ::Projectile>(i);
-			j++;
-		}
+			projectiles.push_back(MKS<PVZ::Projectile>(i));
 	}
-	return j;
+	return projectiles;
 }
 
-int PVZ::GetAllCoins(SPT<Coin> coins[])
+std::vector<SPT<PVZ::Coin>> PVZ::GetAllCoins()
 {
+	std::vector<SPT<Coin>> coins;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
-	int j = 0;
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
-		{
-			coins[j] = MKS<PVZ::Coin>(i);
-			j++;
-		}
+			coins.push_back(MKS<PVZ::Coin>(i));
 	}
-	return j;
+	return coins;
 }
 
-int PVZ::GetAllLawnmovers(SPT<Lawnmover> lawnmovers[])
+std::vector<SPT<PVZ::Lawnmover>> PVZ::GetAllLawnmovers()
 {
+	std::vector<SPT<Lawnmover>> lawnmovers;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
-	int j = 0;
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i))
-		{
-			lawnmovers[j] = MKS<PVZ::Lawnmover>(i);
-			j++;
-		}
+			lawnmovers.push_back(MKS<PVZ::Lawnmover>(i));
 	}
-	return j;
+	return lawnmovers;
 }
 
-int PVZ::GetAllGriditems(SPT<Griditem> griditems[])
+std::vector<SPT<PVZ::Griditem>> PVZ::GetAllGriditems()
 {
+	std::vector<SPT<Griditem>> griditems;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
-	int j = 0;
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x11C, 0x20 + 0xEC * i))
-		{
-			griditems[j] = MKS<PVZ::Griditem>(i);
-			j++;
-		}
+			griditems.push_back(MKS<PVZ::Griditem>(i));
 	}
-	return j;
+	return griditems;
 }
 
 SPT<PVZ::MousePointer> PVZ::GetMousePointer()
