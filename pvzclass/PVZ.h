@@ -3,6 +3,7 @@
 #include "AsmFunctions.h"
 #include <ctime>
 #include <memory>
+#include <vector>
 
 #pragma region definitions
 
@@ -338,12 +339,12 @@ public:
 #pragma endregion
 
 #pragma region getmethod
-		int GetAllZombies(SPT<Zombie> zombies[]);
-		int GetAllPlants(SPT<Plant> plants[]);
-		int GetAllProjectile(SPT<Projectile> projectiles[]);
-		int GetAllCoins(SPT<Coin> coins[]);
-		int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
-		int GetAllGriditems(SPT<Griditem> griditems[]);
+		std::vector<SPT<Zombie>> GetAllZombies();
+		std::vector<SPT<Plant>> GetAllPlants();
+		std::vector<SPT<Projectile>> GetAllProjectile();
+		std::vector<SPT<Coin>> GetAllCoins();
+		std::vector<SPT<Lawnmover>> GetAllLawnmovers();
+		std::vector<SPT<Griditem>> GetAllGriditems();
 		SPT<Lawn> GetLawn();
 		SPT<Icetrace> GetIcetrace();
 		SPT<Wave> GetWave(int index);
@@ -1041,12 +1042,12 @@ public:
 	void Lose();
 	void Bell(int countdown = 1);
 	SPT<Mouse> GetMouse();
-	int GetAllZombies(SPT<Zombie> zombies[]);
-	int GetAllPlants(SPT<Plant> plants[]);
-	int GetAllProjectile(SPT<Projectile> projectiles[]);
-	int GetAllCoins(SPT<Coin> coins[]);
-	int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
-	int GetAllGriditems(SPT<Griditem> griditems[]);
+	std::vector<SPT<Zombie>> GetAllZombies();
+	std::vector<SPT<Plant>> GetAllPlants();
+	std::vector<SPT<Projectile>> GetAllProjectile();
+	std::vector<SPT<Coin>> GetAllCoins();
+	std::vector<SPT<Lawnmover>> GetAllLawnmovers();
+	std::vector<SPT<Griditem>> GetAllGriditems();
 	SPT<MousePointer> GetMousePointer();
 	//若 BaseAddress 为 0，返回空指针
 	SPT<Board> GetBoard();

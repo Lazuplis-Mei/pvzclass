@@ -128,9 +128,8 @@ inline void AutoCollect(PVZ* pvz, BOOLEAN b = true)
 	byte __autocollect_reset[3]{ 0xC2, 0x10, 0 };
 	if (b)
 	{
-		SPT<PVZ::Coin> coins[100];
-		int len = pvz->GetAllCoins(coins);
-		for (int i = 0; i < len; i++)
+		auto coins = pvz->GetAllCoins();
+		for (int i = 0; i < coins.size(); i++)
 			coins[i]->Collect();
 		PVZ::Memory::WriteMemory<byte>(0x40CCDA, 0xE9);
 		PVZ::Memory::WriteMemory<int>(0x40CCDB, PVZ::Memory::Variable + 300 - 4 - 0x40CCDB);
