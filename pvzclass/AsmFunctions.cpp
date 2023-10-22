@@ -147,6 +147,13 @@ byte __asm__Zombie__Remove[]
 	RET
 };
 
+byte __asm__Zombie__RemoveWithLoot[]
+{
+	MOV_ECX(0),
+	ZOMBIE_REMOVEWITHLOOT,
+	RET
+};
+
 byte __asm__Zombie__UpdateSpeed[]
 {
 	MOV_ESI(0),

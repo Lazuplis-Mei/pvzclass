@@ -252,10 +252,19 @@ public:
 			return(this->BaseAddress);
 		}
 	};
+	class Zombie;
+	class Plant;
+	class Projectile;
+	class Coin;
+	class Lawnmover;
+	class Griditem;
 	class MousePointer;
 	class Caption;
 	class CardSlot;
 	class Miscellaneous;
+	class Lawn;
+	class Icetrace;
+	class Wave;
 	class Widget
 	{
 	protected:
@@ -283,6 +292,7 @@ public:
 		T_PROPERTY(SceneType::SceneType, LevelScene, __get_LevelScene, __set_LevelScene, 0x554C);
 		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
+		PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
 		/*exclude preparing time*/
 		INT_READONLY_PROPERTY(PlayingTime, __get_PlayingTime, 0x5568);
 		/*include preparing time*/
@@ -328,6 +338,15 @@ public:
 #pragma endregion
 
 #pragma region getmethod
+		int GetAllZombies(SPT<Zombie> zombies[]);
+		int GetAllPlants(SPT<Plant> plants[]);
+		int GetAllProjectile(SPT<Projectile> projectiles[]);
+		int GetAllCoins(SPT<Coin> coins[]);
+		int GetAllLawnmovers(SPT<Lawnmover> lawnmovers[]);
+		int GetAllGriditems(SPT<Griditem> griditems[]);
+		SPT<Lawn> GetLawn();
+		SPT<Icetrace> GetIcetrace();
+		SPT<Wave> GetWave(int index);
 		SPT<MousePointer> GetMousePointer();
 		SPT<Caption> GetCaption();
 		SPT<CardSlot> GetCardSlot();
@@ -553,6 +572,7 @@ public:
 		void Froze(int countdown);
 		void Hypnotize();
 		void Remove();
+		void RemoveWithLoot();
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg);
 		void EquipBucket(int shield = 1100);
