@@ -642,7 +642,8 @@ public:
 		T_PROPERTY(FLOAT, ImageYOffset, __get_ImageYOffset, __set_ImageYOffset, 0xC4);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x141);
 		T_PROPERTY(BOOLEAN, Squash, __get_Squash, __set_Squash, 0x142);
-		T_PROPERTY(BOOLEAN, Sleeping, __get_Sleeping, __set_Sleeping, 0x143);
+		T_READONLY_PROPERTY(BOOLEAN, Sleeping, __get_Sleeping, 0x143);
+		void SetSleeping(bool sleeping);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void CreateEffect();

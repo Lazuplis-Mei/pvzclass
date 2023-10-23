@@ -196,6 +196,13 @@ byte __asm__Plant_CalcLayer[]
 	RET
 };
 
+byte __asm__Plant_SetSleeping[]
+{
+	MOV_EAX(0),
+	PLANT_SETSLEEPING,
+	RET
+};
+
 byte __asm__Plant__Remove[]
 {
 	PLANT_REMOVE,

@@ -112,6 +112,13 @@ void PVZ::Plant::Flash(int cs)
 	Memory::WriteMemory<int>(BaseAddress + 0xBC, cs);
 }
 
+void PVZ::Plant::SetSleeping(bool sleeping)
+{
+	SETARG(__asm__Plant_SetSleeping, 1) = BaseAddress;
+	__asm__Plant_SetSleeping[6] = sleeping;
+	Memory::Execute(STRING(__asm__Plant_SetSleeping));
+}
+
 void PVZ::Plant::CreateEffect()
 {
 	SETARG(__asm__CreateEffect, 1) = BaseAddress;
