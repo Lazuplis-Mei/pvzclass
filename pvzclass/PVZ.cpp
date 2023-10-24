@@ -7,6 +7,15 @@ PVZ::PVZ(DWORD pid)
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 	Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	Memory::Variable = Memory::AllocMemory();
+
+	DEBUG_EVENT debugEvent;
+	DebugActiveProcess(Memory::processId);
+	WaitForDebugEvent(&debugEvent, -1);
+	ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE);
+	DebugActiveProcessStop(PVZ::Memory::processId);
+
+	Memory::mainThreadId = debugEvent.dwThreadId;
+	Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 }
 
 PVZ::~PVZ()

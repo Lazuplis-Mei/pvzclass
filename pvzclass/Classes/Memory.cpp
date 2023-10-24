@@ -2,6 +2,8 @@
 
 HANDLE PVZ::Memory::hProcess = NULL;
 DWORD PVZ::Memory::processId = 0;
+HANDLE PVZ::Memory::hThread = NULL;
+DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 
@@ -54,9 +56,9 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 {
 	int Address = AllocMemory();
 	WriteArray<byte>(Address, asmCode, length);
-	WriteMemory<byte>(0x552014, 0xFE);
+	SuspendThread(hThread);
 	CreateThread(Address);
-	WriteMemory<byte>(0x552014, 0xDB);
+	ResumeThread(hThread);
 	FreeMemory(Address);
 	return ReadMemory<int>(Variable);
 }

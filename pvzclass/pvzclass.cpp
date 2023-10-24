@@ -8,11 +8,18 @@ using namespace std;
 
 PVZ* pvz;
 
+void moreZombie()
+{
+	Creator::CreateZombie(ZombieType::Zombie, 2, 9);
+}
+
 void listener(shared_ptr<PVZ::CardSlot::SeedCard> seedcard)
 {
 	cout << pvz->GetMouse()->ClickState << " ";
 	cout << seedcard->Index << " ";
 	cout << CardType::ToString(seedcard->ContentCard) << "卡槽卡片被点击了" << endl;
+	thread t(moreZombie);
+	t.detach();
 }
 
 int main()
