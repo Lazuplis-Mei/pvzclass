@@ -70,7 +70,7 @@ void EventHandler::continueDebug(int line)
 {
 	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
 	{
-		failLog(__LINE__, "ContinueDebugEvent failed!");
+		failLog(line, "ContinueDebugEvent failed!");
 	}
 }
 
@@ -78,7 +78,7 @@ void EventHandler::waitDebugInfinity(int line)
 {
 	if (!WaitForDebugEvent(&debugEvent, -1))
 	{
-		failLog(__LINE__, "WaitForDebugEvent failed!");
+		failLog(line, "WaitForDebugEvent failed!");
 	}
 }
 
@@ -87,7 +87,7 @@ HANDLE EventHandler::getThread(int line)
 	HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 	if (hThread == 0)
 	{
-		failLog(__LINE__, "hThread is 0!");
+		failLog(line, "hThread is 0!");
 	}
 	return hThread;
 }
@@ -96,7 +96,7 @@ void EventHandler::closeThread(HANDLE hThread, int line)
 {
 	if (!CloseHandle(hThread))
 	{
-		failLog(__LINE__, "CloseHandle failed!");
+		failLog(line, "CloseHandle failed!");
 	}
 }
 

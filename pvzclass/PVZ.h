@@ -113,6 +113,9 @@ public:
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
+		// 主线程（第一个线程），在初始化EventHandler后赋值
+		static HANDLE hThread;
+		static DWORD mainThreadId;
 		static HWND mainwindowhandle;
 		template <class T>
 		inline static T ReadMemory(int address)
