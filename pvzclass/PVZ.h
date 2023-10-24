@@ -67,34 +67,6 @@
 #define HZC_DIGGER_UNDER 64
 #define HZC_HYPNOTIZED 128
 
-struct CollisionBox
-{
-	int X;
-	int Y;
-	int Width;
-	int Height;
-};
-
-struct Color
-{
-	int Red;
-	int Green;
-	int Blue;
-	int Alpha;
-};
-
-struct AccessoriesType1
-{
-	ZombieAccessoriesType1::ZombieAccessoriesType1 Type;
-	int Hp;
-	int MaxHp;
-};
-struct AccessoriesType2
-{
-	ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
-	int Hp;
-	int MaxHp;
-};
 
 /*Only version 1.0.0.1051 is fully supported*/
 class PVZ
@@ -148,6 +120,26 @@ public:
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
 		static void InjectDll(LPCSTR dllname);
+	};
+
+#pragma endregion
+
+#pragma region structs
+
+	struct CollisionBox
+	{
+		int X;
+		int Y;
+		int Width;
+		int Height;
+	};
+
+	struct Color
+	{
+		int Red;
+		int Green;
+		int Blue;
+		int Alpha;
 	};
 
 #pragma endregion
@@ -256,6 +248,16 @@ public:
 			return(this->BaseAddress);
 		}
 	};
+
+	class PVZApp : public BaseClass // TODO
+	{
+	public:
+		PVZApp(DWORD address) : BaseClass(address) {};
+		T_PROPERTY(BOOLEAN, FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,0x814);
+		T_PROPERTY(BOOLEAN, FullVersion,		__get_FullVersion,			__set_FullVersion,		0x8C0);
+	};
+	SPT<PVZApp> GetPVZApp();
+
 	class Zombie;
 	class Plant;
 	class Projectile;
@@ -521,6 +523,20 @@ public:
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
 		static void SetMemSize(int NewSize, int NewCount);
+
+		struct AccessoriesType1
+		{
+			ZombieAccessoriesType1::ZombieAccessoriesType1 Type;
+			int Hp;
+			int MaxHp;
+		};
+		struct AccessoriesType2
+		{
+			ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
+			int Hp;
+			int MaxHp;
+		};
+
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
 		T_PROPERTY(ZombieState::ZombieState, State, __get_State, __set_State, 0x28);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);

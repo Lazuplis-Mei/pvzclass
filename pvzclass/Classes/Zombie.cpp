@@ -112,7 +112,7 @@ void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
 	Memory::WriteMemory<int>(BaseAddress + 0xA8, collbox->Height);
 }
 
-AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
+PVZ::Zombie::AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
 {
 	AccessoriesType1 acctype1;
 	acctype1.Type = Memory::ReadMemory<ZombieAccessoriesType1::ZombieAccessoriesType1>(BaseAddress + 0xC4);
@@ -128,7 +128,7 @@ void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1 acctype1)
 	Memory::WriteMemory<int>(BaseAddress + 0xD4, acctype1.MaxHp);
 }
 
-AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
+PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
 {
 	AccessoriesType2 acctype2;
 	acctype2.Type = Memory::ReadMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8);

@@ -37,7 +37,7 @@ int PVZ::Animation::GetBaseAddress()
 	return BaseAddress;
 }
 
-Color PVZ::Animation::GetColor()
+PVZ::Color PVZ::Animation::GetColor()
 {
 	Color color;
 	color.Red = Memory::ReadMemory<int>(BaseAddress + 0x48);

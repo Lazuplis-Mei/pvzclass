@@ -28,7 +28,7 @@ PVZ::~PVZ()
 
 const char* PVZ::__get_Version()
 {
-	return "1.14.3.231022";
+	return "beta_1.15.0.1.231024";
 }
 
 PVZVersion::PVZVersion PVZ::__get_GameVersion()
@@ -115,6 +115,11 @@ void PVZ::Memory::InjectDll(LPCSTR dllname)
 	CreateThread(Address);
 	WriteMemory<byte>(0x552014, 0xDB);
 	FreeMemory(Address);
+}
+
+SPT<PVZ::PVZApp> PVZ::GetPVZApp()
+{
+	return MKS<PVZApp>(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
 }
 
 SPT<PVZ::Lawn> PVZ::GetLawn()
