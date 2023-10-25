@@ -27,7 +27,7 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 //是否启动传送门。若为“是”，则该方法会自动创建默认的传送门
 inline void EnablePortal(PVZ* pvz, BOOLEAN b = true)
 {
-	if (b && pvz->BaseAddress != 0)Creator::__CreatePortal(pvz);
+	if (b && pvz->GetBoard()->GetBaseAddress() != 0)Creator::__CreatePortal(pvz);
 	MEMMOD_BYTE(0x467665, JO, JNE);
 	MEMMOD_BYTE(0x41FFB4, JO, JNE);
 	MEMMOD_BYTE(0x4248CE, JO, JNE);
@@ -128,7 +128,7 @@ inline void AutoCollect(PVZ* pvz, BOOLEAN b = true)
 	byte __autocollect_reset[3]{ 0xC2, 0x10, 0 };
 	if (b)
 	{
-		auto coins = pvz->GetAllCoins();
+		auto coins = pvz->GetBoard()->GetAllCoins();
 		for (int i = 0; i < coins.size(); i++)
 			coins[i]->Collect();
 		PVZ::Memory::WriteMemory<byte>(0x40CCDA, 0xE9);
