@@ -171,6 +171,7 @@
     <ClCompile Include="Classes\MousePointer.cpp" />
     <ClCompile Include="Classes\Music.cpp" />
     <ClCompile Include="Classes\Plant.cpp" />
+    <ClCompile Include="Classes\PVZApp.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
     <ClCompile Include="Classes\SeedChoserScreen.cpp" />

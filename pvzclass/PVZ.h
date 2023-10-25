@@ -144,98 +144,6 @@ public:
 
 #pragma endregion
 
-#pragma region properties
-
-	READONLY_PROPERTY(const char*, __get_Version) Version;
-	READONLY_PROPERTY(PVZVersion::PVZVersion, __get_GameVersion) GameVersion;
-	PROPERTY(double, __get_MusicVolume, __set_MusicVolume) MusicVolume;//range[0,1]
-	PROPERTY(double, __get_SoundFXVolume, __set_SoundFXVolume) SoundFXVolume;//range[0,1]
-	INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
-	INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
-	INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
-	INT_READONLY_PROPERTY(CoinsCount, __get_CoinsCount, 0xF4);
-	INT_READONLY_PROPERTY(LawnmoversCount, __get_LawnmoversCount, 0x110);
-	INT_READONLY_PROPERTY(GriditemsCount, __get_GriditemsCount, 0x12C);
-	PROPERTY_BINDING(
-		PVZLevel::PVZLevel,
-		__get_LevelId,
-		Memory::ReadMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8),
-		__set_LevelId,
-		Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, value)) LevelId;
-	PROPERTY_BINDING(
-		PVZGameState::PVZGameState,
-		__get_GameState,
-		Memory::ReadMemory<PVZGameState::PVZGameState>(PVZ_BASE + 0x7FC),
-		__set_GameState,
-		Memory::WriteMemory<PVZGameState::PVZGameState>(PVZ_BASE + 0x7FC, value)) GameState;
-	PROPERTY_BINDING(
-		BOOLEAN,
-		__get_FreePlantingCheat,
-		Memory::ReadMemory<BOOLEAN>(PVZ_BASE + 0x814),
-		__set_FreePlantingCheat,
-		Memory::WriteMemory<BOOLEAN>(PVZ_BASE + 0x814, value)) FreePlantingCheat;
-	PROPERTY_BINDING(
-		BOOLEAN,
-		__get_FullVersion,
-		Memory::ReadMemory<BOOLEAN>(PVZ_BASE + 0x8C0),
-		__set_FullVersion,
-		Memory::WriteMemory<BOOLEAN>(PVZ_BASE + 0x8C0, value)) FullVersion;
-	READONLY_PROPERTY_BINDING(
-		int,
-		__get_BaseAddress,
-		PVZBASEADDRESS) BaseAddress;// the same as &Board
-	INT_PROPERTY(ViewX, __get_ViewX, __set_ViewX, 0x30);
-	INT_PROPERTY(ViewY, __get_ViewY, __set_ViewY, 0x34);
-	INT_PROPERTY(ViewLength, __get_ViewLength, __set_ViewLength, 0x38);
-	INT_PROPERTY(ViewHeight, __get_ViewHeight, __set_ViewHeight, 0x3C);
-	T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
-	INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
-	INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
-	PROPERTY(SceneType::SceneType, __get_LevelScene, __set_LevelScene) LevelScene;
-	READONLY_PROPERTY_BINDING(
-		BOOLEAN,
-		__get_SixRoute,
-		(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
-	INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
-	INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
-	PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
-	/*exclude preparing time*/
-	INT_READONLY_PROPERTY(PlayingTime, __get_PlayingTime, 0x5568);
-	/*include preparing time*/
-	INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
-	/*lose focus and recount*/
-	INT_READONLY_PROPERTY(PlayingTime3, __get_PlayingTime3, 0x5570);
-	INT_READONLY_PROPERTY(CurrentWave, __get_CurrentWave, 0x557C);
-	INT_READONLY_PROPERTY(RefreshedWave, __get_RefreshedWave, 0x5580);
-	INT_PROPERTY(FlashTip, __get_FlashTip, __set_FlashTip, 0x5584);
-	/*Flash tips for novice tutorials*/
-	INT_PROPERTY(RefreshHp, __get_RefreshHp, __set_RefreshHp, 0x5594);
-	INT_READONLY_PROPERTY(CurrentWaveHp, __get_CurrentWaveHp, 0x5598);
-	INT_PROPERTY(NextWaveCountdown, __get_NextWaveCountdown, __set_NextWaveCountdown, 0x559C);
-	INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
-	INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
-	T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
-	INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
-	T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
-	INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
-
-#pragma region keyboard code
-
-	T_PROPERTY(BOOLEAN, Mustache, __get_Mustache, __set_Mustache, 0x5761);
-	T_PROPERTY(BOOLEAN, Trickedout, __get_Trickedout, __set_Trickedout, 0x5762);
-	T_PROPERTY(BOOLEAN, Future, __get_Future, __set_Future, 0x5763);
-	T_PROPERTY(BOOLEAN, Pinata, __get_Pinata, __set_Pinata, 0x5764);
-	T_PROPERTY(BOOLEAN, Dance, __get_Dance, __set_Dance, 0x5765);
-	T_PROPERTY(BOOLEAN, Daisies, __get_Daisies, __set_Daisies, 0x5766);
-	T_PROPERTY(BOOLEAN, Sukhbir, __get_Sukhbir, __set_Sukhbir, 0x5767);
-
-#pragma endregion
-
-	INT_READONLY_PROPERTY(EatenPlants, __get_EatenPlants, 0x5798);
-	INT_READONLY_PROPERTY(ShoveledPlants, __get_ShoveledPlants, 0x579C);
-
-#pragma endregion
-
 #pragma region classes
 	class BaseClass
 	{
@@ -249,12 +157,23 @@ public:
 		}
 	};
 
+	class PVZutil
+	{
+	public:
+		READONLY_PROPERTY(const char*,				__get_Version)		Version;
+		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
+	};
+
 	class PVZApp : public BaseClass // TODO
 	{
 	public:
 		PVZApp(DWORD address) : BaseClass(address) {};
-		T_PROPERTY(BOOLEAN, FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,0x814);
-		T_PROPERTY(BOOLEAN, FullVersion,		__get_FullVersion,			__set_FullVersion,		0x8C0);
+		PROPERTY(double,						__get_MusicVolume,	__set_MusicVolume)			aMusicVolume;//range[0,1]
+		PROPERTY(double,						__get_SoundFXVolume,__set_SoundFXVolume)		SoundFXVolume;//range[0,1]
+		T_PROPERTY(PVZLevel::PVZLevel,			LevelId,			__get_LevelId,				__set_LevelId,				0x7F8);
+		T_PROPERTY(PVZGameState::PVZGameState,	GameState,			__get_GameState,			__set_GameState,			0x7FC);
+		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
+		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
 	SPT<PVZApp> GetPVZApp();
 
@@ -278,11 +197,22 @@ public:
 	public:
 		Widget(int address) : BaseAddress(address) {};
 		int GetBaseAddress();
+		INT_PROPERTY(ViewX,			__get_ViewX,		__set_ViewX,		0x30);
+		INT_PROPERTY(ViewY,			__get_ViewY,		__set_ViewY,		0x34);
+		INT_PROPERTY(ViewLength,	__get_ViewLength,	__set_ViewLength,	0x38);
+		INT_PROPERTY(ViewHeight,	__get_ViewHeight,	__set_ViewHeight,	0x3C);
 	};
 	class Board : public Widget
 	{
 	public:
 		Board(int address) : Widget(address) {};
+		SPT<PVZApp> GetPVZApp();
+		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
+		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
+		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
+		INT_READONLY_PROPERTY(CoinsCount, __get_CoinsCount, 0xF4);
+		INT_READONLY_PROPERTY(LawnmoversCount, __get_LawnmoversCount, 0x110);
+		INT_READONLY_PROPERTY(GriditemsCount, __get_GriditemsCount, 0x12C);
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
 #pragma region fog
@@ -295,7 +225,7 @@ public:
 
 		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
 		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
-		T_PROPERTY(SceneType::SceneType, LevelScene, __get_LevelScene, __set_LevelScene, 0x554C);
+		PROPERTY(SceneType::SceneType, __get_LevelScene, __set_LevelScene) LevelScene;
 		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
 		PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
@@ -315,6 +245,7 @@ public:
 		INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
 		INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
 		T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
+		INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
 		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
 		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
 
@@ -340,6 +271,11 @@ public:
 
 		int GridToXPixel(int row, int column);
 		int GridToYPixel(int row, int column);
+		void Assault(int countdown = 1);
+		void Bell(int countdown = 1);
+		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
+		void Lose();
+		void Win();
 
 #pragma endregion
 
@@ -1052,30 +988,11 @@ public:
 
 #pragma region methods
 
-	SPT<Lawn> GetLawn();
-	SPT<Icetrace> GetIcetrace();
-	SPT<Wave> GetWave(int index);
-	void GetZombieSeed(ZombieType::ZombieType* ztypes);
-	void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
-	void Assault(int countdown = 1);
-	void Win();
-	void Lose();
-	void Bell(int countdown = 1);
 	SPT<Mouse> GetMouse();
-	std::vector<SPT<Zombie>> GetAllZombies();
-	std::vector<SPT<Plant>> GetAllPlants();
-	std::vector<SPT<Projectile>> GetAllProjectile();
-	std::vector<SPT<Coin>> GetAllCoins();
-	std::vector<SPT<Lawnmover>> GetAllLawnmovers();
-	std::vector<SPT<Griditem>> GetAllGriditems();
-	SPT<MousePointer> GetMousePointer();
 	//若 BaseAddress 为 0，返回空指针
 	SPT<Board> GetBoard();
 	//若 BaseAddress 为 0，返回空指针
 	SPT<SeedChooserScreen> GetSeedChooserScreen();
-	SPT<Caption> GetCaption();
-	SPT<CardSlot> GetCardSlot();
-	SPT<Miscellaneous> GetMiscellaneous();
 	SPT<SaveData> GetSaveData();
 	SPT<Music> GetMusic();
 	SPT<ZenGarden> GetZenGarden();
