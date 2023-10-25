@@ -192,14 +192,14 @@ byte __asm__ResetLawnmover[19]
 	RET,
 };
 
-void Creator::ResetLawnmover(PVZ* pvz)
+void Creator::ResetLawnmover()
 {
 	PVZ::Memory::AllAccess(0x679BF8);
 	PVZ::Memory::WriteMemory<float>(0x679BF8, -21.0f);
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JMP(0x60)));
 	PVZ::Memory::WriteMemory<byte>(0x40BD17, 1);
 	SETARG(__asm__ResetLawnmover, 1) = PVZBASEADDRESS;
-	auto lawnmovers = pvz->GetBoard()->GetAllLawnmovers();
+	auto lawnmovers = PVZ::GetBoard()->GetAllLawnmovers();
 	for (int i = 0; i < lawnmovers.size(); i++)
 		lawnmovers[i]->Die();
 	PVZ::Memory::Execute(STRING(__asm__ResetLawnmover));
@@ -552,9 +552,9 @@ byte __asm__CreatePortal[19]
 	RET,
 };
 
-void Creator::__CreatePortal(PVZ* pvz)
+void Creator::__CreatePortal()
 {
-	auto griditems = pvz->GetBoard()->GetAllGriditems();
+	auto griditems = PVZ::GetBoard()->GetAllGriditems();
 	for (int i = 0; i < griditems.size(); i++)
 		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)
 			griditems[i]->Remove();
@@ -562,7 +562,7 @@ void Creator::__CreatePortal(PVZ* pvz)
 	PVZ::Memory::Execute(STRING(__asm__CreatePortal));
 }
 
-void Creator::CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column)
+void Creator::CreatePortal(int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column)
 {
 	PVZ::Memory::WriteMemory<int>(0x426FE9, yellow1Row);
 	PVZ::Memory::WriteMemory<int>(0x426FE2, yellow1Column);
@@ -572,7 +572,7 @@ void Creator::CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yello
 	PVZ::Memory::WriteMemory<int>(0x42703D, blue1Column);
 	PVZ::Memory::WriteMemory<int>(0x42706D, blue2Row);
 	PVZ::Memory::WriteMemory<int>(0x427068, blue2Column);
-	__CreatePortal(pvz);
+	__CreatePortal();
 	PVZ::Memory::WriteMemory<int>(0x426FE9, 0);
 	PVZ::Memory::WriteMemory<int>(0x426FE2, 2);
 	PVZ::Memory::WriteMemory<int>(0x427014, 1);

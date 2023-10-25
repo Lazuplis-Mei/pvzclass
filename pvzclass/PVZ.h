@@ -69,11 +69,10 @@
 
 
 /*Only version 1.0.0.1051 is fully supported*/
-class PVZ
+namespace PVZ
 {
-public:
-	PVZ(DWORD pid);
-	~PVZ();
+	void InitPVZ(DWORD pid);
+	void QuitPVZ();
 
 #pragma region Memory Class
 
