@@ -163,7 +163,7 @@ namespace PVZ
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
 	};
 
-	class PVZApp : public BaseClass // TODO
+	class PVZApp : public BaseClass
 	{
 	public:
 		PVZApp(DWORD address) : BaseClass(address) {};
@@ -319,16 +319,10 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
-	class GameObject
+	class GameObject : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
-		GameObject()
-		{
-			this->BaseAddress = 0;
-		}
-		int GetBaseAddress();
+		GameObject() : BaseClass(0) {};
 		SPT<PVZ::Board> GetBoard()
 		{
 			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));

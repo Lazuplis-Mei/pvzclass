@@ -32,7 +32,7 @@ void QuitPVZ()
 
 const char* PVZ::PVZutil::__get_Version()
 {
-	return "beta_1.15.0.3.231026";
+	return "beta_1.15.0.4.231026";
 }
 
 PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
@@ -129,8 +129,3 @@ SPT<PVZ::Music> PVZ::GetMusic()
 }
 
 #pragma endregion
-
-int PVZ::GameObject::GetBaseAddress()
-{
-	return this->BaseAddress;
-}

@@ -28,6 +28,8 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
+	PVZ::GetBoard()->Sun = 9000;
+
 	SeedCardClickEvent e;
 	e.addListener(listener);
 	EventHandler handler;
