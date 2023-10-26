@@ -47,12 +47,10 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 说明几个注意点：
 
 1. 调用 start 之后，PVZ 便会在触发事件时被阻塞，直到事件被 handle.run 处理，请确保 run 的调用足够频繁，且 start 与 run 之间不会有相关事件被触发。
-
 2. run 的参数是等待时间（毫秒），如果在这期间触发了事件，则返回 true。
-
 3. 等待时间如果是 -1（INFINITY）则会阻塞住 pvzclass 直到事件触发，等待时间至少为 1ms，请根据自己的需要选择合适的等待时长。
-
 4. listener 会按照添加的先后顺序触发，请确保它们之间的正常运行逻辑。
+4. listener 中，使用 `Execute` 会导致程序卡死，请另开一个线程执行使用 `Execute` 的函数。
 
 ## 开发说明
 

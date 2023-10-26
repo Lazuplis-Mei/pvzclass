@@ -1,7 +1,9 @@
 ﻿#include "PVZ.h"
 
+namespace PVZ
+{
 
-PVZ::PVZ(DWORD pid)
+void InitPVZ(DWORD pid)
 {
 	Memory::processId = pid;
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
@@ -18,17 +20,19 @@ PVZ::PVZ(DWORD pid)
 	Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 }
 
-PVZ::~PVZ()
+void QuitPVZ()
 {
 	CloseHandle(Memory::hProcess);
 	Memory::FreeMemory(Memory::Variable);
+}
+
 }
 
 #pragma region background methods
 
 const char* PVZ::PVZutil::__get_Version()
 {
-	return "beta_1.15.0.2.231025";
+	return "beta_1.15.0.4.231026";
 }
 
 PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
@@ -125,8 +129,3 @@ SPT<PVZ::Music> PVZ::GetMusic()
 }
 
 #pragma endregion
-
-int PVZ::GameObject::GetBaseAddress()
-{
-	return this->BaseAddress;
-}
