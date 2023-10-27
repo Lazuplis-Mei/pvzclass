@@ -1,6 +1,11 @@
 #include "../PVZ.h"
 #include "../Const.h"
 
+SPT<PVZ::PVZApp> PVZ::Board::GetPVZApp()
+{
+	return MKS<PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress + 0x8C));
+}
+
 int PVZ::Board::GetGridFog(int row, int column)
 {
 	if (row < 0 || row > 6 || column < 0 || column > 8)
@@ -35,6 +40,18 @@ void PVZ::Board::__set_WaveCount(int value)
 	}
 }
 
+SceneType::SceneType PVZ::Board::__get_LevelScene()
+{
+	return Memory::ReadMemory<SceneType::SceneType>(BaseAddress + 0x554C);
+}
+
+void PVZ::Board::__set_LevelScene(SceneType::SceneType value)
+{
+	Memory::WriteMemory<SceneType::SceneType>(BaseAddress + 0x554C, value);
+	SETARG(__asm__set__LevelScene, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__set__LevelScene));
+}
+
 int PVZ::Board::GridToXPixel(int row, int column)
 {
 	PVZLevel::PVZLevel mode = Memory::ReadMemory<PVZLevel::PVZLevel>(Memory::ReadMemory<int>(this->BaseAddress + 0x8C) + 0x7F8);
@@ -66,6 +83,47 @@ int PVZ::Board::GridToYPixel(int row, int column)
 	if (scene == SceneType::Pool || scene == SceneType::Fog)
 		return(85 * row + 80);
 	return(100 * row + 80);
+}
+
+void PVZ::Board::Lose()
+{
+	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
+	if (pvz->LevelId == PVZLevel::Zombiguarium || (pvz->LevelId >= 61 && pvz->LevelId <= 70))
+	{
+		SETARG(__asm__Lose, 3) = this->BaseAddress;
+		Memory::Execute(STRING(__asm__Lose));
+	}
+	else
+		pvz->GameState = PVZGameState::Losing;
+}
+
+void PVZ::Board::Win()
+{
+	SETARG(__asm__Win, 1) = this->BaseAddress;
+	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
+	if (pvz->LevelId > 0 && pvz->LevelId < 16)
+	{
+		if (pvz->GameState == PVZGameState::Playing)
+			Memory::Execute(STRING(__asm__Win));
+	}
+	else Memory::Execute(STRING(__asm__Win));
+}
+
+void PVZ::Board::Assault(int countdown)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
+}
+
+void PVZ::Board::Bell(int countdown)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);
+}
+
+void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int duration)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x5540, duration);
+	Memory::WriteMemory<int>(BaseAddress + 0x5544, horizontalAmplitude);
+	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
 std::vector<SPT<PVZ::Zombie>> PVZ::Board::GetAllZombies()

@@ -206,7 +206,7 @@
 #define CALC_CMP 7
 
 #define CALC_EAX(calc,d)				5+(calc)*8,INUMBER(d)
-#define CALC_PTR_ADDR(address,b)		0x83,5+(calc)*8,INUMBER(address),b
+#define CALC_PTR_ADDR(calc,address,b)	0x83,5+(calc)*8,INUMBER(address),b
 
 // Not for esp & ebp
 #define CALC_PTR_EUX_EVX(calc,ux,vx)	1+(calc)*8,(ux)+(vx)*8

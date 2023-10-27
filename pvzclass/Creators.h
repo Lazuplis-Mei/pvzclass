@@ -64,7 +64,7 @@ inline void xytorc(int* x, int* y)
 
 	SPT<PVZ::Coin> CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
 
-	void ResetLawnmover(PVZ* pvz);
+	void ResetLawnmover();
 
 	//just a Bottom implementation
 	SPT<PVZ::Griditem> CreateGriditem();
@@ -121,10 +121,10 @@ inline void xytorc(int* x, int* y)
 	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
 
 	//你需要先调用一次AsmInit后才能使用这个函数
-	void __CreatePortal(PVZ* pvz);
+	void __CreatePortal();
 
 	//你需要先调用一次AsmInit后才能使用这个函数
-	void CreatePortal(PVZ* pvz,int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
+	void CreatePortal(int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
 
 	void __ClearZombiePreview();
 
