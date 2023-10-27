@@ -70,7 +70,7 @@ void EventHandler::continueDebug(int line)
 {
 	if (!ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE))
 	{
-		failLog(line, "ContinueDebugEvent failed!");
+		failLog(__LINE__, "ContinueDebugEvent failed!");
 	}
 }
 
@@ -78,7 +78,7 @@ void EventHandler::waitDebugInfinity(int line)
 {
 	if (!WaitForDebugEvent(&debugEvent, -1))
 	{
-		failLog(line, "WaitForDebugEvent failed!");
+		failLog(__LINE__, "WaitForDebugEvent failed!");
 	}
 }
 
@@ -87,7 +87,7 @@ HANDLE EventHandler::getThread(int line)
 	HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
 	if (hThread == 0)
 	{
-		failLog(line, "hThread is 0!");
+		failLog(__LINE__, "hThread is 0!");
 	}
 	return hThread;
 }
@@ -96,7 +96,7 @@ void EventHandler::closeThread(HANDLE hThread, int line)
 {
 	if (!CloseHandle(hThread))
 	{
-		failLog(line, "CloseHandle failed!");
+		failLog(__LINE__, "CloseHandle failed!");
 	}
 }
 
@@ -114,6 +114,34 @@ void EventHandler::start()
 	}
 }
 
+#if defined(_WIN64)
+bool EventHandler::run(int ms)
+{
+	if (!WaitForDebugEvent(&debugEvent, ms))
+	{
+		return false;
+}
+	if (debugEvent.dwDebugEventCode != EXCEPTION_DEBUG_EVENT)
+	{
+		continueDebug(__LINE__);
+		return false;
+	}
+	getContext();
+	context.Rip--;
+	for (int i = 0; i < events.size(); i++)
+	{
+		if (context.Rip == events[i]->address)
+		{
+			events[i]->handle(context);
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, events[i]->raw);
+			singleStep();
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, 0xCC);
+		}
+	}
+	resume();
+	return true;
+}
+#else
 bool EventHandler::run(int ms)
 {
 	if (!WaitForDebugEvent(&debugEvent, ms))
@@ -140,6 +168,7 @@ bool EventHandler::run(int ms)
 	resume();
 	return true;
 }
+#endif
 
 void EventHandler::singleStep()
 {
