@@ -189,8 +189,7 @@ SPT<PVZ::Animation> anim = MKS<PVZ::Animation>(0);//获得第1个对象
 * 部分类可以用 `PVZ::GetBoard()->GetAllXXX` 的方式一次获得当前全部可用的对象
 
 ```cpp
-SPT<PVZ::Zombie> zombies[100];
-int num = PVZ::GetBoard()->GetAllZombies(zombies);//返回实际获取到的对象数量
+std::vector<SPT<PVZ::Zombie>> zombies = PVZ::GetBoard()->GetAllZombies();
 ```
 
 * 以下类属于游戏内的对象实体类：
