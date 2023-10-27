@@ -2,23 +2,15 @@
 
 namespace PVZ
 {
-
-void InitPVZ(DWORD pid)
-{
-	Memory::processId = pid;
-	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
-	Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
-	Memory::Variable = Memory::AllocMemory();
-
-	DEBUG_EVENT debugEvent;
-	DebugActiveProcess(Memory::processId);
-	WaitForDebugEvent(&debugEvent, -1);
-	ContinueDebugEvent(debugEvent.dwProcessId, debugEvent.dwThreadId, DBG_CONTINUE);
-	DebugActiveProcessStop(PVZ::Memory::processId);
-
-	Memory::mainThreadId = debugEvent.dwThreadId;
-	Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, debugEvent.dwThreadId);
-}
+	void InitPVZ(DWORD pid)
+	{
+		Memory::processId = pid;
+		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+		Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
+		Memory::Variable = Memory::AllocMemory();
+		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
+		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
+	}
 
 void QuitPVZ()
 {
@@ -32,7 +24,7 @@ void QuitPVZ()
 
 const char* PVZ::PVZutil::__get_Version()
 {
-	return "beta_1.15.0.4.231026";
+	return "1.15.0.231027";
 }
 
 PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
