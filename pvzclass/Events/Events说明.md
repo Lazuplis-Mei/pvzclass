@@ -54,6 +54,8 @@ int listener(shared_ptr<PVZ::Zombie> zombie, DamageType::DamageType type, int am
 
 4. listener 会按照添加的先后顺序触发，请确保它们之间的正常运行逻辑。
 
+5. listener 中，使用 `Execute` 会导致程序卡死，请另开一个线程执行使用 `Execute` 的函数。
+
 ## 开发说明
 
 请参照 Events 文件夹中相关文件。
