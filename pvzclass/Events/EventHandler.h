@@ -30,7 +30,7 @@ public:
 	// ms至少为1，可以用-1代表无限等待
 	// 如果返回值为true，需要调用handle()和resume()
 	bool run(int ms);
-	
+
 	// 停止调试PVZ进程
 	void stop();
 
@@ -114,6 +114,34 @@ void EventHandler::start()
 	}
 }
 
+#if defined(_WIN64)
+bool EventHandler::run(int ms)
+{
+	if (!WaitForDebugEvent(&debugEvent, ms))
+	{
+		return false;
+	}
+	if (debugEvent.dwDebugEventCode != EXCEPTION_DEBUG_EVENT)
+	{
+		continueDebug(__LINE__);
+		return false;
+	}
+	getContext();
+	context.Rip--;
+	for (int i = 0; i < events.size(); i++)
+	{
+		if (context.Rip == events[i]->address)
+		{
+			events[i]->handle(context);
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, events[i]->raw);
+			singleStep();
+			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, 0xCC);
+		}
+	}
+	resume();
+	return true;
+}
+#else
 bool EventHandler::run(int ms)
 {
 	if (!WaitForDebugEvent(&debugEvent, ms))
@@ -140,6 +168,7 @@ bool EventHandler::run(int ms)
 	resume();
 	return true;
 }
+#endif
 
 void EventHandler::singleStep()
 {
