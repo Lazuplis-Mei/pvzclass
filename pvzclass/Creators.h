@@ -48,6 +48,8 @@ inline void xytorc(int* x, int* y)
 
 	SPT<PVZ::Animation> CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer = 0x310000);
 
+	//在指定位置生成一个指定类型的僵尸。
+	//僵王博士将会被强制生成在 0 行 0 列。
 	SPT<PVZ::Zombie> CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
 	SPT<PVZ::Plant> CreatePlant(PlantType::PlantType type, int row, byte column, BOOLEAN imitative = false);

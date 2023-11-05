@@ -28,7 +28,7 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	PVZ::GetBoard()->Sun = 9000;
+	PVZ::Miscellaneous::SetMemSize(PVZ::Miscellaneous::MemSize);
 
 	SeedCardClickEvent e;
 	e.addListener(listener);

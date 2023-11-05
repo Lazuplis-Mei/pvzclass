@@ -39,6 +39,8 @@ byte __asm__CreateZombie__pieces[6]
 
 SPT<PVZ::Zombie> Creator::CreateZombie(ZombieType::ZombieType type, int row, byte column)
 {
+	if (type == ZombieType::DrZomboss)
+		row = column = 0;
 	PVZ::Memory::WriteArray(0x42A209, STRING(__asm__CreateZombie__pieces));
 	PVZ::Memory::WriteMemory<short>(0x42A1E4, makeshort(JMP(0x23)));
 	PVZ::Memory::WriteMemory<short>(0x42A196, makeshort(JMP(0x71)));
