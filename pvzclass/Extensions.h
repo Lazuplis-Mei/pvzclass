@@ -12,6 +12,56 @@
 #define JUMP 235
 #define JLE 126
 
+using ThreeState::Enable;
+using ThreeState::None;
+using ThreeState::Disable;
+using Memory = PVZ::Memory;
+
+//启用/禁用砸罐子功能。
+//包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
+//@param state 功能的启用状态，缺省值为 Enable。
+inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
+{
+	switch (state)
+	{
+	case Enable:
+		Memory::WriteMemory<short>(0x40EB36, 0x1571);
+		Memory::WriteMemory<byte>(0x411AE5, 0x80);
+
+		Memory::WriteMemory<byte>(0x422183, JO);
+		Memory::WriteMemory<short>(0x424791, 0x1471);
+
+		Memory::WriteMemory<byte>(0x526CE0, JO);
+
+		Memory::WriteMemory<short>(0x526DBB, 0x1571);
+		Memory::WriteMemory<byte>(0x527257, JO);
+		break;
+	case None:
+		Memory::WriteMemory<short>(0x40EB36, 0x057C);
+		Memory::WriteMemory<byte>(0x411AE5, 0x84);
+
+		Memory::WriteMemory<byte>(0x422183, JZ);
+		Memory::WriteMemory<short>(0x424791, 0x057C);
+
+		Memory::WriteMemory<byte>(0x526CE0, JZ);
+
+		Memory::WriteMemory<short>(0x526DBB, 0x057C);
+		Memory::WriteMemory<byte>(0x527257, JZ);
+		break;
+	case Disable:
+		Memory::WriteMemory<short>(0x40EB36, 0x7871);
+		Memory::WriteMemory<byte>(0x411AE5, 0x81);
+
+		Memory::WriteMemory<byte>(0x422183, JUMP);
+		Memory::WriteMemory<short>(0x424791, 0x1971);
+
+		Memory::WriteMemory<byte>(0x526CE0, JUMP);
+
+		Memory::WriteMemory<short>(0x526DBB, 0x5971);
+		Memory::WriteMemory<byte>(0x527257, JUMP);
+	}
+}
+
 //是否启用后台运行
 inline void EnableBackgroundRunning(BOOLEAN b = true)
 {

@@ -28,7 +28,7 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	PVZ::Miscellaneous::SetMemSize(PVZ::Miscellaneous::MemSize);
+	EnableVaseBreak();
 
 	SeedCardClickEvent e;
 	e.addListener(listener);

@@ -211,6 +211,7 @@
     <ClCompile Include="Enums\PVZVersionEnum.cpp" />
     <ClCompile Include="Enums\RouteTypeEnum.cpp" />
     <ClCompile Include="Enums\SceneType.cpp" />
+    <ClCompile Include="Enums\ThreeState.cpp" />
     <ClCompile Include="Enums\VaseContent.cpp" />
     <ClCompile Include="Enums\VaseSkin.cpp" />
     <ClCompile Include="Enums\ZombieAccessoriesType1.cpp" />
@@ -253,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Draw.h" />
+    <ClInclude Include="Enums\ThreeState.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
