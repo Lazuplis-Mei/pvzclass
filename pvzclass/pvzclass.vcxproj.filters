@@ -557,6 +557,9 @@
     <ClInclude Include="Enums\ThreeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Flags.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

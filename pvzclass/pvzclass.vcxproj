@@ -306,6 +306,7 @@
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="Enums\UpperSoundType.h" />
     <ClInclude Include="Enums\AnimationType.h" />
+    <ClInclude Include="Flags.h" />
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />

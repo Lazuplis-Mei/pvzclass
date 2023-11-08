@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Enums.h"
+#include "Flags.h"
 #include "AsmFunctions.h"
 #include <ctime>
 #include <memory>
