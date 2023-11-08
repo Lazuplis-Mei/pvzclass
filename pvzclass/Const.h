@@ -48,7 +48,7 @@ namespace Const
 			MEMMOD_INT(0x4329A9, val, 25);
 			break;
 		case(CoinType::MiniSun):
-			MEMMOD_BYTE(0x4309FD, (val + 5), 10);
+			MEMMOD_BYTE(0x4309FD, (val - 5), 10);
 			MEMMOD_INT(0x4329B4, val, 15);
 			break;
 		case(CoinType::LargeSun):
@@ -92,5 +92,53 @@ namespace Const
 			baseaddress = 0x69DE50;
 		}
 		return(MEMREAD_INT(baseaddress + row * 0x80 + column * 0x10 + 4));
+	}
+
+	//@brief 获取指定关卡的初始场景类型。不支持冒险模式。
+	//@param mode 关卡类型。
+	//@return 该关卡的初始场景类型。
+	inline SceneType::SceneType GetLevelScene(PVZLevel::PVZLevel mode)
+	{
+		byte num = MEMREAD_BYTE(0x40AAC0) - 1;
+		switch (num)
+		{
+		case 5:
+			num = 8;
+			break;
+		case 6:
+			num = 5;
+			break;
+		case 8:
+			num = 9;
+			break;
+		}
+		return((SceneType::SceneType)num);
+	}
+
+	//@brief 设置指定关卡的初始场景类型。不支持冒险模式，无法设定为蘑菇圆场景。
+	//@param mode 关卡类型。
+	//@param type 设定的场景类型。
+	//@return 是否设置成功。
+	inline bool SetLevelScene(PVZLevel::PVZLevel mode, SceneType::SceneType type)
+	{
+		if (mode == PVZLevel::Adventure || type == SceneType::MushroomGarden)
+			return(false);
+		byte result;
+		switch (type)
+		{
+		case SceneType::MoonNight:
+			result = 7;
+			break;
+		case SceneType::Aquarium:
+			result = 6;
+			break;
+		case SceneType::TreeofWisdom:
+			result = 9;
+			break;
+		default:
+			result = type + 1;
+		}
+		bool b = true;
+		return(MEMMOD_BYTE(0x40AAC0 + mode, result, 0));
 	}
 }
