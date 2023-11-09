@@ -297,7 +297,7 @@ bool PVZ::Zombie::canDecelerate()
 	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
 	SETARG(__asm__CanDecelerate, 1) = BaseAddress;
 	SETARG(__asm__CanDecelerate, 19) = Memory::Variable;
-	return(Memory::Execute(STRING(__asm__Plantable)) == 1);
+	return(Memory::Execute(STRING(__asm__CanDecelerate)) == 1);
 	Memory::WriteMemory<byte>(0x5319E5, 117);
 }
 
@@ -328,4 +328,86 @@ bool PVZ::Zombie::canFroze()
 	if (this->Type == ZombieType::BungeeZombie && state != ZombieState::BUNGEE_IDLE_AFTER_DROP)
 		return(false);
 	return(true);
+}
+
+bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
+{
+	if (usepvzfunc)
+	{
+		SETARG(__asm__Zombie_EffectedBy, 1) = BaseAddress;
+		__asm__Zombie_EffectedBy[6] = range;
+		SETARG(__asm__Zombie_EffectedBy, 21) = Memory::Variable;
+		return(Memory::Execute(STRING(__asm__Zombie_EffectedBy)) == 1);
+	}
+	else
+	{
+		ZombieType::ZombieType type = this->Type;
+		ZombieState::ZombieState state = this->State;
+
+		if ((range & DRF_DYING) == 0)
+		{
+			if (this->NotExist)
+				return(false);
+			if (state == ZombieState::DYING
+				|| state == ZombieState::DYING_FROM_INSTANT_KILL
+				|| state == ZombieState::DYING_FROM_LAWNMOWER)
+				return(false);
+		}
+		bool intendHypnotized = range & DRF_HYPNOTIZED;
+		if (this->Hypnotized ^ intendHypnotized)
+			return(false);
+		if (type == ZombieType::BungeeZombie)
+		{
+			if (state != ZombieState::BUNGEE_IDLE_AFTER_DROP && state != ZombieState::BUNGEE_GRAB)
+				return(false);
+		}
+		if (this->ZombieHeight == 9)
+			return(false);
+		if (type == ZombieType::DrZomboss)
+		{
+			SPT<Animation> anim = this->GetAnimation();
+			if (state == ZombieState::ZOMBOSS_FALL && anim->CycleRate < 0.5)
+				return(false);
+			if (state == ZombieState::ZOMBOSS_RISE && anim->CycleRate > 0.5)
+				return(false);
+			if (state != ZombieState::ZOMBOSS_DOWN
+				&& state != ZombieState::ZOMBOSS_PREPARE_RISE
+				&& state != ZombieState::ZOMBOSS_BALL)
+					return(false);
+		}
+		//if (type == ZombieType::ZombieBobsledTeam && )
+			//return(false);
+		if (state == ZombieState::POLE_VALUTING_JUMPPING
+			|| state == ZombieState::IMP_FLYING
+			|| state == ZombieState::DIGGER_DRILL
+			|| state == ZombieState::DIGGER_LOST_DIG
+			|| state == ZombieState::DIGGER_LANDING
+			|| state == ZombieState::DOPHIN_JUMP_IN_POOL
+			|| state == ZombieState::DOPHIN_JUMP
+			|| state == ZombieState::SNORKEL_JUMP_IN_THE_POOL
+			|| state == ZombieState::BALLOON_FALLING
+			|| state == ZombieState::RISING_FROM_GROUND
+			|| state == ZombieState::BOBSLED_GETOFF
+			|| state == ZombieState::BACKUP_SPAWNING)
+				return(range & DRF_OFF_GROUND);
+
+		//)if (this->mZombieType == ZombieType::BOBSLED
+
+		bool submerged = type == ZombieType::SnorkedZombie && this->InWater && !this->Eating;
+		if ((range & DRF_SUBMERGED) != 0 && submerged)
+			return(true);
+
+		if((range & DRF_UNDERGROUND) != 0
+			&& state == ZombieState::DIGGER_DIG)
+				return(true);
+
+		bool flying = state == ZombieState::BALLOON_FLYING || state == ZombieState::BALLOON_FALLING;
+		if((range & DRF_FLYING) != 0 && flying)
+			return(true);
+		
+		if (range & DRF_GROUND && !flying && !submerged && state != ZombieState::DIGGER_DIG)
+			return(true);
+
+		return(false);
+	}
 }

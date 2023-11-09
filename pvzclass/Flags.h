@@ -2,31 +2,31 @@
 {
 #pragma region DamageRangeFlags
 
-	//判定僵尸是否符合指定条件的标志位，以 DAMAGERF 开头。
-	typedef int DamageRangeFlags;
+	//判定僵尸是否符合指定条件的标志位，以 DRF 开头。
+	typedef unsigned char DamageRangeFlags;
 
 	//是否位于地面上（或水面上）。
-	const DamageRangeFlags DAMAGERF_GROUND = (1 << 0);
+	const DamageRangeFlags DRF_GROUND = (1 << 0);
 	//是否飞行。
-	const DamageRangeFlags DAMAGERF_FLYING = (1 << 1);
+	const DamageRangeFlags DRF_FLYING = (1 << 1);
 	//是否潜水。
-	const DamageRangeFlags DAMAGERF_SUBMERGED = (1 << 2);
+	const DamageRangeFlags DRF_SUBMERGED = (1 << 2);
 	//Deprecated
-	const DamageRangeFlags DAMAGERF_DOG = (1 << 3);
+	const DamageRangeFlags DRF_DOG = (1 << 3);
 	//是否正在落地（或出土）。
-	const DamageRangeFlags DAMAGERF_OFF_GROUND = (1 << 4);
+	const DamageRangeFlags DRF_OFF_GROUND = (1 << 4);
 	//是否考虑已被击杀的僵尸。
-	const DamageRangeFlags DAMAGERF_DYING = (1 << 5);
+	const DamageRangeFlags DRF_DYING = (1 << 5);
 	//是否位于地下。
-	const DamageRangeFlags DAMAGERF_UNDERGROUND = (1 << 6);
+	const DamageRangeFlags DRF_UNDERGROUND = (1 << 6);
 	//是否被魅惑。
-	const DamageRangeFlags DAMAGERF_HYPNOTIZED = (1 << 7);
+	const DamageRangeFlags DRF_HYPNOTIZED = (1 << 7);
 
 	//全体未被魅惑的僵尸。
-	const DamageRangeFlags DAMAGERF_ALL = DAMAGERF_GROUND | DAMAGERF_FLYING
-		| DAMAGERF_SUBMERGED | DAMAGERF_DOG | DAMAGERF_OFF_GROUND | DAMAGERF_DYING | DAMAGERF_UNDERGROUND;
+	const DamageRangeFlags DRF_ALL = DRF_GROUND | DRF_FLYING
+		| DRF_SUBMERGED | DRF_DOG | DRF_OFF_GROUND | DRF_DYING | DRF_UNDERGROUND;
 	//全体被魅惑的僵尸。
-	const DamageRangeFlags DAMAGERF_ALL_HYPNOTIZED = DAMAGERF_HYPNOTIZED | DAMAGERF_ALL;
+	const DamageRangeFlags DRF_ALL_HYPNOTIZED = DRF_HYPNOTIZED | DRF_ALL;
 
 #pragma endregion
 

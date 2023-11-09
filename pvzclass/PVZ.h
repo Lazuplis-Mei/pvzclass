@@ -481,6 +481,7 @@ namespace PVZ
 		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_Eating, 0x51);
 		void Light(int cs = 100);
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
+		INT_READONLY_PROPERTY(ZombieHeight, __get_ZombieHeight, 0x64);
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x68);
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x74);
 		INT_PROPERTY(BungeeColumn, __get_BungeeColumn, __set_BungeeColumn, 0x80);
@@ -537,6 +538,11 @@ namespace PVZ
 
 		bool canDecelerate();
 		bool canFroze();
+		//@brief 判定僵尸是否能被指定索敌类型搜寻到。
+		//@param range 索敌类型。
+		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
+		//@return 是否能被搜寻到。
+		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
 	};
 	class Projectile : public GameObject
 	{

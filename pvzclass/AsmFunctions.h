@@ -445,6 +445,7 @@
 #define ZOMBIE_REMOVEWITHLOOT INVOKE(0x5302F0)
 #define ZOMBIE_UPDATESPEED INVOKE(0x52F050)
 #define CANDELECERATE INVOKE(0x531990)
+#define ZOMBIE_EFFECTEDBY INVOKE_BYTE(0x531A80,0)
 #define CREATEEFFECT INVOKE_DWORD(0x4666A0,0)
 #define SETSTATIC INVOKE_DWORD(0x42A530,0)
 #define SMASH INVOKE_DWORD(0x462B80,0)
@@ -512,6 +513,8 @@ extern byte __asm__Zombie__UpdateSpeed[19];
 extern byte __asm__Zombie_ReanimShowPrefix[29];
 
 extern byte __asm__CanDecelerate[24];
+
+extern byte __asm__Zombie_EffectedBy[26];
 
 extern byte __asm__CreateEffect[19];
 
