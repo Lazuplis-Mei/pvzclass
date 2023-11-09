@@ -514,9 +514,11 @@ namespace PVZ
 		void SetSpecialHeadAnimation(SPT<PVZ::Animation> anim);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		void Hit(int damge, DamageType::DamageType type = DamageType::Direct);
+		void Hit(int damage, DamageType::DamageType type = DamageType::Direct);
+		void Hit(int damage, DamageFlags flags = DAMAGEF_NONE);
 		// 忽略所有护甲只命中本体
 		void HitBody(int damage, DamageType::DamageType type = DamageType::Direct);
+		void HitBody(int damage, DamageFlags flags = DAMAGEF_NONE);
 		void Blast();
 		void Butter(int countdown);
 		//减速僵尸，无法减速默认免疫减速的僵尸。 
