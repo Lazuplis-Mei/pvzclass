@@ -28,7 +28,13 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	EnableVaseBreak();
+	auto zombies = PVZ::GetBoard()->GetAllZombies();
+	for (int i = 0, lim = zombies.size(); i < lim; i++)
+	{
+		auto zombie = zombies[i];
+		if (zombie->EffectedBy(PVZ::DRF_FLYING, false))
+			zombie->Remove();
+	}
 
 	SeedCardClickEvent e;
 	e.addListener(listener);
