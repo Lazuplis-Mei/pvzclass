@@ -81,7 +81,8 @@ namespace PVZ
 	{
 	public:
 		/*	0-100存放创建子弹的函数
-			100-200存放字符串或者PlantEffect的伪造植物对象 */
+			100-200存放字符串或者PlantEffect的伪造植物对象
+			300-400存放AutoCollect的注入代码*/
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;

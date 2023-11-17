@@ -253,6 +253,7 @@
     <ClCompile Include="Enums\SeedState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsmBuilder.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="Enums\ThreeState.h" />
     <ClInclude Include="Events\BaseEvent.h" />
