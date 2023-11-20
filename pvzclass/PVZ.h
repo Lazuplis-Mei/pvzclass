@@ -80,8 +80,11 @@ namespace PVZ
 	class Memory
 	{
 	public:
-		/*	0-100存放创建子弹的函数
-			100-200存放字符串或者PlantEffect的伪造植物对象 */
+		/*	000-100存放创建子弹的函数
+			100-200存放字符串或者PlantEffect的伪造植物对象
+			300-400存放__autocollect_set
+			400-500存放__asm__Plant_memset
+			500-600存放Execute的同步代码 */
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
@@ -89,6 +92,8 @@ namespace PVZ
 		static HANDLE hThread;
 		static DWORD mainThreadId;
 		static HWND mainwindowhandle;
+		// 如果为true，则不会等待PVZ进程，立即执行远程代码
+		static bool immediateExecute;
 		template <class T>
 		inline static T ReadMemory(int address)
 		{
@@ -120,6 +125,8 @@ namespace PVZ
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
 		static void InjectDll(LPCSTR dllname);
+		static void WaitPVZ(); // 等待PVZ到达更新前
+		static void ResumePVZ(); // 恢复PVZ
 	};
 
 #pragma endregion
