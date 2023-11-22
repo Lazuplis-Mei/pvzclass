@@ -34,12 +34,12 @@ public:
 	AsmBuilder()
 	{
 		code = AsmCode();
-		code.resize(100);
+		code.reserve(100);
 	};
 	AsmBuilder(DWORD bytes)
 	{
 		code = AsmCode();
-		code.resize(bytes);
+		code.reserve(bytes);
 	}
 	AsmBuilder(byte asmCode[]) : code(asmCode) {};
 	AsmBuilder(AsmBuilder& builder) : code(builder.GetCode()) {};
@@ -51,6 +51,21 @@ public:
 	const byte* Output()
 	{
 		return(this->code.c_str());
+	}
+
+	//Todo: 测试是否有效。
+	//@brief 删除代码尾端若干字节的代码。
+	//@brief 可能删除不完整的代码。你应当在操作前确认删除代码的长度。
+	//@param length 删除的字节数。
+	void DeleteCode(int length)
+	{
+		if (this->code.length() <= length)
+		{
+			this->code = { 0 };
+			code.reserve(100);
+		}
+		else
+			this->code.erase(this->code.length() - length);
 	}
 
 	void PushAD()
@@ -110,19 +125,68 @@ public:
 	void Ret(byte dist)
 	{
 		if (dist == 0)
-			this->code += {0xC3};
+			this->code += {RET};
 		else
 			this->code += {0xC2, dist, 0};
 	}
 	void Nop()
 	{
-		this->code += {0x90};
+		this->code += {NOP};
 	}
 
-	void MovReg(byte reg, int val)
+	void MovRegFromImm(byte reg, int val)
 	{
 		reg += 0xB8;
 		this->code += {reg, INUMBER(val)};
+	}
+	void MovRegFromReg(byte reg_to, byte reg_from)
+	{
+		byte code = 0xC0 + reg_to * 8 + reg_from;
+		this->code += {0xB8, code};
+	}
+	void MovRegFromMem(byte reg, DWORD address)
+	{
+		if(reg == REG_EAX)
+			this->code += {MOV_EAX_PTR(address)};
+		else
+		{
+			byte type = 5 + reg * 8;
+			this->code += {0x8B, type, INUMBER(address)};
+		}
+	}
+	void MovMemFromReg(DWORD address, byte reg)
+	{
+		if (reg == REG_EAX)
+			this->code += {MOV_PTR_ADDR_EAX(address)};
+		else
+		{
+			byte type = 5 + reg * 8;
+			this->code += {0x89, type, INUMBER(address)};
+		}
+	}
+	void MovMemFromImm(DWORD address, int val)
+	{
+		this->code += {MOV_PTR_ADDR(address, val)};
+	}
+
+#pragma region calculation
+
+	void CalcRegWithImm(byte calc_type, byte reg, int val)
+	{
+		static byte codes;
+		if (-128 <= val && val <= 127)
+			this->code += {0x83, byte(0xC0 + (calc_type) * 8 + (reg)), byte(val)};
+		else if (reg == REG_EAX)
+			this->code += {byte(5 + (calc_type) * 8), INUMBER(val)};
+		else
+			this->code += {0x81, byte(0xC0 + (calc_type) * 8 + (reg)), INUMBER(val)};
+	}
+
+#pragma endregion
+
+	void TestAlAl()
+	{
+		this->code += {TEST_AL_AL};
 	}
 
 	void Invoke(DWORD address)
