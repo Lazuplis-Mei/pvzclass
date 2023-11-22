@@ -1,26 +1,9 @@
 ﻿#include "pvzclass.h"
-#include "Events/EventHandler.h"
-#include "Events/SeedCardClickEvent.h"
 #include <iostream>
 #include <thread>
 
 using std::cout;
 using std::endl;
-using std::thread;
-
-void moreZombie()
-{
-	Creator::CreateZombie(ZombieType::Zombie, 2, 9);
-}
-
-void listener(SPT<PVZ::CardSlot::SeedCard> seedcard)
-{
-	cout << PVZ::GetMouse()->ClickState << " ";
-	cout << seedcard->Index << " ";
-	cout << CardType::ToString(seedcard->ContentCard) << "卡槽卡片被点击了" << endl;
-	thread t(moreZombie);
-	t.detach();
-}
 
 int main()
 {
@@ -28,26 +11,25 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	auto zombies = PVZ::GetBoard()->GetAllZombies();
-	for (int i = 0, lim = zombies.size(); i < lim; i++)
+	EnableBackgroundRunning();
+	auto app = PVZ::GetPVZApp();
+	while (app->GameState != PVZGameState::Playing) Sleep(10);
+
+	while (true)
 	{
-		auto zombie = zombies[i];
-		if (zombie->EffectedBy(PVZ::DRF_FLYING, false))
-			zombie->Remove();
+		PVZ::Memory::immediateExecute = true;
+		PVZ::Memory::WaitPVZ();
+		for (int row = 0; row < 5; row++)
+		{
+			for (int col = 1; col < 9; col++)
+			{
+				Creator::CreateZombie(ZombieType::Zombie, row, col);
+			}
+		}
+		PVZ::Memory::ResumePVZ();
+		system("pause");
 	}
 
-	SeedCardClickEvent e;
-	e.addListener(listener);
-	EventHandler handler;
-	handler.addEvent(MKS<SeedCardClickEvent>(e));
-	handler.start();
-
-	for (int i = 0; i < 1000; i++)
-	{
-		handler.run(1);
-	}
-
-	handler.stop();
 	PVZ::QuitPVZ();
 	return 0;
 }
