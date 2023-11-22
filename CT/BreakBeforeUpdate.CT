@@ -7,42 +7,37 @@
       <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-//code from here to '[DISABLE]' will be used to enable the cheat
 alloc(newmem,256)
 
 newmem:
-cmp [active],0
-jnz newmem
+mov byte [enable],1
+repeat:
+cmp byte [active],0
+jne repeat
+mov byte [enable],0
 
-push ebp
-mov ebp,esp
-and esp,-08
+push -01
+push PlantsVsZombies.exe+24FA35
 jmp returnhere
 
 active:
-db 00 00 00 00
+db 00
 
-415920:
+enable:
+db 00
+
+"PlantsVsZombies.exe"+15D40:
 jmp newmem
-nop
+nop 2
 returnhere:
 
 [DISABLE]
-//code from here till the end of the code will be used to disable the cheat
 dealloc(newmem)
-415920:
-push ebp
-mov ebp,esp
-and esp,-08
-//Alt: db 55 8B EC 83 E4 F8
+"PlantsVsZombies.exe"+15D40:
+push -01
+push PlantsVsZombies.exe+24FA35
+//Alt: db 6A FF 68 35 FA 64 00
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1</ID>
-      <Description>"active"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>A30014</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

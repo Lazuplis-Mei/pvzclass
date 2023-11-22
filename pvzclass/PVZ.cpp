@@ -10,13 +10,13 @@ byte __asm__Execute[]
 	0x80, 0x3D, 0, 0, 0, 0, 0x00, // cmp byte ptr [Variable+0x530], 0
 	0x75, 0xF7, // jne last line
 	0xC6, 0x05, 0, 0, 0, 0, 0x00, // mov byte ptr [Variable+0x540], 0
-	0x55, 0x8B, 0xEC, 0x83, 0xE4, 0xF8, // original code
-	0xE9, 0, 0, 0, 0 // jmp 0x415926
+	0x6A, 0xFF, 0x68, 0x35, 0xFA, 0x64, 0x00, // original code
+	0xE9, 0, 0, 0, 0 // jmp 0x415D47
 };
 
 byte __asm__UpdateHook[]
 {
-	0xE9, 0, 0, 0, 0, 0x90
+	0xE9, 0, 0, 0, 0, 0x66, 0x90
 };
 
 namespace PVZ
@@ -34,10 +34,10 @@ namespace PVZ
 		SETARG(__asm__Execute, 2) = Memory::Variable + 0x540;
 		SETARG(__asm__Execute, 9) = Memory::Variable + 0x530;
 		SETARG(__asm__Execute, 18) = Memory::Variable + 0x540;
-		SETARG(__asm__Execute, 30) = 0x415926 - Memory::Variable - 0x520 - 2;
+		SETARG(__asm__Execute, 31) = 0x415D47 - Memory::Variable - 0x520 - 3;
 		Memory::WriteArray<BYTE>(Memory::Variable + 0x500, STRING(__asm__Execute));
-		SETARG(__asm__UpdateHook, 1) = Memory::Variable + 0x500 - 0x415920 - 5;
-		Memory::WriteArray<BYTE>(0x415920, STRING(__asm__UpdateHook));
+		SETARG(__asm__UpdateHook, 1) = Memory::Variable + 0x500 - 0x415D40 - 5;
+		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__UpdateHook));
 	}
 
 	void QuitPVZ()
