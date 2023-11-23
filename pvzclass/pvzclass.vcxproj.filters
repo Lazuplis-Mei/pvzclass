@@ -321,6 +321,12 @@
     <ClCompile Include="Events\VaseOpenEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Events\UpdateGameObjectsEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\PlantSquishEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -567,6 +573,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\VaseOpenEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\UpdateGameObjectsEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantSquishEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
