@@ -251,8 +251,10 @@
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
+    <ClCompile Include="Events\VaseOpenEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="Enums\ThreeState.h" />
     <ClInclude Include="Events\BaseEvent.h" />
@@ -334,6 +336,7 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
     <ClInclude Include="Events\SeedCardClickEvent.h" />
+    <ClInclude Include="Events\VaseOpenEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

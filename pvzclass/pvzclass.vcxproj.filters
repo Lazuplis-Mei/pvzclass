@@ -318,6 +318,9 @@
     <ClCompile Include="Enums\ThreeState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Events\VaseOpenEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -558,6 +561,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Flags.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\VaseOpenEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
