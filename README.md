@@ -180,8 +180,9 @@ SPT<PVZ::Animation> anim = MKS<PVZ::Animation>(0);//获得第1个对象
 9. Music
 10. PlantDefinition（需要参数指定是哪种植物）
 11. ZombieDefinition（需要参数指定是哪种僵尸）
-11. ProjectileDefinition（需要参数指定是哪种子弹）
-11. ChallengeDefinition（需要参数指定是哪一个模式）
+12. ProjectileDefinition（需要参数指定是哪种子弹）
+13. ChallengeDefinition（需要参数指定是哪一个模式）
+14. ChallengeScreen
 
 ### 关于游戏内的对象实体类
 

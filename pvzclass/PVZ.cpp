@@ -51,7 +51,7 @@ namespace PVZ
 
 const char* PVZ::PVZutil::__get_Version()
 {
-	return "1.15.1.231122";
+	return "1.15.2.231124";
 }
 
 PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
