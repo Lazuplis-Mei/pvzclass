@@ -327,6 +327,15 @@
     <ClCompile Include="Events\PlantSquishEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Events\ImitaterPlantEvent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ChallengeScreen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ChallengeScreen.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -579,6 +588,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\PlantSquishEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ImitaterPlantEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ChallengeScreen.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ChallengeScreen.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

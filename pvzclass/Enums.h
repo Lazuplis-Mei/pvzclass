@@ -43,3 +43,5 @@
 #include "Enums/UpperSoundType.h"
 #include "Enums/AnimationType.h"
 #include "Enums/ChallengeState.h"
+
+#include "Enums/ChallengeScreen.hpp"

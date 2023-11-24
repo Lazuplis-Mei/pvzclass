@@ -470,6 +470,10 @@
 
 #pragma endregion
 
+#pragma region functions extra
+#define CHALLENGESCREEN_UPDATEBUTTONS(address) INVOKE_DWORD(0x42E710, address)
+#pragma endregion
+
 extern byte __asm__set_MusicVolume[21];
 
 extern byte __asm__InjectDll[200];
