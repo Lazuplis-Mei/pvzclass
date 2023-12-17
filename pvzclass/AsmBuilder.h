@@ -181,6 +181,10 @@ public:
 		else
 			this->code += {0x81, byte(0xC0 + (calc_type) * 8 + (reg)), INUMBER(val)};
 	}
+	void CalcRegWithReg(byte calc_type, byte regU, byte regV)
+	{
+		this->code += {byte(1 + calc_type * 8), byte(0xC0 + regU + regV * 8)};
+	}
 
 #pragma endregion
 
@@ -191,7 +195,7 @@ public:
 
 	void Invoke(DWORD address)
 	{
-		this->code += {0xE8, INUMBER(2), 0xEB, 6, 0x68, INUMBER(address), 0xC3};
+		this->code += {INVOKE(address)};
 	}
 
 };
