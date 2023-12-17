@@ -1,25 +1,36 @@
 ﻿#include "pvzclass.h"
 #include "Events/EventHandler.h"
-#include "Events/SeedCardClickEvent.h"
+#include "Events/VaseOpenEvent.h"
 #include <iostream>
 #include <thread>
 
 using std::cout;
 using std::endl;
-using std::thread;
 
-void moreZombie()
+SPT<PVZ::Vase> listenerC(SPT<PVZ::Vase> vase, bool& cancelled)
 {
-	Creator::CreateZombie(ZombieType::Zombie, 2, 9);
+	if (vase->Skin == VaseSkin::VaseSkinLeaf)
+	{
+		vase->Skin = VaseSkin::VaseSkinZombie;
+		cancelled = true;
+	}
+	return(vase);
 }
 
-void listener(SPT<PVZ::CardSlot::SeedCard> seedcard)
+SPT<PVZ::Vase> listenerM(SPT<PVZ::Vase> vase, bool& cancelled)
 {
-	cout << PVZ::GetMouse()->ClickState << " ";
-	cout << seedcard->Index << " ";
-	cout << CardType::ToString(seedcard->ContentCard) << "卡槽卡片被点击了" << endl;
-	thread t(moreZombie);
-	t.detach();
+	std::vector<SPT<PVZ::Griditem>> vases = PVZ::GetBoard()->GetAllGriditems();
+	while (vases[vases.size() - 1]->Type != GriditemType::Vase)
+		vases.pop_back();
+	SPT<PVZ::Griditem> cur = vases[vases.size() - 1];
+	SPT<PVZ::Vase> curVase = MKS<PVZ::Vase>(cur->GetBaseAddress());
+	if (vase->Skin == VaseSkin::VaseSkinZombie)
+	{
+		curVase->Column = 0;
+		return(curVase);
+	}
+	else
+		return(vase);
 }
 
 int main()
@@ -28,21 +39,17 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	auto zombies = PVZ::GetBoard()->GetAllZombies();
-	for (int i = 0, lim = zombies.size(); i < lim; i++)
-	{
-		auto zombie = zombies[i];
-		if (zombie->EffectedBy(PVZ::DRF_FLYING, false))
-			zombie->Remove();
-	}
-
-	SeedCardClickEvent e;
-	e.addListener(listener);
+	VaseOpenEvent e;
+	e.addListener(listenerC);
+	e.addListener(listenerM);
 	EventHandler handler;
-	handler.addEvent(MKS<SeedCardClickEvent>(e));
+	handler.addEvent(MKS<VaseOpenEvent>(e));
 	handler.start();
 
-	for (int i = 0; i < 1000; i++)
+	EnableBackgroundRunning();
+	auto app = PVZ::GetPVZApp();
+
+	while (true)
 	{
 		handler.run(1);
 	}

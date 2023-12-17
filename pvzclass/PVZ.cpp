@@ -1,5 +1,24 @@
 ﻿#include "PVZ.h"
 
+/*
+	0x530: active 为1时阻塞游戏更新，执行完Execute之后改为0
+	0x540: enable 为1时代表可以执行Execute
+*/
+byte __asm__Execute[]
+{
+	0xC6, 0x05, 0, 0, 0, 0, 0x01, // mov byte ptr [Variable+0x540], 1
+	0x80, 0x3D, 0, 0, 0, 0, 0x00, // cmp byte ptr [Variable+0x530], 0
+	0x75, 0xF7, // jne last line
+	0xC6, 0x05, 0, 0, 0, 0, 0x00, // mov byte ptr [Variable+0x540], 0
+	0x6A, 0xFF, 0x68, 0x35, 0xFA, 0x64, 0x00, // original code
+	0xE9, 0, 0, 0, 0 // jmp 0x415D47
+};
+
+byte __asm__UpdateHook[]
+{
+	0xE9, 0, 0, 0, 0, 0x66, 0x90
+};
+
 namespace PVZ
 {
 	void InitPVZ(DWORD pid)
@@ -10,21 +29,29 @@ namespace PVZ
 		Memory::Variable = Memory::AllocMemory();
 		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
+
+		Memory::immediateExecute = false;
+		SETARG(__asm__Execute, 2) = Memory::Variable + 0x540;
+		SETARG(__asm__Execute, 9) = Memory::Variable + 0x530;
+		SETARG(__asm__Execute, 18) = Memory::Variable + 0x540;
+		SETARG(__asm__Execute, 31) = 0x415D47 - Memory::Variable - 0x520 - 3;
+		Memory::WriteArray<BYTE>(Memory::Variable + 0x500, STRING(__asm__Execute));
+		SETARG(__asm__UpdateHook, 1) = Memory::Variable + 0x500 - 0x415D40 - 5;
+		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__UpdateHook));
 	}
 
-void QuitPVZ()
-{
-	CloseHandle(Memory::hProcess);
-	Memory::FreeMemory(Memory::Variable);
-}
-
+	void QuitPVZ()
+	{
+		CloseHandle(Memory::hProcess);
+		Memory::FreeMemory(Memory::Variable);
+	}
 }
 
 #pragma region background methods
 
 const char* PVZ::PVZutil::__get_Version()
 {
-	return "1.15.0.231027";
+	return "1.15.2.231124";
 }
 
 PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()

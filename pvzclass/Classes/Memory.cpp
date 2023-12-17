@@ -6,6 +6,7 @@ HANDLE PVZ::Memory::hThread = NULL;
 DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
+bool PVZ::Memory::immediateExecute = false;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
 {
@@ -56,10 +57,20 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 {
 	int Address = AllocMemory();
 	WriteArray<byte>(Address, asmCode, length);
-	SuspendThread(hThread);
+	if (!immediateExecute) WaitPVZ();
 	CreateThread(Address);
-	ResumeThread(hThread);
+	if (!immediateExecute) ResumePVZ();
 	FreeMemory(Address);
 	return ReadMemory<int>(Variable);
 }
 
+void PVZ::Memory::WaitPVZ()
+{
+	WriteMemory<BYTE>(Variable + 0x530, 1);
+	while (ReadMemory<BYTE>(Variable + 0x540) == 0);
+}
+
+void PVZ::Memory::ResumePVZ()
+{
+	WriteMemory<BYTE>(Variable + 0x530, 0);
+}

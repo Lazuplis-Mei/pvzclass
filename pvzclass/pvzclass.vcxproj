@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\ChallengeScreen.cpp" />
     <ClCompile Include="Classes\Animation.cpp" />
     <ClCompile Include="Classes\AttachEffect.cpp" />
     <ClCompile Include="Classes\Attachment.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
+    <ClCompile Include="Enums\ChallengeScreen.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
     <ClCompile Include="Enums\DamageType.cpp" />
@@ -230,6 +232,7 @@
     <ClCompile Include="Events\PlantReloadEvent.cpp" />
     <ClCompile Include="Events\PlantRemoveEvent.cpp" />
     <ClCompile Include="Events\PlantShootEvent.cpp" />
+    <ClCompile Include="Events\PlantSquishEvent.cpp" />
     <ClCompile Include="Events\ProjectileCreateEvent.cpp" />
     <ClCompile Include="Events\ProjectileHitZombieEvent.cpp" />
     <ClCompile Include="Events\ProjectileRemoveEvent.cpp" />
@@ -243,6 +246,7 @@
     <ClCompile Include="Events\ZombieHitEvent.cpp" />
     <ClCompile Include="Events\ZombieHypnotizeEvent.cpp" />
     <ClCompile Include="Events\ZombieRemoveEvent.cpp" />
+    <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -251,16 +255,22 @@
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
+    <ClCompile Include="Events\VaseOpenEvent.cpp" />
+    <ClCompile Include="Events\UpdateGameObjectsEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsmBuilder.h" />
+    <ClInclude Include="Classes\ChallengeScreen.hpp" />
+    <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Draw.h" />
+    <ClInclude Include="Enums\ChallengeScreen.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
+    <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
@@ -308,6 +318,7 @@
     <ClInclude Include="Enums\UpperSoundType.h" />
     <ClInclude Include="Enums\AnimationType.h" />
     <ClInclude Include="Flags.h" />
+    <ClInclude Include="Events\ImitaterPlantEvent.h" />
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
@@ -326,6 +337,7 @@
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
+    <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />
     <ClInclude Include="Events\ZombieButterEvent.h" />
@@ -335,6 +347,7 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
     <ClInclude Include="Events\SeedCardClickEvent.h" />
+    <ClInclude Include="Events\VaseOpenEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
