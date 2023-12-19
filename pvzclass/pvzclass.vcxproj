@@ -259,6 +259,7 @@
     <ClCompile Include="Events\UpdateGameObjectsEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsmBuilder.h" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Draw.h" />
