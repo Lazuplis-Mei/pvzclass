@@ -333,7 +333,7 @@
     <ClCompile Include="Classes\ChallengeScreen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\ChallengeScreen.cpp">
+    <ClCompile Include="Enums\ChallengePage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -596,7 +596,7 @@
     <ClInclude Include="Classes\ChallengeScreen.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\ChallengeScreen.hpp">
+    <ClInclude Include="Enums\ChallengePage.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

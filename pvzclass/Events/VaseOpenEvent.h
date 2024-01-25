@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "TemplateEvent.h"
 
 // 开罐子事件。

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "TemplateEvent.h"
 
 // 更新 GameObject 事件。

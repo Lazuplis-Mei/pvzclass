@@ -183,7 +183,7 @@
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
-    <ClCompile Include="Enums\ChallengeScreen.cpp" />
+    <ClCompile Include="Enums\ChallengePage.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
     <ClCompile Include="Enums\DamageType.cpp" />
@@ -262,7 +262,7 @@
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Draw.h" />
-    <ClInclude Include="Enums\ChallengeScreen.hpp" />
+    <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />

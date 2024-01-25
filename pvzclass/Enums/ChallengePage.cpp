@@ -1,4 +1,4 @@
-#include "ChallengeScreen.hpp"
+#include "ChallengePage.hpp"
 
 const char* ChallengePage::ToString(ChallengePage page)
 {

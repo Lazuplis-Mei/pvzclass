@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "TemplateEvent.h"
 
 // 植物被碾压事件。
