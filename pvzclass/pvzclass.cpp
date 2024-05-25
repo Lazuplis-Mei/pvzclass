@@ -41,7 +41,12 @@ int main()
 	EnableBackgroundRunning();
 
 	cout << std::hex << PVZ::Memory::Variable + 0x600 << endl;
-	cout << PVZ::Memory::InjectDll("testdll.dll") << endl;
+	int address = PVZ::Memory::InjectDll("testdll.dll");
+	cout << address << endl;
+	address = PVZ::Memory::GetProcAddress(address, "MyFunction");
+	cout << address << endl;
+	byte invoke[] = {INVOKE(address), RET};
+	PVZ::Memory::Execute(STRING(invoke));
 	system("pause");
 
 	PVZ::QuitPVZ();

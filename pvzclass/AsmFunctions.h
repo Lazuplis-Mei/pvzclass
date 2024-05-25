@@ -476,7 +476,9 @@
 
 extern byte __asm__set_MusicVolume[21];
 
-extern byte __asm__InjectDll[200];
+extern byte __asm__InjectDll[24];
+
+extern byte __asm__GetProcAddress[29];
 
 extern byte __asm__Reanimation__AttachTo[44];
 

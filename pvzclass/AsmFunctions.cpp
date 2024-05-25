@@ -7,9 +7,16 @@ byte __asm__set_MusicVolume[]
 	RET
 };
 
-byte __asm__InjectDll[200]
+byte __asm__InjectDll[]
 {
 	LOADLIBRARYA, // 18 byte
+	MOV_PTR_ADDR_EAX(0), // 5 byte
+	RET
+};
+
+byte __asm__GetProcAddress[]
+{
+	INVOKE_DWORD_DWORD((int)GetProcAddress, 0, 0), // 23 byte
 	MOV_PTR_ADDR_EAX(0), // 5 byte
 	RET
 };

@@ -125,6 +125,7 @@ namespace PVZ
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
 		static int InjectDll(const char* dllname);
+		static int GetProcAddress(DWORD dllhandle, const char* procname);
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
 	};

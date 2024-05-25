@@ -82,8 +82,21 @@ int PVZ::Memory::InjectDll(const char* dllname)
 {
 	SETARG(__asm__InjectDll, 1) = Variable + 0x600;
 	SETARG(__asm__InjectDll, 19) = Variable;
-	WriteArray<const char>(Variable + 0x600, dllname, strlen(dllname));
+	int len = strlen(dllname);
+	WriteArray<const char>(Variable + 0x600, dllname, len);
+	WriteMemory<char>(Variable + 0x600 + len, 0);
 	return Execute(STRING(__asm__InjectDll));
+}
+
+int PVZ::Memory::GetProcAddress(DWORD dllhandle, const char* procname)
+{
+	SETARG(__asm__GetProcAddress, 1) = Variable + 0x600;
+	SETARG(__asm__GetProcAddress, 6) = dllhandle;
+	SETARG(__asm__GetProcAddress, 24) = Variable;
+	int len = strlen(procname);
+	WriteArray<const char>(Variable + 0x600, procname, len);
+	WriteMemory<char>(Variable + 0x600 + len, 0);
+	return Execute(STRING(__asm__GetProcAddress));
 }
 
 SPT<PVZ::PVZApp> PVZ::GetPVZApp()
