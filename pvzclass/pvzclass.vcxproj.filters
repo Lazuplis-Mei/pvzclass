@@ -246,12 +246,6 @@
     <ClCompile Include="Events\BaseEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\CoinCreateEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\CoinRemoveEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\DrawUITopEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

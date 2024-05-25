@@ -230,8 +230,6 @@
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
-    <ClCompile Include="Events\CoinCreateEvent.cpp" />
-    <ClCompile Include="Events\CoinRemoveEvent.cpp" />
     <ClCompile Include="Events\DrawUITopEvent.cpp" />
     <ClCompile Include="Events\EventHandler.cpp" />
     <ClCompile Include="Events\PeaOnFireEvent.cpp" />

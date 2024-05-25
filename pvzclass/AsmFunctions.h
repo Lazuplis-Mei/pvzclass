@@ -10,7 +10,13 @@
 #define MOV_ESI(d) 0xBE,INUMBER(d)
 #define MOV_EDI(d) 0xBF,INUMBER(d)
 #define PUSH_EAX 0x50
+#define PUSH_ECX 0x51
+#define PUSH_EDX 0x52
 #define PUSH_EBX 0x53
+#define PUSH_ESP 0x54
+#define PUSH_EBP 0x55
+#define PUSH_ESI 0x56
+#define PUSH_EDI 0x57
 #define POP_EBX 0x5B
 #define PUSHAD 0x60
 #define POPAD 0x61

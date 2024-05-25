@@ -1,5 +1,7 @@
 ﻿#include "pvzclass.h"
 #include "Events/CoinCollectEvent.h"
+#include "Events/CoinCreateEvent.h"
+#include "Events/CoinRemoveEvent.h"
 #include <iostream>
 #include <thread>
 
@@ -12,13 +14,17 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 	PVZ::Memory::immediateExecute = true;
-	cout << PVZ::Memory::InjectDll("pvzdll.dll") << endl;
-	cout << PVZ::Memory::InvokeDllProc("init") << endl;
+	PVZ::Memory::InjectDll("pvzdll.dll");
+	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	CoinCollectEvent e = CoinCollectEvent();
+	auto e1 = CoinCollectEvent();
+	auto e2 = CoinCreateEvent();
+	auto e3 = CoinRemoveEvent();
 	system("pause");
-	e.end();
+	e1.end();
+	e2.end();
+	e3.end();
 
 	PVZ::QuitPVZ();
 	return 0;

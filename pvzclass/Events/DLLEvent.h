@@ -17,12 +17,14 @@ protected:
 
 private:
 	BYTE* rawCode;
-	int newAddress;
+	static int newAddress;
 };
+
+int DLLEvent::newAddress = 0;
 
 void DLLEvent::start(BYTE* code, int newlen)
 {
-	newAddress = PVZ::Memory::AllocMemory();
+	if (newAddress == 0) newAddress = PVZ::Memory::AllocMemory();
 	rawCode = new BYTE[rawlen];
 	PVZ::Memory::ReadArray<BYTE>(hookAddress, rawCode, rawlen);
 	BYTE jmpto[] = { JMPFAR(newAddress - (hookAddress + 5)) };
@@ -34,6 +36,7 @@ void DLLEvent::start(BYTE* code, int newlen)
 	PVZ::Memory::WriteMemory<BYTE>(newAddress + newlen + 1, POPAD);
 	PVZ::Memory::WriteArray<BYTE>(newAddress + newlen + 2, rawCode, rawlen);
 	PVZ::Memory::WriteArray<BYTE>(newAddress + newlen + rawlen + 2, jmpback, 5);
+	newAddress += newlen + rawlen + 0x10;
 }
 
 void DLLEvent::end()
