@@ -38,16 +38,21 @@ int main()
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
+	PVZ::Memory::immediateExecute = true;
 	EnableBackgroundRunning();
 
 	cout << std::hex << PVZ::Memory::Variable + 0x600 << endl;
-	int address = PVZ::Memory::InjectDll("testdll.dll");
+	int address = PVZ::Memory::InjectDll("pvzdll.dll");
 	cout << address << endl;
-	address = PVZ::Memory::GetProcAddress(address, "MyFunction");
+	address = PVZ::Memory::GetProcAddress(address, "onCoinCollect");
 	cout << address << endl;
-	byte invoke[] = {INVOKE(address), RET};
-	PVZ::Memory::Execute(STRING(invoke));
-	system("pause");
+
+	int dllHookAddress = PVZ::Memory::AllocMemory();
+	cout << dllHookAddress << endl;
+	byte hook_432060[] = { JMPFAR(dllHookAddress - (0x432060 + 5)), NOP };
+	PVZ::Memory::WriteArray<byte>(0x432060, STRING(hook_432060));
+	byte hook_event[] = { PUSHAD, 0x51, INVOKE(address), ADD_ESP(4), POPAD, 0x55, 0x8B, 0xEC, 0x83, 0xE4, 0xF8, JMPFAR(0x432066 - (dllHookAddress + 30)) };
+	PVZ::Memory::WriteArray<byte>(dllHookAddress, STRING(hook_event));
 
 	PVZ::QuitPVZ();
 	return 0;
