@@ -124,7 +124,7 @@ namespace PVZ
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
-		static void InjectDll(LPCSTR dllname);
+		static int InjectDll(const char* dllname);
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
 	};

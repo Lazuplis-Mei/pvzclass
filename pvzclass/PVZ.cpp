@@ -78,16 +78,12 @@ PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
 
 #pragma region methods
 
-void PVZ::Memory::InjectDll(LPCSTR dllname)
+int PVZ::Memory::InjectDll(const char* dllname)
 {
-	int Address = PVZ::Memory::AllocMemory();
-	SETARG(__asm__InjectDll, 1) = Address + 0x13;
-	lstrcpyA((LPSTR)(__asm__InjectDll + 0x13), dllname);
-	WriteArray<byte>(Address, STRING(__asm__InjectDll));
-	WriteMemory<byte>(0x552014, 0xFE);
-	CreateThread(Address);
-	WriteMemory<byte>(0x552014, 0xDB);
-	FreeMemory(Address);
+	SETARG(__asm__InjectDll, 1) = Variable + 0x600;
+	SETARG(__asm__InjectDll, 19) = Variable;
+	WriteArray<const char>(Variable + 0x600, dllname, strlen(dllname));
+	return Execute(STRING(__asm__InjectDll));
 }
 
 SPT<PVZ::PVZApp> PVZ::GetPVZApp()

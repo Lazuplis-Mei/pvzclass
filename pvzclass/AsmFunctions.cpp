@@ -9,7 +9,8 @@ byte __asm__set_MusicVolume[]
 
 byte __asm__InjectDll[200]
 {
-	LOADLIBRARYA,
+	LOADLIBRARYA, // 18 byte
+	MOV_PTR_ADDR_EAX(0), // 5 byte
 	RET
 };
 

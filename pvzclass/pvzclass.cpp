@@ -38,23 +38,12 @@ int main()
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
-
-	VaseOpenEvent e;
-	e.addListener(listenerC);
-	e.addListener(listenerM);
-	EventHandler handler;
-	handler.addEvent(MKS<VaseOpenEvent>(e));
-	handler.start();
-
 	EnableBackgroundRunning();
-	auto app = PVZ::GetPVZApp();
 
-	while (true)
-	{
-		handler.run(1);
-	}
+	cout << std::hex << PVZ::Memory::Variable + 0x600 << endl;
+	cout << PVZ::Memory::InjectDll("testdll.dll") << endl;
+	system("pause");
 
-	handler.stop();
 	PVZ::QuitPVZ();
 	return 0;
 }
