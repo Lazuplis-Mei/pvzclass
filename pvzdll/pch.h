@@ -14,6 +14,7 @@ typedef unsigned char byte;
 
 extern "C"
 {
+	__declspec(dllexport) void init();
 	__declspec(dllexport) void onCoinCollect(DWORD coinAddress);
 }
 

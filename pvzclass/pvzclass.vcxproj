@@ -230,7 +230,6 @@
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
-    <ClCompile Include="Events\CoinCollectEvent.cpp" />
     <ClCompile Include="Events\CoinCreateEvent.cpp" />
     <ClCompile Include="Events\CoinRemoveEvent.cpp" />
     <ClCompile Include="Events\DrawUITopEvent.cpp" />
@@ -277,6 +276,7 @@
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
+    <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />

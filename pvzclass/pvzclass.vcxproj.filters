@@ -246,9 +246,6 @@
     <ClCompile Include="Events\BaseEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\CoinCollectEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\CoinCreateEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -597,6 +594,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\ChallengePage.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DLLEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
