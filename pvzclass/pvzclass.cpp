@@ -16,7 +16,6 @@ int main()
 	cout << PVZ::Memory::InvokeDllProc("init") << endl;
 	EnableBackgroundRunning();
 
-	system("pause");
 	CoinCollectEvent e = CoinCollectEvent();
 	system("pause");
 	e.end();

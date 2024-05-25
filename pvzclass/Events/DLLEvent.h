@@ -9,33 +9,34 @@ using std::endl;
 class DLLEvent
 {
 public:
-	const char* procname;
-	int rawlen, newlen, hookAddress;
-	BYTE* hookCode, * newCode;
 	void end();
 
 protected:
+	int rawlen, hookAddress;
+	void start(BYTE* code, int len);
+
+private:
 	BYTE* rawCode;
-	int procAddress, newAddress;
-	void prepare();
-	void start();
+	int newAddress;
 };
 
-inline void DLLEvent::prepare()
+void DLLEvent::start(BYTE* code, int newlen)
 {
-	procAddress = PVZ::Memory::GetProcAddress(procname);
 	newAddress = PVZ::Memory::AllocMemory();
 	rawCode = new BYTE[rawlen];
-}
-
-inline void DLLEvent::start()
-{
 	PVZ::Memory::ReadArray<BYTE>(hookAddress, rawCode, rawlen);
-	PVZ::Memory::WriteArray<BYTE>(hookAddress, hookCode, rawlen);
-	PVZ::Memory::WriteArray<BYTE>(newAddress, newCode, newlen);
+	BYTE jmpto[] = { JMPFAR(newAddress - (hookAddress + 5)) };
+	PVZ::Memory::WriteArray<BYTE>(hookAddress, jmpto, 5);
+	for (int i = 5; i < rawlen; i++) PVZ::Memory::WriteMemory<BYTE>(hookAddress + i, NOP);
+	BYTE jmpback[] = { JMPFAR(hookAddress - (newAddress + newlen + 7)) };
+	PVZ::Memory::WriteMemory<BYTE>(newAddress, PUSHAD);
+	PVZ::Memory::WriteArray<BYTE>(newAddress + 1, code, newlen);
+	PVZ::Memory::WriteMemory<BYTE>(newAddress + newlen + 1, POPAD);
+	PVZ::Memory::WriteArray<BYTE>(newAddress + newlen + 2, rawCode, rawlen);
+	PVZ::Memory::WriteArray<BYTE>(newAddress + newlen + rawlen + 2, jmpback, 5);
 }
 
-inline void DLLEvent::end()
+void DLLEvent::end()
 {
 	PVZ::Memory::WriteArray<BYTE>(hookAddress, rawCode, rawlen);
 	PVZ::Memory::FreeMemory(newAddress);

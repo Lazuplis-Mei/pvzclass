@@ -12,14 +12,9 @@ public:
 
 CoinCollectEvent::CoinCollectEvent()
 {
-	procname = "onCoinCollect";
-	rawlen = 6;
-	newlen = 30;
+	int procAddress = PVZ::Memory::GetProcAddress("onCoinCollect");
 	hookAddress = 0x432060;
-	prepare();
-	BYTE code1[] = { JMPFAR(newAddress - (0x432060 + 5)), NOP };
-	hookCode = code1;
-	BYTE code2[] = { PUSHAD, 0x51, INVOKE(procAddress), ADD_ESP(4), POPAD, 0x55, 0x8B, 0xEC, 0x83, 0xE4, 0xF8, JMPFAR(0x432066 - (newAddress + 30)) };
-	newCode = code2;
-	start();
+	rawlen = 6; // Ó¦µ±>=5
+	BYTE code[] = { 0x51, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }
