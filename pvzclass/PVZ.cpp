@@ -78,16 +78,34 @@ PVZVersion::PVZVersion PVZ::PVZutil::__get_GameVersion()
 
 #pragma region methods
 
-void PVZ::Memory::InjectDll(LPCSTR dllname)
+bool PVZ::Memory::InjectDll(const char* dllname)
 {
-	int Address = PVZ::Memory::AllocMemory();
-	SETARG(__asm__InjectDll, 1) = Address + 0x13;
-	lstrcpyA((LPSTR)(__asm__InjectDll + 0x13), dllname);
-	WriteArray<byte>(Address, STRING(__asm__InjectDll));
-	WriteMemory<byte>(0x552014, 0xFE);
-	CreateThread(Address);
-	WriteMemory<byte>(0x552014, 0xDB);
-	FreeMemory(Address);
+	SETARG(__asm__InjectDll, 1) = Variable + 0x600;
+	SETARG(__asm__InjectDll, 19) = Variable;
+	int len = strlen(dllname);
+	WriteArray<const char>(Variable + 0x600, dllname, len);
+	WriteMemory<char>(Variable + 0x600 + len, 0);
+	DLLAddress = Execute(STRING(__asm__InjectDll));
+	return DLLAddress != 0;
+}
+
+int PVZ::Memory::GetProcAddress(const char* procname)
+{
+	SETARG(__asm__GetProcAddress, 1) = Variable + 0x600;
+	SETARG(__asm__GetProcAddress, 6) = DLLAddress;
+	SETARG(__asm__GetProcAddress, 24) = Variable;
+	int len = strlen(procname);
+	WriteArray<const char>(Variable + 0x600, procname, len);
+	WriteMemory<char>(Variable + 0x600 + len, 0);
+	return Execute(STRING(__asm__GetProcAddress));
+}
+
+int PVZ::Memory::InvokeDllProc(const char* procname)
+{
+	int address = GetProcAddress(procname);
+	if (address == 0) return -1;
+	byte asmcode[] = { INVOKE(address), RET };
+	return PVZ::Memory::Execute(STRING(asmcode));
 }
 
 SPT<PVZ::PVZApp> PVZ::GetPVZApp()

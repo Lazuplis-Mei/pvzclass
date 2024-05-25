@@ -1,13 +1,20 @@
 #pragma once
-#include "TemplateEvent.h"
+#include "DLLEvent.h"
 
 // Coin收集事件
 // 参数：触发事件的Coin
 // 无返回值
-class CoinCollectEvent : public TemplateEvent<std::function<
-	void(std::shared_ptr<PVZ::Coin>)>>
+class CoinCollectEvent : public DLLEvent
 {
 public:
 	CoinCollectEvent();
-	void handle(CONTEXT& context) override;
 };
+
+CoinCollectEvent::CoinCollectEvent()
+{
+	int procAddress = PVZ::Memory::GetProcAddress("onCoinCollect");
+	hookAddress = 0x432060;
+	rawlen = 6; // 应当>=5
+	BYTE code[] = { 0x51, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
+}

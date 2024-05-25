@@ -94,6 +94,7 @@ namespace PVZ
 		static HWND mainwindowhandle;
 		// 如果为true，则不会等待PVZ进程，立即执行远程代码
 		static bool immediateExecute;
+		static int DLLAddress;
 		template <class T>
 		inline static T ReadMemory(int address)
 		{
@@ -124,7 +125,9 @@ namespace PVZ
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
-		static void InjectDll(LPCSTR dllname);
+		static bool InjectDll(const char* dllname);
+		static int GetProcAddress(const char* procname);
+		static int InvokeDllProc(const char* procname);
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
 	};

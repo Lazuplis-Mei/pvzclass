@@ -131,6 +131,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreLinkEvent>
+      <Command>@ECHO ON
+@ECHO "$(VC_ExecutablePath_x86)\lib.exe" /out:"$(OutDir)$(ProjectName).lib" "$(IntermediateOutputPath)*.obj"
+"$(VC_ExecutablePath_x86)\lib.exe" /out:"$(OutDir)$(ProjectName).lib" "$(IntermediateOutputPath)*.obj"</Command>
+    </PreLinkEvent>
+    <PreLinkEvent>
+      <Message>在生成exe文件的同时生成lib文件供链接</Message>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -222,7 +230,6 @@
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
-    <ClCompile Include="Events\CoinCollectEvent.cpp" />
     <ClCompile Include="Events\CoinCreateEvent.cpp" />
     <ClCompile Include="Events\CoinRemoveEvent.cpp" />
     <ClCompile Include="Events\DrawUITopEvent.cpp" />
@@ -269,6 +276,7 @@
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
+    <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />
