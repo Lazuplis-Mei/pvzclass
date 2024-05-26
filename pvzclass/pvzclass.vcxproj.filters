@@ -273,15 +273,6 @@
     <ClCompile Include="Events\SeedCardClickEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\ZombieBlastEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\ZombieButterEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\ZombieDecelerateEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\ZombieEatEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

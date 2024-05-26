@@ -58,3 +58,27 @@ void onPlantRemove(DWORD plantAddress)
 	sprintf(s, "%s removed!\0", PlantType::ToString(plant->Type));
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
+
+void onZombieBlast(DWORD zombieAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	char s[64];
+	sprintf(s, "%s blasted!\0", ZombieType::ToString(zombie->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onZombieButter(DWORD zombieAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	char s[64];
+	sprintf(s, "%s buttered!\0", ZombieType::ToString(zombie->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onZombieDecelerate(DWORD zombieAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	char s[64];
+	sprintf(s, "%s decelerated!\0", ZombieType::ToString(zombie->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}

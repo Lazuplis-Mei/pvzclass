@@ -16,9 +16,9 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	auto e1 = PlantCreateEvent();
-	auto e2 = PlantShootEvent();
-	auto e3 = PlantRemoveEvent();
+	auto e1 = ZombieBlastEvent();
+	auto e2 = ZombieButterEvent();
+	auto e3 = ZombieDecelerateEvent();
 	system("pause");
 	e1.end();
 	e2.end();

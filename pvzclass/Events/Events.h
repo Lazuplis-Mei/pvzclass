@@ -5,3 +5,6 @@
 #include "PlantCreateEvent.h"
 #include "PlantShootEvent.h"
 #include "PlantRemoveEvent.h"
+#include "ZombieBlastEvent.h"
+#include "ZombieButterEvent.h"
+#include "ZombieDecelerateEvent.h"

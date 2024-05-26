@@ -240,9 +240,6 @@
     <ClCompile Include="Events\ProjectileRemoveEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />
     <ClCompile Include="Events\SeedCardClickEvent.cpp" />
-    <ClCompile Include="Events\ZombieBlastEvent.cpp" />
-    <ClCompile Include="Events\ZombieButterEvent.cpp" />
-    <ClCompile Include="Events\ZombieDecelerateEvent.cpp" />
     <ClCompile Include="Events\ZombieEatEvent.cpp" />
     <ClCompile Include="Events\ZombieFrozeEvent.cpp" />
     <ClCompile Include="Events\ZombieHitEvent.cpp" />
