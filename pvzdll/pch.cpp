@@ -85,6 +85,15 @@ void onProjectileCreate(DWORD projectileAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+void onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	char s[64];
+	sprintf(s, "%s hit %s!\0", ProjectileType::ToString(projectile->Type), ZombieType::ToString(zombie->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
 void onProjectileRemove(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
