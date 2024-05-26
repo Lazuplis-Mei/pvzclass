@@ -24,6 +24,9 @@ extern "C"
 	__declspec(dllexport) void onZombieBlast(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieButter(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieDecelerate(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieFroze(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieHypnotize(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieRemove(DWORD zombieAddress);
 }
 
 #endif //PCH_H

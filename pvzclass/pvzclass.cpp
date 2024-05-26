@@ -16,9 +16,9 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	auto e1 = ZombieBlastEvent();
-	auto e2 = ZombieButterEvent();
-	auto e3 = ZombieDecelerateEvent();
+	auto e1 = ZombieFrozeEvent();
+	auto e2 = ZombieHypnotizeEvent();
+	auto e3 = ZombieRemoveEvent();
 	system("pause");
 	e1.end();
 	e2.end();

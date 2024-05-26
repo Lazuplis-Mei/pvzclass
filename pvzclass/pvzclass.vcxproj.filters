@@ -276,16 +276,7 @@
     <ClCompile Include="Events\ZombieEatEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\ZombieFrozeEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\ZombieHitEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\ZombieHypnotizeEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\ZombieRemoveEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Enums\ThreeState.cpp">

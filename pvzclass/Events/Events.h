@@ -8,3 +8,6 @@
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
 #include "ZombieDecelerateEvent.h"
+#include "ZombieFrozeEvent.h"
+#include "ZombieHypnotizeEvent.h"
+#include "ZombieRemoveEvent.h"
