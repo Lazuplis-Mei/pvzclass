@@ -237,7 +237,6 @@
     <ClCompile Include="Events\ProjectileHitZombieEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />
     <ClCompile Include="Events\SeedCardClickEvent.cpp" />
-    <ClCompile Include="Events\ZombieEatEvent.cpp" />
     <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />

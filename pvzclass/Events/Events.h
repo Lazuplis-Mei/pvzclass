@@ -11,6 +11,7 @@
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
 #include "ZombieDecelerateEvent.h"
+#include "ZombieEatEvent.h"
 #include "ZombieFrozeEvent.h"
 #include "ZombieHitEvent.h"
 #include "ZombieHypnotizeEvent.h"

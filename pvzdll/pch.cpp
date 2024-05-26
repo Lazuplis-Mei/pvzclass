@@ -107,6 +107,15 @@ void onZombieDecelerate(DWORD zombieAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+void onZombieEat(DWORD zombieAddress, DWORD plantAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	char s[64];
+	sprintf(s, "%s eats %s!\0", ZombieType::ToString(zombie->Type), PlantType::ToString(plant->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
 void onZombieFroze(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
