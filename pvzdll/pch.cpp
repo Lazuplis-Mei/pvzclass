@@ -43,6 +43,16 @@ void onPlantCreate(DWORD plantAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+int onPlantReload(DWORD plantAddress, int cd)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	char s[64];
+	cd /= 2;
+	sprintf(s, "%s reload %d!\0", PlantType::ToString(plant->Type), cd);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	return cd;
+}
+
 void onPlantShoot(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);

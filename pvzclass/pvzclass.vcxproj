@@ -232,7 +232,6 @@
     <ClCompile Include="Events\BaseEvent.cpp" />
     <ClCompile Include="Events\DrawUITopEvent.cpp" />
     <ClCompile Include="Events\EventHandler.cpp" />
-    <ClCompile Include="Events\PlantReloadEvent.cpp" />
     <ClCompile Include="Events\PlantSquishEvent.cpp" />
     <ClCompile Include="Events\ProjectileHitZombieEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />

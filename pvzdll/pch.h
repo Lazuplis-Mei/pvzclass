@@ -19,8 +19,9 @@ extern "C"
 	__declspec(dllexport) void onCoinCreate(DWORD coinAddress);
 	__declspec(dllexport) void onCoinRemove(DWORD coinAddress);
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
-	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
+	__declspec(dllexport) int onPlantReload(DWORD plantAddress, int cd);
 	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
+	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
 	__declspec(dllexport) void onPeaOnFire(DWORD projectileAddress);
 	__declspec(dllexport) void onProjectileCreate(DWORD projectileAddress);
 	__declspec(dllexport) void onProjectileRemove(DWORD projectileAddress);
