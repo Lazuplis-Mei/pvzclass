@@ -247,7 +247,6 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Events\VaseOpenEvent.cpp" />
-    <ClCompile Include="Events\UpdateGameObjectsEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\ChallengeScreen.hpp" />

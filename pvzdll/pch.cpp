@@ -83,6 +83,14 @@ void onProjectileRemove(DWORD projectileAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+void onGameObjectsUpdate(DWORD boardAddress)
+{
+	auto board = std::make_shared<PVZ::Board>(boardAddress);
+	char s[64];
+	sprintf(s, "%d\0", board->PlayingTime);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
 void onZombieBlast(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
