@@ -115,6 +115,17 @@ void onZombieFroze(DWORD zombieAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+int onZombieHit(DWORD zombieAddress, DWORD typeCode, DWORD amount)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto type = (DamageType::DamageType)typeCode;
+	amount *= 2;
+	char s[64];
+	sprintf(s, "%s %s %d!\0", ZombieType::ToString(zombie->Type), DamageType::ToString(type), amount);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	return amount;
+}
+
 void onZombieHypnotize(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
