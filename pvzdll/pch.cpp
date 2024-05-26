@@ -34,3 +34,27 @@ void onCoinRemove(DWORD coinAddress)
 	sprintf(s, "%X coin removed!", coinAddress);
 	Creator::CreateCaption(s, strlen(s), CaptionStyle::BottomWhite);
 }
+
+void onPlantCreate(DWORD plantAddress)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	char s[64];
+	sprintf(s, "%s created!\0", PlantType::ToString(plant->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onPlantShoot(DWORD plantAddress)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	char s[64];
+	sprintf(s, "%s shot!\0", PlantType::ToString(plant->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onPlantRemove(DWORD plantAddress)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	char s[64];
+	sprintf(s, "%s removed!\0", PlantType::ToString(plant->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}

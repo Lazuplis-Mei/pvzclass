@@ -14,7 +14,7 @@ CoinCollectEvent::CoinCollectEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onCoinCollect");
 	hookAddress = 0x432060;
-	rawlen = 6; // Ó¦µ±>=5
+	rawlen = 6;
 	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
 	start(STRING(code));
 }

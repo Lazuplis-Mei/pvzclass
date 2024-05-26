@@ -255,16 +255,7 @@
     <ClCompile Include="Events\PeaOnFireEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\PlantCreateEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\PlantReloadEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\PlantRemoveEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\PlantShootEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Events\ProjectileCreateEvent.cpp">
@@ -591,6 +582,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\DLLEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Events.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

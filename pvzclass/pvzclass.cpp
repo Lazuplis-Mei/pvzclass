@@ -1,7 +1,5 @@
 ﻿#include "pvzclass.h"
-#include "Events/CoinCollectEvent.h"
-#include "Events/CoinCreateEvent.h"
-#include "Events/CoinRemoveEvent.h"
+#include "Events/Events.h"
 #include <iostream>
 #include <thread>
 
@@ -18,9 +16,9 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	auto e1 = CoinCollectEvent();
-	auto e2 = CoinCreateEvent();
-	auto e3 = CoinRemoveEvent();
+	auto e1 = PlantCreateEvent();
+	auto e2 = PlantShootEvent();
+	auto e3 = PlantRemoveEvent();
 	system("pause");
 	e1.end();
 	e2.end();

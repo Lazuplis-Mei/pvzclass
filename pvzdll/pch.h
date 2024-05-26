@@ -18,6 +18,9 @@ extern "C"
 	__declspec(dllexport) void onCoinCollect(DWORD coinAddress);
 	__declspec(dllexport) void onCoinCreate(DWORD coinAddress);
 	__declspec(dllexport) void onCoinRemove(DWORD coinAddress);
+	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
+	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
+	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
 }
 
 #endif //PCH_H
