@@ -252,19 +252,10 @@
     <ClCompile Include="Events\EventHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\PeaOnFireEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\PlantReloadEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\ProjectileCreateEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\ProjectileHitZombieEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Events\ProjectileRemoveEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp">

@@ -16,9 +16,9 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	auto e1 = ZombieFrozeEvent();
-	auto e2 = ZombieHypnotizeEvent();
-	auto e3 = ZombieRemoveEvent();
+	auto e1 = PeaOnFireEvent();
+	auto e2 = ProjectileCreateEvent();
+	auto e3 = ProjectileRemoveEvent();
 	system("pause");
 	e1.end();
 	e2.end();

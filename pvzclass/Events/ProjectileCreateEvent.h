@@ -1,13 +1,20 @@
 #pragma once
-#include "TemplateEvent.h"
+#include "DLLEvent.h"
 
 // 子弹创建事件
 // 参数：被创建的子弹
 // 无返回值
-class ProjectileCreateEvent : public TemplateEvent<std::function<
-	void(std::shared_ptr<PVZ::Projectile>)>>
+class ProjectileCreateEvent : public DLLEvent
 {
 public:
 	ProjectileCreateEvent();
-	void handle(CONTEXT& context) override;
 };
+
+ProjectileCreateEvent::ProjectileCreateEvent()
+{
+	int procAddress = PVZ::Memory::GetProcAddress("onProjectileCreate");
+	hookAddress = 0x40D652;
+	rawlen = 5;
+	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
+}

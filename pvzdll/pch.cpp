@@ -59,6 +59,30 @@ void onPlantRemove(DWORD plantAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+void onPeaOnFire(DWORD projectileAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	char s[64];
+	sprintf(s, "%s is on fire!\0", ProjectileType::ToString(projectile->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onProjectileCreate(DWORD projectileAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	char s[64];
+	sprintf(s, "%s created!\0", ProjectileType::ToString(projectile->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
+void onProjectileRemove(DWORD projectileAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	char s[64];
+	sprintf(s, "%s removed!\0", ProjectileType::ToString(projectile->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
 void onZombieBlast(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
