@@ -26,6 +26,7 @@ extern "C"
 	__declspec(dllexport) void onProjectileCreate(DWORD projectileAddress);
 	__declspec(dllexport) void onProjectileRemove(DWORD projectileAddress);
 	__declspec(dllexport) void onGameObjectsUpdate(DWORD boardAddress);
+	__declspec(dllexport) void onSeedCardClick(DWORD seedcardAddress);
 	__declspec(dllexport) void onZombieBlast(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieButter(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieDecelerate(DWORD zombieAddress);

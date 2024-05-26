@@ -101,6 +101,14 @@ void onGameObjectsUpdate(DWORD boardAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+void onSeedCardClick(DWORD seedcardAddress)
+{
+	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(seedcardAddress);
+	char s[64];
+	sprintf(s, "%s clicked\0", CardType::ToString(seedcard->ContentCard));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+}
+
 void onZombieBlast(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);

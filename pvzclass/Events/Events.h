@@ -9,6 +9,7 @@
 #include "PeaOnFireEvent.h"
 #include "ProjectileCreateEvent.h"
 #include "ProjectileRemoveEvent.h"
+#include "SeedCardClickEvent.h"
 #include "UpdateGameObjectsEvent.h"
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
