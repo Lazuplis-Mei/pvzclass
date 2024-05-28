@@ -35,6 +35,14 @@ void onCoinRemove(DWORD coinAddress)
 	Creator::CreateCaption(s, strlen(s), CaptionStyle::BottomWhite);
 }
 
+void onDrawUITop(DWORD graphics)
+{
+	std::string s = "Hello, world!";
+	Draw::StringWidth(&s, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
+	Draw::SetColor(255, 255, 255, graphics);
+	//Draw::DrawString(400, 300, &s, graphics);
+}
+
 void onPlantCreate(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);

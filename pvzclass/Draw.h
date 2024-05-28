@@ -5,25 +5,12 @@
 
 namespace Draw
 {
-	// 在(x,y)展示出指定size和rgb的字符串，字符串最长为100
-	struct String
-	{
-		int x, y, size, red, green, blue;
-		char s[100];
-	};
+	// 加载字体，由于汉化版的特殊处理，这个函数实际上调用的是计算字符串长度
+	void StringWidth(std::string *s, DWORD imageFontAddress);
 
-	extern DWORD pointerAddress;
-	extern DWORD imageFontAddress;
-	extern DWORD colorAddress;
-	extern DWORD tempAddress;
-	extern DWORD codeAddress;
-	extern DWORD dataAddress;
+	// 设置字体颜色
+	void SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics);
 
-	// 在屏幕上绘制所有字符串
-	// 需要与DrawUITopEvent配合使用
-	void writeString(std::vector<String> strings);
-	
-	// 一个page可以存放最多8个String结构体
-	// 请根据自己的实际需要申请足够长的结构体
-	void init(int pages);
+	// 在指定位置绘制字体
+	void DrawString(DWORD x, DWORD y, std::string *s, DWORD graphics);
 }

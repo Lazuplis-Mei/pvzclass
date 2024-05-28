@@ -16,7 +16,7 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	auto e1 = ProjectileHitZombieEvent();
+	auto e1 = DrawUITopEvent();
 	//auto e2 = ProjectileCreateEvent();
 	//auto e3 = ProjectileRemoveEvent();
 	system("pause");
