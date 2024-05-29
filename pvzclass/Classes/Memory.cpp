@@ -7,6 +7,7 @@ DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
+bool PVZ::Memory::localExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
@@ -56,13 +57,21 @@ void PVZ::Memory::FreeMemory(int address)
 
 int PVZ::Memory::Execute(byte asmCode[], int length)
 {
-	int Address = AllocMemory();
-	WriteArray<byte>(Address, asmCode, length);
-	if (!immediateExecute) WaitPVZ();
-	CreateThread(Address);
-	if (!immediateExecute) ResumePVZ();
-	FreeMemory(Address);
-	return ReadMemory<int>(Variable);
+	if (localExecute)
+	{
+		void (*func)() = (void (*)())asmCode;
+		func();
+	}
+	else
+	{
+		int Address = AllocMemory();
+		WriteArray<byte>(Address, asmCode, length);
+		if (!immediateExecute) WaitPVZ();
+		CreateThread(Address);
+		if (!immediateExecute) ResumePVZ();
+		FreeMemory(Address);
+		return ReadMemory<int>(Variable);
+	}
 }
 
 void PVZ::Memory::WaitPVZ()

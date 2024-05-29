@@ -94,6 +94,8 @@ namespace PVZ
 		static HWND mainwindowhandle;
 		// 如果为true，则不会等待PVZ进程，立即执行远程代码
 		static bool immediateExecute;
+		// 如果为true，则在当前线程执行代码，在dll中设置为true
+		static bool localExecute;
 		static int DLLAddress;
 		template <class T>
 		inline static T ReadMemory(int address)

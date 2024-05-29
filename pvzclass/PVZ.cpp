@@ -31,6 +31,7 @@ namespace PVZ
 		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
 
 		Memory::immediateExecute = false;
+		Memory::localExecute = false;
 		SETARG(__asm__Execute, 2) = Memory::Variable + 0x540;
 		SETARG(__asm__Execute, 9) = Memory::Variable + 0x530;
 		SETARG(__asm__Execute, 18) = Memory::Variable + 0x540;

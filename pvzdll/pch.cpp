@@ -8,7 +8,7 @@ void init()
 {
 	DWORD pid = ProcessOpener::Open();
 	PVZ::InitPVZ(pid);
-	PVZ::Memory::immediateExecute = true;
+	PVZ::Memory::localExecute = true;
 }
 
 void onCoinCollect(DWORD coinAddress)
