@@ -109,3 +109,45 @@ void Draw::DrawLine(int startx, int starty, int endx, int endy, DWORD graphics)
 	SETARG(__asm__DrawLine, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawLine));
 }
+
+BYTE __asm__DrawRect[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	MOV_EAX(0),
+	INVOKE(0x586DE0),
+	RET
+};
+
+void Draw::DrawRect(int x, int y, int width, int height, DWORD graphics)
+{
+	SETARG(__asm__DrawRect, 1) = height;
+	SETARG(__asm__DrawRect, 6) = width;
+	SETARG(__asm__DrawRect, 11) = y;
+	SETARG(__asm__DrawRect, 16) = x;
+	SETARG(__asm__DrawRect, 21) = graphics;
+	PVZ::Memory::Execute(STRING(__asm__DrawRect));	
+}
+
+BYTE __asm__FillRect[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	MOV_EAX(0),
+	INVOKE(0x586D50),
+	RET
+};
+
+void Draw::FillRect(int x, int y, int width, int height, DWORD graphics)
+{
+	SETARG(__asm__FillRect, 1) = height;
+	SETARG(__asm__FillRect, 6) = width;
+	SETARG(__asm__FillRect, 11) = y;
+	SETARG(__asm__FillRect, 16) = x;
+	SETARG(__asm__FillRect, 21) = graphics;
+	PVZ::Memory::Execute(STRING(__asm__FillRect));
+}
