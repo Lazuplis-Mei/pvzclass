@@ -90,3 +90,22 @@ void Draw::DrawImage(DWORD x, DWORD y, DWORD imageAddress, DWORD graphics)
 	SETARG(__asm__DrawImage, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawImage));
 }
+
+BYTE __asm__DrawLine[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x587080),
+	RET
+};
+
+void Draw::DrawLine(int startx, int starty, int endx, int endy, DWORD graphics)
+{
+	SETARG(__asm__DrawLine, 1) = endy;
+	SETARG(__asm__DrawLine, 6) = endx;
+	SETARG(__asm__DrawLine, 11) = startx;
+	SETARG(__asm__DrawLine, 16) = graphics;
+	PVZ::Memory::Execute(STRING(__asm__DrawLine));
+}

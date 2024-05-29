@@ -20,4 +20,8 @@ namespace Draw
 
 	// 在指定位置绘制图片
 	void DrawImage(DWORD x, DWORD y, DWORD imageAddress, DWORD graphics);
+
+	// 在指定位置绘制一条线
+	// starty 现在没有效果，一直是1
+	void DrawLine(int startx, int starty, int endx, int endy, DWORD graphics);
 }

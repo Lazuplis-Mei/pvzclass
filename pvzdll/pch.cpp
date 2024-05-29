@@ -45,6 +45,7 @@ void onDrawUITop(DWORD graphics)
 	Draw::SetColor(255, 255, 255, (DWORD)(address + 0x200), graphics);
 	Draw::DrawString(400, 300, stringAddress, graphics);
 	Draw::DrawImage(100, 100, PVZ::Memory::ReadMemory<DWORD>(0x6A7784), graphics);
+	Draw::DrawLine(1, 0xFFFFFFFF, 800, 600, graphics);
 	PVZ::Memory::localExecute = false;
 }
 
