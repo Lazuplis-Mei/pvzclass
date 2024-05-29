@@ -70,8 +70,8 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 		CreateThread(Address);
 		if (!immediateExecute) ResumePVZ();
 		FreeMemory(Address);
-		return ReadMemory<int>(Variable);
 	}
+	return ReadMemory<int>(Variable);
 }
 
 void PVZ::Memory::WaitPVZ()
