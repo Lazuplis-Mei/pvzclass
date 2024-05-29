@@ -8,7 +8,7 @@ void init()
 {
 	DWORD pid = ProcessOpener::Open();
 	PVZ::InitPVZ(pid);
-	PVZ::Memory::localExecute = true;
+	PVZ::Memory::immediateExecute = true;
 }
 
 void onCoinCollect(DWORD coinAddress)
@@ -39,11 +39,13 @@ void onDrawUITop(DWORD graphics)
 {
 	char address[1024] = "Hello, world!\0";
 	DWORD stringAddress = (DWORD)(address + 0x100);
+	PVZ::Memory::localExecute = true;
 	Draw::ToString((DWORD)address, stringAddress);
 	Draw::StringWidth(stringAddress, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
 	Draw::SetColor(255, 255, 255, (DWORD)(address + 0x200), graphics);
 	Draw::DrawString(400, 300, stringAddress, graphics);
 	Draw::DrawImage(100, 100, PVZ::Memory::ReadMemory<DWORD>(0x6A7784), graphics);
+	PVZ::Memory::localExecute = false;
 }
 
 void onPlantCreate(DWORD plantAddress)

@@ -17,12 +17,12 @@ int main()
 	EnableBackgroundRunning();
 
 	auto e1 = DrawUITopEvent();
-	//auto e2 = ProjectileCreateEvent();
-	//auto e3 = ProjectileRemoveEvent();
+	auto e2 = ProjectileCreateEvent();
+	auto e3 = ProjectileRemoveEvent();
 	system("pause");
 	e1.end();
-	//e2.end();
-	//e3.end();
+	e2.end();
+	e3.end();
 
 	PVZ::QuitPVZ();
 	return 0;
