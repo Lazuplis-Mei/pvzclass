@@ -3,6 +3,80 @@
   <CheatEntries>
     <CheatEntry>
       <ID>0</ID>
+      <Description>"pvzclass"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+700000:
+pushad
+push [esp+28]
+call func
+add esp,4
+popad
+ret 8
+int 3
+int 3
+jmp 41ACE4
+
+func:
+mov ecx,[esp+4]
+mov [graphics],ecx
+
+push strc // char*
+mov ecx,strstd // string
+call 404450 // eax=string
+
+mov ecx,[6A7224]
+mov eax,[graphics]
+call 586CB0
+
+push strstd
+mov ecx,[6A7224]
+call 58DF70
+
+push FF
+mov edx,FF
+mov ecx,FF
+mov eax,color
+call 5643D0
+mov ecx,[graphics]
+call 586CC0
+
+push #300
+push #400
+push strstd
+mov eax,[graphics]
+call 587120
+ret
+
+graphics:
+db 00 00 00 00
+
+strc:
+db 'hello, world!' 00
+
+strstd:
+db 00 00 00 00 00 00 00 00
+db 00 00 00 00 00 00 00 00
+db 00 00 00 00 00 00 00 00
+db 00 00 00 00 00 00 00 00
+
+color:
+db 00 00 00 00 00 00 00 00
+db 00 00 00 00 00 00 00 00
+
+41ACDF:
+jmp 700000
+
+[DISABLE]
+41ACDF:
+db C2 08 00 CC CC
+//ret 0008
+//int 3
+//int 3
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
       <Description>"DrawUITop返回前"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
@@ -99,13 +173,6 @@ db 51 8B DF E8 9F FD 0F 00
 //mov ebx,edi
 //call PlantsVsZombies.exe+11AA50
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1</ID>
-      <Description>"无描述"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>Double</VariableType>
-      <Address>7000c2</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

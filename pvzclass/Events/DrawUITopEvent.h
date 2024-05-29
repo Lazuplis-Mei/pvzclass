@@ -15,6 +15,6 @@ DrawUITopEvent::DrawUITopEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onDrawUITop");
 	hookAddress = 0x41ACDF;
 	rawlen = 5;
-	BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), INVOKE(procAddress), ADD_ESP(4) };
+	BYTE code[] = { PUSH_PTR_ESP_ADD_V(40), INVOKE(procAddress), ADD_ESP(4) };
 	start(STRING(code));
 }

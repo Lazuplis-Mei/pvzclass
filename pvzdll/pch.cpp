@@ -37,10 +37,12 @@ void onCoinRemove(DWORD coinAddress)
 
 void onDrawUITop(DWORD graphics)
 {
-	std::string s = "Hello, world!";
-	Draw::StringWidth(&s, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
-	Draw::SetColor(255, 255, 255, graphics);
-	//Draw::DrawString(400, 300, &s, graphics);
+	char address[1024] = "Hello, world!\0";
+	DWORD stringAddress = (DWORD)(address + 0x100);
+	Draw::ToString((DWORD)address, stringAddress);
+	Draw::StringWidth(stringAddress, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
+	Draw::SetColor(255, 255, 255, (DWORD)(address + 0x200), graphics);
+	Draw::DrawString(400, 300, stringAddress, graphics);
 }
 
 void onPlantCreate(DWORD plantAddress)
