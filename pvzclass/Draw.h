@@ -17,4 +17,7 @@ namespace Draw
 
 	// 在指定位置绘制字体
 	void DrawString(DWORD x, DWORD y, DWORD stringAddress, DWORD graphics);
+
+	// 在指定位置绘制图片
+	void DrawImage(DWORD x, DWORD y, DWORD imageAddress, DWORD graphics);
 }

@@ -71,3 +71,22 @@ void Draw::DrawString(DWORD x, DWORD y, DWORD stringAddress, DWORD graphics)
 	SETARG(__asm__DrawString, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawString));
 }
+
+BYTE __asm__DrawImage[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	MOV_EBX(0),
+	MOV_EAX(0),
+	INVOKE(0x587150),
+	RET
+};
+
+void Draw::DrawImage(DWORD x, DWORD y, DWORD imageAddress, DWORD graphics)
+{
+	SETARG(__asm__DrawImage, 1) = y;
+	SETARG(__asm__DrawImage, 6) = x;
+	SETARG(__asm__DrawImage, 11) = imageAddress;
+	SETARG(__asm__DrawImage, 16) = graphics;
+	PVZ::Memory::Execute(STRING(__asm__DrawImage));
+}
