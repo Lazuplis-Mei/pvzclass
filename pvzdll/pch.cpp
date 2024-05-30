@@ -96,9 +96,10 @@ void onPeaOnFire(DWORD projectileAddress)
 void onProjectileCreate(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
-	char s[64];
-	sprintf(s, "%s created!\0", ProjectileType::ToString(projectile->Type));
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	PVZ::Memory::localExecute = true;
+	int a = PVZ::Memory::ReadMemory<int>(0x700000);
+	PVZ::Memory::WriteMemory<int>(0x700000, a + 1);
+	PVZ::Memory::localExecute = false;
 }
 
 void onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)

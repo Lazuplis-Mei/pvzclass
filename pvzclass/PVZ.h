@@ -100,14 +100,31 @@ namespace PVZ
 		template <class T>
 		inline static T ReadMemory(int address)
 		{
-			T buffer = (T)NULL;
-			ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
-			return buffer;
+			if (localExecute)
+			{
+				T* buffer = (T*)address;
+				return *buffer;
+			}
+			else
+			{
+				T buffer = (T)NULL;
+				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
+				return buffer;
+			}
 		};
 		template <class T>
 		inline static BOOL WriteMemory(int address, T value)
 		{
-			return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+			if (localExecute)
+			{
+				T* buffer = (T*)address;
+				*buffer = value;
+				return true;
+			}
+			else
+			{
+				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+			}
 		};
 		template <class T>
 		inline static BOOL ReadArray(int address, T* result, size_t length)
