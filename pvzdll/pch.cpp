@@ -7,7 +7,12 @@
 void init()
 {
 	DWORD pid = ProcessOpener::Open();
-	PVZ::InitPVZ(pid);
+	PVZ::Memory::processId = pid;
+	PVZ::Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+	PVZ::Memory::localExecute = true;
+	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
+	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
+	PVZ::Memory::mainThreadId = PVZ::Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 	PVZ::Memory::immediateExecute = true;
 }
 
@@ -39,7 +44,6 @@ void onDrawUITop(DWORD graphics)
 {
 	char address[1024] = "Hello, world!\0";
 	DWORD stringAddress = (DWORD)(address + 0x100);
-	PVZ::Memory::localExecute = true;
 	Draw::ToString((DWORD)address, stringAddress);
 	Draw::StringWidth(stringAddress, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
 	Draw::SetColor(255, 255, 255, (DWORD)(address + 0x200), graphics);
@@ -48,7 +52,6 @@ void onDrawUITop(DWORD graphics)
 	Draw::DrawLine(1, 600, 800, 1, graphics);
 	Draw::DrawRect(100, 400, 200, 100, graphics);
 	Draw::FillRect(500, 100, 100, 200, graphics);
-	PVZ::Memory::localExecute = false;
 }
 
 void onPlantCreate(DWORD plantAddress)
@@ -96,10 +99,8 @@ void onPeaOnFire(DWORD projectileAddress)
 void onProjectileCreate(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
-	PVZ::Memory::localExecute = true;
 	int a = PVZ::Memory::ReadMemory<int>(0x700000);
 	PVZ::Memory::WriteMemory<int>(0x700000, a + 1);
-	PVZ::Memory::localExecute = false;
 	int b[9];
 	PVZ::Memory::ReadArray<int>(0x700004, b, 36);
 	for (int i = 0; i < 9; i++) b[i] += i + 2;

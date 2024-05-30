@@ -33,7 +33,14 @@ BOOL PVZ::Memory::AllAccess(int address)
 
 int PVZ::Memory::AllocMemory(int pages)
 {
-	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	if (localExecute)
+	{
+		return (int)new BYTE[PAGE_SIZE * pages];
+	}
+	else
+	{
+		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	}
 }
 
 void PVZ::Memory::CreateThread(int address)
@@ -52,7 +59,14 @@ void PVZ::Memory::CreateThread(int address)
 
 void PVZ::Memory::FreeMemory(int address)
 {
-	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
+	if (localExecute)
+	{
+		delete (void*)address;
+	}
+	else
+	{
+		VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
+	}
 }
 
 int PVZ::Memory::Execute(byte asmCode[], int length)
