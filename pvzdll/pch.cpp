@@ -100,6 +100,10 @@ void onProjectileCreate(DWORD projectileAddress)
 	int a = PVZ::Memory::ReadMemory<int>(0x700000);
 	PVZ::Memory::WriteMemory<int>(0x700000, a + 1);
 	PVZ::Memory::localExecute = false;
+	int b[9];
+	PVZ::Memory::ReadArray<int>(0x700004, b, 36);
+	for (int i = 0; i < 9; i++) b[i] += i + 2;
+	PVZ::Memory::WriteArray<int>(0x700004, b, 36);
 }
 
 void onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
