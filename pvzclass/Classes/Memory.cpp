@@ -28,14 +28,23 @@ int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offse
 BOOL PVZ::Memory::AllAccess(int address)
 {
 	DWORD op = PAGE_READONLY;
-	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	if (localExecute)
+	{
+		return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	}
+	else
+	{
+		return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	}
 }
 
 int PVZ::Memory::AllocMemory(int pages)
 {
 	if (localExecute)
 	{
-		return (int)new BYTE[PAGE_SIZE * pages];
+		BYTE* page = new BYTE[PAGE_SIZE * pages];
+		AllAccess((int)page);
+		return (int)page;
 	}
 	else
 	{
@@ -73,6 +82,7 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 {
 	if (localExecute)
 	{
+		AllAccess((int)asmCode);
 		void (*func)() = (void (*)())asmCode;
 		func();
 		return Variable;

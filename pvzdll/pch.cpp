@@ -20,24 +20,24 @@ void onCoinCollect(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%X coin collected!", coinAddress);
-	Creator::CreateCaption(s, strlen(s), CaptionStyle::BottomWhite);
+	sprintf(s, "%X coin collected!\0", coinAddress);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
 void onCoinCreate(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%X coin created!", coinAddress);
-	Creator::CreateCaption(s, strlen(s), CaptionStyle::BottomWhite);
+	sprintf(s, "%X coin created!\0", coinAddress);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
 void onCoinRemove(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%X coin removed!", coinAddress);
-	Creator::CreateCaption(s, strlen(s), CaptionStyle::BottomWhite);
+	sprintf(s, "%X coin removed!\0", coinAddress);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
 void onDrawUITop(DWORD graphics)

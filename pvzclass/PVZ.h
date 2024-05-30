@@ -117,6 +117,7 @@ namespace PVZ
 		{
 			if (localExecute)
 			{
+				AllAccess(address);
 				T* buffer = (T*)address;
 				*buffer = value;
 				return true;
@@ -144,6 +145,7 @@ namespace PVZ
 		{
 			if (localExecute)
 			{
+				AllAccess(address);
 				memcpy((void*)address, value, length);
 				return true;
 			}
