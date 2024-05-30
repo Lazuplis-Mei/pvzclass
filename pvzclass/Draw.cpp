@@ -107,9 +107,8 @@ void Draw::DrawLine(int startx, int starty, int endx, int endy, DWORD graphics)
 	SETARG(__asm__DrawLine, 6) = endx;
 	SETARG(__asm__DrawLine, 11) = startx;
 	SETARG(__asm__DrawLine, 16) = graphics;
-	double* sy = (double*)&PVZ::Memory::Variable;
-	*sy = starty;
-	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, (DWORD)&PVZ::Memory::Variable);
+	PVZ::Memory::WriteMemory<double>(PVZ::Memory::Variable, starty);
+	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, PVZ::Memory::Variable);
 	PVZ::Memory::Execute(STRING(__asm__DrawLine));
 	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, 0x65B8F8);
 }

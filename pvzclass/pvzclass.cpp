@@ -16,7 +16,28 @@ int main()
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
+	CoinCreateEvent();
+	CoinCollectEvent();
+	CoinRemoveEvent();
 	DrawUITopEvent();
+	PlantCreateEvent();
+	PlantReloadEvent();
+	PlantShootEvent();
+	PlantRemoveEvent();
+	PeaOnFireEvent();
+	ProjectileCreateEvent();
+	ProjectileHitZombieEvent();
+	ProjectileRemoveEvent();
+	UpdateGameObjectsEvent();
+	SeedCardClickEvent();
+	ZombieBlastEvent();
+	ZombieButterEvent();
+	ZombieDecelerateEvent();
+	ZombieEatEvent();
+	ZombieFrozeEvent();
+	ZombieHitEvent();
+	ZombieHypnotizeEvent();
+	ZombieRemoveEvent();
 	system("pause");
 
 	PVZ::QuitPVZ();

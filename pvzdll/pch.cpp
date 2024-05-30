@@ -6,13 +6,9 @@
 
 void init()
 {
-	DWORD pid = ProcessOpener::Open();
-	PVZ::Memory::processId = pid;
-	PVZ::Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 	PVZ::Memory::localExecute = true;
 	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
-	PVZ::Memory::mainThreadId = PVZ::Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 	PVZ::Memory::immediateExecute = true;
 }
 
