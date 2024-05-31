@@ -94,28 +94,65 @@ namespace PVZ
 		static HWND mainwindowhandle;
 		// 如果为true，则不会等待PVZ进程，立即执行远程代码
 		static bool immediateExecute;
+		// 如果为true，则在当前线程执行代码，在dll中设置为true
+		static bool localExecute;
 		static int DLLAddress;
 		template <class T>
 		inline static T ReadMemory(int address)
 		{
-			T buffer = (T)NULL;
-			ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
-			return buffer;
+			if (localExecute)
+			{
+				T* buffer = (T*)address;
+				return *buffer;
+			}
+			else
+			{
+				T buffer = (T)NULL;
+				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
+				return buffer;
+			}
 		};
 		template <class T>
 		inline static BOOL WriteMemory(int address, T value)
 		{
-			return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+			if (localExecute)
+			{
+				AllAccess(address);
+				T* buffer = (T*)address;
+				*buffer = value;
+				return true;
+			}
+			else
+			{
+				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+			}
 		};
 		template <class T>
 		inline static BOOL ReadArray(int address, T* result, size_t length)
 		{
-			return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
+			if (localExecute)
+			{
+				memcpy(result, (const void*)address, length);
+				return true;
+			}
+			else
+			{
+				return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
+			}
 		};
 		template <class T>
 		inline static BOOL WriteArray(int address, T* value, size_t length)
 		{
-			return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
+			if (localExecute)
+			{
+				AllAccess(address);
+				memcpy((void*)address, value, length);
+				return true;
+			}
+			else
+			{
+				return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
+			}
 		};
 		static int ReadPointer(int baseaddress, int offset);
 		static int ReadPointer(int baseaddress, int offset, int offset1);

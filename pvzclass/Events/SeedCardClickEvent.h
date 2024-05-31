@@ -1,13 +1,20 @@
 #pragma once
-#include "TemplateEvent.h"
+#include "DLLEvent.h"
 
 // 卡槽中的卡片被点击事件
 // 参数：SeedCard
 // 无返回值
-class SeedCardClickEvent : public TemplateEvent<std::function<
-	void(std::shared_ptr<PVZ::CardSlot::SeedCard>)>>
+class SeedCardClickEvent : public DLLEvent
 {
 public:
 	SeedCardClickEvent();
-	void handle(CONTEXT& context) override;
 };
+
+SeedCardClickEvent::SeedCardClickEvent()
+{
+	int procAddress = PVZ::Memory::GetProcAddress("onSeedCardClick");
+	hookAddress = 0x488590;
+	rawlen = 8;
+	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
+}

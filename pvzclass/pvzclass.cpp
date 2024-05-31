@@ -1,5 +1,5 @@
 ﻿#include "pvzclass.h"
-#include "Events/CoinCollectEvent.h"
+#include "Events/Events.h"
 #include <iostream>
 #include <thread>
 
@@ -12,13 +12,33 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 	PVZ::Memory::immediateExecute = true;
-	cout << PVZ::Memory::InjectDll("pvzdll.dll") << endl;
-	cout << PVZ::Memory::InvokeDllProc("init") << endl;
+	PVZ::Memory::InjectDll("pvzdll.dll");
+	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
-	CoinCollectEvent e = CoinCollectEvent();
+	CoinCreateEvent();
+	CoinCollectEvent();
+	CoinRemoveEvent();
+	DrawUITopEvent();
+	PlantCreateEvent();
+	PlantReloadEvent();
+	PlantShootEvent();
+	PlantRemoveEvent();
+	PeaOnFireEvent();
+	ProjectileCreateEvent();
+	ProjectileHitZombieEvent();
+	ProjectileRemoveEvent();
+	UpdateGameObjectsEvent();
+	SeedCardClickEvent();
+	ZombieBlastEvent();
+	ZombieButterEvent();
+	ZombieDecelerateEvent();
+	ZombieEatEvent();
+	ZombieFrozeEvent();
+	ZombieHitEvent();
+	ZombieHypnotizeEvent();
+	ZombieRemoveEvent();
 	system("pause");
-	e.end();
 
 	PVZ::QuitPVZ();
 	return 0;

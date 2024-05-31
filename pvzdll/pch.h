@@ -16,6 +16,27 @@ extern "C"
 {
 	__declspec(dllexport) void init();
 	__declspec(dllexport) void onCoinCollect(DWORD coinAddress);
+	__declspec(dllexport) void onCoinCreate(DWORD coinAddress);
+	__declspec(dllexport) void onCoinRemove(DWORD coinAddress);
+	__declspec(dllexport) void onDrawUITop(DWORD graphics);
+	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
+	__declspec(dllexport) int onPlantReload(DWORD plantAddress, int cd);
+	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
+	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
+	__declspec(dllexport) void onPeaOnFire(DWORD projectileAddress);
+	__declspec(dllexport) void onProjectileCreate(DWORD projectileAddress);
+	__declspec(dllexport) void onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress);
+	__declspec(dllexport) void onProjectileRemove(DWORD projectileAddress);
+	__declspec(dllexport) void onGameObjectsUpdate(DWORD boardAddress);
+	__declspec(dllexport) void onSeedCardClick(DWORD seedcardAddress);
+	__declspec(dllexport) void onZombieBlast(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieButter(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieDecelerate(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieEat(DWORD zombieAddress, DWORD plantAddress);
+	__declspec(dllexport) void onZombieFroze(DWORD zombieAddress);
+	__declspec(dllexport) int onZombieHit(DWORD zombieAddress, DWORD typeCode, DWORD amount);
+	__declspec(dllexport) void onZombieHypnotize(DWORD zombieAddress);
+	__declspec(dllexport) void onZombieRemove(DWORD zombieAddress);
 }
 
 #endif //PCH_H

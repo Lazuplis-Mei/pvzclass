@@ -230,29 +230,9 @@
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
-    <ClCompile Include="Events\CoinCreateEvent.cpp" />
-    <ClCompile Include="Events\CoinRemoveEvent.cpp" />
-    <ClCompile Include="Events\DrawUITopEvent.cpp" />
     <ClCompile Include="Events\EventHandler.cpp" />
-    <ClCompile Include="Events\PeaOnFireEvent.cpp" />
-    <ClCompile Include="Events\PlantCreateEvent.cpp" />
-    <ClCompile Include="Events\PlantReloadEvent.cpp" />
-    <ClCompile Include="Events\PlantRemoveEvent.cpp" />
-    <ClCompile Include="Events\PlantShootEvent.cpp" />
     <ClCompile Include="Events\PlantSquishEvent.cpp" />
-    <ClCompile Include="Events\ProjectileCreateEvent.cpp" />
-    <ClCompile Include="Events\ProjectileHitZombieEvent.cpp" />
-    <ClCompile Include="Events\ProjectileRemoveEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />
-    <ClCompile Include="Events\SeedCardClickEvent.cpp" />
-    <ClCompile Include="Events\ZombieBlastEvent.cpp" />
-    <ClCompile Include="Events\ZombieButterEvent.cpp" />
-    <ClCompile Include="Events\ZombieDecelerateEvent.cpp" />
-    <ClCompile Include="Events\ZombieEatEvent.cpp" />
-    <ClCompile Include="Events\ZombieFrozeEvent.cpp" />
-    <ClCompile Include="Events\ZombieHitEvent.cpp" />
-    <ClCompile Include="Events\ZombieHypnotizeEvent.cpp" />
-    <ClCompile Include="Events\ZombieRemoveEvent.cpp" />
     <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
@@ -263,7 +243,6 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Events\VaseOpenEvent.cpp" />
-    <ClCompile Include="Events\UpdateGameObjectsEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
@@ -277,6 +256,7 @@
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\DLLEvent.h" />
+    <ClInclude Include="Events\Events.h" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />

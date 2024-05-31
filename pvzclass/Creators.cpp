@@ -347,15 +347,15 @@ void Creator::CreateRake(byte row, byte column)
 	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x1424448B);
 }
 
-byte __asm__CreateCaption[70]
+byte __asm__CreateCaption[]
 {
 	PUSHDWORD(0),
-	LEA_ECX_ESP_ADD(0x30),
-	CHARSTRTOSTRING,
+	MOV_ECX(0),
+	INVOKE(0x404450),
 	MOV_ESI(0),
 	MOV_ECX(6),
-	LEA_EDX_ESP_ADD(0x2C),
-	CREATECAPTION,
+	MOV_EDX(0),
+	INVOKE(0x459010),
 	MOV_PTR_ESI_ADD(0x88,0),
 	MOV_PTR_ESI_ADD(0x8C,0),
 	RET,
@@ -365,9 +365,11 @@ void Creator::CreateCaption(const char* str, int length, CaptionStyle::CaptionSt
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
 	SETARG(__asm__CreateCaption, 1) = PVZ::Memory::Variable + 100;
-	SETARG(__asm__CreateCaption, 23) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x140);
-	SETARG(__asm__CreateCaption, 55) = duration;
-	SETARG(__asm__CreateCaption, 65) = style;
+	SETARG(__asm__CreateCaption, 6) = PVZ::Memory::Variable + 600;
+	SETARG(__asm__CreateCaption, 24) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x140);
+	SETARG(__asm__CreateCaption, 34) = PVZ::Memory::Variable + 600;
+	SETARG(__asm__CreateCaption, 57) = duration;
+	SETARG(__asm__CreateCaption, 67) = style;
 	PVZ::Memory::Execute(STRING(__asm__CreateCaption));
 }
 

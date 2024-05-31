@@ -26,11 +26,12 @@ namespace PVZ
 		Memory::processId = pid;
 		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 		Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
-		Memory::Variable = Memory::AllocMemory();
+		Memory::Variable = Memory::AllocMemory(4);
 		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
 
 		Memory::immediateExecute = false;
+		Memory::localExecute = false;
 		SETARG(__asm__Execute, 2) = Memory::Variable + 0x540;
 		SETARG(__asm__Execute, 9) = Memory::Variable + 0x530;
 		SETARG(__asm__Execute, 18) = Memory::Variable + 0x540;

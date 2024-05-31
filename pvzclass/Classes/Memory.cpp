@@ -7,6 +7,7 @@ DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
+bool PVZ::Memory::localExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
@@ -27,12 +28,28 @@ int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offse
 BOOL PVZ::Memory::AllAccess(int address)
 {
 	DWORD op = PAGE_READONLY;
-	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	if (localExecute)
+	{
+		return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	}
+	else
+	{
+		return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+	}
 }
 
 int PVZ::Memory::AllocMemory(int pages)
 {
-	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	if (localExecute)
+	{
+		BYTE* page = new BYTE[PAGE_SIZE * pages];
+		AllAccess((int)page);
+		return (int)page;
+	}
+	else
+	{
+		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	}
 }
 
 void PVZ::Memory::CreateThread(int address)
@@ -51,18 +68,35 @@ void PVZ::Memory::CreateThread(int address)
 
 void PVZ::Memory::FreeMemory(int address)
 {
-	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
+	if (localExecute)
+	{
+		delete (void*)address;
+	}
+	else
+	{
+		VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
+	}
 }
 
 int PVZ::Memory::Execute(byte asmCode[], int length)
 {
-	int Address = AllocMemory();
-	WriteArray<byte>(Address, asmCode, length);
-	if (!immediateExecute) WaitPVZ();
-	CreateThread(Address);
-	if (!immediateExecute) ResumePVZ();
-	FreeMemory(Address);
-	return ReadMemory<int>(Variable);
+	if (localExecute)
+	{
+		AllAccess((int)asmCode);
+		void (*func)() = (void (*)())asmCode;
+		func();
+		return Variable;
+	}
+	else
+	{
+		int Address = AllocMemory();
+		WriteArray<byte>(Address, asmCode, length);
+		if (!immediateExecute) WaitPVZ();
+		CreateThread(Address);
+		if (!immediateExecute) ResumePVZ();
+		FreeMemory(Address);
+		return ReadMemory<int>(Variable);
+	}
 }
 
 void PVZ::Memory::WaitPVZ()
