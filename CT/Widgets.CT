@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"WidgetManager"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>6A9EC0</Address>
+      <Offsets>
+        <Offset>88</Offset>
+        <Offset>320</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Widget示例"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+dealloc(DeleteWidgetCode)
+
+alloc(MakeWidgetCode,2048)
+label(MakeWidget)
+CreateThread(MakeWidget)
+
+MakeWidgetCode:
+
+MakeWidget://创建控件
+sub esp,20
+
+push char
+lea ecx,[esp+04]
+call 00404450
+
+push eax
+lea ecx,[ButtonListener]
+mov [ecx],ButtonListener_Virtual
+push ecx
+push 00
+call 00448620
+add esp,0C
+
+mov [MineButton],eax
+
+mov ecx,[006A9EC0]
+mov ecx,[ecx+00000320]
+mov edx,[ecx]
+mov eax,[edx+0C]
+mov edx,[MineButton]
+push edx
+call eax
+
+mov ecx,[MineButton]
+push #50
+push #75
+mov edx,[ecx]
+push #250
+push #350
+mov eax,[edx+000000A0]
+call eax
+
+lea ecx,[esp]
+call 00404420
+
+add esp,20
+ret
+
+char:
+db 'Test' 00
+
+ButtonListener:
+dd 00000000
+
+ButtonListener_Virtual:
+dd 00401000
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 00483370
+
+00700000:
+MineButton:
+
+[DISABLE]
+dealloc(MakeWidgetCode)
+
+alloc(DeleteWidgetCode,2048)
+label(DeleteWidget)
+CreateThread(DeleteWidget)
+
+DeleteWidgetCode:
+
+DeleteWidget:
+mov ecx,[006A9EC0]
+mov ecx,[ecx+00000320]
+mov edx,[ecx]
+mov eax,[edx+10]
+mov edx,[MineButton]
+push edx
+call eax
+
+mov ecx,[MineButton]
+mov edx,[ecx]
+push 01
+mov eax,[edx+00]
+call eax
+ret
+
+00700000:
+MineButton:
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Widget"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+700000:
+push strc
+mov ecx,strstd
+call 404450
+
+push strstd
+mov ecx,ButtonListener
+mov [ecx],ButtonListener_Virtual
+push ecx
+push 00
+call 448620
+add esp,0C
+mov [Button],eax
+
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+0C]
+call edx
+
+push #50 // height
+push #300 // width
+push #250 // y
+push #350 // x
+mov ecx,[Button] // this
+mov edx,[ecx]
+mov edx,[edx+A0]
+call edx
+ret
+
+701000:
+mov eax,[Button]
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+10]
+call edx
+
+push 01
+mov ecx,[Button]
+mov edx,[ecx]
+mov edx,[edx+00]
+call edx
+ret
+
+702000:
+Count:
+dd 00000000
+
+Button:
+dd 00000000
+
+strc:
+db 'Hello,world!' 00
+
+strstd:
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+
+ButtonListener:
+dd 00000000
+
+ButtonListener_Virtual:
+dd 00401000
+dd 00703000
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 00483370
+
+703000:
+mov eax,[Count]
+inc eax
+mov [Count],eax
+ret 4
+
+[DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"call"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+createThread(700000)
+
+[DISABLE]
+createThread(701000)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"无描述"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00702000</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
