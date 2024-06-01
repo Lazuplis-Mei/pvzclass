@@ -20,18 +20,25 @@ int main()
 	PlantRemoveEvent();
 	Sexy::ButtonListener listener;
 	int address, buttonAddress;
-	system("pause");
-	buttonAddress = Sexy::MakeButton("Hello, world!", &listener, 0, address);
-	cout << hex << buttonAddress << " " << address;
-	system("pause");
+	int fromAddress = PVZ::Memory::AllocMemory();
+	int toAddress = fromAddress + 0x100;
+	int isnewAddress = fromAddress + 0x200;
+	int sharedImageRef = fromAddress + 0x210;
+	int imageAddress = fromAddress + 0x220;
+	BYTE filename[] = "images/test.png";
+	PVZ::Memory::WriteArray<BYTE>(fromAddress, STRING(filename));
+	Draw::ToString(fromAddress, toAddress);
+	Draw::GetSharedImage(isnewAddress, toAddress, toAddress, sharedImageRef);
+	imageAddress = Draw::SharedImageRefToImage(sharedImageRef);
+	buttonAddress = Sexy::MakeImageButton(imageAddress, imageAddress, imageAddress,
+		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), toAddress, &listener, 0, address);
 	Sexy::AddToManager(buttonAddress);
-	system("pause");
-	Sexy::ResizeButton(buttonAddress, 300, 250, 200, 100);
+	Sexy::ResizeButton(buttonAddress, 350, 250, 100, 100);
 	system("pause");
 	Sexy::RemoveFromManager(buttonAddress);
-	system("pause");
 	Sexy::FreeButton(buttonAddress, address);
-	system("pause");
+	Draw::FreeImage(sharedImageRef);
+	PVZ::Memory::FreeMemory(fromAddress);
 
 	PVZ::QuitPVZ();
 	return 0;

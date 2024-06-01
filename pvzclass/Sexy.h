@@ -22,6 +22,12 @@ namespace Sexy
 	// 返回：按钮的地址
 	int MakeButton(const char* label, ButtonListener* listener, int theId, int& address);
 
+	// 创建贴图按钮
+	// image**Address：对应状态的Image，使用Draw.h相关代码构建
+	// 返回：按钮的地址
+	int MakeImageButton(DWORD imageDownAddress, DWORD imageOverAddress, DWORD imageNormalAddress,
+		DWORD fontAddress, DWORD stringAddress, ButtonListener* listener, int theId, int& address);
+
 	// 移除控件
 	void FreeButton(DWORD buttonAddress, DWORD address);
 

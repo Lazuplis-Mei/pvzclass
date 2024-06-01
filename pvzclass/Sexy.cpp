@@ -27,6 +27,38 @@ int Sexy::MakeButton(const char* label, ButtonListener* listener, int theId, int
 	return PVZ::Memory::Execute(STRING(__asm__MakeButton));
 }
 
+BYTE __asm__MakeImageButton[]
+{
+	PUSHDWORD(0),
+	MOV_EBX(0),
+	MOV_EDI(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x448BC0),
+	ADD_ESP(0x14),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+int Sexy::MakeImageButton(DWORD imageDownAddress, DWORD imageOverAddress, DWORD imageNormalAddress,
+	DWORD fontAddress, DWORD stringAddress, ButtonListener* listener, int theId, int& address)
+{
+	SETARG(__asm__MakeImageButton, 1) = imageDownAddress;
+	SETARG(__asm__MakeImageButton, 6) = imageOverAddress;
+	SETARG(__asm__MakeImageButton, 11) = imageNormalAddress;
+	SETARG(__asm__MakeImageButton, 16) = fontAddress;
+	SETARG(__asm__MakeImageButton, 21) = stringAddress;
+	address = PVZ::Memory::AllocMemory();
+	PVZ::Memory::WriteMemory<DWORD>(address, address + 0x10);
+	PVZ::Memory::WriteMemory<ButtonListener>(address + 0x10, *listener);
+	SETARG(__asm__MakeImageButton, 26) = address;
+	SETARG(__asm__MakeImageButton, 31) = theId;
+	SETARG(__asm__MakeImageButton, 52) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__MakeImageButton));
+}
+
 BYTE __asm__FreeButton[]
 {
 	PUSH(1),
