@@ -15,7 +15,7 @@ namespace Sexy
 	};
 
 	// 创建一个按钮
-	// label：要显示的文本
+	// label：要显示的文本，以'\0'结尾
 	// listener：按钮事件监听器
 	// theId：一个按钮Id
 	// address：文本、虚函数表等的起始地址，需要在析构时释放内存
@@ -25,6 +25,7 @@ namespace Sexy
 	// 移除控件
 	void FreeButton(DWORD buttonAddress, DWORD address);
 
+	// 重置按钮的大小
 	void ResizeButton(DWORD buttonAddress, int x, int y, int width, int height);
 
 	// 将控件加入Manager

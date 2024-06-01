@@ -12,10 +12,12 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 	PVZ::Memory::immediateExecute = true;
-	//PVZ::Memory::InjectDll("pvzdll.dll");
-	//PVZ::Memory::InvokeDllProc("init");
+	PVZ::Memory::InjectDll("pvzdll.dll");
+	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
 
+	PlantCreateEvent();
+	PlantRemoveEvent();
 	Sexy::ButtonListener listener;
 	int address, buttonAddress;
 	system("pause");

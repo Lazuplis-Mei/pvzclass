@@ -85,7 +85,7 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 		AllAccess((int)asmCode);
 		void (*func)() = (void (*)())asmCode;
 		func();
-		return Variable;
+		return ReadMemory<int>(Variable);
 	}
 	else
 	{

@@ -13,7 +13,7 @@ BYTE __asm__MakeButton[]
 
 int Sexy::MakeButton(const char* label, ButtonListener* listener, int theId, int& address)
 {
-	int len = strlen(label);
+	int len = strlen(label) + 1;
 	int page = len / 0x400 + 1;
 	address = PVZ::Memory::AllocMemory(page * 2 + 1);
 	PVZ::Memory::WriteArray<const char>(address, label, len);
