@@ -270,6 +270,9 @@
     <ClCompile Include="Enums\ChallengePage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Sexy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -537,6 +540,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Events\Events.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sexy.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
