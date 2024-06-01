@@ -112,17 +112,71 @@ mov ecx,[6A9EC0]
 mov edx,[ecx]
 mov edx,[edx+10C]
 call edx
+
+mov ecx,imageref
+call 59A980
+mov [image],eax
+
+push eax
+mov ebx,eax
+mov edi,eax
+mov eax,[6A72D8]
+push eax
+push namestr
+mov ecx,ButtonListener
+mov [ecx],ButtonListener_Virtual
+push ecx
+push 00
+call 448BC0
+add esp,14
+mov [Button],eax
+
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+0C]
+call edx
+
+push #100 // height
+push #100 // width
+push #250 // y
+push #350 // x
+mov ecx,[Button] // this
+mov edx,[ecx]
+mov edx,[edx+A0]
+call edx
 ret
 
 701000:
+mov eax,[Button]
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+10]
+call edx
+
+push 01
+mov ecx,[Button]
+mov edx,[ecx]
+mov edx,[edx+00]
+call edx
+
+mov esi,imageref
+call 59A8C0
 ret
 
 702000:
 isnew:
+Button:
 dd 00000000
 
 imageref:
-dd image
+dd 00000000
+
+image:
+dd 00000000
 
 variant:
 db 'variant' 00
@@ -142,7 +196,17 @@ dd 00000000 00000000
 dd 00000000 00000000
 dd 00000000 00000000
 
-image:
+ButtonListener:
+dd 00000000
+
+ButtonListener_Virtual:
+dd 00401000
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 0042FB50
+dd 00483370
 
 [DISABLE]
 </AssemblerScript>
@@ -161,6 +225,7 @@ createThread(701000)
     <CheatEntry>
       <ID>4</ID>
       <Description>"无描述"</Description>
+      <ShowAsHex>1</ShowAsHex>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>00702000</Address>
@@ -172,6 +237,14 @@ createThread(701000)
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>00702004</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"无描述"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00702008</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
