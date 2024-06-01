@@ -2,120 +2,8 @@
 <CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
-      <ID>0</ID>
-      <Description>"WidgetManager"</Description>
-      <ShowAsHex>1</ShowAsHex>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>6A9EC0</Address>
-      <Offsets>
-        <Offset>88</Offset>
-        <Offset>320</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>3</ID>
-      <Description>"Widget示例"</Description>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[ENABLE]
-dealloc(DeleteWidgetCode)
-
-alloc(MakeWidgetCode,2048)
-label(MakeWidget)
-CreateThread(MakeWidget)
-
-MakeWidgetCode:
-
-MakeWidget://创建控件
-sub esp,20
-
-push char
-lea ecx,[esp+04]
-call 00404450
-
-push eax
-lea ecx,[ButtonListener]
-mov [ecx],ButtonListener_Virtual
-push ecx
-push 00
-call 00448620
-add esp,0C
-
-mov [MineButton],eax
-
-mov ecx,[006A9EC0]
-mov ecx,[ecx+00000320]
-mov edx,[ecx]
-mov eax,[edx+0C]
-mov edx,[MineButton]
-push edx
-call eax
-
-mov ecx,[MineButton]
-push #50
-push #75
-mov edx,[ecx]
-push #250
-push #350
-mov eax,[edx+000000A0]
-call eax
-
-lea ecx,[esp]
-call 00404420
-
-add esp,20
-ret
-
-char:
-db 'Test' 00
-
-ButtonListener:
-dd 00000000
-
-ButtonListener_Virtual:
-dd 00401000
-dd 0042FB50
-dd 0042FB50
-dd 0042FB50
-dd 0042FB50
-dd 0042FB50
-dd 00483370
-
-00700000:
-MineButton:
-
-[DISABLE]
-dealloc(MakeWidgetCode)
-
-alloc(DeleteWidgetCode,2048)
-label(DeleteWidget)
-CreateThread(DeleteWidget)
-
-DeleteWidgetCode:
-
-DeleteWidget:
-mov ecx,[006A9EC0]
-mov ecx,[ecx+00000320]
-mov edx,[ecx]
-mov eax,[edx+10]
-mov edx,[MineButton]
-push edx
-call eax
-
-mov ecx,[MineButton]
-mov edx,[ecx]
-push 01
-mov eax,[edx+00]
-call eax
-ret
-
-00700000:
-MineButton:
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
       <ID>1</ID>
-      <Description>"Widget"</Description>
+      <Description>"生成按钮"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 700000:
@@ -204,6 +92,62 @@ ret 4
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
+      <ID>5</ID>
+      <Description>"加载贴图"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+700000:
+push variant
+mov ecx,variantstr
+call 404450
+push name
+mov ecx,namestr
+call 404450
+
+push isnew
+push variantstr
+push namestr
+push imageref
+mov ecx,[6A9EC0]
+mov edx,[ecx]
+mov edx,[edx+10C]
+call edx
+ret
+
+701000:
+ret
+
+702000:
+isnew:
+dd 00000000
+
+imageref:
+dd image
+
+variant:
+db 'variant' 00
+
+variantstr:
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+
+name:
+db 'images/test.png' 00
+
+namestr:
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+
+image:
+
+[DISABLE]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
       <ID>2</ID>
       <Description>"call"</Description>
       <VariableType>Auto Assembler Script</VariableType>
@@ -220,6 +164,14 @@ createThread(701000)
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>4 Bytes</VariableType>
       <Address>00702000</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"无描述"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>00702004</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
