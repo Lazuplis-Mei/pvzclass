@@ -14,29 +14,33 @@ namespace Sexy
 		DWORD MouseMoveListener = 0x483370;
 	};
 
+	typedef DWORD PButton;
+	typedef DWORD PButtonListener;
+
+	// 创建一个监听器
+	PButtonListener MakeListener(ButtonListener* listener);
+
 	// 创建一个按钮
-	// label：要显示的文本，以'\0'结尾
 	// listener：按钮事件监听器
 	// theId：一个按钮Id
-	// address：文本、虚函数表等的起始地址，需要在析构时释放内存
 	// 返回：按钮的地址
-	int MakeButton(const char* label, ButtonListener* listener, int theId, int& address);
+	PButton MakeButton(Draw::PString str, PButtonListener listener, int theId);
 
 	// 创建贴图按钮
 	// image**Address：对应状态的Image，使用Draw.h相关代码构建
 	// 返回：按钮的地址
-	int MakeImageButton(DWORD imageDownAddress, DWORD imageOverAddress, DWORD imageNormalAddress,
-		DWORD fontAddress, DWORD stringAddress, ButtonListener* listener, int theId, int& address);
+	PButton MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::PImage normal,
+		DWORD fontAddress, Draw::PString str, PButtonListener listener, int theId);
 
 	// 移除控件
-	void FreeButton(DWORD buttonAddress, DWORD address);
+	void FreeButton(PButton button);
 
 	// 重置按钮的大小
-	void ResizeButton(DWORD buttonAddress, int x, int y, int width, int height);
+	void ResizeButton(PButton button, int x, int y, int width, int height);
 
 	// 将控件加入Manager
-	void AddToManager(DWORD buttonAddress);
+	void AddToManager(PButton button);
 
 	// 将控件从Manager中移除
-	void RemoveFromManager(DWORD buttonAddress);
+	void RemoveFromManager(PButton button);
 }

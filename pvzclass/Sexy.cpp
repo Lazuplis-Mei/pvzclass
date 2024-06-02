@@ -1,5 +1,13 @@
 #include "Sexy.h"
 
+Sexy::PButtonListener Sexy::MakeListener(ButtonListener* listener)
+{
+	int address = PVZ::Memory::AllocMemory(0, 32);
+	PVZ::Memory::WriteMemory<int>(address, address + 4);
+	PVZ::Memory::WriteMemory<ButtonListener>(address + 4, *listener);
+	return address;
+}
+
 BYTE __asm__MakeButton[]
 {
 	PUSHDWORD(0),
@@ -11,17 +19,10 @@ BYTE __asm__MakeButton[]
 	RET
 };
 
-int Sexy::MakeButton(const char* label, ButtonListener* listener, int theId, int& address)
+Sexy::PButton Sexy::MakeButton(Draw::PString str, PButtonListener listener, int theId)
 {
-	int len = strlen(label) + 1;
-	int page = len / 0x400 + 1;
-	address = PVZ::Memory::AllocMemory(page * 2 + 1);
-	PVZ::Memory::WriteArray<const char>(address, label, len);
-	Draw::ToString(address, address + 0x400);
-	SETARG(__asm__MakeButton, 1) = address + 0x400;
-	PVZ::Memory::WriteMemory<DWORD>(address + 0x800, address + 0x810);
-	PVZ::Memory::WriteMemory<ButtonListener>(address + 0x810, *listener);
-	SETARG(__asm__MakeButton, 6) = address + 0x800;
+	SETARG(__asm__MakeButton, 1) = str;
+	SETARG(__asm__MakeButton, 6) = listener;
 	SETARG(__asm__MakeButton, 11) = theId;
 	SETARG(__asm__MakeButton, 32) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__MakeButton));
@@ -42,18 +43,15 @@ BYTE __asm__MakeImageButton[]
 	RET
 };
 
-int Sexy::MakeImageButton(DWORD imageDownAddress, DWORD imageOverAddress, DWORD imageNormalAddress,
-	DWORD fontAddress, DWORD stringAddress, ButtonListener* listener, int theId, int& address)
+Sexy::PButton Sexy::MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::PImage normal,
+	DWORD fontAddress, Draw::PString str, PButtonListener listener, int theId)
 {
-	SETARG(__asm__MakeImageButton, 1) = imageDownAddress;
-	SETARG(__asm__MakeImageButton, 6) = imageOverAddress;
-	SETARG(__asm__MakeImageButton, 11) = imageNormalAddress;
+	SETARG(__asm__MakeImageButton, 1) = down;
+	SETARG(__asm__MakeImageButton, 6) = over;
+	SETARG(__asm__MakeImageButton, 11) = normal;
 	SETARG(__asm__MakeImageButton, 16) = fontAddress;
-	SETARG(__asm__MakeImageButton, 21) = stringAddress;
-	address = PVZ::Memory::AllocMemory();
-	PVZ::Memory::WriteMemory<DWORD>(address, address + 0x10);
-	PVZ::Memory::WriteMemory<ButtonListener>(address + 0x10, *listener);
-	SETARG(__asm__MakeImageButton, 26) = address;
+	SETARG(__asm__MakeImageButton, 21) = str;
+	SETARG(__asm__MakeImageButton, 26) = listener;
 	SETARG(__asm__MakeImageButton, 31) = theId;
 	SETARG(__asm__MakeImageButton, 52) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__MakeImageButton));
@@ -69,11 +67,10 @@ BYTE __asm__FreeButton[]
 	RET
 };
 
-void Sexy::FreeButton(DWORD buttonAddress, DWORD address)
+void Sexy::FreeButton(PButton button)
 {
-	SETARG(__asm__FreeButton, 3) = buttonAddress;
+	SETARG(__asm__FreeButton, 3) = button;
 	PVZ::Memory::Execute(STRING(__asm__FreeButton));
-	PVZ::Memory::FreeMemory(address);
 }
 
 BYTE __asm__ResizeButton[]
@@ -89,13 +86,13 @@ BYTE __asm__ResizeButton[]
 	RET
 };
 
-void Sexy::ResizeButton(DWORD buttonAddress, int x, int y, int width, int height)
+void Sexy::ResizeButton(PButton button, int x, int y, int width, int height)
 {
 	SETARG(__asm__ResizeButton, 1) = height;
 	SETARG(__asm__ResizeButton, 6) = width;
 	SETARG(__asm__ResizeButton, 11) = y;
 	SETARG(__asm__ResizeButton, 16) = x;
-	SETARG(__asm__ResizeButton, 21) = buttonAddress;
+	SETARG(__asm__ResizeButton, 21) = button;
 	PVZ::Memory::Execute(STRING(__asm__ResizeButton));
 }
 
@@ -110,9 +107,9 @@ BYTE __asm__AddToManager[]
 	RET
 };
 
-void Sexy::AddToManager(DWORD buttonAddress)
+void Sexy::AddToManager(PButton button)
 {
-	SETARG(__asm__AddToManager, 1) = buttonAddress;
+	SETARG(__asm__AddToManager, 1) = button;
 	PVZ::Memory::Execute(STRING(__asm__AddToManager));
 }
 
@@ -127,8 +124,8 @@ BYTE __asm__RemoveFromManager[]
 	RET
 };
 
-void Sexy::RemoveFromManager(DWORD buttonAddress)
+void Sexy::RemoveFromManager(PButton button)
 {
-	SETARG(__asm__RemoveFromManager, 1) = buttonAddress;
+	SETARG(__asm__RemoveFromManager, 1) = button;
 	PVZ::Memory::Execute(STRING(__asm__RemoveFromManager));
 }

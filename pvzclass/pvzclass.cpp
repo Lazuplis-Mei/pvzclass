@@ -20,26 +20,22 @@ int main()
 	PlantRemoveEvent();
 	DrawUITopEvent();
 	Sexy::ButtonListener listener;
-	int address, buttonAddress;
-	int fromAddress = PVZ::Memory::AllocMemory();
-	int toAddress = fromAddress + 0x100;
-	int isnewAddress = fromAddress + 0x200;
-	int sharedImageRef = fromAddress + 0x210;
-	int imageAddress = fromAddress + 0x220;
-	BYTE filename[] = "images/test.png";
-	PVZ::Memory::WriteArray<BYTE>(fromAddress, STRING(filename));
-	Draw::ToString(fromAddress, toAddress);
-	Draw::GetSharedImage(isnewAddress, toAddress, toAddress, sharedImageRef);
-	imageAddress = Draw::SharedImageRefToImage(sharedImageRef);
-	buttonAddress = Sexy::MakeImageButton(imageAddress, imageAddress, imageAddress,
-		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), toAddress, &listener, 0, address);
-	Sexy::AddToManager(buttonAddress);
-	Sexy::ResizeButton(buttonAddress, 350, 250, 100, 100);
+	Sexy::PButtonListener plistener = Sexy::MakeListener(&listener);
+	Draw::PString filename = Draw::ToString("images/test.png");
+	int isnewAddress = PVZ::Memory::AllocMemory(0, 4);
+	Draw::PSharedImageRef imageRef = Draw::GetSharedImage(isnewAddress, filename, filename);
+	Draw::PImage image = Draw::SharedImageRefToImage(imageRef);
+	Sexy::PButton button = Sexy::MakeImageButton(image, image, image,
+		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), filename, plistener, 0);
+	Sexy::AddToManager(button);
+	Sexy::ResizeButton(button, 350, 250, 100, 100);
 	system("pause");
-	Sexy::RemoveFromManager(buttonAddress);
-	Sexy::FreeButton(buttonAddress, address);
-	Draw::FreeImage(sharedImageRef);
-	PVZ::Memory::FreeMemory(fromAddress);
+	Sexy::RemoveFromManager(button);
+	Sexy::FreeButton(button);
+	Draw::FreeImage(imageRef);
+	PVZ::Memory::FreeMemory(isnewAddress);
+	PVZ::Memory::FreeMemory(filename);
+	PVZ::Memory::FreeMemory(plistener);
 
 	PVZ::QuitPVZ();
 	return 0;
