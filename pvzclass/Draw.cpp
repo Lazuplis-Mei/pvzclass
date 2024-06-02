@@ -53,6 +53,56 @@ void Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD colorAddress, DWORD graphic
 	PVZ::Memory::Execute(STRING(__asm__SetColor));
 }
 
+BYTE __asm__GetSharedImage[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	MOV_ECX_PTR_ADDR(0x6A9EC0),
+	0x8B, 0x11, // mov edx,[ecx]
+	MOV_EUX_PTR_EVX_ADD(2, 2, 0x10C),
+	CALL_EUX(2),
+	RET
+};
+
+void Draw::GetSharedImage(DWORD isnewAddress, DWORD variantStringAddress, DWORD filenameStringAddress, DWORD sharedImageRef)
+{
+	SETARG(__asm__GetSharedImage, 1) = isnewAddress;
+	SETARG(__asm__GetSharedImage, 6) = variantStringAddress;
+	SETARG(__asm__GetSharedImage, 11) = filenameStringAddress;
+	SETARG(__asm__GetSharedImage, 16) = sharedImageRef;
+	PVZ::Memory::Execute(STRING(__asm__GetSharedImage));
+}
+
+BYTE __asm__SharedImageRefToImage[]
+{
+	MOV_ECX(0),
+	INVOKE(0x59A980),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+DWORD Draw::SharedImageRefToImage(DWORD sharedImageRef)
+{
+	SETARG(__asm__SharedImageRefToImage, 1) = sharedImageRef;
+	SETARG(__asm__SharedImageRefToImage, 19) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__SharedImageRefToImage));
+}
+
+BYTE __asm__FreeImage[]
+{
+	MOV_ESI(0),
+	INVOKE(0x59A8C0),
+	RET
+};
+
+void Draw::FreeImage(DWORD sharedImageRef)
+{
+	SETARG(__asm__FreeImage, 1) = sharedImageRef;
+	PVZ::Memory::Execute(STRING(__asm__FreeImage));
+}
+
 BYTE __asm__DrawString[]
 {
 	PUSHDWORD(0),

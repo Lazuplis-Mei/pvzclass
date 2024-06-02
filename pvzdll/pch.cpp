@@ -4,12 +4,24 @@
 
 // 当使用预编译的头时，需要使用此源文件，编译才能成功。
 
+int fromAddress, toAddress, isnewAddress, sharedImageRef, imageAddress;
 void init()
 {
 	PVZ::Memory::localExecute = true;
 	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 	PVZ::Memory::immediateExecute = true;
+
+	fromAddress = PVZ::Memory::AllocMemory();
+	toAddress = fromAddress + 0x100;
+	isnewAddress = fromAddress + 0x200;
+	sharedImageRef = fromAddress + 0x210;
+	imageAddress = fromAddress + 0x220;
+	BYTE filename[] = "images/test.png";
+	PVZ::Memory::WriteArray<BYTE>(fromAddress, STRING(filename));
+	Draw::ToString(fromAddress, toAddress);
+	Draw::GetSharedImage(isnewAddress, toAddress, toAddress, sharedImageRef);
+	imageAddress = Draw::SharedImageRefToImage(sharedImageRef);
 }
 
 void onCoinCollect(DWORD coinAddress)
@@ -44,18 +56,27 @@ void onDrawUITop(DWORD graphics)
 	Draw::StringWidth(stringAddress, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
 	Draw::SetColor(255, 255, 255, (DWORD)(address + 0x200), graphics);
 	Draw::DrawString(400, 300, stringAddress, graphics);
-	Draw::DrawImage(100, 100, PVZ::Memory::ReadMemory<DWORD>(0x6A7784), graphics);
+	Draw::DrawImage(100, 100, imageAddress, graphics);
 	Draw::DrawLine(1, 600, 800, 1, graphics);
 	Draw::DrawRect(100, 400, 200, 100, graphics);
 	Draw::FillRect(500, 100, 100, 200, graphics);
 }
 
+void __stdcall listenerFunc(int id)
+{
+	Creator::CreateCaption("Press!\0", 8, CaptionStyle::BottomWhite);
+}
+
+int tempAddress, buttonAddress;
+Sexy::ButtonListener listener;
 void onPlantCreate(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	char s[64];
-	sprintf(s, "%s created!\0", PlantType::ToString(plant->Type));
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	listener.PressListener1 = (int)listenerFunc;
+	buttonAddress = Sexy::MakeImageButton(imageAddress, imageAddress, imageAddress,
+		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), toAddress, &listener, 0, tempAddress);
+	Sexy::AddToManager(buttonAddress);
+	Sexy::ResizeButton(buttonAddress, 100, 100, 100, 50);
 }
 
 int onPlantReload(DWORD plantAddress, int cd)
@@ -79,9 +100,8 @@ void onPlantShoot(DWORD plantAddress)
 void onPlantRemove(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	char s[64];
-	sprintf(s, "%s removed!\0", PlantType::ToString(plant->Type));
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	Sexy::RemoveFromManager(buttonAddress);
+	Sexy::FreeButton(buttonAddress, tempAddress);
 }
 
 void onPeaOnFire(DWORD projectileAddress)

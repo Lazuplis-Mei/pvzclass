@@ -243,6 +243,7 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Events\VaseOpenEvent.cpp" />
+    <ClCompile Include="Sexy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
@@ -325,6 +326,7 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
+    <ClInclude Include="Sexy.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />
     <ClInclude Include="Events\ZombieButterEvent.h" />

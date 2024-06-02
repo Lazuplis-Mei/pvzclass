@@ -15,6 +15,15 @@ namespace Draw
 	// 设置字体颜色
 	void SetColor(DWORD r, DWORD g, DWORD b, DWORD colorAddress, DWORD graphics);
 
+	// 从指定路径加载图像文件
+	void GetSharedImage(DWORD isnewAddress, DWORD variantStringAddress, DWORD filenameStringAddress, DWORD sharedImageRef);
+
+	// 将sharedImageRef转换为Image*返回
+	DWORD SharedImageRefToImage(DWORD sharedImageRef);
+
+	// 释放图像文件资源
+	void FreeImage(DWORD sharedImageRef);
+
 	// 在指定位置绘制字体
 	void DrawString(DWORD x, DWORD y, DWORD stringAddress, DWORD graphics);
 
