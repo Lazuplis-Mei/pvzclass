@@ -18,6 +18,7 @@ int main()
 
 	PlantCreateEvent();
 	PlantRemoveEvent();
+	DrawUITopEvent();
 	Sexy::ButtonListener listener;
 	int address, buttonAddress;
 	int fromAddress = PVZ::Memory::AllocMemory();
