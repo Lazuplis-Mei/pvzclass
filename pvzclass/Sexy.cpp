@@ -110,9 +110,9 @@ BYTE __asm__AddToManager[]
 	RET
 };
 
-void Sexy::AddToManager(DWORD address)
+void Sexy::AddToManager(DWORD buttonAddress)
 {
-	SETARG(__asm__AddToManager, 1) = address;
+	SETARG(__asm__AddToManager, 1) = buttonAddress;
 	PVZ::Memory::Execute(STRING(__asm__AddToManager));
 }
 
@@ -127,8 +127,8 @@ BYTE __asm__RemoveFromManager[]
 	RET
 };
 
-void Sexy::RemoveFromManager(DWORD address)
+void Sexy::RemoveFromManager(DWORD buttonAddress)
 {
-	SETARG(__asm__RemoveFromManager, 1) = address;
+	SETARG(__asm__RemoveFromManager, 1) = buttonAddress;
 	PVZ::Memory::Execute(STRING(__asm__RemoveFromManager));
 }

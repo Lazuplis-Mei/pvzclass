@@ -35,8 +35,8 @@ namespace Sexy
 	void ResizeButton(DWORD buttonAddress, int x, int y, int width, int height);
 
 	// 将控件加入Manager
-	void AddToManager(DWORD address);
+	void AddToManager(DWORD buttonAddress);
 
 	// 将控件从Manager中移除
-	void RemoveFromManager(DWORD address);
+	void RemoveFromManager(DWORD buttonAddress);
 }
