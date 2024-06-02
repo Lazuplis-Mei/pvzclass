@@ -4,6 +4,7 @@
 
 * 经过目前实测，你可以使用 **Visual Studio 2019 (v142平台工具集)** 或者 **Visual Studio 2022 (v143平台工具集)** 来编译这个框架
 * 默认情况下，项目使用 **Visual Studio 2022 (v143平台工具集)**
+* 建议使用 **x86 Release** 方式构建框架
 * 框架仅能完全适用于**1.0.0.1051版本**的游戏
 * 程序从pvzclass.cpp的main函数开始运行，你可以直接在里面修改，编写你的程序，也可以用如下的格式构建
 
@@ -111,6 +112,8 @@ PVZ::Memory::InjectDll("yourdll.dll");
 ```
 
 * 静态字段 `mainwindowhandle` 是游戏的窗口句柄
+* `immediateExecute` 用于控制远程执行指令 `Execute` 函数是否立即执行，否则会等到游戏运行到一个安全的地方再执行，以降低游戏崩溃的风险
+* `localExecute` 用于控制远程执行指令是否在本线程执行而非远程线程，可以提高运行效率，需要与 DLL 注入等方式配合使用
 
 ### 关于 SPT 宏
 
@@ -254,8 +257,8 @@ std::vector<SPT<PVZ::Zombie>> zombies = PVZ::GetBoard()->GetAllZombies();
 ### 关于 Events
 
 - 全面更新过的事件组件
-- 详情请查阅[这篇文档](./pvzclass/Events/Events说明.md)。
+- 详情请查阅[这篇文档](Events说明.md)。
 
 ## 怎么用？
 
-pvzclass.cpp。
+可以参考某个模块更新时相同 commit 中的 pvzclass.cpp 和 pch.cpp。
