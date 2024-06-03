@@ -58,6 +58,12 @@ void onDrawUITop(DWORD graphics)
 	Draw::FillRect(500, 100, 100, 200, graphics);
 }
 
+void onNewGame()
+{
+	auto app = PVZ::GetPVZApp();
+	app->LevelId = PVZLevel::Ice_Level;
+}
+
 void __stdcall listenerFunc(int id)
 {
 	Creator::CreateCaption("Press!\0", 8, CaptionStyle::BottomWhite);
