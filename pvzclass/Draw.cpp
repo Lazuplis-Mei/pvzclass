@@ -1,6 +1,8 @@
 #include "Draw.h"
 #include <iostream>
 
+BYTE Draw::color[16];
+
 BYTE __asm__ToString[]
 {
 	PUSHDWORD(0),
@@ -49,16 +51,14 @@ BYTE __asm__SetColor[]
 	RET
 };
 
-Draw::PColor Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics)
+void Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics)
 {
 	SETARG(__asm__SetColor, 1) = r;
 	SETARG(__asm__SetColor, 6) = g;
 	SETARG(__asm__SetColor, 11) = b;
-	PColor color = PVZ::Memory::AllocMemory(0, 0x10);
-	SETARG(__asm__SetColor, 16) = color;
+	SETARG(__asm__SetColor, 16) = (int)color;
 	SETARG(__asm__SetColor, 34) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__SetColor));
-	return color;
 }
 
 BYTE __asm__GetSharedImage[]

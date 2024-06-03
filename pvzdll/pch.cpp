@@ -44,13 +44,11 @@ void onCoinRemove(DWORD coinAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
-Draw::PColor color = 0;
 void onDrawUITop(DWORD graphics)
 {
 	Draw::PString label = Draw::ToString("Hello, world!\0");
 	Draw::StringWidth(label, PVZ::Memory::ReadMemory<DWORD>(0x6A7224));
-	if (color) PVZ::Memory::FreeMemory(color);
-	color = Draw::SetColor(255, 255, 255, graphics);
+	Draw::SetColor(255, 255, 255, graphics);
 	Draw::DrawString(400, 300, label, graphics);
 	Draw::DrawImage(100, 100, image, graphics);
 	Draw::DrawLine(1, 600, 800, 1, graphics);

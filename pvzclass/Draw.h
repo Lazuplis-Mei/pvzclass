@@ -7,9 +7,9 @@
 namespace Draw
 {
 	typedef DWORD PString;
-	typedef DWORD PColor;
 	typedef DWORD PSharedImageRef;
 	typedef DWORD PImage;
+	extern BYTE color[16];
 
 	// 将字符数组转化为字符串
 	PString ToString(const char* str);
@@ -18,7 +18,7 @@ namespace Draw
 	void StringWidth(PString str, DWORD imageFontAddress);
 
 	// 设置字体颜色
-	PColor SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics);
+	void SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics);
 
 	// 从指定路径加载图像文件
 	// isnewAddress存放了这个图像文件是否已经存在

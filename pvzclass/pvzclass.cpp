@@ -19,6 +19,7 @@ int main()
 	DisableIceLevelFailSound();
 
 	NewGameEvent();
+	DrawUITopEvent();
 	system("pause");
 
 	PVZ::QuitPVZ();
