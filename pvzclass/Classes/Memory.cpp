@@ -85,8 +85,9 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 		byte* code = new byte[length + 2];
 		code[0] = PUSHAD;
 		memcpy(code + 1, asmCode, length);
-		code[length + 1] = POPAD;
-		void (*func)() = (void (*)())asmCode;
+		code[length] = POPAD;
+		code[length + 1] = RET;
+		void (*func)() = (void (*)())code;
 		func();
 		return ReadMemory<int>(Variable);
 	}
