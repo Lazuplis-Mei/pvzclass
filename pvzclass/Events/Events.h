@@ -2,6 +2,7 @@
 #include "CoinCollectEvent.h"
 #include "CoinCreateEvent.h"
 #include "CoinRemoveEvent.h"
+#include "DialogButtonDepressEvent.h"
 #include "DrawUITopEvent.h"
 #include "NewGameEvent.h"
 #include "PlantCreateEvent.h"

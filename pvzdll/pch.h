@@ -18,6 +18,7 @@ extern "C"
 	__declspec(dllexport) void onCoinCollect(DWORD coinAddress);
 	__declspec(dllexport) void onCoinCreate(DWORD coinAddress);
 	__declspec(dllexport) void onCoinRemove(DWORD coinAddress);
+	__declspec(dllexport) int onDialogButtonDepress(int buttonId, int dialogId);
 	__declspec(dllexport) void onDrawUITop(DWORD graphics);
 	__declspec(dllexport) void onNewGame();
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);

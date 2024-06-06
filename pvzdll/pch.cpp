@@ -44,6 +44,14 @@ void onCoinRemove(DWORD coinAddress)
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
+int onDialogButtonDepress(int buttonId, int dialogId)
+{
+	char s[64];
+	sprintf(s, "ButtonId: %d  DialogId: %d\0", buttonId, dialogId);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	return 1;
+}
+
 void onDrawUITop(DWORD graphics)
 {
 	Draw::PString label = Draw::ToString("Hello, world!\0");

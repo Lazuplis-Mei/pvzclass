@@ -212,6 +212,70 @@ dd 00483370
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
+      <ID>8</ID>
+      <Description>"Dialog"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+700000:
+push strc
+mov ecx,strstd
+call 404450
+
+push 1
+push strstd
+push strstd
+push strstd
+push 1
+push 0
+mov ecx,[6A9EC0]
+mov edx,[ecx]
+mov edx,[edx+64]
+call edx
+mov [dialog],eax
+
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+0C]
+call edx
+ret
+
+701000:
+mov eax,[dialog]
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+10]
+call edx
+
+push 01
+mov ecx,[dialog]
+mov edx,[ecx]
+mov edx,[edx+00]
+call edx
+ret
+
+702000:
+dialog:
+dd 00000000
+dd 00000000
+dd 00000000
+
+strc:
+db 'Hello, world!' 00
+
+strstd:
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+dd 00000000 00000000
+
+[DISABLE]
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
       <ID>2</ID>
       <Description>"call"</Description>
       <VariableType>Auto Assembler Script</VariableType>

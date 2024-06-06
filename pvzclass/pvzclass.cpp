@@ -20,6 +20,7 @@ int main()
 
 	NewGameEvent();
 	DrawUITopEvent();
+	DialogButtonDepressEvent();
 	system("pause");
 
 	PVZ::QuitPVZ();
