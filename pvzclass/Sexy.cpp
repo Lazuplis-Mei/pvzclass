@@ -57,7 +57,36 @@ Sexy::PButton Sexy::MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::
 	return PVZ::Memory::Execute(STRING(__asm__MakeImageButton));
 }
 
-BYTE __asm__FreeButton[]
+BYTE __asm__MakeDialog[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	MOV_ECX_PTR_ADDR(0x6A9EC0),
+	0x8B, 0x11, // mov edx,[ecx]
+	MOV_EUX_PTR_EVX_ADD(2, 2, 0x64),
+	CALL_EUX(2),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+Sexy::PDialog Sexy::MakeDialog(int buttonMode, Draw::PString footer, Draw::PString lines,
+	Draw::PString header, int modal, int dialogId)
+{
+	SETARG(__asm__MakeDialog, 1) = buttonMode;
+	SETARG(__asm__MakeDialog, 6) = footer;
+	SETARG(__asm__MakeDialog, 11) = lines;
+	SETARG(__asm__MakeDialog, 16) = header;
+	SETARG(__asm__MakeDialog, 21) = modal;
+	SETARG(__asm__MakeDialog, 26) = dialogId;
+	SETARG(__asm__MakeDialog, 47) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__MakeDialog));
+}
+
+BYTE __asm__FreeWidget[]
 {
 	PUSH(1),
 	MOV_ECX(0),
@@ -67,10 +96,10 @@ BYTE __asm__FreeButton[]
 	RET
 };
 
-void Sexy::FreeButton(PButton button)
+void Sexy::FreeWidget(PWidget widget)
 {
-	SETARG(__asm__FreeButton, 3) = button;
-	PVZ::Memory::Execute(STRING(__asm__FreeButton));
+	SETARG(__asm__FreeWidget, 3) = widget;
+	PVZ::Memory::Execute(STRING(__asm__FreeWidget));
 }
 
 BYTE __asm__ResizeButton[]
@@ -107,9 +136,9 @@ BYTE __asm__AddToManager[]
 	RET
 };
 
-void Sexy::AddToManager(PButton button)
+void Sexy::AddToManager(PWidget widget)
 {
-	SETARG(__asm__AddToManager, 1) = button;
+	SETARG(__asm__AddToManager, 1) = widget;
 	PVZ::Memory::Execute(STRING(__asm__AddToManager));
 }
 
@@ -124,8 +153,8 @@ BYTE __asm__RemoveFromManager[]
 	RET
 };
 
-void Sexy::RemoveFromManager(PButton button)
+void Sexy::RemoveFromManager(PWidget widget)
 {
-	SETARG(__asm__RemoveFromManager, 1) = button;
+	SETARG(__asm__RemoveFromManager, 1) = widget;
 	PVZ::Memory::Execute(STRING(__asm__RemoveFromManager));
 }

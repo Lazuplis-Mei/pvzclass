@@ -49,7 +49,7 @@ int onDialogButtonDepress(int buttonId, int dialogId)
 	char s[64];
 	sprintf(s, "ButtonId: %d  DialogId: %d\0", buttonId, dialogId);
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
-	return 1;
+	return 0;
 }
 
 void onDrawUITop(DWORD graphics)
@@ -111,7 +111,7 @@ void onPlantRemove(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
 	Sexy::RemoveFromManager(button);
-	Sexy::FreeButton(button);
+	Sexy::FreeWidget(button);
 	PVZ::Memory::FreeMemory(plistener);
 }
 
