@@ -256,8 +256,10 @@
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
+    <ClInclude Include="Events\DialogButtonDepressEvent.h" />
     <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\Events.h" />
+    <ClInclude Include="Events\NewGameEvent.h" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\TemplateEvent.h" />
     <ClInclude Include="Events\EventHandler.h" />

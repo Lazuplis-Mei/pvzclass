@@ -38,17 +38,17 @@ BOOL PVZ::Memory::AllAccess(int address)
 	}
 }
 
-int PVZ::Memory::AllocMemory(int pages)
+int PVZ::Memory::AllocMemory(int pages, int size)
 {
 	if (localExecute)
 	{
-		BYTE* page = new BYTE[PAGE_SIZE * pages];
+		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
 		AllAccess((int)page);
 		return (int)page;
 	}
 	else
 	{
-		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	}
 }
 
@@ -82,8 +82,12 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 {
 	if (localExecute)
 	{
-		AllAccess((int)asmCode);
-		void (*func)() = (void (*)())asmCode;
+		byte* code = new byte[length + 2];
+		code[0] = PUSHAD;
+		memcpy(code + 1, asmCode, length);
+		code[length] = POPAD;
+		code[length + 1] = RET;
+		void (*func)() = (void (*)())code;
 		func();
 		return ReadMemory<int>(Variable);
 	}

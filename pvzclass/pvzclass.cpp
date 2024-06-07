@@ -15,31 +15,17 @@ int main()
 	PVZ::Memory::InjectDll("pvzdll.dll");
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
+	DisableInitialLawnmover();
+	DisableIceLevelFailSound();
 
-	PlantCreateEvent();
-	PlantRemoveEvent();
-	DrawUITopEvent();
-	Sexy::ButtonListener listener;
-	int address, buttonAddress;
-	int fromAddress = PVZ::Memory::AllocMemory();
-	int toAddress = fromAddress + 0x100;
-	int isnewAddress = fromAddress + 0x200;
-	int sharedImageRef = fromAddress + 0x210;
-	int imageAddress = fromAddress + 0x220;
-	BYTE filename[] = "images/test.png";
-	PVZ::Memory::WriteArray<BYTE>(fromAddress, STRING(filename));
-	Draw::ToString(fromAddress, toAddress);
-	Draw::GetSharedImage(isnewAddress, toAddress, toAddress, sharedImageRef);
-	imageAddress = Draw::SharedImageRefToImage(sharedImageRef);
-	buttonAddress = Sexy::MakeImageButton(imageAddress, imageAddress, imageAddress,
-		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), toAddress, &listener, 0, address);
-	Sexy::AddToManager(buttonAddress);
-	Sexy::ResizeButton(buttonAddress, 350, 250, 100, 100);
 	system("pause");
-	Sexy::RemoveFromManager(buttonAddress);
-	Sexy::FreeButton(buttonAddress, address);
-	Draw::FreeImage(sharedImageRef);
-	PVZ::Memory::FreeMemory(fromAddress);
+	DialogButtonDepressEvent();
+	Draw::PString str = Draw::ToString("Hello, world!\0");
+	Sexy::PDialog dialog = Sexy::MakeDialog(1, str, str, str, 0, 100);
+	Sexy::AddToManager(dialog);
+	system("pause");
+	Sexy::RemoveFromManager(dialog);
+	Sexy::FreeWidget(dialog);
 
 	PVZ::QuitPVZ();
 	return 0;

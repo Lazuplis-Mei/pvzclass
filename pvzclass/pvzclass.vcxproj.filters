@@ -545,6 +545,12 @@
     <ClInclude Include="Sexy.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\NewGameEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DialogButtonDepressEvent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

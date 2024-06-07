@@ -1,6 +1,8 @@
 #include "Draw.h"
 #include <iostream>
 
+BYTE Draw::color[16];
+
 BYTE __asm__ToString[]
 {
 	PUSHDWORD(0),
@@ -9,11 +11,17 @@ BYTE __asm__ToString[]
 	RET
 };
 
-void Draw::ToString(DWORD fromAddress, DWORD toAddress)
+Draw::PString Draw::ToString(const char* str)
 {
+	int len = strlen(str);
+	DWORD fromAddress = PVZ::Memory::AllocMemory(0, len + 1);
+	PVZ::Memory::WriteArray<const char>(fromAddress, str, len + 1);
+	PString toAddress = PVZ::Memory::AllocMemory(0, 0x1C);
 	SETARG(__asm__ToString, 1) = fromAddress;
 	SETARG(__asm__ToString, 6) = toAddress;
 	PVZ::Memory::Execute(STRING(__asm__ToString));
+	PVZ::Memory::FreeMemory(fromAddress);
+	return toAddress;
 }
 
 BYTE __asm__StringWidth[]
@@ -24,9 +32,9 @@ BYTE __asm__StringWidth[]
 	RET
 };
 
-void Draw::StringWidth(DWORD stringAddress, DWORD imageFontAddress)
+void Draw::StringWidth(PString str, DWORD imageFontAddress)
 {
-	SETARG(__asm__StringWidth, 1) = stringAddress;
+	SETARG(__asm__StringWidth, 1) = str;
 	SETARG(__asm__StringWidth, 6) = imageFontAddress;
 	PVZ::Memory::Execute(STRING(__asm__StringWidth));
 }
@@ -43,12 +51,12 @@ BYTE __asm__SetColor[]
 	RET
 };
 
-void Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD colorAddress, DWORD graphics)
+void Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics)
 {
 	SETARG(__asm__SetColor, 1) = r;
 	SETARG(__asm__SetColor, 6) = g;
 	SETARG(__asm__SetColor, 11) = b;
-	SETARG(__asm__SetColor, 16) = colorAddress;
+	SETARG(__asm__SetColor, 16) = (int)color;
 	SETARG(__asm__SetColor, 34) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__SetColor));
 }
@@ -66,13 +74,15 @@ BYTE __asm__GetSharedImage[]
 	RET
 };
 
-void Draw::GetSharedImage(DWORD isnewAddress, DWORD variantStringAddress, DWORD filenameStringAddress, DWORD sharedImageRef)
+Draw::PSharedImageRef Draw::GetSharedImage(DWORD isnewAddress, PString variant, PString filename)
 {
 	SETARG(__asm__GetSharedImage, 1) = isnewAddress;
-	SETARG(__asm__GetSharedImage, 6) = variantStringAddress;
-	SETARG(__asm__GetSharedImage, 11) = filenameStringAddress;
-	SETARG(__asm__GetSharedImage, 16) = sharedImageRef;
+	SETARG(__asm__GetSharedImage, 6) = variant;
+	SETARG(__asm__GetSharedImage, 11) = filename;
+	PSharedImageRef imageRef = PVZ::Memory::AllocMemory(0, 4);
+	SETARG(__asm__GetSharedImage, 16) = imageRef;
 	PVZ::Memory::Execute(STRING(__asm__GetSharedImage));
+	return imageRef;
 }
 
 BYTE __asm__SharedImageRefToImage[]
@@ -83,9 +93,9 @@ BYTE __asm__SharedImageRefToImage[]
 	RET
 };
 
-DWORD Draw::SharedImageRefToImage(DWORD sharedImageRef)
+Draw::PImage Draw::SharedImageRefToImage(PSharedImageRef imageRef)
 {
-	SETARG(__asm__SharedImageRefToImage, 1) = sharedImageRef;
+	SETARG(__asm__SharedImageRefToImage, 1) = imageRef;
 	SETARG(__asm__SharedImageRefToImage, 19) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__SharedImageRefToImage));
 }
@@ -97,9 +107,9 @@ BYTE __asm__FreeImage[]
 	RET
 };
 
-void Draw::FreeImage(DWORD sharedImageRef)
+void Draw::FreeImage(PSharedImageRef imageRef)
 {
-	SETARG(__asm__FreeImage, 1) = sharedImageRef;
+	SETARG(__asm__FreeImage, 1) = imageRef;
 	PVZ::Memory::Execute(STRING(__asm__FreeImage));
 }
 
@@ -113,11 +123,11 @@ BYTE __asm__DrawString[]
 	RET
 };
 
-void Draw::DrawString(DWORD x, DWORD y, DWORD stringAddress, DWORD graphics)
+void Draw::DrawString(DWORD x, DWORD y, PString str, DWORD graphics)
 {
 	SETARG(__asm__DrawString, 1) = y;
 	SETARG(__asm__DrawString, 6) = x;
-	SETARG(__asm__DrawString, 11) = stringAddress;
+	SETARG(__asm__DrawString, 11) = str;
 	SETARG(__asm__DrawString, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawString));
 }
@@ -132,11 +142,11 @@ BYTE __asm__DrawImage[]
 	RET
 };
 
-void Draw::DrawImage(DWORD x, DWORD y, DWORD imageAddress, DWORD graphics)
+void Draw::DrawImage(DWORD x, DWORD y, PImage image, DWORD graphics)
 {
 	SETARG(__asm__DrawImage, 1) = y;
 	SETARG(__asm__DrawImage, 6) = x;
-	SETARG(__asm__DrawImage, 11) = imageAddress;
+	SETARG(__asm__DrawImage, 11) = image;
 	SETARG(__asm__DrawImage, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawImage));
 }
