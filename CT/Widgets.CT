@@ -213,7 +213,7 @@ dd 00483370
     </CheatEntry>
     <CheatEntry>
       <ID>8</ID>
-      <Description>"Dialog"</Description>
+      <Description>"Dialog+Edit"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
 700000:
@@ -233,6 +233,29 @@ mov edx,[edx+64]
 call edx
 mov [dialog],eax
 
+push eax
+push 657BDC
+call 4567B0
+add esp,8
+mov [edit],eax
+
+push #50
+push #100
+push #300
+push #400
+mov ecx,[edit]
+mov edx,[ecx]
+mov edx,[edx+A0]
+call edx
+
+mov eax,[edit]
+push eax
+mov ecx,[dialog]
+mov edx,[ecx]
+mov edx,[edx+C]
+call edx
+
+mov eax,[dialog]
 push eax
 mov ecx,[6A9EC0]
 mov ecx,[ecx+320]
@@ -260,6 +283,8 @@ ret
 702000:
 dialog:
 dd 00000000
+
+edit:
 dd 00000000
 dd 00000000
 
