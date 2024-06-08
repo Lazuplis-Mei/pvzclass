@@ -314,6 +314,49 @@ createThread(701000)
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
+      <ID>9</ID>
+      <Description>"Edit背景"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+53D180:
+jmp 703000
+nop
+return:
+
+703000:
+pushad
+
+push rect
+mov edx,[ecx]
+mov edx,[edx+04]
+call edx
+
+mov ebx,eax
+mov eax,[6A7890]
+push [esp+24]
+call 587900
+
+popad
+push ebp
+mov ebp,esp
+and esp,-08
+jmp return
+
+704000:
+rect:
+dd 00000000
+dd 00000000
+dd 00000000
+dd 00000000
+
+[DISABLE]
+53D180:
+push ebp
+mov ebp,esp
+and esp,-08
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
       <ID>4</ID>
       <Description>"无描述"</Description>
       <ShowAsHex>1</ShowAsHex>
