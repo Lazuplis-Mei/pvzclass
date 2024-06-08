@@ -276,6 +276,9 @@
     <ClCompile Include="Mixin.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="itab.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -555,6 +558,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Mixin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="itab.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

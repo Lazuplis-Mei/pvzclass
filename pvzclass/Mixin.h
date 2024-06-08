@@ -3,8 +3,57 @@
 #pragma once
 
 #include "PVZ.h"
+#include "itab.h"
 
 namespace PVZ {
+	// 由于pvz指令集采取x86,所以此处不考虑64位指令
+
+	/**
+	 * @brief Intel指令前缀
+	*/
+	struct Prefixes {
+		BYTE lock;
+		BYTE repeat;
+		BYTE segment;
+		BYTE operand;
+		BYTE address;
+	};
+
+	/**
+	 * @brief Intel指令操作码
+	*/
+	struct Opcode {
+		BYTE byte1;
+		BYTE byte2;
+		BYTE byte3;
+	};
+
+	struct ModRM {
+		BYTE mod;
+		BYTE reg;
+		BYTE rm;
+	};
+
+	struct SIB {
+		BYTE scale;
+		BYTE index;
+		BYTE base;
+	};
+
+	/**
+	 * @brief Intel指令解析结果
+	*/
+	struct InsAnalysis {
+		size_t len;
+
+		Prefixes pfx;
+
+		Opcode opc;
+
+		ModRM modrm;
+		SIB sib;
+	};
+
 	/**
 	 * @brief Mixin命名空间 提供对PVZ代码的修改功能的封装
 	*/
@@ -23,5 +72,13 @@ namespace PVZ {
 		 * @return false代表替换失败, true代表替换成功
 		*/
 		bool Modify(int region_start, int region_end, BYTE* code, size_t code_len);
+
+		/**
+		 * @brief 取指令
+		 * @param ins_addr 指令地址
+		 * @param ins_data 指令数据
+		 * @return 指令解析结果
+		*/
+		InsAnalysis Fetch(int ins_addr, BYTE *ins_data);
 	}
 }
