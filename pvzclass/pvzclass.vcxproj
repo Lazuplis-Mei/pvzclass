@@ -188,6 +188,7 @@
     <ClCompile Include="Classes\Widget.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
+    <ClCompile Include="Decode.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="Events\PlantSquishEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />
     <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
+    <ClCompile Include="itab.cpp" />
     <ClCompile Include="Mixin.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
@@ -316,6 +318,7 @@
     <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="Events\PlantReloadEvent.h" />
+    <ClInclude Include="itab.h" />
     <ClInclude Include="Mixin.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />

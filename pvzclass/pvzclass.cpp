@@ -7,24 +7,33 @@
 using std::cout;
 using std::endl;
 
-int main()
-{
-	DWORD pid = ProcessOpener::Open();
-	if (!pid) return 1;
-	PVZ::InitPVZ(pid);
-
-	PVZ::Memory::immediateExecute = true;
-	PVZ::Memory::InjectDll("pvzdll.dll");
-	PVZ::Memory::InvokeDllProc("init");
-	EnableBackgroundRunning();
-
+void testbenchA() {
 	//DisableInitialLawnmover();
 	// jmp +0x87
 	BYTE CODE[] = { JMPFAR(0x87) };
 
+	const int FunctionAddress = 0x40BC70;
 	// 0x40BC70: Board::InitLawnMowers(Board* this)
-	PVZ::Mixin::Modify(0x40BC70 + 0x1C, 0x40BC70 + 0x21, CODE, 5);
+	PVZ::Mixin::Modify(FunctionAddress + 0x1C, FunctionAddress + 0x21, CODE, 5);
 
+	PVZ::Mixin::InsAnalysis ins = PVZ::Mixin::Fetch(0x40BBA4, NULL);
+	printf("%#08X:", 0x40BBA4);
+	cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
+	int CurrentAddress = 0x40BBA4;
+	for (int i = 0; i < 20; i++) {
+		CurrentAddress += ins.len;
+		ins = PVZ::Mixin::Fetch(CurrentAddress, NULL);
+		printf("%#08X:", CurrentAddress);
+		cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
+	}
+}
+
+void testbenchB() {
+	PVZ::Memory::immediateExecute = true;
+	PVZ::Memory::InjectDll("pvzdll.dll");
+	PVZ::Memory::InvokeDllProc("init");
+	EnableBackgroundRunning();
+	DisableInitialLawnmover();
 	DisableIceLevelFailSound();
 
 	system("pause");
@@ -35,6 +44,17 @@ int main()
 	system("pause");
 	Sexy::RemoveFromManager(dialog);
 	Sexy::FreeWidget(dialog);
+}
+
+int main()
+{
+	DWORD pid = ProcessOpener::Open();
+	if (!pid) return 1;
+	PVZ::InitPVZ(pid);
+
+	testbenchA();
+	//testbenchB();
+	system("pause");
 
 	PVZ::QuitPVZ();
 	return 0;
