@@ -1044,6 +1044,8 @@ enum MnemonicCode {
     MC_PAUSE
 };
 
+// 助记名表 
+extern const char *Mnemonics[];
 
 // 查询表表项 
 struct LookupTableEntry {

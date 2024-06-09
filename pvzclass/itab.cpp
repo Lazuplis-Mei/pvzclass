@@ -11389,6 +11389,7 @@ InstructionDefinition InstructionTable[] = {
   /* 1760 */ {MC_VPSLLQ,           OpDefs::H,    OpDefs::V,    OpDefs::W,    OpDefs::NONE , PfxBits::aso  |PfxBits::rexr |PfxBits::rexx |PfxBits::rexb                                              },
 };
 
+
 const char* Mnemonics[] = {
     "aaa",
     "aad",
