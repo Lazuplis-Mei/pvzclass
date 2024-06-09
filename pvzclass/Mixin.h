@@ -120,12 +120,16 @@ namespace PVZ {
 		};
 		/**
 		 * @brief 将长度为bufsz的buf中的第一条指令进行解码
+		 * 
+		 * 暂时不能解析一些SSE指令与64位指令
+		 * 
 		 * @param buf 缓存
 		 * @param bufsz 缓存长度
 		 * @param ins 指令 
 		 * @return false为解码失败,true为解码成功
 		*/
 		bool Decode(BYTE *buf, size_t bufsz, InsAnalysis *ins);
+
 		/**
 		 * @brief 修改PVZ程序的某段代码
 		 * 
@@ -148,5 +152,28 @@ namespace PVZ {
 		 * @return 指令解析结果
 		*/
 		InsAnalysis Fetch(int ins_addr, BYTE *ins_data);
+
+		/**
+		 * @brief 扫描某个区域 找到首个matcher接受的指令的地址
+		 * @tparam MatchFunc 匹配函数 应当接收一个InsAnalysis的参数 返回一个bool的结果
+		 * @param matcher 匹配函数
+		 * @param region_start 区域起始
+		 * @param region_end 区域结束
+		 * @return 
+		*/
+		template<typename MatchFunc>
+		int Scan(MatchFunc matcher, int region_start, int region_end) {
+			int cur = region_start;
+			while (cur < region_end) {
+				InsAnalysis ins = Fetch(cur, NULL);
+
+				if (matcher(ins)) {
+					return cur;
+				}
+
+				cur += ins.len;
+			}
+			return 0;
+		}
 	}
 }

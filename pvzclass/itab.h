@@ -134,7 +134,8 @@ enum class ITabType {
 
 // Öú¼Ç·û 
 enum MnemonicCode {
-    MC_AAA,
+    MC_ANY = -1,
+    MC_AAA = 0,
     MC_AAD,
     MC_AAM,
     MC_AAS,

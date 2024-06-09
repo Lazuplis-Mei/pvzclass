@@ -333,6 +333,7 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
+    <ClInclude Include="Matchers.h" />
     <ClInclude Include="Sexy.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 #include "Mixin.h"
+#include "Matchers.h"
 
 using std::cout;
 using std::endl;
@@ -16,16 +17,33 @@ void testbenchA() {
 	// 0x40BC70: Board::InitLawnMowers(Board* this)
 	PVZ::Mixin::Modify(FunctionAddress + 0x1C, FunctionAddress + 0x21, CODE, 5);
 
-	PVZ::Mixin::InsAnalysis ins = PVZ::Mixin::Fetch(0x40BBA4, NULL);
-	printf("%#08X:", 0x40BBA4);
+	PVZ::Mixin::InsAnalysis ins = PVZ::Mixin::Fetch(FunctionAddress, NULL);
+	printf("%#08X:", FunctionAddress);
 	cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
-	int CurrentAddress = 0x40BBA4;
+	int CurrentAddress = FunctionAddress;
 	for (int i = 0; i < 20; i++) {
 		CurrentAddress += ins.len;
 		ins = PVZ::Mixin::Fetch(CurrentAddress, NULL);
 		printf("%#08X:", CurrentAddress);
 		cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
 	}
+
+	cout << "-------" << endl;
+
+	int addr = PVZ::Mixin::Scan(PVZ::Mixin::Matchers::CountingMatcher<6>(),FunctionAddress, FunctionAddress + 0x200);
+	ins = PVZ::Mixin::Fetch(addr, NULL);
+	printf("%#08X:", addr);
+	cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
+
+	addr = PVZ::Mixin::Scan(PVZ::Mixin::Matchers::MnemonicMatcher<MC_LEA>(), FunctionAddress, FunctionAddress + 0x200);
+	ins = PVZ::Mixin::Fetch(addr, NULL);
+	printf("%#08X:", addr);
+	cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
+
+	addr = PVZ::Mixin::Scan(PVZ::Mixin::Matchers::CountingMnemonicMatcher<2,MC_MOV>(), FunctionAddress, FunctionAddress + 0x200);
+	ins = PVZ::Mixin::Fetch(addr, NULL);
+	printf("%#08X:", addr);
+	cout << Mnemonics[ins.definition.mnemonic] << "; len = " << ins.len << endl;
 }
 
 void testbenchB() {
