@@ -241,8 +241,8 @@ mov [edit],eax
 
 push #50
 push #100
-push #0
-push #0
+push #50
+push #100
 mov ecx,[edit]
 mov edx,[ecx]
 mov edx,[edx+A0]
@@ -318,15 +318,16 @@ createThread(701000)
       <Description>"Edit背景"</Description>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>[ENABLE]
-53D180:
+457995:
 jmp 703000
-nop
-return:
 
 703000:
+cmp [edit],0
+je return
 pushad
 
 push rect
+mov ecx,[edit]
 mov edx,[ecx]
 mov edx,[edx+04]
 call edx
@@ -337,10 +338,11 @@ push [esp+24]
 call 587900
 
 popad
-push ebp
-mov ebp,esp
-and esp,-08
-jmp return
+return:
+ret 0004
+
+702004:
+edit:
 
 704000:
 rect:
@@ -350,10 +352,10 @@ dd 00000000
 dd 00000000
 
 [DISABLE]
-53D180:
-push ebp
-mov ebp,esp
-and esp,-08
+457995:
+ret 0004
+int 3
+int 3
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
