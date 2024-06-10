@@ -22,6 +22,9 @@
     <Filter Include="头文件\Classes">
       <UniqueIdentifier>{2513818b-f45c-4365-af38-74bfeb1b0b1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Classes">
+      <UniqueIdentifier>{23d0a5db-34d8-475c-9d6e-eea852b9e098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pvzclass.cpp">
@@ -33,67 +36,7 @@
     <ClCompile Include="AsmFunctions.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Animation.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Coin.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Griditem.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Icetrace.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Lawn.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Lawnmover.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Memory.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Mouse.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\MousePointer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Plant.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Projectile.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Wave.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Zombie.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessOpener.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Caption.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\CardSlot.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\SeedCard.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Miscellaneous.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\SaveData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Music.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\GardenPlant.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Creators.cpp">
@@ -198,22 +141,10 @@
     <ClCompile Include="Enums\CaptionStyle.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Attachment.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\GardenPlantNeed.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\ZenGarden.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Definition.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\LawnmoverState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Board.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Enums\GriditemType.cpp">
@@ -228,22 +159,7 @@
     <ClCompile Include="Draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\AttachEffect.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Widget.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\TrackInstance.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\SeedChoserScreen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\SeedState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\PVZApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Events\BaseEvent.cpp">
@@ -267,14 +183,101 @@
     <ClCompile Include="Events\ImitaterPlantEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\ChallengeScreen.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\ChallengePage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sexy.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Animation.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AttachEffect.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Attachment.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Board.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Caption.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\CardSlot.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ChallengeScreen.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Coin.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Definition.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GardenPlant.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Griditem.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Icetrace.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Lawn.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Lawnmover.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Memory.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Miscellaneous.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Mouse.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\MousePointer.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Music.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Plant.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Projectile.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\PVZApp.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SaveData.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SeedCard.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\SeedChoserScreen.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\TrackInstance.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Wave.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Widget.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\ZenGarden.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Zombie.cpp">
+      <Filter>源文件\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
