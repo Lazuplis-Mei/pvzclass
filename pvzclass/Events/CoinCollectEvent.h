@@ -13,9 +13,9 @@ public:
 
 CoinCollectEvent::CoinCollectEvent()
 {
-	hookAddress = 0x432060;
 	int procAddress = PVZ::Memory::GetProcAddress("onCoinCollect");
-	// Coin::Collect(ecx = this)
+	// 0x432060: Coin::Collect(ecx = this)
+	hookAddress = 0x432060;
 	RegisterType args[] = { R_ECX };
 	start2(procAddress, STRING(args));
 }

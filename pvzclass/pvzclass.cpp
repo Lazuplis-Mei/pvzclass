@@ -9,6 +9,27 @@ using std::cout;
 using std::endl;
 
 void testbenchA() {
+	PVZ::Memory::immediateExecute = true;
+	if (!PVZ::Memory::InjectDll("pvzdll.dll")) {
+		printf("INJECT DLL FAILED!");
+	}
+	PVZ::Memory::InvokeDllProc("init");
+	EnableBackgroundRunning();
+	DisableInitialLawnmover();
+	DisableIceLevelFailSound();
+
+	system("pause");
+	DialogButtonDepressEvent();
+	system("pause");
+	Draw::PString str = Draw::ToString("Hello, world!\0");
+	Sexy::PDialog dialog = Sexy::MakeDialog(1, str, str, str, 0, 100);
+	Sexy::AddToManager(dialog);
+	system("pause");
+	Sexy::RemoveFromManager(dialog);
+	Sexy::FreeWidget(dialog);
+}
+
+void testbenchB() {
 	// 0x40BC70: Board::InitLawnMowers(Board* this)
 	const int FunctionAddress = 0x40BC70;
 
@@ -66,7 +87,7 @@ void testbenchC() {
 	PVZ::Mixin::Replace(target_address, target_address_end, STRING(CODE));
 }
 
-void testbenchB() {
+void testbenchD() {
 	PVZ::Memory::immediateExecute = true;
 	if (!PVZ::Memory::InjectDll("pvzdll.dll")) {
 		printf("INJECT DLL FAILED!");
@@ -77,15 +98,8 @@ void testbenchB() {
 	DisableIceLevelFailSound();
 
 	system("pause");
-	CoinCollectEvent();
-	DialogButtonDepressEvent();
+	ZombieRemoveEvent();
 	system("pause");
-	Draw::PString str = Draw::ToString("Hello, world!\0");
-	Sexy::PDialog dialog = Sexy::MakeDialog(1, str, str, str, 0, 100);
-	Sexy::AddToManager(dialog);
-	system("pause");
-	Sexy::RemoveFromManager(dialog);
-	Sexy::FreeWidget(dialog);
 }
 
 int main()
@@ -94,8 +108,7 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	//testbenchA();
-	testbenchB();
+	testbenchD();
 	system("pause");
 
 	PVZ::QuitPVZ();

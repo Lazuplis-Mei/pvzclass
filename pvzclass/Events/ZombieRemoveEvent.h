@@ -15,7 +15,6 @@ ZombieRemoveEvent::ZombieRemoveEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieRemove");
 	hookAddress = 0x530510;
-	rawlen = 6;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
+	RegisterType args[] = { R_ECX };
+	start2(procAddress, STRING(args));
 }

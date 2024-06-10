@@ -10,7 +10,7 @@ bool PVZ::Mixin::Modify(int region_start, int region_end, BYTE* code, size_t cod
 	}
 
 	BYTE* writting_code = new BYTE[region_len];
-	memset(writting_code, 0, region_len);
+	memset(writting_code, NOP, region_len);
 	memcpy(writting_code, code, code_len);
 
 	// ÐÞ¸Ä´úÂë

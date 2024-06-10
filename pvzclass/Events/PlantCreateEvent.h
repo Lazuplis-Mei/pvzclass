@@ -14,7 +14,9 @@ PlantCreateEvent::PlantCreateEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantCreate");
 	hookAddress = 0x40D190;
-	rawlen = 8;
-	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
+
+	printf("%#08X", procAddress);
+
+	RegisterType args[] = { R_EAX };
+	start2(procAddress, STRING(args));
 }

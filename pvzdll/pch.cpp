@@ -32,7 +32,7 @@ void onCoinCreate(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%X coin created!\0", coinAddress);
+	sprintf(s, "%s coin created!\0", ToString(coin->Type));
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
@@ -40,7 +40,7 @@ void onCoinRemove(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%X coin removed!\0", coinAddress);
+	sprintf(s, "%s coin removed!\0", ToString(coin->Type));
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
@@ -81,12 +81,16 @@ Sexy::PButton button;
 void onPlantCreate(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	listener.PressListener1 = (int)listenerFunc;
-	plistener = Sexy::MakeListener(&listener);
-	button = Sexy::MakeImageButton(image, image, image,
-		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), filename, plistener, 0);
-	Sexy::AddToManager(button);
-	Sexy::ResizeButton(button, 350, 250, 100, 100);
+	char s[64];
+	sprintf(s, "%X created!\0", plantAddress);
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+
+	//listener.PressListener1 = (int)listenerFunc;
+	//plistener = Sexy::MakeListener(&listener);
+	//button = Sexy::MakeImageButton(image, image, image,
+	//	PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), filename, plistener, 0);
+	//Sexy::AddToManager(button);
+	//Sexy::ResizeButton(button, 350, 250, 100, 100);
 }
 
 int onPlantReload(DWORD plantAddress, int cd)
@@ -110,9 +114,12 @@ void onPlantShoot(DWORD plantAddress)
 void onPlantRemove(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	Sexy::RemoveFromManager(button);
-	Sexy::FreeWidget(button);
-	PVZ::Memory::FreeMemory(plistener);
+	char s[64];
+	sprintf(s, "%s removed!\0", PlantType::ToString(plant->Type));
+	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	//Sexy::RemoveFromManager(button);
+	//Sexy::FreeWidget(button);
+	//PVZ::Memory::FreeMemory(plistener);
 }
 
 void onPeaOnFire(DWORD projectileAddress)
