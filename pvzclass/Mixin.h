@@ -143,7 +143,7 @@ namespace PVZ {
 		 * @param code_len 代码的长度
 		 * @return false代表替换失败, true代表替换成功
 		*/
-		bool Modify(int region_start, int region_end, BYTE* code, size_t code_len);
+		bool Modify(int region_start, int region_end, BYTE *code, size_t code_len);
 
 		/**
 		 * @brief 取指令
@@ -175,5 +175,53 @@ namespace PVZ {
 			}
 			return 0;
 		}
+
+		/**
+		 * @brief  获得当前存放代码的地址
+		 *
+		 * @return 当前存放代码的地址
+		*/
+		int& CodePlacingAddress();
+
+		/**
+		 * @brief 替换某个区域的代码。
+		 * 
+		 * 额外开辟一个区域存放code,并使用jmp指令跳转到code区域,在code区域末尾跳转回原区域
+		 * 
+		 * 若code将region_start视作本段代码的起始位置,则
+		 * code中所有靠偏移量寻址的指令,应额外加上(CodePlacingAddress() - region_start)作为修正
+		 *
+		 * @param region_start 起始区域
+		 * @param region_end   结束区域
+		 * @param code         代码
+		 * @param code_len     代码长度
+		 * @return 是否替换成功
+		*/
+		bool Replace(int region_start, int region_end, BYTE *code, size_t code_len);
+
+		/**
+		 * @brief 向targetpoint后插入一段代码
+		 * 
+		 * 需要保证targetpoint附近没有按偏移寻址的指令(附近指:targetpoint ~ targetpoint + 5这一段)
+		 * 额外开辟一个区域存code,并使用jmp指令跳转到code区域,在code区域末尾跳转回原区域
+		 * Insert函数将targetpoint及其后1~4条指令变更为跳转到code区域的一个jmp指令,将该1~4条指令放置于区域末尾
+		 * 
+		 * @param targetpoint 目的点
+		 * @param code 代码
+		 * @param code_len 代码长度
+		 * @param origin_code 被替换的代码, 记得将其delete
+		 * @param origin_code_len 被替换的代码的长度
+		 * @return 是否插入成功
+		*/
+		bool Insert(int targetpoint, BYTE *code, size_t code_len, BYTE **origin_code = NULL, size_t *origin_code_len = NULL);
+
+		/**
+		 * @brief 重定向某个函数
+		 * @param function_start 函数起始点
+		 * @param function_end  函数中止点
+		 * @param new_function_address 函数地址
+		 * @return 是否重定向成功
+		*/
+		bool Redirect(int function_start, int function_end, int new_function_address);
 	}
 }

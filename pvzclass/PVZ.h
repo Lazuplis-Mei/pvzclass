@@ -8,6 +8,7 @@
 
 #pragma region definitions
 
+#define STRING_LEN(str) sizeof(str)/sizeof(*str)
 #define STRING(str) str,sizeof(str)/sizeof(*str)
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
