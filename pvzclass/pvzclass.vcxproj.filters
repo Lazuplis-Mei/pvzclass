@@ -19,6 +19,9 @@
     <Filter Include="源文件\Enums">
       <UniqueIdentifier>{2c568bea-a865-4310-8193-9e73023acae9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Classes">
+      <UniqueIdentifier>{2513818b-f45c-4365-af38-74bfeb1b0b1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pvzclass.cpp">
@@ -530,12 +533,6 @@
     <ClInclude Include="Events\ImitaterPlantEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\ChallengeScreen.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\ChallengePage.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Events\DLLEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -553,6 +550,12 @@
     </ClInclude>
     <ClInclude Include="Events\DialogDrawEvent.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ChallengeScreen.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ChallengePage.hpp">
+      <Filter>头文件\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
