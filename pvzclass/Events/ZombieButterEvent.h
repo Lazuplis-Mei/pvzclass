@@ -14,7 +14,6 @@ ZombieButterEvent::ZombieButterEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieButter");
 	hookAddress = 0x5326D0;
-	rawlen = 10;
-	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
+	RegisterType args[] = { R_EAX };
+	start2(procAddress, STRING(args));
 }

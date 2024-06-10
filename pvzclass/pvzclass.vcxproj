@@ -29,20 +29,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -89,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
@@ -105,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -188,6 +188,7 @@
     <ClCompile Include="Classes\Widget.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
+    <ClCompile Include="Decode.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\CardType.cpp" />
@@ -234,6 +235,8 @@
     <ClCompile Include="Events\PlantSquishEvent.cpp" />
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp" />
     <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
+    <ClCompile Include="itab.cpp" />
+    <ClCompile Include="Mixin.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -317,6 +320,8 @@
     <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="Events\PlantReloadEvent.h" />
+    <ClInclude Include="itab.h" />
+    <ClInclude Include="Mixin.h" />
     <ClInclude Include="ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
@@ -330,6 +335,7 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
+    <ClInclude Include="Matchers.h" />
     <ClInclude Include="Sexy.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />

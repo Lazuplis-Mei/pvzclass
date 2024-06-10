@@ -14,7 +14,6 @@ CoinCreateEvent::CoinCreateEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onCoinCreate");
 	hookAddress = 0x40CCCE;
-	rawlen = 8;
-	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
+	RegisterType args[] = { R_EAX };
+	start2(procAddress, STRING(args));
 }
