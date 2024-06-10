@@ -207,6 +207,8 @@
 
 #define CALC_ADD 0
 #define CALC_OR 1
+#define CALC_ADC 2
+#define CALC_SBB 3
 #define CALC_AND 4
 #define CALC_SUB 5
 #define CALC_XOR 6
