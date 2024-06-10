@@ -24,6 +24,19 @@ Draw::PString Draw::ToString(const char* str)
 	return toAddress;
 }
 
+char* Draw::ToChar(PString str)
+{
+	int size = PVZ::Memory::ReadMemory<int>(str + 0x18);
+	DWORD address = 0;
+	if (size < 16) address = str + 4;
+	else address = PVZ::Memory::ReadMemory<DWORD>(str + 4);
+	int len = PVZ::Memory::ReadMemory<int>(str + 0x14);
+	char* result = new char[len + 1];
+	PVZ::Memory::ReadArray<char>(address, result, len);
+	result[len] = 0;
+	return result;
+}
+
 BYTE __asm__StringWidth[]
 {
 	PUSHDWORD(0),
@@ -213,4 +226,28 @@ void Draw::FillRect(int x, int y, int width, int height, DWORD graphics)
 	SETARG(__asm__FillRect, 16) = x;
 	SETARG(__asm__FillRect, 21) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__FillRect));
+}
+
+BYTE __asm__DrawTextBox[]
+{
+	PUSHDWORD(0),
+	MOV_ECX(0),
+	0x8B, 0x11, // mov edx,[ecx]
+	MOV_EUX_PTR_EVX_ADD(2, 2, 0x04),
+	CALL_EUX(2),
+	MOV_EBX_EAX,
+	MOV_EUX_PTR_ADDR(0, 0x6A7890),
+	PUSHDWORD(0),
+	INVOKE(0x587900),
+	RET
+};
+
+void Draw::DrawTextBox(DWORD edit, DWORD graphics)
+{
+	int rect = PVZ::Memory::AllocMemory(0, 16);
+	SETARG(__asm__DrawTextBox, 1) = rect;
+	SETARG(__asm__DrawTextBox, 6) = edit;
+	SETARG(__asm__DrawTextBox, 29) = graphics;
+	PVZ::Memory::Execute(STRING(__asm__DrawTextBox));
+	PVZ::Memory::FreeMemory(rect);
 }

@@ -3,6 +3,7 @@
 #include "CoinCreateEvent.h"
 #include "CoinRemoveEvent.h"
 #include "DialogButtonDepressEvent.h"
+#include "DialogDrawEvent.h"
 #include "DrawUITopEvent.h"
 #include "NewGameEvent.h"
 #include "PlantCreateEvent.h"

@@ -234,15 +234,15 @@ call edx
 mov [dialog],eax
 
 push eax
-push 657BDC
+push listener
 call 4567B0
 add esp,8
 mov [edit],eax
 
 push #50
 push #100
-push #300
-push #400
+push #50
+push #100
 mov ecx,[edit]
 mov edx,[ecx]
 mov edx,[edx+A0]
@@ -252,7 +252,7 @@ mov eax,[edit]
 push eax
 mov ecx,[dialog]
 mov edx,[ecx]
-mov edx,[edx+C]
+mov edx,[edx+0C]
 call edx
 
 mov eax,[dialog]
@@ -286,7 +286,9 @@ dd 00000000
 
 edit:
 dd 00000000
-dd 00000000
+
+listener:
+dd 00657BDC
 
 strc:
 db 'Hello, world!' 00
@@ -309,6 +311,51 @@ createThread(700000)
 
 [DISABLE]
 createThread(701000)
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Edit背景"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+457995:
+jmp 703000
+
+703000:
+cmp [edit],0
+je return
+pushad
+
+push rect
+mov ecx,[edit]
+mov edx,[ecx]
+mov edx,[edx+04]
+call edx
+
+mov ebx,eax
+mov eax,[6A7890]
+push [esp+24]
+call 587900
+
+popad
+return:
+ret 0004
+
+702004:
+edit:
+
+704000:
+rect:
+dd 00000000
+dd 00000000
+dd 00000000
+dd 00000000
+
+[DISABLE]
+457995:
+ret 0004
+int 3
+int 3
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>

@@ -20,12 +20,26 @@ int main()
 
 	system("pause");
 	DialogButtonDepressEvent();
+	DialogDrawEvent();
+	system("pause");
+	Sexy::EditListener listener;
+	Sexy::PEditListener plistener = Sexy::MakeEditListener(&listener);
 	Draw::PString str = Draw::ToString("Hello, world!\0");
 	Sexy::PDialog dialog = Sexy::MakeDialog(1, str, str, str, 0, 100);
-	Sexy::AddToManager(dialog);
+	PVZ::Memory::WriteMemory<DWORD>(0x702000, dialog);
+	Sexy::PEdit edit = Sexy::MakeEdit(dialog, plistener);
+	PVZ::Memory::WriteMemory<DWORD>(0x702004, edit);
+	Sexy::ResizeWidget(edit, 100, 50, 100, 50);
+	Sexy::AddToWidget(edit, dialog);
+	Sexy::AddToWidget(dialog, WIDGETMANAGER);
 	system("pause");
-	Sexy::RemoveFromManager(dialog);
+	PVZ::Memory::immediateExecute = false;
+	Sexy::RemoveFromWidget(edit, dialog);
+	Sexy::FreeWidget(edit);
+	PVZ::Memory::WriteMemory<DWORD>(0x702004, 0);
+	Sexy::RemoveFromWidget(dialog, WIDGETMANAGER);
 	Sexy::FreeWidget(dialog);
+	PVZ::Memory::WriteMemory<DWORD>(0x702000, 0);
 
 	PVZ::QuitPVZ();
 	return 0;

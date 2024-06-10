@@ -46,10 +46,29 @@ void onCoinRemove(DWORD coinAddress)
 
 int onDialogButtonDepress(int buttonId, int dialogId)
 {
-	char s[64];
-	sprintf(s, "ButtonId: %d  DialogId: %d\0", buttonId, dialogId);
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	Sexy::PEdit edit = PVZ::Memory::ReadMemory<DWORD>(0x702004);
+	if (edit == 0)
+	{
+		char s[64];
+		sprintf(s, "ButtonId: %d  DialogId: %d\0", buttonId, dialogId);
+		Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+	}
+	else
+	{
+		Draw::PString ps = Sexy::GetEditString(edit);
+		char* s = Draw::ToChar(ps);
+		Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
+		delete s;
+	}
 	return 0;
+}
+
+void onDialogDraw(DWORD graphics, Sexy::PDialog dialog)
+{
+	if (PVZ::Memory::ReadMemory<DWORD>(0x702000) != dialog) return;
+	Sexy::PEdit edit = PVZ::Memory::ReadMemory<DWORD>(0x702004);
+	if (edit == 0) return;
+	Draw::DrawTextBox(edit, graphics);
 }
 
 void onDrawUITop(DWORD graphics)
@@ -82,11 +101,11 @@ void onPlantCreate(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
 	listener.PressListener1 = (int)listenerFunc;
-	plistener = Sexy::MakeListener(&listener);
+	plistener = Sexy::MakeButtonListener(&listener);
 	button = Sexy::MakeImageButton(image, image, image,
 		PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), filename, plistener, 0);
-	Sexy::AddToManager(button);
-	Sexy::ResizeButton(button, 350, 250, 100, 100);
+	Sexy::AddToWidget(button, WIDGETMANAGER);
+	Sexy::ResizeWidget(button, 350, 250, 100, 100);
 }
 
 int onPlantReload(DWORD plantAddress, int cd)
@@ -110,7 +129,7 @@ void onPlantShoot(DWORD plantAddress)
 void onPlantRemove(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	Sexy::RemoveFromManager(button);
+	Sexy::RemoveFromWidget(button, WIDGETMANAGER);
 	Sexy::FreeWidget(button);
 	PVZ::Memory::FreeMemory(plistener);
 }
