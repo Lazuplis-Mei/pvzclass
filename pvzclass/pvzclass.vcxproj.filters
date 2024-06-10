@@ -524,6 +524,9 @@
     <ClInclude Include="Flags.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="AsmBuilder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="Classes.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -567,6 +570,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Matchers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DialogDrawEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿#include "pvzclass.h"
+#include "pvzclass.h"
 #include "Events/Events.h"
 #include <iostream>
 #include <thread>
@@ -108,7 +108,7 @@ int main()
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 
-	testbenchD();
+	testbenchB();
 	system("pause");
 
 	PVZ::QuitPVZ();
