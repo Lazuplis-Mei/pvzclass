@@ -303,6 +303,79 @@ dd 00000000 00000000
 </AssemblerScript>
     </CheatEntry>
     <CheatEntry>
+      <ID>10</ID>
+      <Description>"Checkbox"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+700000:
+push 1 // 默认勾选
+push listener
+push 0 // id
+call 456860
+add esp,0C
+mov [checkbox],eax
+
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+0C]
+call edx
+
+push #35 // height
+push #40 // width
+push #250 // y
+push #350 // x
+mov ecx,[checkbox] // this
+mov edx,[ecx]
+mov edx,[edx+A0]
+call edx
+ret
+
+701000:
+mov eax,[checkbox]
+push eax
+mov ecx,[6A9EC0]
+mov ecx,[ecx+320]
+mov edx,[ecx]
+mov edx,[edx+10]
+call edx
+
+push 01
+mov ecx,[checkbox]
+mov edx,[ecx]
+mov edx,[edx+00]
+call edx
+ret
+
+702000:
+index:
+dd 00000000
+
+result:
+dd 00000000
+
+checkbox:
+dd 00000000
+
+listener:
+dd listener_virtual
+
+listener_virtual:
+dd 00703000
+
+703000:
+mov eax,[esp+04] // id
+mov [index],eax
+mov ebx,[esp+08] // checked
+mov [result],ebx
+ret 08
+
+[DISABLE]
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
       <ID>2</ID>
       <Description>"call"</Description>
       <VariableType>Auto Assembler Script</VariableType>

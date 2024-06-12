@@ -1,5 +1,6 @@
 #pragma once
-#include "pvzclass.h"
+#include "PVZ.h"
+#include "Draw.h"
 #define WIDGETMANAGER PVZ::Memory::ReadPointer(0x6A9EC0, 0x320)
 
 namespace Sexy
@@ -23,17 +24,26 @@ namespace Sexy
 		DWORD AllowText = 0x42FBC0;
 	};
 
+	struct CheckboxListener
+	{
+		DWORD CheckboxChecked = 0x4566F0;
+	};
+
 	typedef DWORD PWidget;
 	typedef PWidget PButton;
 	typedef PWidget PDialog;
 	typedef PWidget PEdit;
+	typedef PWidget PCheckbox;
 	typedef DWORD PButtonListener;
 	typedef DWORD PEditListener;
+	typedef DWORD PCheckboxListener;
 
 	// 创建一个监听器
 	PButtonListener MakeButtonListener(ButtonListener* listener);
 
 	PEditListener MakeEditListener(EditListener* listener);
+
+	PCheckboxListener MakeCheckboxListener(CheckboxListener* listener);
 
 	// 创建一个按钮
 	// listener：按钮事件监听器
@@ -62,6 +72,18 @@ namespace Sexy
 
 	// 获取字符串
 	Draw::PString GetEditString(PEdit edit);
+
+	// 创建勾选框
+	// checked为是否默认勾选
+	// 勾选框在Resize时的宽为40，高为35
+	PCheckbox MakeCheckbox(int checked, PCheckboxListener listener, int theId);
+
+	// 勾选框是否勾选
+	bool IsCheckboxChecked(PCheckbox checkbox);
+
+	// 设置勾选框是否勾选
+	// tellListener可以控制是否由监听器处理
+	void setCheckboxChecked(PCheckbox checkbox, bool checked, bool tellListener);
 
 	// 移除控件
 	void FreeWidget(PWidget widget);
