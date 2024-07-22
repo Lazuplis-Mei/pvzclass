@@ -327,6 +327,8 @@ namespace PVZ
 		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
 		void Lose();
 		void Win();
+		bool Save(const char* path, int pathlen);
+		bool Load(const char* path, int pathlen);
 
 #pragma endregion
 

@@ -109,6 +109,52 @@ void PVZ::Board::Win()
 	else Memory::Execute(STRING(__asm__Win));
 }
 
+byte __asm__Save[] =
+{
+	PUSHDWORD(0),
+	MOV_ECX(0),
+	INVOKE(0x404450),
+	PUSH_EAX,
+	MOV_EDI(0),
+	INVOKE(0x4820D0),
+	MOV_PTR_ADDR_EAX(0),
+	ADD_ESP(4),
+	RET
+};
+
+bool PVZ::Board::Save(const char* path, int pathlen)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, path, pathlen);
+	SETARG(__asm__Save, 1) = PVZ::Memory::Variable + 100;
+	SETARG(__asm__Save, 6) = PVZ::Memory::Variable + 600;
+	SETARG(__asm__Save, 25) = BaseAddress;
+	SETARG(__asm__Save, 43) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__Save)) & 1;
+}
+
+byte __asm__Load[] =
+{
+	PUSHDWORD(0),
+	MOV_ECX(0),
+	INVOKE(0x404450),
+	PUSH_EAX,
+	MOV_ECX(0),
+	INVOKE(0x481FE0),
+	MOV_PTR_ADDR_EAX(0),
+	ADD_ESP(4),
+	RET
+};
+
+bool PVZ::Board::Load(const char* path, int pathlen)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, path, pathlen);
+	SETARG(__asm__Load, 1) = PVZ::Memory::Variable + 100;
+	SETARG(__asm__Load, 6) = PVZ::Memory::Variable + 600;
+	SETARG(__asm__Load, 25) = BaseAddress;
+	SETARG(__asm__Load, 43) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__Load)) & 1;
+}
+
 void PVZ::Board::Assault(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
