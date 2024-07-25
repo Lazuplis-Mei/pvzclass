@@ -1,6 +1,5 @@
 #pragma once
 #include "pvzclass.h"
-#define WIDGETMANAGER PVZ::Memory::ReadPointer(0x6A9EC0, 0x320)
 
 namespace Sexy
 {
@@ -15,25 +14,13 @@ namespace Sexy
 		DWORD MouseMoveListener = 0x483370;
 	};
 
-	struct EditListener
-	{
-		DWORD EditWidgetText = 0x4566F0;
-		DWORD AllowKey = 0x42FBC0;
-		DWORD AllowChar = 0x42FBC0;
-		DWORD AllowText = 0x42FBC0;
-	};
-
 	typedef DWORD PWidget;
 	typedef PWidget PButton;
 	typedef PWidget PDialog;
-	typedef PWidget PEdit;
 	typedef DWORD PButtonListener;
-	typedef DWORD PEditListener;
 
 	// 创建一个监听器
-	PButtonListener MakeButtonListener(ButtonListener* listener);
-
-	PEditListener MakeEditListener(EditListener* listener);
+	PButtonListener MakeListener(ButtonListener* listener);
 
 	// 创建一个按钮
 	// listener：按钮事件监听器
@@ -55,25 +42,15 @@ namespace Sexy
 	PDialog MakeDialog(int buttonMode, Draw::PString footer, Draw::PString lines,
 		Draw::PString header, int modal, int dialogId);
 
-	// 创建输入框
-	// 必须附着在某个Dialog中
-	// 背景的绘制需要配合DialogDrawEvent使用
-	PEdit MakeEdit(PDialog dialog, PEditListener listener);
-
-	// 获取字符串
-	Draw::PString GetEditString(PEdit edit);
-
 	// 移除控件
 	void FreeWidget(PWidget widget);
 
-	// 重置控件的大小
-	void ResizeWidget(PWidget widget, int x, int y, int width, int height);
+	// 重置按钮的大小
+	void ResizeButton(PButton button, int x, int y, int width, int height);
 
-	// 将控件作为目标控件的子控件
-	// 全局Manager为WIDGETMANAGER
-	void AddToWidget(PWidget widget, PWidget father);
+	// 将控件加入Manager
+	void AddToManager(PWidget widget);
 
-	// 将控件从目标控件的子控件中移除
-	// 全局Manager为WIDGETMANAGER
-	void RemoveFromWidget(PWidget widget, PWidget father);
+	// 将控件从Manager中移除
+	void RemoveFromManager(PWidget widget);
 }

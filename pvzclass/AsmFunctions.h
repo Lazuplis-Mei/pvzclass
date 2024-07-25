@@ -30,7 +30,6 @@
 #define RETN(v) 0xC2,v,0
 #define NOP 0x90
 #define MOV_EAX_EBX 0x8B,0xC3
-#define MOV_EBX_EAX 0x8B,0xD8
 #define MOV_EAX_PTR(d) 0xA1,INUMBER(d)
 #define MOV_PTR_ADDR_EAX(address) 0xA3,INUMBER(address)
 #define MOV_PTR_ADDR_ECX(address) 0x89,0xD,INUMBER(address)
@@ -207,8 +206,6 @@
 
 #define CALC_ADD 0
 #define CALC_OR 1
-#define CALC_ADC 2
-#define CALC_SBB 3
 #define CALC_AND 4
 #define CALC_SUB 5
 #define CALC_XOR 6

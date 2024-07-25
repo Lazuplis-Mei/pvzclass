@@ -17,8 +17,8 @@ using ThreeState::None;
 using ThreeState::Disable;
 using Memory = PVZ::Memory;
 
-//@brief 启用/禁用砸罐子功能。
-//@brief 包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
+//启用/禁用砸罐子功能。
+//包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
 //@param state 功能的启用状态，缺省值为 Enable。
 inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 {
@@ -62,15 +62,6 @@ inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 	}
 }
 
-//@brief 将雾的最大浓度降至 0。
-//@param state 功能的启用状态，缺省值为 Enable。
-inline void FogPerspect(ThreeState::ThreeState state = Enable)
-{
-	bool b = state == Enable;
-	MEMMOD_BYTE(0x41A67A, 0, 255);
-	MEMMOD_BYTE(0x41A681, 0, 255);
-}
-
 //是否启用后台运行
 inline void EnableBackgroundRunning(BOOLEAN b = true)
 {
@@ -104,8 +95,6 @@ inline void SetSunMax(int sunmax)
 	PVZ::Memory::WriteMemory<int>(0x430A2B, sunmax);
 }
 
-//@brief 令阳光和金钱上限失效。
-//@param b 是否启用该功能，缺省值为 true。
 inline void RemoveSunUpperLimit(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x430A23, JUMP, JLE);
@@ -113,8 +102,6 @@ inline void RemoveSunUpperLimit(BOOLEAN b = true)
 	MEMMOD_BYTE(0x48CAB0, JUMP, JLE);
 }
 
-//@brief 允许重叠种植植物。
-//@param b 是否启用该功能，缺省值为 true。
 inline void OverlapPlanting(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x40FE30, 129, 132);
@@ -122,9 +109,6 @@ inline void OverlapPlanting(BOOLEAN b = true)
 	MEMMOD_BYTE(0x438E40, JUMP, JZ);
 }
 
-//@brief 消耗阳光和金钱时，无视价格限制且不消耗资源。
-//@brief 会导致 IZ 关卡的失败判定和移速重置机制失效。
-//@param b 是否启用该功能，缺省值为 true。
 inline void IgnoreResources(BOOLEAN b = true)
 {
 	MEMMOD_INT(0x41BA72, -214234000, -215282561);
@@ -136,8 +120,6 @@ inline void IgnoreResources(BOOLEAN b = true)
 	PVZ::Memory::WriteMemory<LONGLONG>(0x48C7A0, b ? 174109865281658857 : 173951535625964815);
 }
 
-//@brief 取消卡牌的冷却时间。
-//@param b 是否启用该功能，缺省值为 true。
 inline void CancelCardCooldown(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x487296, JO, JLE);
@@ -145,16 +127,12 @@ inline void CancelCardCooldown(BOOLEAN b = true)
 	MEMMOD_BYTE(0x488E76, 1, 0);
 }
 
-//@brief 传送带供应卡牌不受延迟限制。
-//@param b 是否启用该功能，缺省值为 true。
 inline void ConveyorBeltNoDelay(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x422D20, 128, 143);
 	MEMMOD_BYTE(0x489CA1, 51, 133);
 }
 
-//@brief 将雾的范围扩展到全屏。
-//@param b 是否启用该功能，缺省值为 true。
 inline void FullScreenFog(BOOLEAN b = true)
 {
 	MEMMOD_SHORT(0x41A476, 16363, 1397);
@@ -165,16 +143,11 @@ inline void FullScreenFog(BOOLEAN b = true)
 			PVZ::Memory::WriteMemory<int>(PVZBASEADDRESS + 0xC8 + 4 * i, 0);
 }
 
-//@brief 暂停在战场右侧刷新下一波僵尸。
-//@brief 不会影响已有的僵尸。
-//@param b 是否启用该功能，缺省值为 true。
 inline void BlockZombie(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x4265DC, JUMP, JZ);
 }
 
-//@brief 开启罐子透视。
-//@param b 是否启用该功能，缺省值为 true。
 inline void VasePerspect(BOOLEAN b = true)
 {
 	byte __vaseperspect_set[10]{ 0xC7, 0x47, 0x4C,0x64, 0, 0, 0, 0x5E, 0x59,0xC3 };
@@ -183,16 +156,12 @@ inline void VasePerspect(BOOLEAN b = true)
 	else PVZ::Memory::WriteArray<byte>(0x44E5CC, STRING(__vaseperspect_reset));
 }
 
-//@brief 令鼠标物品锁定为铲子。
-//@param b 是否启用该功能，缺省值为 true。
 inline void LockShovel(PVZ::MousePointer* mousepointer, BOOLEAN b = true)
 {
 	if (b)mousepointer->Type = MouseType::Shovel;
 	PVZ::Memory::WriteMemory<LONGLONG>(0x41233D, b ? -8029759805927192901 : 586669480753);
 }
 
-//@brief 开启自动收集。
-//@param b 是否启用该功能，缺省值为 true。
 inline void AutoCollect(BOOLEAN b = true)
 {
 	byte __autocollect_set[26]
@@ -220,16 +189,12 @@ inline void AutoCollect(BOOLEAN b = true)
 		PVZ::Memory::WriteArray<byte>(0x40CCDA, STRING(__autocollect_reset));
 }
 
-//@brief 禁止关卡初始化时生成小推车。
-//@param b 是否启用该功能，缺省值为 true。
 inline void DisableInitialLawnmover(BOOLEAN b = true)
 {
 	MEMMOD_INT(0x40BC8C, 34793, 1965488771);
 	MEMMOD_BYTE(0x40BC90, 0, 5);
 }
 
-//@brief 禁止冰冻关卡播放的失败音效播放。
-//@param b 是否启用该功能，缺省值为 true。
 inline void DisableIceLevelFailSound(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x42492D, JUMP, JNE);
