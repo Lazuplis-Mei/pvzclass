@@ -8,6 +8,22 @@ Sexy::PButtonListener Sexy::MakeListener(ButtonListener* listener)
 	return address;
 }
 
+Sexy::PEditListener Sexy::MakeEditListener(EditListener* listener)
+{
+	int address = PVZ::Memory::AllocMemory(0, 20);
+	PVZ::Memory::WriteMemory<int>(address, address + 4);
+	PVZ::Memory::WriteMemory<EditListener>(address + 4, *listener);
+	return address;
+}
+
+Sexy::PCheckboxListener Sexy::MakeCheckboxListener(CheckboxListener* listener)
+{
+	int address = PVZ::Memory::AllocMemory(0, 8);
+	PVZ::Memory::WriteMemory<int>(address, address + 4);
+	PVZ::Memory::WriteMemory<CheckboxListener>(address + 4, *listener);
+	return address;
+}
+
 BYTE __asm__MakeButton[]
 {
 	PUSHDWORD(0),
@@ -84,6 +100,73 @@ Sexy::PDialog Sexy::MakeDialog(int buttonMode, Draw::PString footer, Draw::PStri
 	SETARG(__asm__MakeDialog, 26) = dialogId;
 	SETARG(__asm__MakeDialog, 47) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__MakeDialog));
+}
+
+BYTE __asm__MakeEdit[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x4567B0),
+	ADD_ESP(0x08),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+Sexy::PEdit Sexy::MakeEdit(PDialog dialog, PEditListener listener)
+{
+	SETARG(__asm__MakeEdit, 1) = dialog;
+	SETARG(__asm__MakeEdit, 6) = listener;
+	SETARG(__asm__MakeEdit, 27) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__MakeEdit));
+}
+
+Draw::PString Sexy::GetEditString(PEdit edit)
+{
+	return edit + 0x8C;
+}
+
+BYTE __asm__MakeCheckbox[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x456860),
+	ADD_ESP(0x0C),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+Sexy::PCheckbox Sexy::MakeCheckbox(int checked, PCheckboxListener listener, int theId)
+{
+	SETARG(__asm__MakeCheckbox, 1) = checked;
+	SETARG(__asm__MakeCheckbox, 6) = listener;
+	SETARG(__asm__MakeCheckbox, 11) = theId;
+	SETARG(__asm__MakeCheckbox, 32) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__MakeCheckbox));
+}
+
+bool Sexy::IsCheckboxChecked(PCheckbox checkbox)
+{
+	return PVZ::Memory::ReadMemory<bool>(checkbox + 0x90);
+}
+
+BYTE __asm__setCheckboxChecked[]
+{
+	PUSH(0),
+	PUSH(0),
+	MOV_ECX(0),
+	0x8B, 0x11, // mov edx,[ecx]
+	MOV_EUX_PTR_EVX_ADD(2, 2, 0x118),
+	CALL_EUX(2),
+	RET
+};
+
+void Sexy::setCheckboxChecked(PCheckbox checkbox, bool checked, bool tellListener)
+{
+	__asm__setCheckboxChecked[1] = tellListener;
+	__asm__setCheckboxChecked[3] = checked;
+	SETARG(__asm__setCheckboxChecked, 5) = checkbox;
+	PVZ::Memory::Execute(STRING(__asm__setCheckboxChecked));
 }
 
 BYTE __asm__FreeWidget[]
