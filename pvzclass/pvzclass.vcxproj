@@ -257,7 +257,6 @@
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\DialogButtonDepressEvent.h" />
-    <ClInclude Include="Events\DialogDrawEvent.h" />
     <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\Events.h" />
     <ClInclude Include="Events\NewGameEvent.h" />

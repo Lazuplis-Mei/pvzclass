@@ -37,65 +37,61 @@ namespace Sexy
 	typedef DWORD PButtonListener;
 	typedef DWORD PEditListener;
 	typedef DWORD PCheckboxListener;
-
-	// ´´½¨Ò»¸ö¼àÌıÆ÷
-	PButtonListener MakeButtonListener(ButtonListener* listener);
-
-	PEditListener MakeEditListener(EditListener* listener);
+  
+	// åˆ›å»ºä¸€ä¸ªç›‘å¬å™¨
+	PButtonListener MakeListener(ButtonListener* listener);
 
 	PCheckboxListener MakeCheckboxListener(CheckboxListener* listener);
 
-	// ´´½¨Ò»¸ö°´Å¥
-	// listener£º°´Å¥ÊÂ¼ş¼àÌıÆ÷
-	// theId£ºÒ»¸ö°´Å¥Id
-	// ·µ»Ø£º°´Å¥µÄµØÖ·
+	// åˆ›å»ºä¸€ä¸ªæŒ‰é’®
+	// listenerï¼šæŒ‰é’®äº‹ä»¶ç›‘å¬å™¨
+	// theIdï¼šä¸€ä¸ªæŒ‰é’®Id
+	// è¿”å›ï¼šæŒ‰é’®çš„åœ°å€
 	PButton MakeButton(Draw::PString str, PButtonListener listener, int theId);
 
-	// ´´½¨ÌùÍ¼°´Å¥
-	// image**Address£º¶ÔÓ¦×´Ì¬µÄImage£¬Ê¹ÓÃDraw.hÏà¹Ø´úÂë¹¹½¨
-	// ·µ»Ø£º°´Å¥µÄµØÖ·
+	// åˆ›å»ºè´´å›¾æŒ‰é’®
+	// image**Addressï¼šå¯¹åº”çŠ¶æ€çš„Imageï¼Œä½¿ç”¨Draw.hç›¸å…³ä»£ç æ„å»º
+	// è¿”å›ï¼šæŒ‰é’®çš„åœ°å€
 	PButton MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::PImage normal,
 		DWORD fontAddress, Draw::PString str, PButtonListener listener, int theId);
 
-	// ´´½¨¶Ô»°¿ò
-	// buttonMode£º0(NONE) | 1(YES_NO) | 2(OK_CANCEL) | 3(FOOTER)
-	// ÆäÖĞ£ºYES OK FOOTER ¶ÔÓ¦µÄbuttonIdÊÇ1000£¬NO CANCELÊÇ1001
-	// modal£º0»ò1£¬Îª1Ê±ÆäËû´°¿Ú½«ÎŞ·¨ÏìÓ¦µã»÷ÊÂ¼şÇÒ²»¿É»ñµÃ½¹µã
-	// dialogId£º¶Ô»°¿òId£¬0-50ÎªÔ­°æId£¬½¨Òé´Ó100¿ªÊ¼
+	// åˆ›å»ºå¯¹è¯æ¡†
+	// buttonModeï¼š0(NONE) | 1(YES_NO) | 2(OK_CANCEL) | 3(FOOTER)
+	// å…¶ä¸­ï¼šYES OK FOOTER å¯¹åº”çš„buttonIdæ˜¯1000ï¼ŒNO CANCELæ˜¯1001
+	// modalï¼š0æˆ–1ï¼Œä¸º1æ—¶å…¶ä»–çª—å£å°†æ— æ³•å“åº”ç‚¹å‡»äº‹ä»¶ä¸”ä¸å¯è·å¾—ç„¦ç‚¹
+	// dialogIdï¼šå¯¹è¯æ¡†Idï¼Œ0-50ä¸ºåŸç‰ˆIdï¼Œå»ºè®®ä»100å¼€å§‹
 	PDialog MakeDialog(int buttonMode, Draw::PString footer, Draw::PString lines,
 		Draw::PString header, int modal, int dialogId);
 
-	// ´´½¨ÊäÈë¿ò
-	// ±ØĞë¸½×ÅÔÚÄ³¸öDialogÖĞ
-	// ±³¾°µÄ»æÖÆĞèÒªÅäºÏDialogDrawEventÊ¹ÓÃ
+	// åˆ›å»ºè¾“å…¥æ¡†
+	// å¿…é¡»é™„ç€åœ¨æŸä¸ªDialogä¸­
+	// èƒŒæ™¯çš„ç»˜åˆ¶éœ€è¦é…åˆDialogDrawEventä½¿ç”¨
 	PEdit MakeEdit(PDialog dialog, PEditListener listener);
 
-	// »ñÈ¡×Ö·û´®
+	// è·å–å­—ç¬¦ä¸²
 	Draw::PString GetEditString(PEdit edit);
 
-	// ´´½¨¹´Ñ¡¿ò
-	// checkedÎªÊÇ·ñÄ¬ÈÏ¹´Ñ¡
-	// ¹´Ñ¡¿òÔÚResizeÊ±µÄ¿íÎª40£¬¸ßÎª35
+	// åˆ›å»ºå‹¾é€‰æ¡†
+	// checkedä¸ºæ˜¯å¦é»˜è®¤å‹¾é€‰
+	// å‹¾é€‰æ¡†åœ¨Resizeæ—¶çš„å®½ä¸º40ï¼Œé«˜ä¸º35
 	PCheckbox MakeCheckbox(int checked, PCheckboxListener listener, int theId);
 
-	// ¹´Ñ¡¿òÊÇ·ñ¹´Ñ¡
+	// å‹¾é€‰æ¡†æ˜¯å¦å‹¾é€‰
 	bool IsCheckboxChecked(PCheckbox checkbox);
 
-	// ÉèÖÃ¹´Ñ¡¿òÊÇ·ñ¹´Ñ¡
-	// tellListener¿ÉÒÔ¿ØÖÆÊÇ·ñÓÉ¼àÌıÆ÷´¦Àí
+	// è®¾ç½®å‹¾é€‰æ¡†æ˜¯å¦å‹¾é€‰
+	// tellListenerå¯ä»¥æ§åˆ¶æ˜¯å¦ç”±ç›‘å¬å™¨å¤„ç†
 	void setCheckboxChecked(PCheckbox checkbox, bool checked, bool tellListener);
 
-	// ÒÆ³ı¿Ø¼ş
+	// ç§»é™¤æ§ä»¶
 	void FreeWidget(PWidget widget);
 
-	// ÖØÖÃ¿Ø¼şµÄ´óĞ¡
-	void ResizeWidget(PWidget widget, int x, int y, int width, int height);
+	// é‡ç½®æŒ‰é’®çš„å¤§å°
+	void ResizeButton(PButton button, int x, int y, int width, int height);
 
-	// ½«¿Ø¼ş×÷ÎªÄ¿±ê¿Ø¼şµÄ×Ó¿Ø¼ş
-	// È«¾ÖManagerÎªWIDGETMANAGER
-	void AddToWidget(PWidget widget, PWidget father);
+	// å°†æ§ä»¶åŠ å…¥Manager
+	void AddToManager(PWidget widget);
 
-	// ½«¿Ø¼ş´ÓÄ¿±ê¿Ø¼şµÄ×Ó¿Ø¼şÖĞÒÆ³ı
-	// È«¾ÖManagerÎªWIDGETMANAGER
-	void RemoveFromWidget(PWidget widget, PWidget father);
+	// å°†æ§ä»¶ä»Managerä¸­ç§»é™¤
+	void RemoveFromManager(PWidget widget);
 }
