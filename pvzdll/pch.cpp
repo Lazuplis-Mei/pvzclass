@@ -15,16 +15,16 @@ void init()
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 	PVZ::Memory::immediateExecute = true;
 
-	//filename = Draw::ToString("images/test.png");
-	//imageRef = Draw::GetSharedImage(isnewAddress, filename, filename);
-	//image = Draw::SharedImageRefToImage(imageRef);
+	filename = Draw::ToString("images/test.png");
+	imageRef = Draw::GetSharedImage(isnewAddress, filename, filename);
+	image = Draw::SharedImageRefToImage(imageRef);
 }
 
-void onCoinCollect(DWORD _this)
+void onCoinCollect(DWORD coinAddress)
 {
-	auto coin = std::make_shared<PVZ::Coin>(_this);
+	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%s collected!\0", ToString(coin->Type));
+	sprintf(s, "%X coin collected!\0", coinAddress);
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
@@ -32,7 +32,7 @@ void onCoinCreate(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%s coin created!\0", ToString(coin->Type));
+	sprintf(s, "%X coin created!\0", coinAddress);
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 
@@ -40,7 +40,7 @@ void onCoinRemove(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
 	char s[64];
-	sprintf(s, "%s coin removed!\0", ToString(coin->Type));
+	sprintf(s, "%X coin removed!\0", coinAddress);
 	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 }
 

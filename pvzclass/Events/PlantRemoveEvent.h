@@ -14,8 +14,8 @@ public:
 PlantRemoveEvent::PlantRemoveEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantRemove");
-	printf("%#08X", procAddress);
 	hookAddress = 0x4679B9;
-	RegisterType args[] = { R_EBP };
-	start2(procAddress, STRING(args));
+	rawlen = 7;
+	BYTE code[] = { PUSH_EBP, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

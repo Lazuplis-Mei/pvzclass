@@ -18,7 +18,6 @@ PlantReloadEvent::PlantReloadEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantReload");
 	hookAddress = 0x45F8C4;
 	rawlen = 6;
-	// 有返回值 暂时不好处理
 	BYTE code[] = { PUSH_ECX, PUSH_ESI, INVOKE(procAddress), ADD_ESP(8), MOV_PTR_ESP_ADD_V_EUX(0, 24) };
 	start(STRING(code));
 }

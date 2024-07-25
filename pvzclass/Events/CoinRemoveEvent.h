@@ -15,6 +15,7 @@ CoinRemoveEvent::CoinRemoveEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onCoinRemove");
 	hookAddress = 0x432DD0;
-	RegisterType args[] = { R_ESI };
-	start2(procAddress, STRING(args));
+	rawlen = 7;
+	BYTE code[] = { PUSH_ESI, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

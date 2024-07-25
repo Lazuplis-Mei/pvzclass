@@ -14,6 +14,7 @@ ZombieEatEvent::ZombieEatEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieEat");
 	hookAddress = 0x52FB40;
-	RegisterType args[] = { R_EAX, R_EDI };
-	start2(procAddress, STRING(args));
+	rawlen = 7;
+	BYTE code[] = { PUSH_ECX, PUSH_EDI, INVOKE(procAddress), ADD_ESP(8) };
+	start(STRING(code));
 }

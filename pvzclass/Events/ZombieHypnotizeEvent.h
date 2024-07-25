@@ -14,6 +14,7 @@ ZombieHypnotizeEvent::ZombieHypnotizeEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieHypnotize");
 	hookAddress = 0x52FA60;
-	RegisterType args[] = { R_ESI };
-	start2(procAddress, STRING(args));
+	rawlen = 10;
+	BYTE code[] = { PUSH_ESI, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

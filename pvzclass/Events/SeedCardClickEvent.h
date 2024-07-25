@@ -14,6 +14,7 @@ SeedCardClickEvent::SeedCardClickEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onSeedCardClick");
 	hookAddress = 0x488590;
-	RegisterType args[] = { R_EAX };
-	start2(procAddress, STRING(args));
+	rawlen = 8;
+	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

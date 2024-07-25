@@ -14,6 +14,7 @@ PlantShootEvent::PlantShootEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantShoot");
 	hookAddress = 0x466E0D;
-	RegisterType args[] = { R_EBP };
-	start2(procAddress, STRING(args));
+	rawlen = 6;
+	BYTE code[] = { PUSH_EBP, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

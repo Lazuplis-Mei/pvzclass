@@ -14,6 +14,7 @@ ZombieDecelerateEvent::ZombieDecelerateEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieDecelerate");
 	hookAddress = 0x530950;
-	RegisterType args[] = { R_EAX };
-	start2(procAddress, STRING(args));
+	rawlen = 5;
+	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

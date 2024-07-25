@@ -16,6 +16,7 @@ UpdateGameObjectsEvent::UpdateGameObjectsEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onGameObjectsUpdate");
 	hookAddress = 0x4130D0;
-	RegisterType args[] = { R_EBX };
-	start2(procAddress, STRING(args));
+	rawlen = 5;
+	BYTE code[] = { PUSH_EBX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }

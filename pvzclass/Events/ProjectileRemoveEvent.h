@@ -15,6 +15,7 @@ ProjectileRemoveEvent::ProjectileRemoveEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onProjectileRemove");
 	hookAddress = 0x46EB20;
-	RegisterType args[] = { R_EAX };
-	start2(procAddress, STRING(args));
+	rawlen = 5;
+	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
 }
