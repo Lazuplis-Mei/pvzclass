@@ -35,6 +35,10 @@ int onDialogButtonDepress(int buttonId, int dialogId)
 	return 0;
 }
 
+void onDialogDraw(DWORD graphics, Sexy::PDialog dialog)
+{
+}
+
 void onDrawUITop(DWORD graphics)
 {
 }
