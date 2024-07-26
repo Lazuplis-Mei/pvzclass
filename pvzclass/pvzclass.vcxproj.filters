@@ -141,25 +141,7 @@
     <ClCompile Include="Enums\CaptionStyle.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\GardenPlantNeed.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\LawnmoverState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\GriditemType.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\GriditemState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\MagnetItemType.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Draw.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\SeedState.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Events\BaseEvent.cpp">
@@ -171,9 +153,6 @@
     <ClCompile Include="Events\PuzzlePhaseCompleteEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\ThreeState.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Events\VaseOpenEvent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -181,9 +160,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Events\ImitaterPlantEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Enums\ChallengePage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sexy.cpp">
@@ -278,6 +254,30 @@
     </ClCompile>
     <ClCompile Include="Classes\Zombie.cpp">
       <Filter>源文件\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ThreeState.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\ChallengePage.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GardenPlantNeed.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\LawnmoverState.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GriditemType.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\GriditemState.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\SeedState.cpp">
+      <Filter>源文件\Enums</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums\MagnetItemType.cpp">
+      <Filter>源文件\Enums</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
