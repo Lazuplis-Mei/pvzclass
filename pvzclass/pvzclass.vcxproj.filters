@@ -563,6 +563,9 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Events\UpdateAppEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

@@ -266,6 +266,7 @@
     <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.h" />
+    <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieHitEvent.h" />
     <ClInclude Include="Enums\LawnmoverState.h" />

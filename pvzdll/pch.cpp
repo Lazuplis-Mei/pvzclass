@@ -12,6 +12,11 @@ void init()
 	PVZ::Memory::immediateExecute = true;
 }
 
+void onAppUpdate(DWORD appAddress)
+{
+	auto app = std::make_shared<PVZ::PVZApp>(appAddress);
+}
+
 void onCoinCollect(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
