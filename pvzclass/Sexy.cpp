@@ -1,6 +1,6 @@
 #include "Sexy.h"
 
-Sexy::PButtonListener Sexy::MakeListener(ButtonListener* listener)
+Sexy::PButtonListener Sexy::MakeButtonListener(ButtonListener* listener)
 {
 	int address = PVZ::Memory::AllocMemory(0, 32);
 	PVZ::Memory::WriteMemory<int>(address, address + 4);
@@ -198,46 +198,46 @@ BYTE __asm__ResizeButton[]
 	RET
 };
 
-void Sexy::ResizeButton(PButton button, int x, int y, int width, int height)
+void Sexy::ResizeWidget(PWidget widget, int x, int y, int width, int height)
 {
 	SETARG(__asm__ResizeButton, 1) = height;
 	SETARG(__asm__ResizeButton, 6) = width;
 	SETARG(__asm__ResizeButton, 11) = y;
 	SETARG(__asm__ResizeButton, 16) = x;
-	SETARG(__asm__ResizeButton, 21) = button;
+	SETARG(__asm__ResizeButton, 21) = widget;
 	PVZ::Memory::Execute(STRING(__asm__ResizeButton));
 }
 
-BYTE __asm__AddToManager[]
+BYTE __asm__AddToWidget[]
 {
 	PUSHDWORD(0),
-	MOV_ECX_PTR_ADDR(0x6A9EC0),
-	MOV_EUX_PTR_EVX_ADD(1, 1, 0x320),
+	MOV_ECX(0),
 	0x8B, 0x11, // mov edx,[ecx]
 	MOV_EUX_PTR_EVX_ADD(2, 2, 0x0C),
 	CALL_EUX(2),
 	RET
 };
 
-void Sexy::AddToManager(PWidget widget)
+void Sexy::AddToWidget(PWidget widget, PWidget father)
 {
-	SETARG(__asm__AddToManager, 1) = widget;
-	PVZ::Memory::Execute(STRING(__asm__AddToManager));
+	SETARG(__asm__AddToWidget, 1) = widget;
+	SETARG(__asm__AddToWidget, 6) = father;
+	PVZ::Memory::Execute(STRING(__asm__AddToWidget));
 }
 
-BYTE __asm__RemoveFromManager[]
+BYTE __asm__RemoveFromWidget[]
 {
 	PUSHDWORD(0),
-	MOV_ECX_PTR_ADDR(0x6A9EC0),
-	MOV_EUX_PTR_EVX_ADD(1, 1, 0x320),
+	MOV_ECX(0),
 	0x8B, 0x11, // mov edx,[ecx]
 	MOV_EUX_PTR_EVX_ADD(2, 2, 0x10),
 	CALL_EUX(2),
 	RET
 };
 
-void Sexy::RemoveFromManager(PWidget widget)
+void Sexy::RemoveFromWidget(PWidget widget, PWidget father)
 {
-	SETARG(__asm__RemoveFromManager, 1) = widget;
-	PVZ::Memory::Execute(STRING(__asm__RemoveFromManager));
+	SETARG(__asm__RemoveFromWidget, 1) = widget;
+	SETARG(__asm__RemoveFromWidget, 6) = father;
+	PVZ::Memory::Execute(STRING(__asm__RemoveFromWidget));
 }

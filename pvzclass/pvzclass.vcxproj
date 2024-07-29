@@ -257,6 +257,7 @@
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
     <ClInclude Include="Events\DialogButtonDepressEvent.h" />
+    <ClInclude Include="Events\DialogDrawEvent.h" />
     <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\Events.h" />
     <ClInclude Include="Events\NewGameEvent.h" />
@@ -265,6 +266,7 @@
     <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.h" />
+    <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieHitEvent.h" />
     <ClInclude Include="Enums\LawnmoverState.h" />

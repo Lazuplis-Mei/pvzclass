@@ -12,6 +12,11 @@ void init()
 	PVZ::Memory::immediateExecute = true;
 }
 
+void onAppUpdate(DWORD appAddress)
+{
+	auto app = std::make_shared<PVZ::PVZApp>(appAddress);
+}
+
 void onCoinCollect(DWORD coinAddress)
 {
 	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
@@ -29,9 +34,6 @@ void onCoinRemove(DWORD coinAddress)
 
 int onDialogButtonDepress(int buttonId, int dialogId)
 {
-	char s[64];
-	sprintf(s, "ButtonId: %d  DialogId: %d\0", buttonId, dialogId);
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
 	return 0;
 }
 
@@ -52,16 +54,6 @@ void onNewGame()
 void onPlantCreate(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	char s[64];
-	sprintf(s, "%X created!\0", plantAddress);
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
-
-	//listener.PressListener1 = (int)listenerFunc;
-	//plistener = Sexy::MakeListener(&listener);
-	//button = Sexy::MakeImageButton(image, image, image,
-	//	PVZ::Memory::ReadMemory<DWORD>(0x6A72D8), filename, plistener, 0);
-	//Sexy::AddToManager(button);
-	//Sexy::ResizeButton(button, 350, 250, 100, 100);
 }
 
 int onPlantReload(DWORD plantAddress, int cd)
@@ -78,12 +70,6 @@ void onPlantShoot(DWORD plantAddress)
 void onPlantRemove(DWORD plantAddress)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	char s[64];
-	sprintf(s, "%s removed!\0", PlantType::ToString(plant->Type));
-	Creator::CreateCaption(s, strlen(s) + 1, CaptionStyle::BottomWhite);
-	//Sexy::RemoveFromManager(button);
-	//Sexy::FreeWidget(button);
-	//PVZ::Memory::FreeMemory(plistener);
 }
 
 void onPeaOnFire(DWORD projectileAddress)
