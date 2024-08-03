@@ -82,15 +82,17 @@ void onProjectileCreate(DWORD projectileAddress)
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
 }
 
-void onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
+DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	return zombie->GetBaseAddress();
 }
 
-void onProjectileRemove(DWORD projectileAddress)
+int onProjectileRemove(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	return 0;
 }
 
 void onGameObjectsUpdate(DWORD boardAddress)
