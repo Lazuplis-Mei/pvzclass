@@ -37,9 +37,9 @@ namespace Sexy
 	typedef DWORD PButtonListener;
 	typedef DWORD PEditListener;
 	typedef DWORD PCheckboxListener;
-  
+
 	// 创建一个监听器
-	PButtonListener MakeListener(ButtonListener* listener);
+	PButtonListener MakeButtonListener(ButtonListener* listener);
 
 	PEditListener MakeEditListener(EditListener* listener);
 
@@ -88,12 +88,14 @@ namespace Sexy
 	// 移除控件
 	void FreeWidget(PWidget widget);
 
-	// 重置按钮的大小
-	void ResizeButton(PButton button, int x, int y, int width, int height);
+	// 重置控件的大小
+	void ResizeWidget(PWidget widget, int x, int y, int width, int height);
 
-	// 将控件加入Manager
-	void AddToManager(PWidget widget);
+	// 将控件作为目标控件的子控件
+	// 全局Manager为WIDGETMANAGER
+	void AddToWidget(PWidget widget, PWidget father);
 
-	// 将控件从Manager中移除
-	void RemoveFromManager(PWidget widget);
+	// 将控件从目标控件的子控件中移除
+	// 全局Manager为WIDGETMANAGER
+	void RemoveFromWidget(PWidget widget, PWidget father);
 }
