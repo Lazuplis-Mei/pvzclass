@@ -82,6 +82,13 @@ void onProjectileCreate(DWORD projectileAddress)
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
 }
 
+DWORD onProjectileHitPlant(DWORD projectileAddress, DWORD plantAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	return plant->GetBaseAddress();
+}
+
 DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);

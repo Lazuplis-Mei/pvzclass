@@ -12,6 +12,7 @@
 #include "PlantShootEvent.h"
 #include "PeaOnFireEvent.h"
 #include "ProjectileCreateEvent.h"
+#include "ProjectileHitPlantEvent.h"
 #include "ProjectileHitZombieEvent.h"
 #include "ProjectileRemoveEvent.h"
 #include "SeedCardClickEvent.h"
