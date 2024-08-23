@@ -24,6 +24,14 @@ Sexy::PCheckboxListener Sexy::MakeCheckboxListener(CheckboxListener* listener)
 	return address;
 }
 
+Sexy::PListListener Sexy::MakeListListener(ListListener* listener)
+{
+	int address = PVZ::Memory::AllocMemory(0, 16);
+	PVZ::Memory::WriteMemory<int>(address, address + 4);
+	PVZ::Memory::WriteMemory<ListListener>(address + 4, *listener);
+	return address;
+}
+
 BYTE __asm__MakeButton[]
 {
 	PUSHDWORD(0),
@@ -167,6 +175,64 @@ void Sexy::setCheckboxChecked(PCheckbox checkbox, bool checked, bool tellListene
 	__asm__setCheckboxChecked[3] = checked;
 	SETARG(__asm__setCheckboxChecked, 5) = checkbox;
 	PVZ::Memory::Execute(STRING(__asm__setCheckboxChecked));
+}
+
+BYTE __asm__MakeList[]
+{
+	PUSHDWORD(0),
+	PUSHDWORD(0),
+	INVOKE(0x53AC70),
+	RET
+};
+
+Sexy::PList Sexy::MakeList(PListListener listener)
+{
+	int address = PVZ::Memory::AllocMemory(0, 0xF8);
+	SETARG(__asm__MakeList, 1) = listener;
+	SETARG(__asm__MakeList, 6) = address;
+	PVZ::Memory::Execute(STRING(__asm__MakeList));
+	return address;
+}
+
+BYTE __asm__AddListLine[]
+{
+	PUSH(0),
+	PUSHDWORD(0),
+	MOV_ECX(0),
+	0x8B, 0x11, // mov edx,[ecx]
+	MOV_EUX_PTR_EVX_ADD(2, 2, 0x124),
+	CALL_EUX(2),
+	MOV_PTR_ADDR_EAX(0),
+	RET
+};
+
+int Sexy::AddListLine(PList list, Draw::PString line, bool alphabetical)
+{
+	__asm__AddListLine[1] = alphabetical;
+	SETARG(__asm__AddListLine, 3) = line;
+	SETARG(__asm__AddListLine, 8) = list;
+	SETARG(__asm__AddListLine, 23) = PVZ::Memory::Variable;
+	return PVZ::Memory::Execute(STRING(__asm__AddListLine));
+}
+
+void Sexy::SetListLineHeight(PList list, int height)
+{
+	PVZ::Memory::WriteMemory<int>(list + 0xEC, height);
+}
+
+void Sexy::SetListJustify(PList list, int justify)
+{
+	PVZ::Memory::WriteMemory<int>(list + 0x98, justify);
+}
+
+void Sexy::SetListSelected(PList list, int id)
+{
+	PVZ::Memory::WriteMemory<int>(list + 0xD4, id);
+}
+
+int Sexy::GetListSelected(PList list)
+{
+	return PVZ::Memory::ReadMemory<int>(list + 0xD4);
 }
 
 BYTE __asm__FreeWidget[]
