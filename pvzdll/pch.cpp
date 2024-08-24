@@ -45,6 +45,13 @@ void onDrawUITop(DWORD graphics)
 {
 }
 
+int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+	return 0;
+}
+
 void onNewGame()
 {
 	auto app = PVZ::GetPVZApp();

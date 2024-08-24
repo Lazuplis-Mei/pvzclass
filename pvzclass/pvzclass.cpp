@@ -13,7 +13,7 @@ int main()
 	EnableBackgroundRunning();
 	DisableInitialLawnmover();
 	DisableIceLevelFailSound();
-	ProjectileCollisionEvent();
+	DrawZombieReanimEvent();
 	PVZ::QuitPVZ();
 	return 0;
 }

@@ -418,10 +418,13 @@ namespace PVZ
 		T_PROPERTY(FLOAT, YScale, __get_YScale, __set_YScale, 0x30);
 		T_PROPERTY(FLOAT, YSlant, __get_YSlant, __set_YSlant, 0x34);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
-		Color GetColor();
+		Color GetColor(); // 0x48-0x54
 		void SetColor(Color color);
 		SPT<TrackInstance> GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
+		Color GetExtraColor(); // 0x6C-0x78
+		void SetExtraColor(Color color);
+		T_PROPERTY(BOOLEAN, EnableDrawExtraColor, __get_EnableDrawExtraColor, __set_EnableDrawExtraColor, 0x7C);
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
