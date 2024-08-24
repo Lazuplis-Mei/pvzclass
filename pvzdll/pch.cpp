@@ -77,6 +77,14 @@ void onPeaOnFire(DWORD projectileAddress)
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
 }
 
+int onProjectileCollision(DWORD projectileAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	if (projectile->Type == ProjectileType::Basketball) return 2;
+	if (projectile->Type == ProjectileType::ZombiePea) return 1;
+	return 0;
+}
+
 void onProjectileCreate(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);

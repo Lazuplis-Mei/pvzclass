@@ -569,6 +569,9 @@
     <ClInclude Include="Events\ProjectileHitPlantEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ProjectileCollisionEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enums\LawnmoverState.h">

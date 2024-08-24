@@ -28,6 +28,7 @@ extern "C"
 	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
 	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
 	__declspec(dllexport) void onPeaOnFire(DWORD projectileAddress);
+	__declspec(dllexport) int onProjectileCollision(DWORD projectileAddress);
 	__declspec(dllexport) void onProjectileCreate(DWORD projectileAddress);
 	__declspec(dllexport) DWORD onProjectileHitPlant(DWORD projectileAddress, DWORD plantAddress);
 	__declspec(dllexport) DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress);
