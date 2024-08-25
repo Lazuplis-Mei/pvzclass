@@ -5,6 +5,7 @@
 #include "DialogButtonDepressEvent.h"
 #include "DialogDrawEvent.h"
 #include "DrawUITopEvent.h"
+#include "DrawPlantReanimEvent.h"
 #include "DrawZombieReanimEvent.h"
 #include "NewGameEvent.h"
 #include "PlantCreateEvent.h"

@@ -55,7 +55,7 @@ void PVZ::Animation::SetColor(Color color)
 	Memory::WriteMemory<int>(BaseAddress + 0x54, color.Alpha);
 }
 
-PVZ::Color PVZ::Animation::GetExtraColor()
+PVZ::Color PVZ::Animation::GetAdditiveColor()
 {
 	Color color;
 	color.Red = Memory::ReadMemory<int>(BaseAddress + 0x6C);
@@ -65,12 +65,30 @@ PVZ::Color PVZ::Animation::GetExtraColor()
 	return color;
 }
 
-void PVZ::Animation::SetExtraColor(Color color)
+void PVZ::Animation::SetAdditiveColor(Color color)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x6C, color.Red);
 	Memory::WriteMemory<int>(BaseAddress + 0x70, color.Green);
 	Memory::WriteMemory<int>(BaseAddress + 0x74, color.Blue);
 	Memory::WriteMemory<int>(BaseAddress + 0x78, color.Alpha);
+}
+
+PVZ::Color PVZ::Animation::GetOverlayColor()
+{
+	Color color;
+	color.Red = Memory::ReadMemory<int>(BaseAddress + 0x80);
+	color.Green = Memory::ReadMemory<int>(BaseAddress + 0x84);
+	color.Blue = Memory::ReadMemory<int>(BaseAddress + 0x88);
+	color.Alpha = Memory::ReadMemory<int>(BaseAddress + 0x8C);
+	return color;
+}
+
+void PVZ::Animation::SetOverlayColor(Color color)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x80, color.Red);
+	Memory::WriteMemory<int>(BaseAddress + 0x84, color.Green);
+	Memory::WriteMemory<int>(BaseAddress + 0x88, color.Blue);
+	Memory::WriteMemory<int>(BaseAddress + 0x8C, color.Alpha);
 }
 
 SPT<PVZ::TrackInstance> PVZ::Animation::GetTrackInstance(const char* trackName)

@@ -45,6 +45,12 @@ void onDrawUITop(DWORD graphics)
 {
 }
 
+void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+}
+
 int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
