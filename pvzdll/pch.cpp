@@ -45,6 +45,19 @@ void onDrawUITop(DWORD graphics)
 {
 }
 
+void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress)
+{
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+}
+
+int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
+{
+	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+	return 0;
+}
+
 void onNewGame()
 {
 	auto app = PVZ::GetPVZApp();
@@ -77,9 +90,24 @@ void onPeaOnFire(DWORD projectileAddress)
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
 }
 
+int onProjectileCollision(DWORD projectileAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	if (projectile->Type == ProjectileType::Basketball) return 2;
+	if (projectile->Type == ProjectileType::ZombiePea) return 1;
+	return 0;
+}
+
 void onProjectileCreate(DWORD projectileAddress)
 {
 	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+}
+
+DWORD onProjectileHitPlant(DWORD projectileAddress, DWORD plantAddress)
+{
+	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	return plant->GetBaseAddress();
 }
 
 DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
