@@ -413,37 +413,13 @@
     <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\GardenPlantNeed.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\LowerSoundType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\UpperSoundType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\AnimationType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\ChallengeState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\GriditemState.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Const.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\MagnetItemType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Draw.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\SeedState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\ThreeState.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Flags.h">
@@ -578,10 +554,32 @@
     <ClInclude Include="Events\DrawPlantReanimEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Enums\AnimationType.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GriditemState.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenPlantNeed.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
     <ClInclude Include="Enums\LawnmoverState.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LowerSoundType.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MagnetItemType.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SeedState.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ThreeState.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\UpperSoundType.h">
+      <Filter>头文件\Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
