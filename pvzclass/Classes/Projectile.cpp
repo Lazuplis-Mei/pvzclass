@@ -2,7 +2,7 @@
 
 PVZ::Projectile::Projectile(int indexoraddress)
 {
-	if (indexoraddress > 1024)
+	if (indexoraddress > 65535)
 		BaseAddress = indexoraddress;
 	else
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * 0x94;
