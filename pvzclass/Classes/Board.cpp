@@ -226,7 +226,7 @@ std::vector<SPT<PVZ::Lawnmover>> PVZ::Board::GetAllLawnmovers()
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
 	for (int i = 0; i < maxnum; i++)
 	{
-		if (!Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i))
+		if (!(Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i) & 0x0FF))
 			lawnmovers.push_back(MKS<PVZ::Lawnmover>(i));
 	}
 	return lawnmovers;
