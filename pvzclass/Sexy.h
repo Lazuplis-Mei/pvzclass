@@ -5,10 +5,23 @@
 
 namespace Sexy
 {
+	/*
+		监听器函数设置方式：
+		void __stdcall 监听器函数名(参数列表)
+		例如用于 DepressListener 的监听器函数：
+		void __stdcall listenerFunc(int id) 
+		用以下方式设置监听器：
+		Sexy::ButtonListener listener;
+		listener.DepressListener = (int)listenerFunc;
+		注意：以上方式仅限dll中。
+	*/
+
+	// 建议只修改抬起事件
 	struct ButtonListener
 	{
 		DWORD PressListener2 = 0x401000;
 		DWORD PressListener1 = 0x42FB50;
+		// int 按钮ID
 		DWORD DepressListener = 0x42FB50;
 		DWORD DownTickListener = 0x42FB50;
 		DWORD MouseEnterListener = 0x42FB50;
@@ -16,6 +29,7 @@ namespace Sexy
 		DWORD MouseMoveListener = 0x483370;
 	};
 
+	// 建议不要修改
 	struct EditListener
 	{
 		DWORD EditWidgetText = 0x4566F0;
@@ -26,7 +40,18 @@ namespace Sexy
 
 	struct CheckboxListener
 	{
+		// int 复选框ID, bool 是否被选上
 		DWORD CheckboxChecked = 0x4566F0;
+	};
+
+	struct ListListener
+	{
+		// int 列表ID, int 被按下的序号, int 点击次数（1单击2双击）
+		DWORD ListClicked = 0x483370;
+		// int 列表ID
+		DWORD ListClosed = 0x42FB50;
+		// int 列表ID, int 老的序号, int 新的序号
+		DWORD ListHiliteChanged = 0x483370;
 	};
 
 	typedef DWORD PWidget;
@@ -34,9 +59,11 @@ namespace Sexy
 	typedef PWidget PDialog;
 	typedef PWidget PEdit;
 	typedef PWidget PCheckbox;
+	typedef PWidget PList;
 	typedef DWORD PButtonListener;
 	typedef DWORD PEditListener;
 	typedef DWORD PCheckboxListener;
+	typedef DWORD PListListener;
 
 	// 创建一个监听器
 	PButtonListener MakeButtonListener(ButtonListener* listener);
@@ -44,6 +71,8 @@ namespace Sexy
 	PEditListener MakeEditListener(EditListener* listener);
 
 	PCheckboxListener MakeCheckboxListener(CheckboxListener* listener);
+
+	PListListener MakeListListener(ListListener* listener);
 
 	// 创建一个按钮
 	// listener：按钮事件监听器
@@ -84,6 +113,25 @@ namespace Sexy
 	// 设置勾选框是否勾选
 	// tellListener可以控制是否由监听器处理
 	void setCheckboxChecked(PCheckbox checkbox, bool checked, bool tellListener);
+
+	// 创建列表
+	PList MakeList(PListListener listener);
+
+	// 为列表list加一行line
+	// alphabetical为是否按照字母表顺序插入
+	// 返回值为插入行在列表中的序号
+	int AddListLine(PList list, Draw::PString line, bool alphabetical);
+
+	// 设置列表每一行的高度
+	void SetListLineHeight(PList list, int height);
+
+	// 设置列表对齐
+	// 0左对齐 1居中对齐 2右对齐
+	void SetListJustify(PList list, int justify);
+
+	// 设置/获取列表的当前选项
+	void SetListSelected(PList list, int id);
+	int GetListSelected(PList list);
 
 	// 移除控件
 	void FreeWidget(PWidget widget);

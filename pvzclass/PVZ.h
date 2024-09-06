@@ -418,10 +418,16 @@ namespace PVZ
 		T_PROPERTY(FLOAT, YScale, __get_YScale, __set_YScale, 0x30);
 		T_PROPERTY(FLOAT, YSlant, __get_YSlant, __set_YSlant, 0x34);
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
-		Color GetColor();
+		Color GetColor(); // 0x48-0x54，基础颜色
 		void SetColor(Color color);
 		SPT<TrackInstance> GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
+		Color GetAdditiveColor(); // 0x6C-0x78，加色模式
+		void SetAdditiveColor(Color color);
+		T_PROPERTY(BOOLEAN, DrawAdditiveColor, __get_DrawAdditiveColor, __set_DrawAdditiveColor, 0x7C);
+		Color GetOverlayColor(); // 0x80-0x8C，覆盖模式
+		void SetOverlayColor(Color color);
+		T_PROPERTY(BOOLEAN, DrawOverlayColor, __get_DrawOverlayColor, __set_DrawOverlayColor, 0x90);
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;

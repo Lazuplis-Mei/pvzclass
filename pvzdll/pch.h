@@ -22,13 +22,17 @@ extern "C"
 	__declspec(dllexport) int onDialogButtonDepress(int buttonId, int dialogId);
 	__declspec(dllexport) void onDialogDraw(DWORD graphics, Sexy::PDialog dialog);
 	__declspec(dllexport) void onDrawUITop(DWORD graphics);
+	__declspec(dllexport) void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress);
+	__declspec(dllexport) int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress);
 	__declspec(dllexport) void onNewGame();
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
 	__declspec(dllexport) int onPlantReload(DWORD plantAddress, int cd);
 	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
 	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);
 	__declspec(dllexport) void onPeaOnFire(DWORD projectileAddress);
+	__declspec(dllexport) int onProjectileCollision(DWORD projectileAddress);
 	__declspec(dllexport) void onProjectileCreate(DWORD projectileAddress);
+	__declspec(dllexport) DWORD onProjectileHitPlant(DWORD projectileAddress, DWORD plantAddress);
 	__declspec(dllexport) DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress);
 	__declspec(dllexport) int onProjectileRemove(DWORD projectileAddress);
 	__declspec(dllexport) void onGameObjectsUpdate(DWORD boardAddress);
