@@ -1,6 +1,6 @@
 # 警告：本仓库的 pvzclass 将不再更新！！！
 
-Lazuplis-Mei 于上个月删除了位于 gitee 的 SuperPVZTrainner 代码仓库。
+Lazuplis-Mei 疑似于上个月删除了位于 gitee 的 SuperPVZTrainner 代码仓库，目前上述仓库已无法访问。
 
 谁也不知道本仓库会否成为下一个受害者。
 
